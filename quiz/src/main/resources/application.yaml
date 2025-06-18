@@ -1,0 +1,10 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: quiz
+
+  data:
+    mongodb:
+      uri: mongodb://185.112.102.127:27017/quiz_db
