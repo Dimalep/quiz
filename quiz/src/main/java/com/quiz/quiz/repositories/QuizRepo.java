@@ -1,7 +1,7 @@
 package com.quiz.quiz.repositories;
 
-import com.quiz.quiz.entities.Quiz;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.quiz.quiz.entities.formysql.Quiz;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuizRepo extends MongoRepository<Quiz, String> {
+public interface QuizRepo extends JpaRepository<Quiz, Long> {
 }
