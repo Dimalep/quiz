@@ -1,0 +1,8 @@
+.footer__container{
+    display: grid;
+    grid-template-rows: 40vh 10vh;
+    grid-template-columns: 50% 50%;
+
+    height: 50vh;
+    background-color: #1A202C;
+}

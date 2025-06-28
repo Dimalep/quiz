@@ -1,0 +1,17 @@
+.home__main-container{
+    display: grid;
+    
+    grid-template-rows: 10% 90%;
+    height: 100vh;
+
+    padding: 0;
+    margin: 0;
+
+    background-image: linear-gradient(135deg, #81D4FA, #E94CE6);
+}
+
+.home__content__animated-container{
+    position: relative;
+
+    width: 100%;
+}
