@@ -11,7 +11,9 @@ export default function SwitchContent({ setContentType }: Props) {
       <button className="go-to-connecting" onClick={() => setContentType(0)}>
         Подключится
       </button>
-      <button onClick={() => setContentType(1)}>Создать</button>
+      <button className="go-to-library" onClick={() => setContentType(1)}>
+        Создать
+      </button>
       <button className="go-to-selecting" onClick={() => setContentType(2)}>
         Библиотека
       </button>

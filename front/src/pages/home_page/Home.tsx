@@ -1,60 +1,46 @@
 import { useState } from "react";
-
 //Compnonents
 import Footer from "../../components/Footer";
 import Connecting from "./components/Connecting";
-import NavigationPanel from "./components/NavigationPanel";
+import SwitchContent from "./components/SwitchContent";
+import Creating from "./components/Creating";
+import Library from "./components/Library";
+import NavigationPanel from "../../components/NavigationPanel";
 
 //styles
 import "./styles/home_styles.css";
 import "./styles/content_styles.css";
-import SwitchContent from "./components/SwitchContent";
-import Creating from "./components/Creating";
-import AnimatedContainer from "./components/AnimatedContainer";
+import "../../styles/buttons_styles.css";
 
 export default function Home() {
-  const [contentType, setContentType] = useState<number>(0);
-  const [prevType, setPrevType] = useState<number>(0);
+  const [contentType, setContentType] = useState<number>(1);
 
-  let content;
-  const direction: "left" | "right" = contentType > prevType ? "right" : "left";
-
+  let currentContent;
   switch (contentType) {
     case 0:
-      content = <Connecting />;
+      currentContent = <Connecting />;
       break;
     case 1:
-      content = <Creating />;
+      currentContent = <Creating />;
       break;
     case 2:
-      content = <Connecting />;
+      currentContent = <Library />;
       break;
-    default:
-      content = <Connecting />;
   }
 
-  //handles
-  const handleSetContentType = (type: number) => {
-    setPrevType(contentType);
-    setContentType(type);
-  };
-
   return (
-    <div className="home__main-container">
-      <NavigationPanel />
-      <div className="home__content">
-        <div className="home__content__animated-container">
-          <AnimatedContainer
-            key={contentType}
-            direction={direction}
-            inProp={true}
-          >
-            {content}
-          </AnimatedContainer>
+    <>
+      <div className="home__main-container">
+        <NavigationPanel className="home-page">
+          <div>Войти</div>
+          <button className="btn registration">Зарегистрироваться</button>
+        </NavigationPanel>
+        <div className="home__content">
+          {currentContent}
+          <SwitchContent setContentType={setContentType} />
         </div>
-        <SwitchContent setContentType={handleSetContentType} />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

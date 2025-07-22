@@ -8,10 +8,7 @@
     margin: 0;
 
     background-image: linear-gradient(135deg, #81D4FA, #E94CE6);
+
+    color: white;
 }
 
-.home__content__animated-container{
-    position: relative;
-
-    width: 100%;
-}

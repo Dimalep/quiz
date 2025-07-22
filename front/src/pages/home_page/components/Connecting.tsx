@@ -1,4 +1,6 @@
-import "../styles/content_styles.css";
+//Styles
+import "../styles/connecting_styles.css";
+import "../../../styles/buttons_styles.css";
 
 export default function Connecting() {
   return (
@@ -17,7 +19,7 @@ export default function Connecting() {
           <br />
           <form className="home__content_controls">
             <input placeholder="Код доступа" />
-            <button>Подключится</button>
+            <button className="btn h-35">Подключится</button>
           </form>
           <div className="feedback"></div>
           <br />
