@@ -6,11 +6,14 @@ import "./styles/base.css";
 import "./styles/responsive.css";
 //Hooks
 import useQuestoins from "./hooks/useQuestoins";
+import Footer from "../../components/Footer";
+
+// import { loadQuestions, saveQuestions } from "../../useTestdb.ts";
 
 export default function CreateQuizManually() {
-  const { addQuestion, deleteQuestion, questions } = useQuestoins([
-    { id: 1, numQ: 1 },
-  ]);
+  const { addQuestion, deleteQuestion, questions, editQuestion } = useQuestoins(
+    [{ id: 1, numQ: 1, value: "" }]
+  );
 
   return (
     <div>
@@ -53,6 +56,7 @@ export default function CreateQuizManually() {
                 questionId={el.id}
                 numberQuestion={el.numQ}
                 onDelete={deleteQuestion}
+                onEdit={editQuestion}
               />
             ))}
           </div>
@@ -63,8 +67,11 @@ export default function CreateQuizManually() {
           >
             Add questions
           </button>
+
+          <button className="btn__save-quiz">Продолжить</button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

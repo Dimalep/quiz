@@ -42,3 +42,22 @@
 .h2__answers{
     margin-bottom: 10px;
 }
+
+.btn__add-question{
+    margin-bottom: 50px;
+}
+
+.btn__save-quiz {
+  display: flex;
+  width: 150px;
+  justify-self: end;
+  align-self: flex-end;
+  height: 30px;
+
+  background-color: var(--color-blue-500);
+  border-radius: 4px;
+  color: white;
+  justify-content: center; 
+  align-items: center;     
+  margin-bottom: 20px;
+}

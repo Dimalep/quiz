@@ -1,3 +1,7 @@
+.create-quiz-page__content-container {
+    width: 95%; 
+}
+
 @media (min-width: 480px){
     .create-quiz-page__content-container{
         width: 90%;
@@ -6,25 +10,22 @@
 
 @media (min-width: 768px) {
     .create-quiz-page__content-container{
-        width: 70%;
+        width: 80%;
     }
 }
 
-/* Малые десктопы */
 @media (min-width: 1024px) {
     .create-quiz-page__content-container{
         width: 60%;
     }
 }
 
-/* Стандартные десктопы */
 @media (min-width: 1280px) {
     .create-quiz-page__content-container{
         width: 45%;
     }
 }
 
-/* Очень большие экраны */
 @media (min-width: 1536px) {
     .create-quiz-page__content-container{
         width: 50%;

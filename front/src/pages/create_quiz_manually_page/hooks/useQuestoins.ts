@@ -6,7 +6,15 @@ export default function useQuestoins(initialQuestions: Question[] = []) {
     
   const addQuestion = () => {
     let numQ = questions.length + 1;
-    setQuestions([...questions, { id: Date.now() , numQ: numQ}]);
+    setQuestions([...questions, { id: Date.now() , numQ: numQ, value: ""}]);
+  };
+
+  const editQuestion = (updatedQuestion: Question) => {
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) =>
+        q.id === updatedQuestion.id ? updatedQuestion : q
+      )
+    ) ;
   };
 
   const deleteQuestion = (id: number) => {
@@ -22,5 +30,5 @@ export default function useQuestoins(initialQuestions: Question[] = []) {
     });
   };
 
-  return {deleteQuestion, addQuestion, questions, setQuestions}
+  return {deleteQuestion, addQuestion, questions, setQuestions, editQuestion}
 }

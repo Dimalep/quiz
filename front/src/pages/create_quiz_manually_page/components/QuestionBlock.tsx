@@ -1,22 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import AnswerBlock from "./AnswerBlock";
 import useAnswers from "../hooks/useAnswers";
+import type { Question } from "../../../models/Questoin";
 
 interface Props {
   questionId: number;
   numberQuestion: number;
   onDelete: (id: number) => void;
+  onEdit: (updatingQuestion: Question) => void;
 }
 
 export default function QuestionBlock({
   questionId,
   numberQuestion,
   onDelete,
+  onEdit,
 }: Props) {
   const [isSelect, setIsSelect] = useState(false);
   const [inputQustion, setInputQustion] = useState("");
   const { answers, addAnswer, deleteAnswer, toggleCorrect } = useAnswers([
-    { id: 1, numA: 1, isCorrect: false },
+    { id: 1, numA: 1, isCorrect: false, value: "" },
   ]);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,6 +29,16 @@ export default function QuestionBlock({
       inputRef.current.focus();
     }
   }, [isSelect]);
+
+  const handleOnBlur = () => {
+    setIsSelect(!isSelect);
+    const updatingQuestion: Question = {
+      id: questionId,
+      numQ: numberQuestion,
+      value: inputQustion,
+    };
+    onEdit(updatingQuestion);
+  };
 
   return (
     <div className="question-block__main-container">
@@ -40,7 +53,7 @@ export default function QuestionBlock({
         {isSelect === true ? (
           <div>
             <input
-              onBlur={() => setIsSelect(!isSelect)}
+              onBlur={handleOnBlur}
               ref={inputRef}
               value={inputQustion}
               onChange={(e) => setInputQustion(e.target.value)}

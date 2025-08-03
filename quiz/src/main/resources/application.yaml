@@ -5,12 +5,13 @@ spring:
   application:
     name: quiz
 
-  data:
-    mongodb:
-      uri: mongodb://185.112.102.127:27017/quiz_db
+#  data:
+#    mongodb:
+#      uri: mongodb://185.112.102.127:27017/quiz_db
 
   datasource:
-    url: jdbc:mysql://185.112.102.127:3308/quiz_db?useSSL=false&serverTimezone=UTC
+    #url: jdbc:mysql://185.112.102.127:3308/quiz_db?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/quiz_db?useSSL=false&serverTimezone=UTC
     username: ilswm
     password: Greenaple1Q!
     driver-class-name: com.mysql.cj.jdbc.Driver

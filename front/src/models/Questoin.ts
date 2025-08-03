@@ -1,7 +1,8 @@
 export interface Question{
     id: number;
     numQ: number;
-    value?: string;
+    value: string;
     description?: string;
     time?: Date;
+    quizId?: number;
 }

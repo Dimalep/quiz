@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ContextMenuAnswer from "./ContextMenuAnswer";
 
 interface Props {
   id: number;
@@ -13,7 +14,10 @@ export default function AnswerBlock({
   numA,
   isCorrect,
   toggleCorrect,
+  onDelete,
 }: Props) {
+  const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
+
   const [inputAnswer, setInputAnswer] = useState("");
   const [isSelect, setIsSelect] = useState(false);
 
@@ -52,9 +56,18 @@ export default function AnswerBlock({
               {inputAnswer === "" ? "Нажми для ввода" : inputAnswer}
             </label>
           )}
-          <div className="absolute pl-2 pr-2 right-2 cursor-pointer hover:bg-gray-200">
+          <div
+            className="absolute pl-2 pr-2 right-2 cursor-pointer hover:bg-gray-200"
+            onClick={() => setContextMenuIsOpen(!contextMenuIsOpen)}
+          >
             ⁝
           </div>
+          <ContextMenuAnswer
+            isOpen={contextMenuIsOpen}
+            setIsOpen={setContextMenuIsOpen}
+            elementId={id}
+            onDelete={onDelete}
+          />
         </div>
       </div>
     </div>

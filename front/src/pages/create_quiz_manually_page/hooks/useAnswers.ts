@@ -7,7 +7,7 @@ export default function useAnswers(initialAnswers: Answer[] = []) {
 
   const addAnswer = () => {
     let numA = answers.length + 1;
-    setAnswers([...answers, {id: Date.now(), numA: numA, isCorrect: false}])
+    setAnswers([...answers, {id: Date.now(), numA: numA, isCorrect: false, value: ""}])
   }
 
   const deleteAnswer = (id: number) => {
@@ -16,7 +16,7 @@ export default function useAnswers(initialAnswers: Answer[] = []) {
 
         const renumbered = filtered.map((el, index) => ({
             ...el,
-            id: index + 1
+            numA: index + 1
         }))
 
         return renumbered;
