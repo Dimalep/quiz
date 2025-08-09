@@ -1,10 +1,12 @@
 package com.quiz.quiz.services;
 
+import com.quiz.quiz.entities.formysql.Question;
 import com.quiz.quiz.entities.formysql.Quiz;
 import com.quiz.quiz.repositories.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -19,6 +21,8 @@ public class QuizService {
         if(quiz == null){
             throw new IllegalArgumentException("Quiz cannot by null.");
         }
+
+        quiz.setCreateAt(LocalDateTime.now());
 
         return quizRepo.save(quiz);
     }

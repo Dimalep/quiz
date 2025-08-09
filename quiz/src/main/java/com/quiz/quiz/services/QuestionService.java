@@ -1,7 +1,9 @@
 package com.quiz.quiz.services;
 
 import com.quiz.quiz.entities.formysql.Question;
+import com.quiz.quiz.entities.formysql.Quiz;
 import com.quiz.quiz.repositories.QuestionRepo;
+import com.quiz.quiz.repositories.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ public class QuestionService {
 
     @Autowired
     private QuestionRepo questionRepo;
+    @Autowired
+    private QuizRepo quizRepo;
 
     //CRUD
     public Question addQuestion(Question question){
@@ -40,6 +44,18 @@ public class QuestionService {
 
         return questionRepo.save(target);
     }
+
+    public List<Question> addArrayWithQuestion(List<Question> questions) {
+//        for(Question q : questions){
+//            if(q.getQuiz() != null && q.getQuiz().getId() != null){
+//                Quiz quiz = quizRepo.findById(q.getQuiz().getId())
+//                        .orElseThrow(() -> new RuntimeException("Quiz not found"));
+//                q.setQuiz(quiz);
+//            }
+//        }
+        return questionRepo.saveAll(questions);
+    }
+
 
     //Get
     public List<Question> getAllQuestions(){

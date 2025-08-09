@@ -19,6 +19,9 @@ public class Question {
     private String description;
     private LocalDateTime time;
 
+    @Version
+    private Integer version;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

@@ -24,6 +24,12 @@ public class QuestionController {
         return new ResponseEntity<>(addedQuestion, HttpStatus.CREATED);
     }
 
+    @PostMapping("/create-bulk")
+    public ResponseEntity<Void> addArrayWithQuestions(@Validated @RequestBody List<Question> questions){
+        List<Question> addedQuestions = questionService.addArrayWithQuestion(questions);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteQuestionById(@PathVariable Long id){
         questionService.deleteQuestionById(id);

@@ -1,9 +1,12 @@
 package com.quiz.quiz.entities.formysql;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +24,7 @@ public class Quiz {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-    private LocalDateTime time;
+    private String time;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
