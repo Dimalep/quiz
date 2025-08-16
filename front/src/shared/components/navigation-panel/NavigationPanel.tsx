@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 //Styles
-import "./navigation_panel_styles.css";
+import "./styles/base.css";
+import "./styles/responsive.css";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

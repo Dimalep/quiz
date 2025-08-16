@@ -7,11 +7,14 @@ import SelectTypeCreation from "./features/quiz-creation/type-selection/SelectTy
 import AddQuesions from "./features/quiz-creation/manual-create/add-questions/AddQuesions";
 import AddInfo from "./features/quiz-creation/manual-create/add-info/AddInfo";
 import CompleteCreation from "./features/quiz-creation/manual-create/complete-creation/CompleteCreation";
+import LoginForm from "./features/auth/login/LoginForm";
+import WaitingRoom from "./features/play-sessions/waiting-room/WaitingRoom";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<Home />} />
         <Route path="/quiz/create" element={<SelectTypeCreation />} />
         <Route path="/quiz/create/manual/add" element={<AddQuesions />} />
@@ -20,6 +23,7 @@ function App() {
           path="/quiz/create/manual/complete"
           element={<CompleteCreation />}
         />
+        <Route path="/quiz/play/room/:quizId" element={<WaitingRoom />} />
       </Routes>
     </BrowserRouter>
   );

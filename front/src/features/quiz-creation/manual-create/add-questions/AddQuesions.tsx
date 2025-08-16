@@ -30,7 +30,7 @@ export default function AddQuesions() {
 
   const handleCompliteAddingQuestions = () => {
     completeAddingQuestions();
-    navigate("quiz/create/manual/complete");
+    navigate("/quiz/create/manual/complete");
   };
 
   return (

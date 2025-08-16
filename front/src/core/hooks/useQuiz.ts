@@ -54,5 +54,24 @@ export default function useQuiz() {
     }
   }
 
-  return {quizzes, setQuizzes, addQuiz, getAllQuizzes}
+  const getQuizById = async (quizId: number): Promise<Quiz | null> => {
+    try{
+      const response = await fetch(`http://localhost:8089/api/quizzes/${quizId}`, {
+        method: "GET",
+        headers: {"Content-Type":"application/json"},
+      });
+
+      if(!response.ok) {
+        throw new Error("Failed to fetch quizzes!");
+      }
+
+      const data: Quiz = await response.json();
+      return data;
+    }catch(error){
+      console.error("Error get quizz", error);
+      return null;
+    }
+  }
+
+  return {quizzes, setQuizzes, addQuiz, getAllQuizzes, getQuizById}
 }

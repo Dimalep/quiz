@@ -17,6 +17,9 @@ public class QuizSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "token")
+    private String token;
+
     @Column(name = "start_at")
     private LocalDateTime startAt;
 

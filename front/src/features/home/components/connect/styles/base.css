@@ -1,0 +1,31 @@
+/* Container connecting */
+.home__content_connecting{
+    margin: 50px;
+    height: 60vh;
+
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding-left: 55px;
+
+    align-content: center;
+}
+
+.home__content__connecting_text{
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    font-size: 20px;
+}
+
+.home__content__connecting_text input{
+    height: 30px;
+    width: 200px;
+
+    margin-right: 10px;
+    color: black;
+}
+
+.home__content__connecting_text h1{
+    font-size: 45px;
+}
+

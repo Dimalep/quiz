@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+  .waiting-room__info-block {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .waiting-room__users-list {
+    width: 80%;
+  }
+}

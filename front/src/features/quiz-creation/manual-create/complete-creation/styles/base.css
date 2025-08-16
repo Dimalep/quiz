@@ -1,0 +1,40 @@
+.complete__main-container{
+    width: 100%;
+}
+
+.complete__content{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+}
+
+.complete__info-block {
+    width: 100%;
+    display: grid;
+}
+
+.complete__info-block__info {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 10px;
+  border-color: lightgrey;
+  border-width: 1px;
+}
+
+.complete__info-block__button {
+  display: flex;
+  align-content: end;
+  justify-content: end;
+  margin: 10px;
+}
+
+.complete__info-block__button button{
+  background-color: rgb(59, 130, 246);
+  color: white;
+  margin: 10px;
+  border-radius: 4px;
+  padding: 5px;
+}

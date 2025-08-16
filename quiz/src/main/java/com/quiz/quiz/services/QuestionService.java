@@ -46,13 +46,6 @@ public class QuestionService {
     }
 
     public List<Question> addArrayWithQuestion(List<Question> questions) {
-//        for(Question q : questions){
-//            if(q.getQuiz() != null && q.getQuiz().getId() != null){
-//                Quiz quiz = quizRepo.findById(q.getQuiz().getId())
-//                        .orElseThrow(() -> new RuntimeException("Quiz not found"));
-//                q.setQuiz(quiz);
-//            }
-//        }
         return questionRepo.saveAll(questions);
     }
 

@@ -40,7 +40,7 @@ export default function useQuestoins(initialQuestions: Question[] = []) {
       value: q.value,
       description: q.description ?? "",
       time: q.time ?? new Date(),
-      quizId: {"id": q.quizId} 
+      quiz: {"id": q.quizId}, 
     }));
 
     try{

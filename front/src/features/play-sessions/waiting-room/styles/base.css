@@ -1,0 +1,93 @@
+.waiting-room__main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f7fa;
+}
+
+.waiting-room__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.waiting-room__title-block {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.waiting-room__info-block {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.waiting-room__code {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.waiting-room__code-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.waiting-room__users-list {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.waiting-room__users-list h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.waiting-room__users-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.waiting-room__users-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.waiting-room__users-list li:last-child {
+  border-bottom: none;
+}
+
+.waiting-room__content button {
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.waiting-room__content button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}

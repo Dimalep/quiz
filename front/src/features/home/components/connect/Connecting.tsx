@@ -1,6 +1,7 @@
 //Styles
-import "../styles/connecting_styles.css";
-import "../../../shared/styles/buttons_styles.css";
+import "./styles/base.css";
+import "./styles/responsive.css";
+import "../../../../shared/styles/buttons_styles.css";
 
 export default function Connecting() {
   return (
@@ -23,12 +24,6 @@ export default function Connecting() {
           </form>
           <div className="feedback"></div>
           <br />
-          <span>
-            Чтобы присоединиться к квизу:
-            <br /> 1. Получите код доступа от организатора.
-            <br /> 2. Введите его в поле ниже.
-            <br /> 3. Нажмите кнопку "Подключиться".
-          </span>
         </div>
         <div className="home__content__connecting__animation"></div>
       </div>
