@@ -18,7 +18,8 @@ export default function NavigationPanel({ className, children }: Props) {
         className={`navigation-panel__logo ${className}`}
         onClick={() => navigate("/")}
       >
-        Quiz
+        <div className="logo-icon">🎯</div>
+        <span className="logo-text">Quiz</span>
       </div>
       <div className={`navigation-items`}>{children}</div>
     </nav>

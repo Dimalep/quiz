@@ -17,7 +17,6 @@ export default function AnswerBlock({
   onDelete,
 }: Props) {
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
-
   const [inputAnswer, setInputAnswer] = useState("");
   const [isSelect, setIsSelect] = useState(false);
 
@@ -29,47 +28,99 @@ export default function AnswerBlock({
     }
   }, [isSelect]);
 
+  const handleToggleCorrect = () => {
+    toggleCorrect(id);
+  };
+
+  const handleInputBlur = () => {
+    setIsSelect(false);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputAnswer(e.target.value);
+  };
+
+  const handleEditClick = () => {
+    setIsSelect(true);
+  };
+
+  const handleDeleteClick = () => {
+    onDelete(id);
+  };
+
   return (
-    <div className="answer-main-container">
-      <div className="flex flex-col">
-        <em
-          className="cursor-pointer"
-          onClick={() => {
-            toggleCorrect(id);
-          }}
-        >
-          {isCorrect ? "верно" : "неверно"}
-        </em>
-        <div className="relative flex flex-row">
-          <h2>{`${numA}) `}</h2>
-          {isSelect ? (
-            <input
-              ref={inputRef}
-              type="text"
-              onBlur={() => setIsSelect(!isSelect)}
-              className="input w-full border rounded-sm pl-2 h-8"
-              value={inputAnswer}
-              onChange={(e) => setInputAnswer(e.target.value)}
-            ></input>
-          ) : (
-            <label onClick={() => setIsSelect(!isSelect)}>
-              {inputAnswer === "" ? "Нажми для ввода" : inputAnswer}
-            </label>
-          )}
-          <div
-            className="absolute pl-2 pr-2 right-2 cursor-pointer hover:bg-gray-200"
-            onClick={() => setContextMenuIsOpen(!contextMenuIsOpen)}
+    <div className="answer-block">
+      <div className="answer-content">
+        {/* Answer Number and Correctness Toggle */}
+        <div className="answer-header">
+          <span className="answer-number">{numA})</span>
+
+          <button
+            className={`correctness-toggle ${
+              isCorrect ? "correct" : "incorrect"
+            }`}
+            onClick={handleToggleCorrect}
+            title={isCorrect ? "Правильный ответ" : "Неправильный ответ"}
           >
-            ⁝
-          </div>
-          <ContextMenuAnswer
-            isOpen={contextMenuIsOpen}
-            setIsOpen={setContextMenuIsOpen}
-            elementId={id}
-            onDelete={onDelete}
-          />
+            {isCorrect ? "✓" : "✗"}
+          </button>
+        </div>
+
+        {/* Answer Input/Display */}
+        <div className="answer-input-section">
+          {isSelect ? (
+            <div className="input-wrapper">
+              <input
+                ref={inputRef}
+                type="text"
+                onBlur={handleInputBlur}
+                className="answer-input"
+                value={inputAnswer}
+                onChange={handleInputChange}
+                placeholder="Введите текст ответа..."
+              />
+              <button className="btn-save-answer" onClick={handleInputBlur}>
+                ✓
+              </button>
+            </div>
+          ) : (
+            <div className="answer-display" onClick={handleEditClick}>
+              {inputAnswer.trim() === "" ? (
+                <span className="placeholder">Нажмите для ввода ответа</span>
+              ) : (
+                <span className="answer-text">{inputAnswer}</span>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Answer Actions */}
+        <div className="answer-actions">
+          <button
+            className="btn-edit"
+            onClick={handleEditClick}
+            title="Редактировать"
+          >
+            ✏️
+          </button>
+
+          <button
+            className="btn-delete"
+            onClick={handleDeleteClick}
+            title="Удалить"
+          >
+            🗑️
+          </button>
         </div>
       </div>
+
+      {/* Context Menu (keeping existing functionality) */}
+      <ContextMenuAnswer
+        isOpen={contextMenuIsOpen}
+        setIsOpen={setContextMenuIsOpen}
+        elementId={id}
+        onDelete={onDelete}
+      />
     </div>
   );
 }

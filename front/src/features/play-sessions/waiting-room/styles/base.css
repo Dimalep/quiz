@@ -1,93 +1,173 @@
-.waiting-room__main-container {
-  display: flex;
-  flex-direction: column;
+.waiting-room-container {
   min-height: 100vh;
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f7fa;
-}
-
-.waiting-room__content {
-  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
 }
 
-.waiting-room__title-block {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 30px;
-  color: #333;
+.waiting-room-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  margin-bottom: 2rem; /* Ensure space before footer */
+}
+
+.content-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.content-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-info {
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.waiting-room-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.qr-section,
+.players-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
 }
 
-.waiting-room__info-block {
+.qr-section h3,
+.players-section h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 1.5rem 0;
+}
+
+.qr-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 50px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
-.waiting-room__code {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  text-align: center;
+.qr-loading {
+  padding: 2rem;
+  color: #7f8c8d;
+  font-style: italic;
 }
 
-.waiting-room__code-text {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.waiting-room__users-list {
-  width: 250px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.waiting-room__users-list h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.waiting-room__users-list ul {
-  list-style: none;
-  padding: 0;
+.qr-instruction {
+  color: #7f8c8d;
+  font-size: 0.95rem;
   margin: 0;
 }
 
-.waiting-room__users-list li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+.players-list {
+  margin-bottom: 1.5rem;
 }
 
-.waiting-room__users-list li:last-child {
-  border-bottom: none;
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
 }
 
-.waiting-room__content button {
-  padding: 12px 25px;
-  background-color: #4caf50;
+.player-avatar {
+  font-size: 1.5rem;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.players-count {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.action-section {
+  text-align: center;
+}
+
+.start-quiz-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 3rem;
+  background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
   color: white;
-  font-size: 1rem;
-  font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 184, 148, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 auto;
 }
 
-.waiting-room__content button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
+.start-quiz-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 184, 148, 0.6);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .waiting-room-content {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .quiz-info {
+    font-size: 1.2rem;
+  }
+  
+  .waiting-room-main {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .qr-section,
+  .players-section {
+    padding: 1.5rem;
+  }
+  
+  .start-quiz-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    width: 100%;
+  }
 }

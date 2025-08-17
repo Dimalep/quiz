@@ -1,0 +1,75 @@
+/* Responsive styles for registration form */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 0;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+  
+  .register-block {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+    border-radius: 20px;
+  }
+  
+  .register-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .register-header p {
+    font-size: 0.9rem;
+  }
+  
+  .register-icon {
+    font-size: 2.5rem;
+  }
+  
+  .form-group {
+    gap: 0.5rem;
+  }
+  
+  .form-group input {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .register-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 0.5rem;
+  }
+  
+  .register-block {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+  }
+  
+  .register-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .register-header p {
+    font-size: 0.85rem;
+  }
+  
+  .register-icon {
+    font-size: 2rem;
+  }
+  
+  .form-group input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .register-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}

@@ -28,27 +28,25 @@ export default function SelectTypeCreation() {
       description:
         "Загрузите документ (например, PDF, DOCX) и позвольте нам извлечь вопросы и ответы для создания теста.",
       imageUrl:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuC6mgqOTKsu7HrisWvZBxnt0gV9ACKg91GHnt1rRvEZ0yblbWqX7aTJ7EYNvplqZqcR1Jdst5Izw8DXjBGNCLS642-4vyUQJ5tbz9SUCzi6EfqvXyC06WA-6B9Q_AWIzEnaduuptaC6a3SkjTCW5pih-p_L9mX72P3guHP9-3NRdZGL36OqGfPC54gmSggPrmnarVWR7dq0Q8ocIvFDSi7t_kM7LgdlYReI9MLLyaKuXnRaeyxqzxw5N1UMoxv0pXVw1w0M8YrKkEM ",
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuC6mgqOTKsu7HrisWvZBxnt0gV9ACKg91GHnt1rRvEZ0yblbWqX7aTJ7EYNvplqZqcR1Jdst5Izw8DXjBGNCLS642-4vyUQJ5tbz9SUCzi6EfqvXyC06WA-6B9Q_AWIzEnaduupta6a3SkjTCW5pih-p_L9mX72P3guHP9-3NRdZGL36OqGfPC54gmSggPrmnarVWR7dq0Q8ocIvFDSi7t_kM7LgdlYReI9MLLyaKuXnRaeyxqzxw5N1UMoxv0pXVw1w0M8YrKkEM ",
     },
   ];
 
   return (
-    <>
+    <div className="quiz-creation-container">
       <NavigationPanel className="create-page">
-        <div>11111111</div>
+        <div className="nav-placeholder">Создание квиза</div>
       </NavigationPanel>
-      <div className="px-40 flex flex-1 justify-center py-5 h-screen">
-        <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-          <div className="flex flex-wrap justify-between gap-3 p-4">
-            <p className="text-[#111518] tracking-light text-[32px] font-bold leading-tight min-w-72">
-              Создание нового квиза
-            </p>
-          </div>
-          <h3 className="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
-            Выберите методо создания
-          </h3>
+
+      <div className="quiz-creation-content">
+        <div className="content-header">
+          <h1 className="page-title">Создание нового квиза</h1>
+          <h3 className="page-subtitle">Выберите метод создания</h3>
+        </div>
+
+        <div className="cards-container">
           {cards.map((card, index) => (
-            <div key={index} className="p-4">
+            <div key={index} className="card-wrapper">
               <QuizCard
                 title={card.title}
                 description={card.description}
@@ -59,7 +57,8 @@ export default function SelectTypeCreation() {
           ))}
         </div>
       </div>
-      <Footer></Footer>
-    </>
+
+      <Footer />
+    </div>
   );
 }

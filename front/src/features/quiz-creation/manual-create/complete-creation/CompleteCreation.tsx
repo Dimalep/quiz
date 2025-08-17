@@ -10,29 +10,54 @@ export default function CompleteCreation() {
   const lastCreatedQuizId = sessionStorage.getItem("lastCreatedQuizId");
 
   return (
-    <div className="complete__main-container">
+    <div className="complete-creation-container">
       <NavigationPanel className="create-page">
-        <div>123</div>
+        <div className="nav-placeholder">Завершение создания</div>
       </NavigationPanel>
-      <div className="complete__content">
-        <div className="complete__info-block">
-          <div className="complete__info-block__info">
-            <label>Name quiz</label>
-            <label>Time</label>
-            <label>Decsription</label>
-            <label>Count questions</label>
-          </div>
-          <div className="complete__info-block__button">
-            <button
-              onClick={() => navigate(`/quiz/play/room/${lastCreatedQuizId}`)}
-            >
-              Запустить квиз
-            </button>
-            <button>Сохранить квиз</button>
+      
+      <div className="complete-creation-content">
+        <div className="content-header">
+          <h1>Квиз успешно создан! 🎉</h1>
+          <p>Ваш квиз готов к использованию</p>
+        </div>
+        
+        <div className="quiz-summary">
+          <h2>Информация о квизе</h2>
+          <div className="summary-grid">
+            <div className="summary-item">
+              <span className="label">Название квиза</span>
+              <span className="value">Мой первый квиз</span>
+            </div>
+            <div className="summary-item">
+              <span className="label">Время на прохождение</span>
+              <span className="value">15 минут</span>
+            </div>
+            <div className="summary-item">
+              <span className="label">Описание</span>
+              <span className="value">Увлекательный тест для проверки знаний</span>
+            </div>
+            <div className="summary-item">
+              <span className="label">Количество вопросов</span>
+              <span className="value">5 вопросов</span>
+            </div>
           </div>
         </div>
-        <div className="complete__quiz-block">123</div>
+        
+        <div className="action-buttons">
+          <button
+            className="btn-launch"
+            onClick={() => navigate(`/quiz/play/room/${lastCreatedQuizId}`)}
+          >
+            <span className="btn-icon">🚀</span>
+            Запустить квиз
+          </button>
+          <button className="btn-save">
+            <span className="btn-icon">💾</span>
+            Сохранить квиз
+          </button>
+        </div>
       </div>
+      
       <Footer />
     </div>
   );

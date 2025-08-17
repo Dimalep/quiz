@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import NavigationPanel from "../../../shared/components/navigation-panel/NavigationPanel";
+import Footer from "../../../shared/components/footer/Footer";
 // styles
 import "./styles/base.css";
 import "./styles/responsive.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useQuiz from "../../../core/hooks/useQuiz";
 import type { Quiz } from "../../../core/models/Quiz";
 import useQuizSession from "../../../core/hooks/useQuizSession";
@@ -12,6 +13,7 @@ import useQuizSession from "../../../core/hooks/useQuizSession";
 export default function WaitingRoom() {
   const { getQuizById } = useQuiz();
   const { createQuizSession } = useQuizSession();
+  const navigate = useNavigate();
 
   const [players, setPlayers] = useState(["Игрок 1", "Игрок 2"]);
   const { quizId } = useParams();
@@ -38,44 +40,61 @@ export default function WaitingRoom() {
   }, [token]);
 
   const startQuiz = () => {
-    alert("Квиз запущен!");
+    navigate(`/quiz/play/room/${quizId}/admin`);
   };
 
   return (
-    <div className="waiting-room__main-container">
+    <div className="waiting-room-container">
       <NavigationPanel className="create-page">
-        <div>Waiting Room</div>
+        <div className="nav-placeholder">Ожидание игроков</div>
       </NavigationPanel>
 
-      <div className="waiting-room__content">
-        <div className="waiting-room__title-block">
-          {quiz ? `Квиз: «${quiz.title}»` : "Загрузка квиза..."}
+      <div className="waiting-room-content">
+        <div className="content-header">
+          <h1>Ожидание игроков</h1>
+          <div className="quiz-info">
+            {quiz ? `Квиз: «${quiz.title}»` : "Загрузка квиза..."}
+          </div>
         </div>
 
-        <div className="waiting-room__info-block">
-          <div className="waiting-room__code">
-            {token ? (
-              <QRCode value={`http://localhost:5173/join/${token}`} />
-            ) : (
-              <p>Генерация QR-кода...</p>
-            )}
-            <div className="waiting-room__code-text">
-              Сканируйте QR-код, чтобы подключиться
+        <div className="waiting-room-main">
+          <div className="qr-section">
+            <h3>QR-код для подключения</h3>
+            <div className="qr-container">
+              {token ? (
+                <QRCode value={`http://localhost:5173/join/${token}`} />
+              ) : (
+                <div className="qr-loading">Генерация QR-кода...</div>
+              )}
             </div>
+            <p className="qr-instruction">
+              Сканируйте QR-код, чтобы подключиться к игре
+            </p>
           </div>
 
-          <div className="waiting-room__users-list">
+          <div className="players-section">
             <h3>Игроки в комнате</h3>
-            <ul>
+            <div className="players-list">
               {players.map((player, index) => (
-                <li key={index}>{player}</li>
+                <div key={index} className="player-item">
+                  <span className="player-avatar">👤</span>
+                  <span className="player-name">{player}</span>
+                </div>
               ))}
-            </ul>
+            </div>
+            <p className="players-count">Всего игроков: {players.length}</p>
           </div>
         </div>
 
-        <button onClick={startQuiz}>Запустить квиз</button>
+        <div className="action-section">
+          <button className="start-quiz-btn" onClick={startQuiz}>
+            <span className="btn-icon">🚀</span>
+            Запустить квиз
+          </button>
+        </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

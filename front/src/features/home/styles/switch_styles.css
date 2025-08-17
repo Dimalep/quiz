@@ -1,43 +1,275 @@
-/* Container for switching content */
-.home__switch-content{
-    display: flex;
-
-    align-self: center;
-    justify-self: center;
-
-    background-color: rgba(255, 255, 255, 0.15);
-    width: 40%;
-    border-radius: 15px;
-    height: 50px;
-    overflow: hidden; 
-
+/* Switch Content Component Styles */
+.switch-content {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
-.home__switch-content button{
+.switch-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.switch-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.switch-btn:hover::before {
+  left: 100%;
+}
+
+.switch-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.switch-btn:active {
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.btn-text {
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design for Switch Content Component */
+
+/* Extra Small devices (phones, 320px and up) */
+@media (max-width: 479px) {
+  .switch-content {
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .switch-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    min-width: 140px;
     width: 100%;
-    border: none;
+    max-width: 280px;
+    border-radius: 25px;
+  }
 
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
+  .btn-icon {
+    font-size: 1.1rem;
+  }
+
+  .btn-text {
+    font-size: 0.9rem;
+  }
 }
 
-.go-to-connecting{
-    border-radius: 15px 0px 0px 15px;
+/* Small devices (landscape phones, 480px and up) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .switch-content {
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .switch-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-width: 160px;
+    border-radius: 30px;
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .btn-text {
+    font-size: 0.95rem;
+  }
 }
 
-.go-to-selecting{
-    border-radius: 0px 15px 15px 0px;
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .switch-content {
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .switch-btn {
+    padding: 1.125rem 2.25rem;
+    font-size: 1.05rem;
+    min-width: 180px;
+    border-radius: 35px;
+  }
+
+  .btn-icon {
+    font-size: 1.25rem;
+  }
+
+  .btn-text {
+    font-size: 1rem;
+  }
 }
 
-@media (max-width: 768px) {
-    .home__switch-content {
-        width: 95%;
-        height: 40px;
-        font-size: 14px;
-    }
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .switch-content {
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
 
-    .go-to-connecting,
-    .go-to-selecting {
-        font-size: 13px;
-    }
+  .switch-btn {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.1rem;
+    min-width: 200px;
+    border-radius: 40px;
+  }
+
+  .btn-icon {
+    font-size: 1.3rem;
+  }
+
+  .btn-text {
+    font-size: 1.05rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .switch-content {
+    gap: 3rem;
+    margin-top: 3.5rem;
+  }
+
+  .switch-btn {
+    padding: 1.5rem 3rem;
+    font-size: 1.15rem;
+    min-width: 220px;
+    border-radius: 45px;
+  }
+
+  .btn-icon {
+    font-size: 1.35rem;
+  }
+
+  .btn-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* 2XL devices (2XL desktops, 1536px and up) */
+@media (min-width: 1536px) {
+  .switch-content {
+    gap: 3.5rem;
+    margin-top: 4rem;
+  }
+
+  .switch-btn {
+    padding: 1.75rem 3.5rem;
+    font-size: 1.2rem;
+    min-width: 250px;
+    border-radius: 50px;
+  }
+
+  .btn-icon {
+    font-size: 1.4rem;
+  }
+
+  .btn-text {
+    font-size: 1.15rem;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 767px) and (orientation: landscape) {
+  .switch-content {
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-direction: row;
+  }
+
+  .switch-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+    border-radius: 20px;
+  }
+
+  .btn-icon {
+    font-size: 1rem;
+  }
+
+  .btn-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .btn-icon {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .switch-btn::before {
+    transition: none;
+  }
+
+  .switch-btn:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .switch-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .switch-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+/* Print styles */
+@media print {
+  .switch-btn {
+    background: #f0f0f0 !important;
+    border-color: #ccc !important;
+    color: #333 !important;
+    box-shadow: none !important;
+  }
 }

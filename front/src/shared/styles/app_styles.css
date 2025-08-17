@@ -7,4 +7,29 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 500;
   font-style: normal;
+  min-height: 100vh;
+}
+
+/* Ensure content areas have proper spacing from footer */
+.content,
+.starting-create__content,
+.create-quiz-page__main-container,
+.waiting-room__content,
+.admin-room__content {
+  min-height: calc(100vh - 200px); /* Account for header and footer */
+  padding-bottom: 2rem; /* Add bottom padding to prevent footer overlap */
+}
+
+/* Ensure forms and main content areas have proper spacing */
+.login-block,
+.register-block,
+.quiz-form {
+  margin-bottom: 2rem;
+}
+
+/* Fix footer positioning */
+.footer__container {
+  margin-top: auto; /* Push footer to bottom */
+  position: relative;
+  z-index: 10;
 }

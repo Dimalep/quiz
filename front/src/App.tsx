@@ -8,13 +8,16 @@ import AddQuesions from "./features/quiz-creation/manual-create/add-questions/Ad
 import AddInfo from "./features/quiz-creation/manual-create/add-info/AddInfo";
 import CompleteCreation from "./features/quiz-creation/manual-create/complete-creation/CompleteCreation";
 import LoginForm from "./features/auth/login/LoginForm";
+import RegForm from "./features/auth/registration/RegForm";
 import WaitingRoom from "./features/play-sessions/waiting-room/WaitingRoom";
+import AdminRoom from "./features/play-sessions/admin-room/AdminRoom";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/reg" element={<RegForm />} />
         <Route path="/" element={<Home />} />
         <Route path="/quiz/create" element={<SelectTypeCreation />} />
         <Route path="/quiz/create/manual/add" element={<AddQuesions />} />
@@ -24,6 +27,7 @@ function App() {
           element={<CompleteCreation />}
         />
         <Route path="/quiz/play/room/:quizId" element={<WaitingRoom />} />
+        <Route path="/quiz/play/room/:quizId/admin" element={<AdminRoom />} />
       </Routes>
     </BrowserRouter>
   );

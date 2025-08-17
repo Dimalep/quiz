@@ -10,79 +10,122 @@ export default function AddInfo() {
   const [inputTitleQuiz, setInputTitleQuiz] = useState("");
   const [inputDescription, setInputDescription] = useState("");
   const [inputTime, setInputTime] = useState("15:00");
-  const [chackFields, setChackFields] = useState(true);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const navigate = useNavigate();
-
   const { addQuiz } = useQuiz();
 
-  const handleClickContinue = () => {
-    if (inputDescription !== "") {
-      if (inputTitleQuiz !== "") {
-        setChackFields(true);
-
-        const [min, sec] = inputTime.split(":").map(Number);
-        const secs = min * 60 + sec;
-
-        addQuiz({
-          title: inputTitleQuiz,
-          description: inputDescription,
-          time: secs.toString(),
-        });
-
-        navigate("/quiz/create/manual/add");
-      }
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!inputTitleQuiz.trim()) {
+      newErrors.title = "Название квиза обязательно";
+    } else if (inputTitleQuiz.trim().length < 3) {
+      newErrors.title = "Название должно содержать минимум 3 символа";
     }
-    setChackFields(false);
+    
+    if (!inputDescription.trim()) {
+      newErrors.description = "Описание квиза обязательно";
+    } else if (inputDescription.trim().length < 10) {
+      newErrors.description = "Описание должно содержать минимум 10 символов";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleClickContinue = () => {
+    if (validateForm()) {
+      const [min, sec] = inputTime.split(":").map(Number);
+      const secs = min * 60 + sec;
+
+      addQuiz({
+        title: inputTitleQuiz.trim(),
+        description: inputDescription.trim(),
+        time: secs.toString(),
+      });
+
+      navigate("/quiz/create/manual/add");
+    }
+  };
+
+  const clearError = (field: string) => {
+    if (errors[field]) {
+      setErrors(prev => ({
+        ...prev,
+        [field]: ""
+      }));
+    }
   };
 
   return (
     <div className="starting-create__main-container">
       <NavigationPanel className="create-page">
-        <div>123</div>
+        <div className="nav-placeholder">Создание квиза</div>
       </NavigationPanel>
+      
       <div className="starting-create__content">
-        <label className="pb-2 text-2xl">Создание нового квиза</label>
-        {/*Quiz title*/}
-        <label htmlFor="quiz-title">Название квиза</label>
-        <input
-          id="quiz-title"
-          placeholder="Введите название"
-          className="input border rounded-sm pl-2 h-10"
-          onChange={(e) => setInputTitleQuiz(e.target.value)}
-          value={inputTitleQuiz}
-        />
-        {/*Quiz description*/}
-        <label htmlFor="quiz-decription" className="pt-4">
-          Описание квиза
-        </label>
-        <textarea
-          id="quiz-decription"
-          placeholder="Введите описание для квиза"
-          className="textarea border rounded-sm pl-2 pt-2 h-32 resize-none"
-          value={inputDescription}
-          onChange={(e) => setInputDescription(e.target.value)}
-        />
-        <label>Время на прохождение квиза</label>
-        <input
-          type="time"
-          step="60"
-          className="input border rounded-sm pl-2 h-10"
-          value={inputTime}
-          onChange={(e) => setInputTime(e.target.value)}
-        />
-        <div>
-          {chackFields === false && (
-            <label style={{ color: "red" }}>Не все поля заполнены!</label>
-          )}
+        <div className="form-header">
+          <div className="form-icon">📝</div>
+          <h1>Создание нового квиза</h1>
+          <p>Заполните основную информацию о вашем квизе</p>
         </div>
-        <button
-          className="starting-create__btn__continue"
-          onClick={() => handleClickContinue()}
-        >
-          Продолжить
-        </button>
+        
+        <form className="quiz-form" onSubmit={(e) => e.preventDefault()}>
+          <div className="form-group">
+            <label htmlFor="quiz-title">Название квиза</label>
+            <input
+              id="quiz-title"
+              type="text"
+              placeholder="Введите название"
+              className={`form-input ${errors.title ? "error" : ""}`}
+              onChange={(e) => {
+                setInputTitleQuiz(e.target.value);
+                clearError("title");
+              }}
+              value={inputTitleQuiz}
+            />
+            {errors.title && <span className="error-message">{errors.title}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="quiz-description">Описание квиза</label>
+            <textarea
+              id="quiz-description"
+              placeholder="Введите описание для квиза"
+              className={`form-textarea ${errors.description ? "error" : ""}`}
+              value={inputDescription}
+              onChange={(e) => {
+                setInputDescription(e.target.value);
+                clearError("description");
+              }}
+            />
+            {errors.description && <span className="error-message">{errors.description}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="quiz-time">Время на прохождение квиза</label>
+            <input
+              type="time"
+              step="60"
+              className="form-input time-input"
+              value={inputTime}
+              onChange={(e) => setInputTime(e.target.value)}
+            />
+            <small className="time-hint">Выберите время в формате ЧЧ:ММ</small>
+          </div>
+          
+          <button
+            type="button"
+            className="continue-btn"
+            onClick={handleClickContinue}
+          >
+            <span className="btn-icon">🚀</span>
+            Продолжить
+          </button>
+        </form>
       </div>
+      
       <Footer />
     </div>
   );
