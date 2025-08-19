@@ -8,11 +8,15 @@ import "./styles/responsive.css";
 import useQuestoins from "../../../../core/hooks/useQuestoins";
 import Footer from "../../../../shared/components/footer/Footer";
 import { useNavigate } from "react-router-dom";
+import useSessionStorage from "../../../../core/hooks/useSessionStorage";
+import { useState } from "react";
 
 export default function AddQuesions() {
+  const [countQuestions, setCountQuestions] = useState(1);
+  const { getItemFromSS, addItemInSS } = useSessionStorage();
   const navigate = useNavigate();
 
-  const storedId = sessionStorage.getItem("lastCreatedQuizId");
+  const storedId = getItemFromSS("quizId");
 
   const quizId = Number(storedId);
 
@@ -30,7 +34,13 @@ export default function AddQuesions() {
 
   const handleCompliteAddingQuestions = () => {
     completeAddingQuestions();
+    addItemInSS("countQuestions", countQuestions.toString());
     navigate("/quiz/create/manual/complete");
+  };
+
+  const handleAddQuestion = () => {
+    setCountQuestions(countQuestions + 1);
+    addQuestion(quizId);
   };
 
   return (
@@ -55,9 +65,9 @@ export default function AddQuesions() {
 
           <button
             className="btn__add-question h-10 bg-blue-500 rounded text-white w-full"
-            onClick={() => addQuestion(quizId)}
+            onClick={handleAddQuestion}
           >
-            Add questions
+            Добавить вопрос
           </button>
 
           <button

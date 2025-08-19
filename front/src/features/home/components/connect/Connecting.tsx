@@ -2,8 +2,11 @@
 import "./styles/base.css";
 import "./styles/responsive.css";
 import "../../../../shared/styles/buttons_styles.css";
+import { useState } from "react";
 
 export default function Connecting() {
+  const [connectCode, setConnecntCode] = useState("");
+
   return (
     <div className="home__content_connecting">
       <div className="home__content__connecting_text">
@@ -19,7 +22,11 @@ export default function Connecting() {
           <br />
           <br />
           <form className="home__content_controls">
-            <input placeholder="Код доступа" />
+            <input
+              placeholder="Код доступа"
+              value={connectCode}
+              onChange={(e) => setConnecntCode(e.target.value)}
+            />
             <button className="btn h-35">Подключится</button>
           </form>
           <div className="feedback"></div>

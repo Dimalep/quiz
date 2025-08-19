@@ -2,6 +2,7 @@ package com.quiz.quiz.services;
 
 import com.quiz.quiz.entities.formysql.Quiz;
 import com.quiz.quiz.entities.formysql.QuizSession;
+import com.quiz.quiz.entities.formysql.QuizSessionUser;
 import com.quiz.quiz.entities.formysql.User;
 import com.quiz.quiz.enums.Status;
 import com.quiz.quiz.repositories.QuizSessionRepo;
@@ -54,5 +55,15 @@ public class QuizSessionService {
 
         System.out.println("TOKEN: " + session.getToken());
         return quizSessionRepo.save(session);
+    }
+
+    public QuizSession getQuizSessionByToken(String token){
+        return quizSessionRepo.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Quiz not found by token: " + token));
+    }
+
+    public QuizSession getQuizSessionById(Long id){
+        return quizSessionRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz session not found by id: " + id));
     }
 }

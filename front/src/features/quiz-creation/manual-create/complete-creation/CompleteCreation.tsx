@@ -4,10 +4,16 @@ import NavigationPanel from "../../../../shared/components/navigation-panel/Navi
 
 import "./styles/base.css";
 import "./styles/responsive.css";
+import useSessionStorage from "../../../../core/hooks/useSessionStorage";
 
 export default function CompleteCreation() {
+  const { getItemFromSS } = useSessionStorage();
   const navigate = useNavigate();
-  const lastCreatedQuizId = sessionStorage.getItem("lastCreatedQuizId");
+
+  const quizId = getItemFromSS("quizId");
+  const quizName = getItemFromSS("quizTitle");
+  const quizDescription = getItemFromSS("quizDescription");
+  const countQuestions = getItemFromSS("countQuestions");
 
   return (
     <div className="complete__main-container">
@@ -17,15 +23,13 @@ export default function CompleteCreation() {
       <div className="complete__content">
         <div className="complete__info-block">
           <div className="complete__info-block__info">
-            <label>Name quiz</label>
+            <label>{quizName}</label>
             <label>Time</label>
-            <label>Decsription</label>
-            <label>Count questions</label>
+            <label>{quizDescription}</label>
+            <label>{countQuestions}</label>
           </div>
           <div className="complete__info-block__button">
-            <button
-              onClick={() => navigate(`/quiz/play/room/${lastCreatedQuizId}`)}
-            >
+            <button onClick={() => navigate(`/quiz/play/room/${quizId}`)}>
               Запустить квиз
             </button>
             <button>Сохранить квиз</button>

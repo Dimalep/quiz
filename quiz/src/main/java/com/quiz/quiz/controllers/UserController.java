@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,18 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User savedUser = userService.addUser(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/create/anonymous")
+    public ResponseEntity<User> addAnonymousUser(){
+        User createdUser = new User();
+        createdUser.setCreateAt(LocalDateTime.now());
+        createdUser.setUpdateAt(LocalDateTime.now());
+        createdUser.setLogin("anonymous");
+        createdUser.setIsRegistered(false);
+
+        User savedUser = userService.addUser(createdUser);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 

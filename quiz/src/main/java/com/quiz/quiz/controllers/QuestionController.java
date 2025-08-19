@@ -1,5 +1,6 @@
 package com.quiz.quiz.controllers;
 
+import com.quiz.quiz.dto.responses.QuizResponseDto;
 import com.quiz.quiz.entities.formysql.Question;
 import com.quiz.quiz.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,12 @@ public class QuestionController {
     }
 
     @PostMapping("/create-bulk")
-    public ResponseEntity<Void> addArrayWithQuestions(@Validated @RequestBody List<Question> questions){
+    public ResponseEntity<QuizResponseDto> addArrayWithQuestions(@Validated @RequestBody List<Question> questions){
         List<Question> addedQuestions = questionService.addArrayWithQuestion(questions);
+
+//        QuizResponseDto quizResponseDto = new QuizResponseDto();
+//        quizResponseDto.setQuizName();
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

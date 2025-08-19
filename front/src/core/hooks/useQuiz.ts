@@ -1,7 +1,10 @@
 import { useState } from "react"
 import type { Quiz } from "../models/Quiz"
+import useSessionStorage from "./useSessionStorage"
 
 export default function useQuiz() {
+  const {addItemInSS} = useSessionStorage();
+
   const [quizzes, setQuizzes] = useState<Quiz[]>([])
 
   const addQuiz = async (addingQuiz: Quiz) => {
@@ -18,16 +21,11 @@ export default function useQuiz() {
 
         const createdQuiz: Quiz = await response.json();
 
-        console.log("Quiz, который сохраняем в sessionStorage:", createdQuiz);
-        if (createdQuiz?.id) {
-          sessionStorage.setItem("lastCreatedQuizId", createdQuiz.id.toString());
-          console.log("quizId записан в sessionStorage:", createdQuiz.id.toString());
-        } else {
-          console.log("ID отсутствует в ответе");
-        }
-
+        
         if(createdQuiz?.id){
-          sessionStorage.setItem("lastCreatedQuizId", createdQuiz.id.toString());
+          addItemInSS("quizId", createdQuiz.id.toString());
+          addItemInSS("quizTitle", createdQuiz.title.toString());
+          addItemInSS("quizDescription", createdQuiz.description.toString());
         }
 
         setQuizzes((prev) => [...prev, createdQuiz]);

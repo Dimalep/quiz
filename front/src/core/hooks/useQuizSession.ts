@@ -20,5 +20,17 @@ export default function useQuizSession() {
     }
   };
 
+  // const connect = async (token: string) => {
+  //   try{
+  //     const response = await fetch("http://localhost:8089/api/quiz_sessions_users/add", {
+  //       method: "POST",
+  //       headers: {"Content-Type":"application/json"},
+  //       body: JSON.stringify();
+  //     })
+  //   }catch(error){
+  //     console.log("Error connecting to quiz: ", error);
+  //   }
+  // }
+
   return { createQuizSession };
 }

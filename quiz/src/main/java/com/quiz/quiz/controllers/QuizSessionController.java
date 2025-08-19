@@ -61,4 +61,10 @@ public class QuizSessionController {
     public ResponseEntity<List<QuizSession>> getAllQuizSession(){
         return new ResponseEntity<>(quizSessionService.getAllQuizSessions(), HttpStatus.OK);
     }
+
+    @GetMapping("/by_token/{token}")
+    public ResponseEntity<QuizSession> getQuizSessionByToken(@PathVariable String token){
+        return new ResponseEntity<QuizSession>(quizSessionService.getQuizSessionByToken(token), HttpStatus.OK);
+    }
+
 }

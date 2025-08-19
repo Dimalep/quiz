@@ -9,7 +9,6 @@ export default function useQuestoins(initialQuestions: Question[] = []) {
     let numQ = questions.length + 1;
     const newQuestion = { tmpid: Date.now(), numQ, value: "while empty", quizId: quizId};
     setQuestions((prev) => [...prev, newQuestion]);
-
   };
 
   const editQuestion = async (updatedQuestion: Question) => {
@@ -35,7 +34,6 @@ export default function useQuestoins(initialQuestions: Question[] = []) {
 
   const completeAddingQuestions = async () => {
     if(questions.length === 0) return
-
      const dtoArray: QuestionDto[] = questions.map((q) => ({
       value: q.value,
       description: q.description ?? "",

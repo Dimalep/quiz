@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //Compnonents
 import Footer from "../../shared/components/footer/Footer";
 import Connecting from "./components/connect/Connecting";
@@ -13,10 +13,16 @@ import "./styles/responsive.css";
 import "./styles/content_styles.css";
 import "../../shared/styles/buttons_styles.css";
 import { useNavigate } from "react-router-dom";
+import useUser from "../../core/hooks/useUser";
 
 export default function Home() {
+  const { addUser } = useUser();
   const [contentType, setContentType] = useState<number>(1);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    addUser();
+  }, []);
 
   let currentContent;
   switch (contentType) {
