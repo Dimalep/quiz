@@ -12,8 +12,6 @@ public class QuizSessionUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @ManyToOne()
     private QuizSession quizSession;
 

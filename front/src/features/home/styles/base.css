@@ -1,3 +1,11 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; 
+  scroll-behavior: smooth;
+}
+
 .home__main-container{
     display: grid;
     
@@ -5,9 +13,37 @@
 
     padding: 0;
     margin: 0;
-
-    background-image: linear-gradient(135deg, #81D4FA, #E94CE6);
-
-    color: white;
+    color: black;
 }
 
+.home__back-video {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.home__back-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/*Footer*/
+.footer{
+    position: absolute;
+    top: 200vh;
+    background-color: rgb(14, 68, 14);
+    width: 100%;
+    height: 30vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+}

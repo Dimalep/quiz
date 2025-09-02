@@ -9,6 +9,7 @@ import AddInfo from "./features/quiz-creation/manual-create/add-info/AddInfo";
 import CompleteCreation from "./features/quiz-creation/manual-create/complete-creation/CompleteCreation";
 import LoginForm from "./features/auth/login/LoginForm";
 import WaitingRoom from "./features/play-sessions/waiting-room/WaitingRoom";
+import WaitingRoomPlayers from "./features/play-sessions/waiting-room-players/WaitingRoomPlayers";
 
 function App() {
   return (
@@ -23,7 +24,11 @@ function App() {
           path="/quiz/create/manual/complete"
           element={<CompleteCreation />}
         />
-        <Route path="/quiz/play/room/:quizId" element={<WaitingRoom />} />
+        <Route path="/quiz/play/room/:quizId/admin" element={<WaitingRoom />} />
+        <Route
+          path="/quiz/play/room/:quizId/player"
+          element={<WaitingRoomPlayers />}
+        />
       </Routes>
     </BrowserRouter>
   );

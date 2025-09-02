@@ -29,7 +29,7 @@ export default function CompleteCreation() {
             <label>{countQuestions}</label>
           </div>
           <div className="complete__info-block__button">
-            <button onClick={() => navigate(`/quiz/play/room/${quizId}`)}>
+            <button onClick={() => navigate(`/quiz/play/room/${quizId}/admin`)}>
               Запустить квиз
             </button>
             <button>Сохранить квиз</button>

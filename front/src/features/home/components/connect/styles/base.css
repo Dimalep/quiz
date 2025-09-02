@@ -1,31 +1,64 @@
-/* Container connecting */
-.home__content_connecting{
-    margin: 50px;
-    height: 60vh;
+.home__connect {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
 
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
-    padding-left: 55px;
+  min-height: 400px; 
+  gap: 20px;
+  z-index: 1;
 
-    align-content: center;
+  color: black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+  padding: 30px;
+  padding-top: 80px;
+  margin: 100px auto 0 auto; 
+  width: 90%; 
+  max-width: 500px; 
+
+  transition: transform 0.3s ease;
+}
+.home__connect:hover{
+    transform: scale(1.03);
 }
 
-.home__content__connecting_text{
-    display: grid;
-    grid-template-columns: 50% 50%;
-
-    font-size: 20px;
+.home__connect h1 {
+  font-size: 28px;
 }
 
-.home__content__connecting_text input{
-    height: 30px;
-    width: 200px;
-
-    margin-right: 10px;
-    color: black;
+.home__connect p {
+  font-size: 20px;
 }
 
-.home__content__connecting_text h1{
-    font-size: 45px;
+.home__connect form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+.home__connect input {
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.home__connect button {
+  background-color: green;
+  margin-top: 15px;
+  border-radius: 5px;
+  height: 50px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home__connect button:hover {
+  background-color: darkgreen;
+}

@@ -12,6 +12,11 @@ interface Props {
 export default function NavigationPanel({ className, children }: Props) {
   const navigate = useNavigate();
 
+  const handleClickLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
   return (
     <nav className="navigation-panel">
       <div
@@ -20,7 +25,11 @@ export default function NavigationPanel({ className, children }: Props) {
       >
         Quiz
       </div>
-      <div className={`navigation-items`}>{children}</div>
+      <div className="navigation-panle__actions">
+        <div onClick={handleClickLogin}>Войти</div>
+        <div>Зарегистрироваться</div>
+      </div>
+      {/* <div className={`navigation-items`}>{children}</div> */}
     </nav>
   );
 }
