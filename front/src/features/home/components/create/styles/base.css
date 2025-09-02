@@ -26,7 +26,11 @@
 }
 
 .home__create__type h2{
-    font-size: 20px;
+    font-size: 24px;
+}
+
+.home__create__type p{
+    font-size: 18px;
 }
 
 .home__create__type{

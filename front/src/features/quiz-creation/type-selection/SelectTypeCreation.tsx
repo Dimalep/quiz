@@ -34,9 +34,7 @@ export default function SelectTypeCreation() {
 
   return (
     <>
-      <NavigationPanel className="create-page">
-        <div>11111111</div>
-      </NavigationPanel>
+      <NavigationPanel className="create-page"></NavigationPanel>
       <div className="px-40 flex flex-1 justify-center py-5 h-screen">
         <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
           <div className="flex flex-wrap justify-between gap-3 p-4">

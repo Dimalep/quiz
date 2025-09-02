@@ -1,20 +1,23 @@
-import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 //Styles
 import "./styles/base.css";
 import "./styles/responsive.css";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   className: string;
-  children: ReactNode;
 }
 
-export default function NavigationPanel({ className, children }: Props) {
+export default function NavigationPanel({ className }: Props) {
   const navigate = useNavigate();
 
   const handleClickLogin = (e: React.FormEvent) => {
     e.preventDefault();
     navigate("/login");
+  };
+
+  const handleClickReg = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate("/reg");
   };
 
   return (
@@ -27,9 +30,8 @@ export default function NavigationPanel({ className, children }: Props) {
       </div>
       <div className="navigation-panle__actions">
         <div onClick={handleClickLogin}>Войти</div>
-        <div>Зарегистрироваться</div>
+        <div onClick={handleClickReg}>Зарегистрироваться</div>
       </div>
-      {/* <div className={`navigation-items`}>{children}</div> */}
     </nav>
   );
 }
