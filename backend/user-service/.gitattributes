@@ -1,0 +1,25 @@
+/mvnw text eol=lf
+*.cmd text eol=crlf
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+/deloy/
+
+# Maven
+target/
+*.log
+*.tmp
+*.bak
+
+# Windows
+Thumbs.db
+.DS_Store
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Temporary files
+*.swp
+*~
