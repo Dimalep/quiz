@@ -19,7 +19,6 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
-
     //Created anonymous user
     @PostMapping("/new_anonymous_user")
     public ResponseEntity<Long> addAnonymousUser(){

@@ -36,14 +36,14 @@ public class UserService {
     //Upgrade anonymous to registered
     public User upgradeAnonymousToRegistered(UserDto userDto){
         if(userDto == null) throw new IllegalArgumentException("Argument 'user' cannot be null.");
-        User user = userRepo.findById(userDto.getId())
+        User user = userRepo.findById(userDto.id())
                 .orElseThrow(() -> new RuntimeException("Cannot found anonymous"));
-        if(userRepo.findByLogin(userDto.getLogin()).isPresent())
-            throw new IllegalArgumentException("User with login:" + userDto.getLogin() + "already exists.");
+        if(userRepo.findByLogin(userDto.login()).isPresent())
+            throw new IllegalArgumentException("User with login:" + userDto.login() + "already exists.");
 
         user.setRegistered(true);
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setLogin(userDto.getLogin());
+        user.setPassword(passwordEncoder.encode(userDto.password()));
+        user.setLogin(userDto.login());
         user.setRole(Role.USER);
         user.setUpdateAt(LocalDateTime.now());
         userRepo.save(user);
@@ -56,8 +56,8 @@ public class UserService {
         User user =  userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found user by id: '"+ id + "'."));
         user.setUpdateAt(LocalDateTime.now());
-        user.setLogin(userDto.getLogin());
-        user.setPassword(userDto.getPassword());
+        user.setLogin(userDto.login());
+        user.setPassword(userDto.password());
         userRepo.save(user);
         return user;
     }
@@ -79,10 +79,10 @@ public class UserService {
 
     //more
     public boolean validateUser(LoginDto user){
-        User existsUser = userRepo.findByLogin(user.getLogin())
+        User existsUser = userRepo.findByLogin(user.login())
                 .orElseThrow(() -> new UsernameNotFoundException("User with login '"+ user.toString() +"' not found."));
 
-        if(!passwordEncoder.matches(user.getPassword(), existsUser.getPassword()))
+        if(!passwordEncoder.matches(user.password(), existsUser.getPassword()))
             throw new BadCredentialsException("Invalid password");
 
         return true;

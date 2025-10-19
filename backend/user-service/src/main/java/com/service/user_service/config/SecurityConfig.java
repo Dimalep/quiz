@@ -1,5 +1,6 @@
 package com.service.user_service.config;
 
+import com.service.user_service.components.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -8,10 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter){
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -23,9 +31,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/registration","api/users/login", "/api/users/new_anonymous_user").permitAll()
+                        .requestMatchers("/api/auth/registration"
+                                ,"/api/auth/login"
+                                , "/api/users/new_anonymous_user"
+                                , "/api/auth/logout"
+                                , "/api/jwt/refresh")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }
