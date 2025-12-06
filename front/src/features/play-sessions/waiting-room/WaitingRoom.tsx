@@ -13,7 +13,7 @@ export default function WaitingRoom() {
   const { getQuizById } = useQuiz();
   const { createQuizSession } = useQuizSession();
 
-  const [players, setPlayers] = useState(["Игрок 1", "Игрок 2"]);
+  const [players] = useState(["Игрок 1", "Игрок 2"]);
   const { quizId } = useParams();
 
   const [quiz, setQuiz] = useState<Quiz | null>();
@@ -43,8 +43,7 @@ export default function WaitingRoom() {
 
   return (
     <div className="waiting-room__main-container">
-      <NavigationPanel className="create-page">
-        <div>Waiting Room</div>
+      <NavigationPanel>
       </NavigationPanel>
 
       <div className="waiting-room__content">

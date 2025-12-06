@@ -1,7 +1,5 @@
 export default function useSessionStorage() {
-
-
-  const addItemInSS = (key: string, item: string) => {
+  const setItemInSS = (key: string, item: string) => {
     sessionStorage.setItem(key, item);
   }
 
@@ -9,5 +7,5 @@ export default function useSessionStorage() {
     return sessionStorage.getItem(key);
   }
 
-  return {addItemInSS, getItemFromSS};
+  return {setItemInSS, getItemFromSS};
 }

@@ -17,8 +17,7 @@ export default function CompleteCreation() {
 
   return (
     <div className="complete__main-container">
-      <NavigationPanel className="create-page">
-        <div>123</div>
+      <NavigationPanel>
       </NavigationPanel>
       <div className="complete__content">
         <div className="complete__info-block">

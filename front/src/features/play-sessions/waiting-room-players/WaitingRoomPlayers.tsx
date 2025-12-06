@@ -16,8 +16,7 @@ export default function WaitingRoomPlayers() {
 
   return (
     <div className="waiting-room-players__main-container">
-      <NavigationPanel className="waiting-room-players__nav">
-        <div>123</div>
+      <NavigationPanel>
       </NavigationPanel>
 
       <div className="waiting-room-players__content">

@@ -1,37 +1,83 @@
 import { useNavigate } from "react-router-dom";
-//Styles
-import "./styles/base.css";
-import "./styles/responsive.css";
+import { useState, type CSSProperties } from "react";
+import Menu from "./menu/Menu";
+import { useAuthContext } from "../AuthProvider";
 
 interface Props {
-  className: string;
+  backgroundColor?: string;
 }
 
-export default function NavigationPanel({ className }: Props) {
+export default function NavigationPanel({ backgroundColor }: Props) {
+  const { isAuthenticated } = useAuthContext();
   const navigate = useNavigate();
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const handleClickLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/login");
+    navigate("/auth");
   };
 
   const handleClickReg = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/reg");
+    navigate("/auth");
   };
 
   return (
-    <nav className="navigation-panel">
-      <div
-        className={`navigation-panel__logo ${className}`}
-        onClick={() => navigate("/")}
-      >
+    <nav style={{ ...styles.navigationPanel, backgroundColor }}>
+      <div style={{ ...styles.logo }} onClick={() => navigate("/")}>
         Quiz
       </div>
-      <div className="navigation-panle__actions">
-        <div onClick={handleClickLogin}>Войти</div>
-        <div onClick={handleClickReg}>Зарегистрироваться</div>
-      </div>
+      {/* !!!! */}
+      {isAuthenticated ? (
+        <div style={styles.actions}>
+          <div onClick={handleClickLogin}>Войти</div>
+          <div onClick={handleClickReg}>Зарегистрироваться</div>
+        </div>
+      ) : (
+        <>
+          <div onClick={() => setIsOpenMenu(!isOpenMenu)}>Menu</div>
+          {/* {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />} */}
+          {isOpenMenu && <Menu />}
+        </>
+      )}
     </nav>
   );
 }
+
+const styles: {
+  navigationPanel: CSSProperties;
+  logo: CSSProperties;
+  actions: CSSProperties;
+} = {
+  navigationPanel: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.35)",
+    padding: "10px",
+    zIndex: 10,
+    position: "sticky",
+    fontFamily: "Rubik",
+  },
+  logo: {
+    fontSize: 48,
+    position: "relative",
+    justifySelf: "center",
+    alignSelf: "center",
+    left: 20,
+    cursor: "pointer",
+    userSelect: "none",
+  },
+  actions: {
+    fontSize: 18,
+    display: "flex",
+    flexDirection: "row",
+    position: "relative",
+    right: 20,
+    justifySelf: "center",
+    alignSelf: "center",
+    gap: 10,
+    cursor: "pointer",
+  },
+};

@@ -8,7 +8,7 @@ import "./styles/responsive.css";
 
 export default function Connect() {
   const navigate = useNavigate();
-  const [connectCode, setConnectCode] = useState("");
+  const [connectCode] = useState("");
   const { connect, getQuizByToken } = useQuizSession();
   const { getItemFromSS } = useSessionStorage();
 

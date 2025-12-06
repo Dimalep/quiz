@@ -1,56 +1,51 @@
 import { useState } from "react"
 import type { Quiz } from "../models/Quiz"
 import useSessionStorage from "./useSessionStorage"
-
+import type { QuizDto } from "../models/QuizDto";
+//ALL REMAKE 
 export default function useQuiz() {
-  const {addItemInSS} = useSessionStorage();
+  const {setItemInSS} = useSessionStorage();
+  const [currentQuiz, setCurrentQuiz] = useState<QuizDto>({id: -1, questions: []});
 
-  const [quizzes, setQuizzes] = useState<Quiz[]>([])
+  const [quizzes, setQuizzes] = useState<QuizDto[]>([{
+    id: 1,
+    title: "TEST1",
+    description: "decsription 1",
+    tag: "default",
+    questions: []
+  },]);
 
-  const addQuiz = async (addingQuiz: Quiz) => {
+
+  const addQuiz = (): QuizDto => {
     try{
-        const response = await fetch("http://localhost:8089/api/quizzes/create",{
-            method: "POST",
-            headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify(addingQuiz),
-        });
-
-        if(!response) {
-            throw new Error("Failed to add quiz!");
-        }
-
-        const createdQuiz: Quiz = await response.json();
-
-        
-        if(createdQuiz?.id){
-          addItemInSS("quizId", createdQuiz.id.toString());
-          addItemInSS("quizTitle", createdQuiz.title.toString());
-          addItemInSS("quizDescription", createdQuiz.description.toString());
-        }
-
-        setQuizzes((prev) => [...prev, createdQuiz]);
-    } catch (error) {
-      console.error("Error adding quiz:", error);
+      //get id new quiz from back
+      const newQuiz = {id: Date.now(), questions: []};
+      setCurrentQuiz(newQuiz);
+      console.log("Current quizId = ", newQuiz.id);
+      return newQuiz;
+    }catch(err){
+      console.log("Error add quiz: " , err);
+      return currentQuiz;
     }
-  }
+  };
 
   const getAllQuizzes = async () => {
-    try{
-      const response = await fetch("http://localhost:8089/api/quizzes",{
-        method: "GET",
-        headers: {"Content-Type":"application/json"},
-      });
+    // try{
+    //   const response = await fetch("http://localhost:8089/api/quizzes",{
+    //     method: "GET",
+    //     headers: {"Content-Type":"application/json"},
+    //   });
 
-      if(!response.ok) {
-        throw new Error("Failed to fetch quizzes!");
-      }
+    //   if(!response.ok) {
+    //     throw new Error("Failed to fetch quizzes!");
+    //   }
 
-      const data: Quiz[] = await response.json();
-      setQuizzes(data); 
-    } catch (error){
-      console.error("Error get quizzes", error);
-    }
-  }
+    //   const data: Quiz[] = await response.json();
+    //   setQuizzes(data); 
+    // } catch (error){
+    //   console.error("Error get quizzes", error);
+    // }
+  };
 
   const getQuizById = async (quizId: number): Promise<Quiz | null> => {
     try{
@@ -71,5 +66,5 @@ export default function useQuiz() {
     }
   }
 
-  return {quizzes, setQuizzes, addQuiz, getAllQuizzes, getQuizById}
+  return {quizzes, setQuizzes, addQuiz, getAllQuizzes, getQuizById, currentQuiz, setCurrentQuiz}
 }
