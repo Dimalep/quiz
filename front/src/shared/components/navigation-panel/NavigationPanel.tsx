@@ -2,15 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useState, type CSSProperties } from "react";
 import Menu from "./menu/Menu";
 import { useAuthContext } from "../AuthProvider";
+import { AnimatePresence } from "framer-motion";
 
 interface Props {
   backgroundColor?: string;
 }
 
 export default function NavigationPanel({ backgroundColor }: Props) {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const { isAuthenticated } = useAuthContext();
   const navigate = useNavigate();
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const handleClickLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,16 +29,26 @@ export default function NavigationPanel({ backgroundColor }: Props) {
         Quiz
       </div>
       {/* !!!! */}
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         <div style={styles.actions}>
           <div onClick={handleClickLogin}>Войти</div>
           <div onClick={handleClickReg}>Зарегистрироваться</div>
         </div>
       ) : (
         <>
-          <div onClick={() => setIsOpenMenu(!isOpenMenu)}>Menu</div>
-          {/* {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />} */}
-          {isOpenMenu && <Menu />}
+          <div
+            onClick={() => setIsOpenMenu(!isOpenMenu)}
+            style={{
+              width: "50px",
+              height: "50px",
+              backgroundColor: "black",
+              borderRadius: "10px",
+              cursor: "pointer",
+            }}
+          ></div>
+          <AnimatePresence>
+            {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />}
+          </AnimatePresence>
         </>
       )}
     </nav>

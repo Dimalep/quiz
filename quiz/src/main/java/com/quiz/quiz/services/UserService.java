@@ -19,6 +19,7 @@ public class UserService {
         if(user == null) {
             throw new IllegalArgumentException("User cannot be null.");
         }
+        System.out.println("user added:" + user.getLogin() + ", id: " + user.getId());
         return userRepo.save(user);
     }
 

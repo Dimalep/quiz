@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import NavigationPanel from "../../shared/components/navigation-panel/NavigationPanel";
-import useWidth from "../../core/hooks/useWidth";
+import useWidth from "../../core/hooks/useWindowSize";
 import InputForm from "./components/InputForm";
 
 const TITLES = {

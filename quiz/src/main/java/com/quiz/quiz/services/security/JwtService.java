@@ -1,4 +1,4 @@
-package com.quiz.quiz.services;
+package com.quiz.quiz.services.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
