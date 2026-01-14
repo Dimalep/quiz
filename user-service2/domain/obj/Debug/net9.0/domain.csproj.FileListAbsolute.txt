@@ -1,0 +1,12 @@
+D:\quiz\user-service2\domain\bin\Debug\net9.0\domain.deps.json
+D:\quiz\user-service2\domain\bin\Debug\net9.0\domain.dll
+D:\quiz\user-service2\domain\bin\Debug\net9.0\domain.pdb
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.AssemblyInfoInputs.cache
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.AssemblyInfo.cs
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.csproj.CoreCompileInputs.cache
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.sourcelink.json
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.dll
+D:\quiz\user-service2\domain\obj\Debug\net9.0\refint\domain.dll
+D:\quiz\user-service2\domain\obj\Debug\net9.0\domain.pdb
+D:\quiz\user-service2\domain\obj\Debug\net9.0\ref\domain.dll
