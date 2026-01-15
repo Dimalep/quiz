@@ -24,7 +24,7 @@ namespace application.services
                 return addedSession.Entity;
             }
             else {
-                throw new ArgumentException("Session cannot be null");
+                throw new InvalidDataException("Session cannot be null");
             }
         }
 

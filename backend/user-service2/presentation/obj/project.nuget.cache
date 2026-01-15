@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6pxa4NwoIWU=",
+  "dgSpecHash": "EuMc71SC1kE=",
   "success": true,
-  "projectFilePath": "D:\\quiz\\user-service2\\presentation\\presentation.csproj",
+  "projectFilePath": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\.1\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\.1\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.0\\microsoft.aspnetcore.authentication.jwtbearer.9.0.0.nupkg.sha512",

@@ -708,11 +708,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\quiz\\user-service2\\infrastructure\\infrastructure.csproj",
+      "projectUniqueName": "D:\\quiz\\backend\\user-service2\\infrastructure\\infrastructure.csproj",
       "projectName": "infrastructure",
-      "projectPath": "D:\\quiz\\user-service2\\infrastructure\\infrastructure.csproj",
+      "projectPath": "D:\\quiz\\backend\\user-service2\\infrastructure\\infrastructure.csproj",
       "packagesPath": "C:\\Users\\.1\\.nuget\\packages\\",
-      "outputPath": "D:\\quiz\\user-service2\\infrastructure\\obj\\",
+      "outputPath": "D:\\quiz\\backend\\user-service2\\infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -733,8 +733,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\quiz\\user-service2\\domain\\domain.csproj": {
-              "projectPath": "D:\\quiz\\user-service2\\domain\\domain.csproj"
+            "D:\\quiz\\backend\\user-service2\\domain\\domain.csproj": {
+              "projectPath": "D:\\quiz\\backend\\user-service2\\domain\\domain.csproj"
             }
           }
         }

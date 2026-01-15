@@ -1,4 +1,6 @@
 ﻿using application.DTOs.auth;
+using application.exceptions;
+using application.exeptions;
 using application.interfaces;
 using domain.models;
 
@@ -22,7 +24,7 @@ namespace application.services
         public async Task<ResponseDTO> Login(LogRequestDTO req)
         {
             if (req == null)
-                throw new ArgumentNullException("Argument cannot by null");
+                throw new BadRequestException("Argument cannot by null");
 
             User? user = new User();
 
@@ -42,7 +44,7 @@ namespace application.services
             }
 
             if (user == null)
-                throw new ArgumentException("Cannot find user -> [class 'AuthService' method 'RegistrateByUsername']");
+                throw new ArgumentException("Cannot find user");
 
             bool verify = _passwordService.Verify(req.Password, user.Password);
 
@@ -70,7 +72,7 @@ namespace application.services
             }
             else
             {
-                throw new NotImplementedException();//?
+                throw new exceptions.InvalidDataException("Invalid data");
             }
 
         }
@@ -78,12 +80,12 @@ namespace application.services
         public async Task<ResponseDTO> Registrate(RegRequestDTO req)
         {
             if (req == null)
-                throw new ArgumentNullException("Request cannot by null");
+                throw new BadRequestException("Request cannot by null");
 
             var existingUser = await _userService.GetByUsername(req.Username);
 
             if (existingUser != null)
-                throw new ArgumentException("User already exists");
+                throw new exceptions.ConflictException("User already exists");
 
 
             var user = await _userService.AddUser(new User()
@@ -112,7 +114,6 @@ namespace application.services
             };
         }
 
-        //*
         public async Task<ResponseDTO> Refresh(string refreshToken)
         {
             Session? session = await _sessionService.GetByRefreshToken(refreshToken);
@@ -126,18 +127,19 @@ namespace application.services
 
                 session.RefreshToken = newRefreshToken;
                 session.LastUsedAt = DateTime.UtcNow;
-                session.ExpiresAt  = DateTime.UtcNow.AddDays(7);
+                session.ExpiresAt = DateTime.UtcNow.AddDays(7);
 
-                await _sessionService.Add(session);
+                await _sessionService.Update(session);
 
                 return new ResponseDTO()
                 {
                     UserId = session.UserId,
-                    AccessToken = session.RefreshToken,
-                    RefreshToken = session.RefreshToken
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken
                 };
             }
-            else return new ResponseDTO() { };
+            else 
+                throw new ConflictException("Cannot find session by refreshToken");
         }
 
         public async Task Logout(string refreshToken)

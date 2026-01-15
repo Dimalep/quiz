@@ -27,6 +27,10 @@ namespace presentation.middleware.exception
             {
                 await WriteError(context, 409, ex.Code, ex.Message);
             }
+            catch(application.exceptions.InvalidDataException ex)
+            {
+                await WriteError(context, 401, ex.Code, ex.Message);
+            }
             catch (Exception)
             {
                 await WriteError(context, 500, "internal_error", "Internal server error");

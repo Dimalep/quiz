@@ -3635,11 +3635,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\quiz\\user-service2\\presentation\\presentation.csproj",
+      "projectUniqueName": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
       "projectName": "presentation",
-      "projectPath": "D:\\quiz\\user-service2\\presentation\\presentation.csproj",
+      "projectPath": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
       "packagesPath": "C:\\Users\\.1\\.nuget\\packages\\",
-      "outputPath": "D:\\quiz\\user-service2\\presentation\\obj\\",
+      "outputPath": "D:\\quiz\\backend\\user-service2\\presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3660,8 +3660,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\quiz\\user-service2\\application\\application.csproj": {
-              "projectPath": "D:\\quiz\\user-service2\\application\\application.csproj"
+            "D:\\quiz\\backend\\user-service2\\application\\application.csproj": {
+              "projectPath": "D:\\quiz\\backend\\user-service2\\application\\application.csproj"
             }
           }
         }
