@@ -15,9 +15,11 @@ export default function useAuth() {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          login: login.trim(),
+          authType: 0,
+          value: login.trim(),
           password: password.trim()
-        })
+        }),
+        credentials: "include"
       });
 
       if (!response.ok) {
@@ -54,16 +56,22 @@ export default function useAuth() {
   }
 
   //Send registration request
-  const registerFromHook = async (login: string, password: string, anonUserId: number) => {
+  const registerFromHook = async (login: string, password: string) => {
     try{
-        const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/auth/registration`, {
+        const anonUserId = sessionStorage.getItem("anonUserId");
+
+        const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/auth/registrate`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                login: login,
-                password: password,
-                id: anonUserId
-            })
+              id: anonUserId,
+              authType: 0,
+              email: "",
+              phone: "",
+              username: login,
+              password: password
+            }),
+            credentials: "include"
         });
         if (!response.ok) {
             throw new Error("Ошибка регистрации");

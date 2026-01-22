@@ -1,9 +1,14 @@
 import type { CSSProperties } from "react";
+import { useAuthContext } from "../../../../AuthProvider";
 
 export default function LogoutBlock() {
+  const { logout } = useAuthContext();
+
   return (
     <div style={styles.logoutBlock}>
-      <div style={styles.logoutButton}>Logout</div>
+      <div style={styles.logoutButton} onClick={() => logout()}>
+        Logout
+      </div>
     </div>
   );
 }

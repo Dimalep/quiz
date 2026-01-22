@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Button from "./Button";
 
-// Here main login authorization
 interface Props {
   authMode: string;
 }
@@ -17,11 +16,16 @@ export default function InputForm({ authMode }: Props) {
   const [inputContactInfo, setInputContactInfo] = useState("");
 
   const navigate = useNavigate();
-  const { login, authResponse } = useAuthContext();
+  const { login, authResponse, register } = useAuthContext();
 
   const handleClickLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(inputLogin, inputPas);
+
+    if (authMode === "login") {
+      await login(inputContactInfo, inputPas);
+    } else if (authMode === "registrate") {
+      await register(inputLogin, inputPas);
+    }
   };
 
   useEffect(() => {

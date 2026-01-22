@@ -1,76 +1,78 @@
 import { useNavigate } from "react-router-dom";
 import { useState, type CSSProperties } from "react";
-import Menu from "./menu/Menu";
+import Menu from "./components/menu/Menu";
 import { useAuthContext } from "../AuthProvider";
 import { AnimatePresence } from "framer-motion";
+import AuthBlock from "./components/AuthBlock";
 
-interface Props {
-  backgroundColor?: string;
-}
-
-export default function NavigationPanel({ backgroundColor }: Props) {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const { isAuthenticated } = useAuthContext();
+export default function NavigationPanel() {
+  // const [isOpenMenu, setIsOpenMenu] = useState(false);
+  // const { isAuthenticated } = useAuthContext();
   const navigate = useNavigate();
 
-  const handleClickLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    navigate("/auth");
-  };
+  // const handleClickLogin = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   navigate("/auth");
+  // };
 
-  const handleClickReg = (e: React.FormEvent) => {
-    e.preventDefault();
-    navigate("/auth");
-  };
+  // const handleClickReg = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   navigate("/auth");
+  // };
 
   return (
-    <nav style={{ ...styles.navigationPanel, backgroundColor }}>
-      <div style={{ ...styles.logo }} onClick={() => navigate("/")}>
-        Quiz
-      </div>
-      {/* !!!! */}
-      {!isAuthenticated ? (
-        <div style={styles.actions}>
-          <div onClick={handleClickLogin}>Войти</div>
-          <div onClick={handleClickReg}>Зарегистрироваться</div>
+    <div style={styles.main}>
+      <nav style={styles.navigationPanel}>
+        <div style={styles.logo} onClick={() => navigate("/")}>
+          Quiz
         </div>
-      ) : (
-        <>
-          <div
-            onClick={() => setIsOpenMenu(!isOpenMenu)}
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "black",
-              borderRadius: "10px",
-              cursor: "pointer",
-            }}
-          ></div>
-          <AnimatePresence>
-            {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />}
-          </AnimatePresence>
-        </>
-      )}
-    </nav>
+        <AuthBlock />
+        {/* !!!! */}
+        {/* {!isAuthenticated ? (
+          <div style={styles.actions}>
+            <div onClick={handleClickLogin}>Войти</div>
+            <div onClick={handleClickReg}>Зарегистрироваться</div>
+          </div>
+        ) : (
+          <>
+            <div
+              onClick={() => setIsOpenMenu(!isOpenMenu)}
+              style={{
+                width: "50px",
+                height: "50px",
+                backgroundColor: "black",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            ></div>
+            <AnimatePresence>
+              {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />}
+            </AnimatePresence>
+          </> 
+        )}*/}
+      </nav>
+    </div>
   );
 }
 
-const styles: {
-  navigationPanel: CSSProperties;
-  logo: CSSProperties;
-  actions: CSSProperties;
-} = {
+const styles = {
+  main: {
+    padding: 20,
+  } as CSSProperties,
   navigationPanel: {
-    width: "100%",
+    width: "80%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.35)",
+    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.35)",
     padding: "10px",
     zIndex: 10,
     position: "sticky",
     fontFamily: "Rubik",
-  },
+    margin: "0 auto",
+    border: "2px solid black",
+    borderRadius: "17px",
+  } as CSSProperties,
   logo: {
     fontSize: 48,
     position: "relative",
@@ -79,7 +81,7 @@ const styles: {
     left: 20,
     cursor: "pointer",
     userSelect: "none",
-  },
+  } as CSSProperties,
   actions: {
     fontSize: 18,
     display: "flex",
@@ -90,5 +92,5 @@ const styles: {
     alignSelf: "center",
     gap: 10,
     cursor: "pointer",
-  },
+  } as CSSProperties,
 };

@@ -3,7 +3,6 @@ import useWindowSize from "../../core/hooks/useWindowSize";
 
 interface WidnowSizeType {
   width: number;
-  height: number;
 }
 
 const WindowSizeContext = createContext<WidnowSizeType | undefined>(undefined);
@@ -13,10 +12,10 @@ export default function WindowSizeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { height, width } = useWindowSize();
+  const { width } = useWindowSize();
 
   return (
-    <WindowSizeContext.Provider value={{ width, height }}>
+    <WindowSizeContext.Provider value={{ width }}>
       {children}
     </WindowSizeContext.Provider>
   );

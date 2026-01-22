@@ -4,7 +4,7 @@ import UserInfoBlock from "./componetns/UserInfoBlock";
 import LogoutBlock from "./componetns/LogoutBlock";
 import type { CSSProperties } from "react";
 import SettingsButtons from "./componetns/SettingsButtons/SettingsButtons";
-import { useWindowSizeContext } from "../../WindowSizeProvider";
+import { useWindowSizeContext } from "../../../WindowSizeProvider";
 
 interface Props {
   setIsOpenMenu: (value: boolean) => void;

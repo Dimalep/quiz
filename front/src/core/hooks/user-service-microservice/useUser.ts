@@ -7,9 +7,14 @@ export default function useUser() {
   //Create anonymous user
   const generateAnonymousUser = async () => { 
     const anonUserId = getItemFromSS("anonUserId");
-    if(anonUserId) return;
+
+    if(anonUserId) return 
+
     try{
-      const res = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/users/new_anonymous_user`, {method: "POST"});
+      const res = await fetch(
+        `${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/users/generateAnonUser`, 
+        {method: "POST" }
+      );
 
       if(!res.ok) throw new Error(`Error on server: ${res.status}`);
 

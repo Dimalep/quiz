@@ -5,11 +5,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   authResponse: any;
   login: (login: string, passwod: string) => Promise<void>;
-  register: (
-    login: string,
-    passwod: string,
-    anonUserId: number
-  ) => Promise<void>;
+  register: (login: string, passwod: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -24,12 +20,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(!!token);
   }, []);
 
-  const register = async (
-    userLogin: string,
-    password: string,
-    anonUserId: number
-  ) => {
-    const token = await registerFromHook(userLogin, password, anonUserId);
+  const register = async (userLogin: string, password: string) => {
+    const token = await registerFromHook(userLogin, password);
     if (token) {
       setIsAuthenticated(true);
     }
