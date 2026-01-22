@@ -5,6 +5,7 @@ namespace application.interfaces
 {
     public interface IUserService
     {
+        public Task<int> AddAnonUser();
         public Task<User> AddUser(User user);
         public Task<User> DeleteUserById(int userId);
         public Task<User> UpdateUser(User user);

@@ -33,5 +33,7 @@ namespace domain.models
         public string Firstname { get; set; } = string.Empty;
         [Column("middlename")]
         public string Middlename { get; set; } = string.Empty;
+
+        public bool IsRegistered { get; set; } = false;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using application.DTOs.auth;
 using application.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace presentation.controllers
@@ -16,6 +17,7 @@ namespace presentation.controllers
             this.authService = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> LoginByUsername([FromBody] LogRequestDTO req)
         {
@@ -24,7 +26,7 @@ namespace presentation.controllers
             return Ok(res);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("registrate")]
         public async Task<IActionResult> RegistrateByUsername([FromBody] RegRequestDTO req)
         {
@@ -32,7 +34,6 @@ namespace presentation.controllers
 
             return Ok(res);
         }
-
 
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] string refreshToken)

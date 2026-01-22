@@ -33,7 +33,7 @@ namespace application.services
                 case enums.AuthType.Username: 
                     user = await _userService.GetByUsername(req.Value); 
                     break;
-                case enums.AuthType.Emal: 
+                case enums.AuthType.Email: 
                     user = await _userService.GetByEmail(req.Value);
                     break;
                 case enums.AuthType.Phone: 
@@ -41,6 +41,7 @@ namespace application.services
                     break;
                 default:
                     throw new UnauthorizedAccessException("Error");
+                    
             }
 
             if (user == null)
@@ -88,10 +89,12 @@ namespace application.services
                 throw new exceptions.ConflictException("User already exists");
 
 
-            var user = await _userService.AddUser(new User()
+            var user = await _userService.UpdateUser(new User()
             {
+                Id = req.Id,
                 Username = req.Username,
-                Password = _passwordService.Hash(req.Password)
+                Password = _passwordService.Hash(req.Password),
+                IsRegistered = true
             });
 
             string accessToken = _jwtTokenService.GenerateAccessToken(user);

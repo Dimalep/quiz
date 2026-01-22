@@ -22,5 +22,13 @@ namespace presentation.controllers
 
             return Ok(user);
         }
+
+        [AllowAnonymous]
+        [HttpPost("generateAnonUser")]
+        public async Task<IActionResult> AddAnonymusUser()
+        {
+            var result = await userService.AddAnonUser();
+            return Ok(result);
+        }
     }
 }

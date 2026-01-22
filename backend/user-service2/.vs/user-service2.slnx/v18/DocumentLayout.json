@@ -3,20 +3,60 @@
   "WorkspaceRootPath": "D:\\quiz\\backend\\user-service2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\auth\\regrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\auth\\regrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\apierrorresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\middleware\\exception\\apierrorresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\middleware\\exception\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\apierrorresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\middleware\\exception\\apierrorresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\enums\\authtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\enums\\authtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\auth\\regrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\auth\\regrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\auth\\logrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\auth\\logrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|d:\\quiz\\backend\\user-service2\\domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|solutionrelative:domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\services\\passwordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,18 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\services\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\services\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -75,10 +103,6 @@
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\isessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\isessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -87,24 +111,8 @@
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\jwt\\jwtoptionsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|d:\\quiz\\backend\\user-service2\\domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|solutionrelative:domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|d:\\quiz\\backend\\user-service2\\domain\\models\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|domain\\domain.csproj|solutionrelative:domain\\models\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\interfaces\\ijwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -115,20 +123,8 @@
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\interfaces\\ipasswordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\auth\\logrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\auth\\logrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\dtos\\auth\\responsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\dtos\\auth\\responsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|d:\\quiz\\backend\\user-service2\\application\\enums\\authtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|application\\application.csproj|solutionrelative:application\\enums\\authtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -138,89 +134,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SessionService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\SessionService.cs",
-              "RelativeDocumentMoniker": "application\\services\\SessionService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\SessionService.cs",
-              "RelativeToolTip": "application\\services\\SessionService.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAwwBsAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T11:31:25.303Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "presentation\\controllers\\AuthController.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\AuthController.cs",
-              "RelativeToolTip": "presentation\\controllers\\AuthController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T09:52:49.298Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\UserController.cs",
               "RelativeDocumentMoniker": "presentation\\controllers\\UserController.cs",
               "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\UserController.cs",
               "RelativeToolTip": "presentation\\controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-14T11:00:55.728Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\Program.cs",
               "RelativeDocumentMoniker": "presentation\\Program.cs",
               "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\Program.cs",
               "RelativeToolTip": "presentation\\Program.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAgwFEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAAFsAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-31T09:51:51.035Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PasswordService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\PasswordService.cs",
-              "RelativeDocumentMoniker": "application\\services\\PasswordService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\PasswordService.cs",
-              "RelativeToolTip": "application\\services\\PasswordService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCMAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T08:13:08.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\AuthService.cs",
-              "RelativeDocumentMoniker": "application\\services\\AuthService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\AuthService.cs",
-              "RelativeToolTip": "application\\services\\AuthService.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAowEgAAAAQAAAAAAAAAA==",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "presentation\\controllers\\AuthController.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\controllers\\AuthController.cs",
+              "RelativeToolTip": "presentation\\controllers\\AuthController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T11:52:41.01Z",
+              "WhenOpened": "2025-12-31T09:52:49.298Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ApiErrorResponseDTO.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\ApiErrorResponseDTO.cs",
               "RelativeDocumentMoniker": "presentation\\middleware\\exception\\ApiErrorResponseDTO.cs",
@@ -233,26 +190,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ExceptionHandlingMiddleware.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\ExceptionHandlingMiddleware.cs",
               "RelativeDocumentMoniker": "presentation\\middleware\\exception\\ExceptionHandlingMiddleware.cs",
               "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\middleware\\exception\\ExceptionHandlingMiddleware.cs",
               "RelativeToolTip": "presentation\\middleware\\exception\\ExceptionHandlingMiddleware.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABBAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-14T13:41:55.901Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthType.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\enums\\AuthType.cs",
+              "RelativeDocumentMoniker": "application\\enums\\AuthType.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\enums\\AuthType.cs",
+              "RelativeToolTip": "application\\enums\\AuthType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-12T15:25:14.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IUserService.cs",
+              "RelativeDocumentMoniker": "application\\interfaces\\IUserService.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IUserService.cs",
+              "RelativeToolTip": "application\\interfaces\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T08:45:13.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\UserService.cs",
+              "RelativeDocumentMoniker": "application\\services\\UserService.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\UserService.cs",
+              "RelativeToolTip": "application\\services\\UserService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwDwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T08:45:23.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "RegRequestDTO.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\RegRequestDTO.cs",
               "RelativeDocumentMoniker": "application\\DTOs\\auth\\RegRequestDTO.cs",
               "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\RegRequestDTO.cs",
               "RelativeToolTip": "application\\DTOs\\auth\\RegRequestDTO.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAowA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-12T15:18:24.31Z",
               "EditorCaption": ""
@@ -260,6 +256,95 @@
             {
               "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "LogRequestDTO.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\LogRequestDTO.cs",
+              "RelativeDocumentMoniker": "application\\DTOs\\auth\\LogRequestDTO.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\LogRequestDTO.cs",
+              "RelativeToolTip": "application\\DTOs\\auth\\LogRequestDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-12T15:26:46.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "presentation.csproj",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
+              "RelativeDocumentMoniker": "presentation\\presentation.csproj",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
+              "RelativeToolTip": "presentation\\presentation.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-31T09:51:42.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\domain\\models\\User.cs",
+              "RelativeDocumentMoniker": "domain\\models\\User.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\domain\\models\\User.cs",
+              "RelativeToolTip": "domain\\models\\User.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T09:57:07.141Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserDTO.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\UserDTO.cs",
+              "RelativeDocumentMoniker": "application\\DTOs\\UserDTO.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\UserDTO.cs",
+              "RelativeToolTip": "application\\DTOs\\UserDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T08:56:45.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IAuthService.cs",
+              "RelativeDocumentMoniker": "application\\interfaces\\IAuthService.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IAuthService.cs",
+              "RelativeToolTip": "application\\interfaces\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T10:36:56.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PasswordService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\PasswordService.cs",
+              "RelativeDocumentMoniker": "application\\services\\PasswordService.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\PasswordService.cs",
+              "RelativeToolTip": "application\\services\\PasswordService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCMAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T08:13:08.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SessionService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\SessionService.cs",
+              "RelativeDocumentMoniker": "application\\services\\SessionService.cs",
+              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\SessionService.cs",
+              "RelativeToolTip": "application\\services\\SessionService.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwBsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T11:31:25.303Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\appsettings.json",
               "RelativeDocumentMoniker": "presentation\\appsettings.json",
@@ -267,12 +352,11 @@
               "RelativeToolTip": "presentation\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-31T10:26:42.949Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-31T10:26:42.949Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 17,
               "Title": "DatabaseContext.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\infrastructure\\DatabaseContext.cs",
               "RelativeDocumentMoniker": "infrastructure\\DatabaseContext.cs",
@@ -280,12 +364,11 @@
               "RelativeToolTip": "infrastructure\\DatabaseContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T10:07:29.45Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T10:07:29.45Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "ConflictException.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\exceptions\\ConflictException.cs",
               "RelativeDocumentMoniker": "application\\exceptions\\ConflictException.cs",
@@ -293,12 +376,11 @@
               "RelativeToolTip": "application\\exceptions\\ConflictException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T13:30:24.144Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-14T13:30:24.144Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 19,
               "Title": "JwtTokenService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\JwtTokenService.cs",
               "RelativeDocumentMoniker": "application\\services\\JwtTokenService.cs",
@@ -306,12 +388,11 @@
               "RelativeToolTip": "application\\services\\JwtTokenService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:13:10.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-05T08:13:10.914Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "InvalidDataException.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\exceptions\\InvalidDataException.cs",
               "RelativeDocumentMoniker": "application\\exceptions\\InvalidDataException.cs",
@@ -319,12 +400,11 @@
               "RelativeToolTip": "application\\exceptions\\InvalidDataException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T06:27:01.301Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T06:27:01.301Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 21,
               "Title": "BadRequestException.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\exceptions\\BadRequestException.cs",
               "RelativeDocumentMoniker": "application\\exceptions\\BadRequestException.cs",
@@ -332,12 +412,11 @@
               "RelativeToolTip": "application\\exceptions\\BadRequestException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T13:28:21.191Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-14T13:28:21.191Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 22,
               "Title": "ServicesCollectionExtentions.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\infrastructure\\ServicesCollectionExtentions.cs",
               "RelativeDocumentMoniker": "infrastructure\\ServicesCollectionExtentions.cs",
@@ -345,12 +424,11 @@
               "RelativeToolTip": "infrastructure\\ServicesCollectionExtentions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T10:19:43.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-31T10:19:43.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 23,
               "Title": "ServicesCollectionExtentions.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\ServicesCollectionExtentions.cs",
               "RelativeDocumentMoniker": "application\\ServicesCollectionExtentions.cs",
@@ -358,12 +436,11 @@
               "RelativeToolTip": "application\\ServicesCollectionExtentions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T08:44:31.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-31T08:44:31.593Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 24,
               "Title": "application.csproj",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\application.csproj",
               "RelativeDocumentMoniker": "application\\application.csproj",
@@ -375,31 +452,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IUserService.cs",
-              "RelativeDocumentMoniker": "application\\interfaces\\IUserService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IUserService.cs",
-              "RelativeToolTip": "application\\interfaces\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T08:45:13.697Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "UserDTO.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\UserDTO.cs",
-              "RelativeDocumentMoniker": "application\\DTOs\\UserDTO.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\UserDTO.cs",
-              "RelativeToolTip": "application\\DTOs\\UserDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T08:56:45.992Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "JwtOptionsDTO.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\jwt\\JwtOptionsDTO.cs",
               "RelativeDocumentMoniker": "application\\DTOs\\jwt\\JwtOptionsDTO.cs",
@@ -411,7 +464,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "ISessionService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\ISessionService.cs",
               "RelativeDocumentMoniker": "application\\interfaces\\ISessionService.cs",
@@ -423,31 +476,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\services\\UserService.cs",
-              "RelativeDocumentMoniker": "application\\services\\UserService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\services\\UserService.cs",
-              "RelativeToolTip": "application\\services\\UserService.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAgwEAAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T08:45:23.118Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\domain\\models\\User.cs",
-              "RelativeDocumentMoniker": "domain\\models\\User.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\domain\\models\\User.cs",
-              "RelativeToolTip": "domain\\models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T09:57:07.141Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "Session.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\domain\\models\\Session.cs",
               "RelativeDocumentMoniker": "domain\\models\\Session.cs",
@@ -459,19 +488,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "IAuthService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IAuthService.cs",
-              "RelativeDocumentMoniker": "application\\interfaces\\IAuthService.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IAuthService.cs",
-              "RelativeToolTip": "application\\interfaces\\IAuthService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T10:36:56.816Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "IJwtTokenService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IJwtTokenService.cs",
               "RelativeDocumentMoniker": "application\\interfaces\\IJwtTokenService.cs",
@@ -483,7 +500,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "IPasswordService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\interfaces\\IPasswordService.cs",
               "RelativeDocumentMoniker": "application\\interfaces\\IPasswordService.cs",
@@ -492,30 +509,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-04T08:09:55.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "presentation.csproj",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
-              "RelativeDocumentMoniker": "presentation\\presentation.csproj",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\presentation\\presentation.csproj",
-              "RelativeToolTip": "presentation\\presentation.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-31T09:51:42.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "LogRequestDTO.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\LogRequestDTO.cs",
-              "RelativeDocumentMoniker": "application\\DTOs\\auth\\LogRequestDTO.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\DTOs\\auth\\LogRequestDTO.cs",
-              "RelativeToolTip": "application\\DTOs\\auth\\LogRequestDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-12T15:26:46.79Z"
             },
             {
               "$type": "Document",
@@ -528,18 +521,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-12T15:14:50.285Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "AuthType.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\user-service2\\application\\enums\\AuthType.cs",
-              "RelativeDocumentMoniker": "application\\enums\\AuthType.cs",
-              "ToolTip": "D:\\quiz\\backend\\user-service2\\application\\enums\\AuthType.cs",
-              "RelativeToolTip": "application\\enums\\AuthType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-12T15:25:14.543Z"
             }
           ]
         }

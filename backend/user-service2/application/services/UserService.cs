@@ -1,4 +1,5 @@
 ﻿using application.DTOs;
+using application.exceptions;
 using application.interfaces;
 using domain.models;
 using infrastructure;
@@ -13,6 +14,14 @@ namespace application.services
         public UserService(DatabaseContext dbContext) 
         {
             this.dbContext = dbContext;
+        }
+
+        public async Task<int> AddAnonUser()
+        {
+            var result = await dbContext.Users.AddAsync(new User());
+            await dbContext.SaveChangesAsync();
+
+            return result.Entity.Id;
         }
 
         public async Task<User> AddUser(User user)
@@ -36,9 +45,21 @@ namespace application.services
 
             return deletedUser.Entity;
         }
-        public Task<User> UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ConflictException("Argumnet can't be null");
+
+            User? oldVersionUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+            if (oldVersionUser == null)
+                throw new ConflictException("Cannt find user");
+
+            oldVersionUser.Username = user.Username;
+            oldVersionUser.Password = user.Password;
+            oldVersionUser.IsRegistered = true;
+            await dbContext.SaveChangesAsync();
+
+            return oldVersionUser;
         }
 
 
