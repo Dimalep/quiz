@@ -1,55 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { useState, type CSSProperties } from "react";
-import Menu from "./components/menu/Menu";
-import { useAuthContext } from "../AuthProvider";
-import { AnimatePresence } from "framer-motion";
+import { type CSSProperties } from "react";
+
 import AuthBlock from "./components/AuthBlock";
+import Logo from "./components/Logo";
 
 export default function NavigationPanel() {
-  // const [isOpenMenu, setIsOpenMenu] = useState(false);
-  // const { isAuthenticated } = useAuthContext();
-  const navigate = useNavigate();
-
-  // const handleClickLogin = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   navigate("/auth");
-  // };
-
-  // const handleClickReg = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   navigate("/auth");
-  // };
-
   return (
     <div style={styles.main}>
       <nav style={styles.navigationPanel}>
-        <div style={styles.logo} onClick={() => navigate("/")}>
-          Quiz
-        </div>
+        <Logo />
         <AuthBlock />
-        {/* !!!! */}
-        {/* {!isAuthenticated ? (
-          <div style={styles.actions}>
-            <div onClick={handleClickLogin}>Войти</div>
-            <div onClick={handleClickReg}>Зарегистрироваться</div>
-          </div>
-        ) : (
-          <>
-            <div
-              onClick={() => setIsOpenMenu(!isOpenMenu)}
-              style={{
-                width: "50px",
-                height: "50px",
-                backgroundColor: "black",
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-            ></div>
-            <AnimatePresence>
-              {isOpenMenu && <Menu setIsOpenMenu={setIsOpenMenu} />}
-            </AnimatePresence>
-          </> 
-        )}*/}
       </nav>
     </div>
   );
@@ -72,15 +31,6 @@ const styles = {
     margin: "0 auto",
     border: "2px solid black",
     borderRadius: "17px",
-  } as CSSProperties,
-  logo: {
-    fontSize: 48,
-    position: "relative",
-    justifySelf: "center",
-    alignSelf: "center",
-    left: 20,
-    cursor: "pointer",
-    userSelect: "none",
   } as CSSProperties,
   actions: {
     fontSize: 18,
