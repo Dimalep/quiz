@@ -4,6 +4,8 @@ import NavigationPanel from "../../shared/components/navigation-panel/Navigation
 import { useAuthContext } from "../../shared/components/AuthProvider";
 import ConnectToQuiz from "./components/connect-to-quiz/ConnectToQuiz";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
+import Library from "./components/library/Library";
+import Footer from "../../shared/components/footer/Footer";
 
 export default function Home() {
   const { generateAnonymousUser } = useUser();
@@ -25,6 +27,8 @@ export default function Home() {
       <NavigationPanel />
       <ConnectToQuiz />
       <CreateQuiz />
+      <Library />
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import type AuthError from "../../models/AuthError";
+
+export interface AuthError{
+  title: string;
+  message: string;
+  isSuccess: boolean;
+} 
 
 export default function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import type { Answer } from "../models/Answer"
 
 export default function useAnswers(initialAnswers: Answer[] = []) {
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers)

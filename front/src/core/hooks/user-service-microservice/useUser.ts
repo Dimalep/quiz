@@ -1,4 +1,4 @@
-import type User from "../../models/User";
+//import type User from "../../models/User";
 import useSessionStorage from "../useSessionStorage";
 
 export default function useUser() {
@@ -25,24 +25,24 @@ export default function useUser() {
     }
   }
 
-  const getUserById = async (id: string) => {
-    try{
-      const response = await fetch(`http://localhost:8089/api/users/${id}`, {
-        method: "GET",
-      });
+  // const getUserById = async (id: string) => {
+  //   try{
+  //     const response = await fetch(`http://localhost:8089/api/users/${id}`, {
+  //       method: "GET",
+  //     });
 
-      if(!response.ok){
-        throw new Error(`Error http: ${response.status}`);
-      }
+  //     if(!response.ok){
+  //       throw new Error(`Error http: ${response.status}`);
+  //     }
 
-      const data: User = await response.json();
-      return data;
+  //     const data: User = await response.json();
+  //     return data;
 
-    }catch(error){
-      console.log("Not found user by id: ", id);
-      return null;
-    }
-  }
+  //   }catch(error){
+  //     console.log("Not found user by id: ", id);
+  //     return null;
+  //   }
+  // }
 
-  return {getUserById, generateAnonymousUser}
+  return { generateAnonymousUser}
 }

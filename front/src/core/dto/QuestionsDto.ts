@@ -1,6 +1,27 @@
-export interface QuestionDto{
-    value: string;
+// for main logic
+export interface Answer{
+    isCorrectly: boolean;
+    text: string;
+}
+
+export interface Question {
+    id: number;
+    title: number;
+    answers: Answer[];
+}
+
+export interface Quiz{
+    id: number;
+    title: string;
     description: string;
-    time: Date;
-    quiz: { id: number };
+    questions: Question[];
+}
+
+
+// for frontend
+export interface QuestionSlide{
+    number: number;
+    type: number;
+    isSaved: boolean;
+    question: Question;
 }
