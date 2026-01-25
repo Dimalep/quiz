@@ -1,5 +1,5 @@
-import React, { type CSSProperties } from "react";
-import { useNavigate } from "react-router-dom";
+import { type CSSProperties } from "react";
+import { useCreateContext } from "../../../../CreateProvider";
 
 interface Props {
   title: string;
@@ -7,10 +7,10 @@ interface Props {
 }
 
 export default function ButtonType({ title, questionType }: Props) {
-  const navigate = useNavigate();
+  const { startNewSlide } = useCreateContext();
 
   const handleClick = () => {
-    navigate("");
+    startNewSlide(questionType);
   };
 
   return (

@@ -4,15 +4,11 @@ import { useCreateContext } from "../CreateProvider";
 import QuestionSlide from "./components/quiestion-slide.tsx/QuestionSlide";
 
 export default function Content() {
-  const { currentQuestionId } = useCreateContext();
+  const { currentSlide } = useCreateContext();
 
   return (
     <div style={styles.main}>
-      {currentQuestionId === 0 ? (
-        <ChoiceQuestionType />
-      ) : (
-        <QuestionSlide />
-      )}
+      {!currentSlide ? <ChoiceQuestionType /> : <QuestionSlide />}
     </div>
   );
 }

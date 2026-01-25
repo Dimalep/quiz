@@ -14,14 +14,13 @@ export interface Quiz{
     id: number;
     title: string;
     description: string;
-    questions: Question[];
+    slides: Slide[];
 }
 
-
 // for frontend
-export interface QuestionSlide{
+export interface Slide{
     number: number;
     type: number;
     isSaved: boolean;
-    question: Question;
+    question?: Question;
 }
