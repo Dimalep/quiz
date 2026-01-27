@@ -1,12 +1,13 @@
 // for main logic
 export interface Answer{
+    number: number;
     isCorrectly: boolean;
     text: string;
 }
 
 export interface Question {
     id: number;
-    title: number;
+    title: string;
     answers: Answer[];
 }
 

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import ChoiceQuestionType from "./components/choice-question-type/ChoiceQuestionType";
-import { useCreateContext } from "../CreateProvider";
+import { useCreateContext } from "../create-context/CreateProvider";
 import QuestionSlide from "./components/quiestion-slide.tsx/QuestionSlide";
 import SettingsSlide from "./components/settings-slide/SettingsSlide";
 

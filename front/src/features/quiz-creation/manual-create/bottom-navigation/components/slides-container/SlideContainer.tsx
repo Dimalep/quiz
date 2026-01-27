@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { useCreateContext } from "../../../CreateProvider";
+import { useCreateContext } from "../../../create-context/CreateProvider";
 import Slide from "./components/Slide";
 
 export default function SlideContainer() {

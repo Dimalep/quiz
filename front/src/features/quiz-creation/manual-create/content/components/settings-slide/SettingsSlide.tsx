@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from "react";
-import { useCreateContext } from "../../../CreateProvider";
+import { useCreateContext } from "../../../create-context/CreateProvider";
 
 export default function SettingsSlide() {
   const { openSlide, updateQuiz, quiz } = useCreateContext();
