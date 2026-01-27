@@ -2,13 +2,20 @@ import type { CSSProperties } from "react";
 import ChoiceQuestionType from "./components/choice-question-type/ChoiceQuestionType";
 import { useCreateContext } from "../CreateProvider";
 import QuestionSlide from "./components/quiestion-slide.tsx/QuestionSlide";
+import SettingsSlide from "./components/settings-slide/SettingsSlide";
 
 export default function Content() {
-  const { currentSlide } = useCreateContext();
+  const { editorMode, currentSlide } = useCreateContext();
 
   return (
     <div style={styles.main}>
-      {!currentSlide ? <ChoiceQuestionType /> : <QuestionSlide />}
+      {editorMode === "settings" ? (
+        <SettingsSlide />
+      ) : !currentSlide ? (
+        <ChoiceQuestionType />
+      ) : (
+        <QuestionSlide />
+      )}
     </div>
   );
 }

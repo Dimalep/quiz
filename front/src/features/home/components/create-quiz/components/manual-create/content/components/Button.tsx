@@ -6,9 +6,8 @@ export default function Button() {
 
   const handleClick = () => {
     //request to backend for creation new quiz and return quiz id
-    const fakeQuizId = crypto.randomUUID(); // или Math.random()
+    const fakeQuizId = crypto.randomUUID();
     //
-
     navigate(`quiz/${fakeQuizId}`);
   };
 

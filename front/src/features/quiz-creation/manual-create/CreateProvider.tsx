@@ -1,10 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import type { Quiz, Slide } from "../../../core/dto/QuestionsDto";
 
 interface CreateContextType {
   quiz: Quiz;
   currentSlide?: Slide;
+  editorMode: "settings" | "slide";
 
+  updateQuiz: (data: Partial<Quiz>) => void;
+  openSlide: (value: number) => void;
   startNewSlide: (type: Slide["type"]) => void;
   updateCurrentSlide: (data: Partial<Slide>) => void;
   saveCurrentSlide: () => void;
@@ -18,21 +21,53 @@ export default function CreateProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [quiz, setQuiz] = useState<Quiz>({
-    id: 0,
-    title: "",
-    description: "",
-    slides: [],
+  const [editorMode, setEditorMode] = useState<"settings" | "slide">("slide");
+
+  const openSlide = (value: number) => {
+    if (value === 0) {
+      setEditorMode("settings");
+      setCurrentSlide(undefined);
+    } else {
+      const slide = quiz.slides.find((s) => s.number === value);
+      if (!slide) return;
+      setEditorMode("slide");
+      setCurrentSlide({ ...slide });
+    }
+  };
+
+  const [quiz, setQuiz] = useState<Quiz>(() => {
+    const saved = localStorage.getItem("quizDraft");
+    return saved
+      ? JSON.parse(saved).quiz
+      : { id: 0, title: "", description: "", slides: [] };
   });
 
-  const [currentSlide, setCurrentSlide] = useState<Slide>();
+  const updateQuiz = (data: Partial<Quiz>) => {
+    setQuiz((prev) => (prev ? { ...prev, ...data } : prev));
+  };
+
+  const [currentSlide, setCurrentSlide] = useState<Slide | undefined>(() => {
+    const saved = localStorage.getItem("quizDraft");
+    return saved ? JSON.parse(saved).currentSlide : undefined;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("quizDraft", JSON.stringify({ quiz, currentSlide }));
+  }, [quiz, currentSlide]);
 
   const startNewSlide = (type: Slide["type"]) => {
-    setCurrentSlide({
+    const newSlide: Slide = {
       type,
       number: quiz.slides.length + 1,
       isSaved: false,
-    });
+    };
+
+    setCurrentSlide(newSlide);
+    setQuiz((prev) => ({
+      ...prev,
+      slides: [...prev.slides, newSlide],
+    }));
+    return newSlide.number;
   };
 
   const updateCurrentSlide = (data: Partial<Slide>) => {
@@ -57,9 +92,18 @@ export default function CreateProvider({
     }));
   };
 
+  // const createNewQuiz = () => {
+  //   setQuiz({ id: 0, title: "", description: "", slides: [] });
+  //   setCurrentSlide(undefined);
+  //   localStorage.removeItem("quizDraft"); // очищаем старый черновик
+  // };
+
   return (
     <CreateContext.Provider
       value={{
+        updateQuiz,
+        editorMode,
+        openSlide,
         quiz,
         currentSlide,
         removeSlide,
