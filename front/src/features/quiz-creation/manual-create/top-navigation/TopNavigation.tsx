@@ -6,7 +6,7 @@ export default function TopNavigation() {
   return (
     <div style={styles.main}>
       <div style={styles.title} onClick={() => navigate("/")}>
-        Quiz
+        logo
       </div>
       <div>1</div>
     </div>

@@ -8,5 +8,9 @@ export default function useSlide() {
     return saved ? JSON.parse(saved).currentSlide : undefined;
   });
 
-  return {currentSlide, setCurrentSlide}
+  const updateCurrentSlide = (data: Partial<Slide>) => {
+    setCurrentSlide(prev => (prev ? {...prev, ...data} : prev));
+  };
+
+  return {currentSlide, setCurrentSlide, updateCurrentSlide}
 }

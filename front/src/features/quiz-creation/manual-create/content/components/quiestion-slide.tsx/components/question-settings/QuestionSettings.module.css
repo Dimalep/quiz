@@ -1,0 +1,41 @@
+.main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.settings {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  font-size: 18px;
+  font-family: Rubik, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.button {
+  padding: 10px 15px;
+  font-size: 18px;
+  font-family: Rubik, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.complete_creation{
+    padding: 10px 15px;
+    font-size: 18px;
+    font-family: Rubik, sans-serif;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.settings_delete_block{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

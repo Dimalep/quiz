@@ -18,6 +18,6 @@ const styles = {
   main: {
     display: "flex",
     flexDirection: "row",
-    gap: "1 0px",
+    gap: "10px",
   } as CSSProperties,
 };

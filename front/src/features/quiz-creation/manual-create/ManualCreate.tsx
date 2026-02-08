@@ -21,5 +21,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    width: "100%",
   } as CSSProperties,
 };

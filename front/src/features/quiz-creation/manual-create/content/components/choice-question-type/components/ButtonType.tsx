@@ -7,10 +7,10 @@ interface Props {
 }
 
 export default function ButtonType({ title, questionType }: Props) {
-  const { startNewSlide } = useCreateContext();
+  const { createSlide } = useCreateContext();
 
   const handleClick = () => {
-    startNewSlide(questionType);
+    createSlide(questionType);
   };
 
   return (

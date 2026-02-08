@@ -1,0 +1,41 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+}
+
+.input {
+  width: 500px;
+  height: 50px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.inputForm{
+    padding: 20px;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+@media (min-width: 768px) {
+  .main {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main {
+    max-width: 500px;
+  }
+}

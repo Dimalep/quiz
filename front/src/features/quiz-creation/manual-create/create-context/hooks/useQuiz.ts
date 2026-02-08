@@ -14,5 +14,5 @@ export default function useQuiz() {
     setQuiz((prev) => (prev ? { ...prev, ...data } : prev));
   };
 
-  return {quiz,setQuiz,updateQuiz }
+  return {quiz, setQuiz, updateQuiz }
 }

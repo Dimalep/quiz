@@ -1,21 +1,36 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useCreateContext } from "../../../../../../create-context/CreateProvider";
+import type { Answer } from "../../../../../../../../../core/dto/QuestionsDto";
 
 interface Props {
-  number: number;
+  answer: Answer;
 }
 
-export default function AnswerBlock({ number }: Props) {
-  const { removeAnswer } = useCreateContext();
+export default function AnswerBlock({ answer }: Props) {
+  const [inputAnwer, setInputAnswer] = useState(answer.text);
+  const { removeAnswer, updateAnswer } = useCreateContext();
+
+  useEffect(() => {
+    updateAnswer(answer.number, inputAnwer);
+  }, [inputAnwer]);
+
+  useEffect(() => {
+    setInputAnswer(answer.text);
+  }, [answer.text]);
 
   const removeAnswerHandleClick = () => {
-    removeAnswer(number);
+    removeAnswer(answer.number);
   };
 
   return (
     <div style={styles.main}>
       <div style={styles.content}>
-        <input style={styles.input} placeholder="Ответ"></input>
+        <input
+          style={styles.input}
+          placeholder="Ответ"
+          value={inputAnwer}
+          onChange={(e) => setInputAnswer(e.target.value)}
+        ></input>
         <button style={styles.button} onClick={removeAnswerHandleClick}>
           -
         </button>

@@ -8,6 +8,9 @@ export default function Button() {
     //request to backend for creation new quiz and return quiz id
     const fakeQuizId = crypto.randomUUID();
     //
+    if (localStorage.getItem("quizDraft") !== null)
+      window.confirm("У вас есть недоделанный тест, хотите ли удалить его?");
+
     navigate(`quiz/${fakeQuizId}`);
   };
 

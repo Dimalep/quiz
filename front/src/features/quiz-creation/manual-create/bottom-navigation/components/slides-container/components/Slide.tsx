@@ -6,27 +6,32 @@ interface Props {
 }
 
 export default function Slide({ number }: Props) {
-  const { openSlide } = useCreateContext();
+  const { openSlide, currentSlide } = useCreateContext();
 
   const handleClick = () => {
     openSlide(number);
   };
 
   return (
-    <div onClick={handleClick} style={styles.main}>
+    <div
+      onClick={handleClick}
+      style={styles.main(currentSlide?.number, number)}
+    >
       {number}
     </div>
   );
 }
 
 const styles = {
-  main: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "50px",
-    height: "50px",
-    backgroundColor: "rgb(15, 74, 114)",
-    cursor: "pointer",
-  } as CSSProperties,
+  main: (curSlideNumber: number | undefined, number: number) =>
+    ({
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "50px",
+      height: "50px",
+      backgroundColor: "rgb(15, 74, 114)",
+      cursor: "pointer",
+      border: curSlideNumber === number ? "1px solid red" : "none",
+    }) as CSSProperties,
 };

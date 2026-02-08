@@ -6,7 +6,7 @@ export default function Logo() {
 
   return (
     <div style={styles.logo} onClick={() => navigate("/")}>
-      Quiz
+      Logo
     </div>
   );
 }

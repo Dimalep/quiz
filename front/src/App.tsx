@@ -28,18 +28,6 @@ function App() {
               element={<ManualCreate />}
             />
             <Route path="quiz/:quizId/:slideId/" element={<ManualCreate />} />
-            {/* <Route
-              path="/quiz/create/manual/complete"
-              element={<CompleteCreation />}
-            /> */}
-            {/* <Route
-              path="/quiz/play/room/:quizId/admin"
-              element={<WaitingRoom />}
-            />
-            <Route
-              path="/quiz/play/room/:quizId/player"
-              element={<WaitingRoomPlayers />}
-            /> */}
           </Routes>
         </WindowSizeProvider>
       </AuthProvider>

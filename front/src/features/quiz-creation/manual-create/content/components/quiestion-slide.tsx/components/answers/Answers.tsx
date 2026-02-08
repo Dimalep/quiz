@@ -13,7 +13,7 @@ export default function Answers() {
     <div style={styles.main}>
       <div style={styles.content}>
         {currentSlide?.question?.answers.map((el) => (
-          <AnswerBlock key={el.number} number={el.number}/>
+          <AnswerBlock key={el.number} answer={el} />
         ))}
         <button style={styles.buttonAdd} onClick={addAnswerHandleClick}>
           +
@@ -27,7 +27,8 @@ const styles = {
   main: { padding: "10px 20px" } as CSSProperties,
   content: {
     display: "flex",
-    width: "500px",
+    justifySelf: "stretch",
+    //width: "500px",
     flexDirection: "column",
     border: "2px solid black",
     borderRadius: "13px",

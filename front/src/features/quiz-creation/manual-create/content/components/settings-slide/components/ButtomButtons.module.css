@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  justify-content: flex-end;    
+  gap: 10px;
+}
+
+.main button{
+    padding: 10px 15px;
+    font-size: 18px;
+    font-family: Rubik;
+    font-weight: 300;
+}

@@ -14,7 +14,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     border: "2px solid black",
-    width: "500px",
+    //width: "500px",
     borderRadius: "13px",
   } as CSSProperties,
 };
