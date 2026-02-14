@@ -1,0 +1,12 @@
+D:\quiz\backend\quiz-creation-service\domains\bin\Debug\net9.0\domains.deps.json
+D:\quiz\backend\quiz-creation-service\domains\bin\Debug\net9.0\domains.dll
+D:\quiz\backend\quiz-creation-service\domains\bin\Debug\net9.0\domains.pdb
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.GeneratedMSBuildEditorConfig.editorconfig
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.AssemblyInfoInputs.cache
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.AssemblyInfo.cs
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.csproj.CoreCompileInputs.cache
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.sourcelink.json
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.dll
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\refint\domains.dll
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\domains.pdb
+D:\quiz\backend\quiz-creation-service\domains\obj\Debug\net9.0\ref\domains.dll
