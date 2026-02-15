@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCreateContext } from "../../../create-context/CreateProvider";
-
 import styles from "./SettingsSlide.module.css";
 import BottomButtons from "./components/BottomButtons";
 import Details from "./components/Details";
 
 export default function SettingsSlide() {
-  const { updateQuiz, quiz } = useCreateContext();
+  const { state, dispatch } = useCreateContext();
 
-  const [title, setTitle] = useState(quiz.title);
-  const [description, setDescription] = useState(quiz.description);
-  const [thema, setThema] = useState("");
-
-  useEffect(() => {
-    updateQuiz({ title: title, description: description });
-  }, [title, description, thema]);
+  const [title, setTitle] = useState(state.quiz.title);
+  const [description, setDescription] = useState(state.quiz.description);
 
   return (
     <div className={styles.main}>
@@ -25,23 +19,30 @@ export default function SettingsSlide() {
           <input
             className={styles.input}
             placeholder="Название"
-            value={title}
+            defaultValue={title}
             onChange={(e) => setTitle(e.target.value)}
+            onBlur={(e) =>
+              dispatch({
+                type: "UPDATE_QUIZ_SETTINGS",
+                payload: { data: { title } },
+              })
+            }
           />
           <input
             className={styles.input}
             placeholder="Описание"
-            value={description}
+            defaultValue={state.quiz.description}
             onChange={(e) => setDescription(e.target.value)}
+            onBlur={(e) =>
+              dispatch({
+                type: "UPDATE_QUIZ_SETTINGS",
+                payload: { data: { description } },
+              })
+            }
           />
-          <input
-            className={styles.input}
-            placeholder="Тема"
-            value={thema}
-            onChange={(e) => setThema(e.target.value)}
-          />
+          <input className={styles.input} placeholder="Тема" />
         </div>
-        <BottomButtons title={title} description={description} />
+        <BottomButtons />
       </div>
     </div>
   );

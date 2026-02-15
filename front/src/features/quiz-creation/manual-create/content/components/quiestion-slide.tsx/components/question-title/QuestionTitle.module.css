@@ -1,13 +1,13 @@
 .main {
-  padding: 10px 20px;
+  padding: 10px 30px;
 }
 
 .content {
   display: flex;
   justify-self: stretch;
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 1px solid lightgray;
   padding: 10px;
+  border-radius: 5px;
 }
 
 .input {

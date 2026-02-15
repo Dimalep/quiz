@@ -1,44 +1,24 @@
-import { type CSSProperties } from "react";
 import AnswerBlock from "./components/AnswerBlock";
 import { useCreateContext } from "../../../../../create-context/CreateProvider";
+import styles from "./Answers.module.css";
 
 export default function Answers() {
-  const { currentSlide, addAnswer } = useCreateContext();
+  const { state, dispatch } = useCreateContext();
 
   const addAnswerHandleClick = () => {
-    addAnswer();
+    dispatch({ type: "CREATE_ANSWER" });
   };
 
   return (
-    <div style={styles.main}>
-      <div style={styles.content}>
-        {currentSlide?.question?.answers.map((el) => (
-          <AnswerBlock key={el.number} answer={el} />
+    <div className={styles.main}>
+      <div className={styles.content}>
+        {state?.currentQuestion?.answers.map((el) => (
+          <AnswerBlock key={el.id} answer={el} />
         ))}
-        <button style={styles.buttonAdd} onClick={addAnswerHandleClick}>
+        <button className={styles.button_add} onClick={addAnswerHandleClick}>
           +
         </button>
       </div>
     </div>
   );
 }
-
-const styles = {
-  main: { padding: "10px 20px" } as CSSProperties,
-  content: {
-    display: "flex",
-    justifySelf: "stretch",
-    //width: "500px",
-    flexDirection: "column",
-    border: "2px solid black",
-    borderRadius: "13px",
-    padding: "10px",
-    gap: "10px",
-  } as CSSProperties,
-  buttonAdd: {
-    display: "flex",
-    width: "50px",
-    alignSelf: "center",
-    justifyContent: "center",
-  } as CSSProperties,
-};

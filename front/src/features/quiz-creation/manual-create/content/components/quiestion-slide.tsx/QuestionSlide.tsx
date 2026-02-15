@@ -6,10 +6,14 @@ import QuestionSettings from "./components/question-settings/QuestionSettings";
 import styles from "./QyestionSlide.module.css";
 
 export default function QuestionSlide() {
-  const { createNewQuestion } = useCreateContext();
+  const { state, dispatch } = useCreateContext();
 
   const nextHandleClick = () => {
-    createNewQuestion();
+    if (state.currentQuestion?.number === state.quiz.questions.length) {
+      dispatch({ type: "OPEN_CHOSE" });
+    } else {
+      dispatch({ type: "OPEN_NEXT_QUESTION" });
+    }
   };
 
   const applyHandleClick = () => {

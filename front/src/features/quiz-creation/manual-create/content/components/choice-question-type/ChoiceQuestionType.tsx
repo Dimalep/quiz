@@ -1,22 +1,12 @@
-import type { CSSProperties } from "react";
 import ButtonType from "./components/ButtonType";
+import styles from "./ChoiceQuestionType.module.css";
 
 export default function ChoiceQuestionType() {
   return (
-    <div style={styles.main}>
-      <ButtonType title="buttons" questionType={1} />
-      <ButtonType title="checkbox" questionType={2} />
-      <ButtonType title="text" questionType={3} />
+    <div className={styles.main}>
+      <ButtonType title="Один ответ" questionType={"buttons"} />
+      <ButtonType title="Несколько ответов" questionType={"checkboxes"} />
+      <ButtonType title="Свободный ответ" questionType={"input_field"} />
     </div>
   );
 }
-
-const styles = {
-  main: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "10px",
-  } as CSSProperties,
-};

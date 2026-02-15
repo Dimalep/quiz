@@ -1,0 +1,20 @@
+.main {
+  padding: 10px 20px;
+}
+
+.content {
+  display: flex;
+  justify-self: stretch;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 13px;
+  padding: 10px;
+  gap: 5px;
+}
+
+.button_add {
+  display: flex;
+  width: 50px;
+  align-self: center;
+  justify-content: center;
+}

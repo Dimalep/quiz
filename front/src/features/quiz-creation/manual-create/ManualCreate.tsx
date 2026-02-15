@@ -1,12 +1,12 @@
-import { type CSSProperties } from "react";
 import TopNavigation from "./top-navigation/TopNavigation";
 import BottomNavigation from "./bottom-navigation/BottomNavigation";
 import Content from "./content/Content";
 import CreateProvider from "./create-context/CreateProvider";
+import styles from "./ManualCreate.module.css";
 
 export default function ManualCreate() {
   return (
-    <div style={styles.main}>
+    <div className={styles.main}>
       <CreateProvider>
         <TopNavigation />
         <Content />
@@ -15,12 +15,3 @@ export default function ManualCreate() {
     </div>
   );
 }
-
-const styles = {
-  main: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100%",
-  } as CSSProperties,
-};

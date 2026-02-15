@@ -1,40 +1,31 @@
-import { type CSSProperties } from "react";
 import ChoiceQuestionType from "./components/choice-question-type/ChoiceQuestionType";
 import { useCreateContext } from "../create-context/CreateProvider";
 import QuestionSlide from "./components/quiestion-slide.tsx/QuestionSlide";
 import SettingsSlide from "./components/settings-slide/SettingsSlide";
+import styles from "./Content.module.css";
 
 export default function Content() {
-  const { editorMode, currentSlide } = useCreateContext();
+  const { state } = useCreateContext();
 
-  if (editorMode === "settings") {
+  if (state.editorMode === "settings") {
     return (
-      <div style={styles.main}>
+      <div className={styles.main}>
         <SettingsSlide />
       </div>
     );
   }
 
-  if (!currentSlide) {
+  if (!state.currentQuestion) {
     return (
-      <div style={styles.main}>
+      <div className={styles.main}>
         <ChoiceQuestionType />
       </div>
     );
   }
 
   return (
-    <div style={styles.main}>
+    <div className={styles.main}>
       <QuestionSlide />
     </div>
   );
 }
-
-const styles = {
-  main: {
-    display: "flex",
-    width: "100%",
-    minHeight: "60vh",
-    justifyContent: "center",
-  } as CSSProperties,
-};

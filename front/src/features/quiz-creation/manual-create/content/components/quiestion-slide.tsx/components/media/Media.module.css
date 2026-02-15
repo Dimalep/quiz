@@ -1,0 +1,15 @@
+.main {
+  padding: 10px 30px;
+}
+
+.content {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.content button{
+    padding: 0px 40px ;
+}

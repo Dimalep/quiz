@@ -1,20 +1,16 @@
 import { useCreateContext } from "../../../../create-context/CreateProvider";
 import styles from "./ButtomButtons.module.css";
 
-interface Props {
-  title: string;
-  description: string;
-}
 
-export default function BottomButtons({ title, description }: Props) {
-  const { openSlide, updateQuiz } = useCreateContext();
+export default function BottomButtons() {
+  const { dispatch } = useCreateContext();
 
   const applyHandleClick = () => {
-    updateQuiz({ title: title, description: description });
+    // updateQuiz({ title: title, description: description });
   };
 
   const nextHandleClick = () => {
-    openSlide(1);
+    dispatch({ type: "OPEN_CHOSE" });
   };
 
   return (

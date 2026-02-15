@@ -1,0 +1,19 @@
+.main {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    bottom: 0px;
+    background-color: rgb(24, 93, 158);
+    /* background-color: rgba(30, 64, 175, 1); */
+    box-shadow: 0px -4px 24px rgba(0,0,0, 0.30);
+}
+
+.add_button{
+    position: absolute;
+    right: 10%;
+    width: 50px;
+    height: 50px;
+}

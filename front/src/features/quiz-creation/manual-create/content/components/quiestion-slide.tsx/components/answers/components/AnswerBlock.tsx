@@ -1,51 +1,73 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { useCreateContext } from "../../../../../../create-context/CreateProvider";
-import type { Answer } from "../../../../../../../../../core/dto/QuestionsDto";
+import styles from "./AnswerBlock.module.css";
+import type { Answer } from "../../../../../../create-context/reducer";
 
 interface Props {
   answer: Answer;
 }
 
 export default function AnswerBlock({ answer }: Props) {
-  const [inputAnwer, setInputAnswer] = useState(answer.text);
-  const { removeAnswer, updateAnswer } = useCreateContext();
-
-  useEffect(() => {
-    updateAnswer(answer.number, inputAnwer);
-  }, [inputAnwer]);
+  const [inputAnswer, setInputAnswer] = useState(answer.text);
+  const { dispatch } = useCreateContext();
 
   useEffect(() => {
     setInputAnswer(answer.text);
   }, [answer.text]);
 
-  const removeAnswerHandleClick = () => {
-    removeAnswer(answer.number);
+  const removeHandleClick = () => {
+    dispatch({ type: "DELETE_ANSWER", payload: { id: answer.id } });
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputAnswer(value);
+
+    dispatch({
+      type: "UPDATE_ANSWER",
+      payload: {
+        answerId: answer.id,
+        data: { text: value },
+      },
+    });
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "UPDATE_ANSWER",
+      payload: {
+        answerId: answer.id,
+        data: { isCorrectly: e.target.checked },
+      },
+    });
   };
 
   return (
-    <div style={styles.main}>
-      <div style={styles.content}>
-        <input
-          style={styles.input}
-          placeholder="Ответ"
-          value={inputAnwer}
-          onChange={(e) => setInputAnswer(e.target.value)}
-        ></input>
-        <button style={styles.button} onClick={removeAnswerHandleClick}>
+    <div className={styles.main}>
+      <div className={styles.content}>
+        <div className={styles.input_field}>
+          <label>
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={answer.isCorrectly}
+              onBlur={handleCheckboxChange}
+            />
+            Отметить как верный ответ
+          </label>
+
+          <input
+            className={styles.input}
+            placeholder="Ответ"
+            value={inputAnswer}
+            onBlur={handleTextChange}
+          />
+        </div>
+
+        <button className={styles.button} onClick={removeHandleClick}>
           -
         </button>
       </div>
     </div>
   );
 }
-
-const styles = {
-  main: { width: "100%" } as CSSProperties,
-  content: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "10px",
-  } as CSSProperties,
-  input: { width: "100%", height: "50px" } as CSSProperties,
-  button: { width: "50px" } as CSSProperties,
-};

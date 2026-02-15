@@ -1,25 +1,22 @@
-import { type CSSProperties } from "react";
 import { useCreateContext } from "../../../../create-context/CreateProvider";
+
+import styles from "./ButtonType.module.css";
 
 interface Props {
   title: string;
-  questionType: number;
+  questionType: string;
 }
 
 export default function ButtonType({ title, questionType }: Props) {
-  const { createSlide } = useCreateContext();
+  const { dispatch } = useCreateContext();
 
   const handleClick = () => {
-    createSlide(questionType);
+    dispatch({ type: "CREATE_QUESTION", payload: {type: questionType} });
   };
 
   return (
-    <button style={styles.main} onClick={handleClick}>
+    <button className={styles.main} onClick={handleClick}>
       {title}
     </button>
   );
 }
-
-const styles = {
-  main: { width: "400px", padding: "10px" } as CSSProperties,
-};

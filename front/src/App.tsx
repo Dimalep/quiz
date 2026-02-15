@@ -11,6 +11,7 @@ import ScrollToStart from "./shared/components/scroll-to-start/ScrollToStart";
 import ManualCreate from "./features/quiz-creation/manual-create/ManualCreate";
 import Authorization from "./features/auth/Authorization";
 import WindowSizeProvider from "./shared/components/WindowSizeProvider";
+import CompleteCreation from "./features/quiz-creation/complete-creation/CompleteCreation";
 //import QuestionSlide from "./features/quiz-creation/manual-create/content/components/quiestion-slide.tsx/QuestionSlide";
 
 function App() {
@@ -23,11 +24,15 @@ function App() {
             <Route path="/auth" element={<Authorization />} />
             <Route path="/" element={<Home />} />
             <Route path="quiz/:quizId" element={<ManualCreate />} />
-            <Route
+            {/* <Route
               path="quiz/create/manual/:quizId/:slideId"
               element={<ManualCreate />}
+            /> */}
+            {/* <Route path="quiz/:quizId/:slideId/" element={<ManualCreate />} /> */}
+            <Route
+              path="/quiz/complete-creation"
+              element={<CompleteCreation />}
             />
-            <Route path="quiz/:quizId/:slideId/" element={<ManualCreate />} />
           </Routes>
         </WindowSizeProvider>
       </AuthProvider>

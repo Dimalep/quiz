@@ -3,15 +3,26 @@ import { useCreateContext } from "../../../../../create-context/CreateProvider";
 import styles from "./QuestionTitle.module.css";
 
 export default function QuestionTitle() {
-  const { updateQuestionTitle, currentSlide } = useCreateContext();
+  const { state, dispatch } = useCreateContext();
 
   const [inputQuestion, setInputQuestion] = useState("");
 
   useEffect(() => {
-    if (currentSlide && currentSlide.question) {
-      setInputQuestion(currentSlide.question.title);
+    if (state.currentQuestion) {
+      setInputQuestion(state.currentQuestion.text);
+    } else {
+      setInputQuestion("");
     }
-  }, [currentSlide]);
+  }, [state.currentQuestion]);
+
+  const handleBlur = () => {
+    if (!state.currentQuestion) return;
+
+    dispatch({
+      type: "UPDATE_QUESTION",
+      payload: { text: inputQuestion },
+    });
+  };
 
   return (
     <div className={styles.main}>
@@ -21,7 +32,7 @@ export default function QuestionTitle() {
           placeholder="Вопрос"
           value={inputQuestion}
           onChange={(e) => setInputQuestion(e.target.value)}
-          onBlur={() => updateQuestionTitle(inputQuestion)}
+          onBlur={handleBlur}
         />
       </div>
     </div>
