@@ -25,6 +25,18 @@ namespace services.services
             return _mapper.ToDTO(addedQuiz.Entity);
         }
 
+        public async Task<int> CreateEmptyQuiz()
+        {
+            var newQuiz = await AddQuiz(new QuizDTO 
+            {
+                Title = string.Empty,
+                Description = string.Empty,
+                QuantityQuestions = 0,
+            });
+
+            return newQuiz.Id;
+        }
+
         public async Task<QuizDTO> DeleteQuizById(int quizId)
         {
             var quiz = await _dbContext.Quizzes.FindAsync(quizId);
@@ -51,7 +63,6 @@ namespace services.services
             updatingQuiz.Title = quizDTO.Title;
             updatingQuiz.Description = quizDTO.Description;
             updatingQuiz.QuantityQuestions = quizDTO.QuantityQuestions;
-            updatingQuiz.Type = quizDTO.Type;
 
             var updatedQuiz = _dbContext.Quizzes.Update(updatingQuiz);
             await _dbContext.SaveChangesAsync();

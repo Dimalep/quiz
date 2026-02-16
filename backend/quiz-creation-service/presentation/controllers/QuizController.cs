@@ -15,6 +15,13 @@ namespace presentation.controllers
             _quizService = quizService;
         }
 
+        [HttpPost("create_new_empty_quiz")]
+        public async Task<IActionResult> AddQuiz()
+        {
+            var result = await _quizService.CreateEmptyQuiz();
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddQuiz([FromBody] QuizDTO quizDTO)
         {

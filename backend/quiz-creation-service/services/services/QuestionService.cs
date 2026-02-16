@@ -1,5 +1,4 @@
 ﻿using domains;
-using domains.domains;
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
 using services.interfaces;
@@ -84,6 +83,7 @@ namespace services.services
             question.Title = questionDTO.Title;
             question.QuizId = questionDTO.QuizId;
             question.Quiz = quiz;
+            question.Type = questionDTO.Type;
 
             var updatedQuestion = _dbContext.Questions.Update(question);
             await _dbContext.SaveChangesAsync();

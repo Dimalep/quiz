@@ -4,6 +4,7 @@ namespace services.interfaces
 {
     public interface IQuizService
     {
+        public Task<int> CreateEmptyQuiz();
         public Task<QuizDTO> AddQuiz(QuizDTO quizDTO);
         public Task<QuizDTO> DeleteQuizById(int quizId);
         public Task<QuizDTO> UpdateQuiz(QuizDTO quizDTO);

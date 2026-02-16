@@ -18,5 +18,8 @@ namespace domains.domains
         [ForeignKey("QuizId")]
         public Quiz Quiz { get; set; } = null!;
 
+        [Column("type")]
+        public string Type { get; set; } = null!;
+
     }
 }

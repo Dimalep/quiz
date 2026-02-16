@@ -14,7 +14,6 @@ namespace services
                 Title = quiz.Title,
                 Description = quiz.Description,
                 QuantityQuestions = quiz.QuantityQuestions,
-                Type = quiz.Type,
             };
         }
 
@@ -26,7 +25,6 @@ namespace services
                 Title = quizDTO.Title,
                 Description = quizDTO.Description,
                 QuantityQuestions = quizDTO.QuantityQuestions,
-                Type = quizDTO.Type,
             };
         }
         #endregion
@@ -39,6 +37,7 @@ namespace services
                 Id = question.Id,
                 Title = question.Title,
                 QuizId = question.QuizId,
+                Type = question.Type,
             };
         }
 
@@ -49,6 +48,7 @@ namespace services
                 Id = questionDTO.Id,
                 Title = questionDTO.Title,
                 QuizId = questionDTO.QuizId,
+                Type = questionDTO.Type,
             };
         }
         #endregion

@@ -8,10 +8,10 @@ interface Props {
 }
 
 export default function ButtonType({ title, questionType }: Props) {
-  const { dispatch } = useCreateContext();
+  const { createQuestion } = useCreateContext();
 
-  const handleClick = () => {
-    dispatch({ type: "CREATE_QUESTION", payload: {type: questionType} });
+  const handleClick = async () => {
+    await createQuestion(questionType);
   };
 
   return (

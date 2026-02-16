@@ -1,13 +1,17 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import type { Action, CreateState } from "./reducer";
 import reducer from "./reducer";
-import useQuizCreationService from "../../../../core/hooks/quiz-creation-microservice/useQuizService";
-import { useNavigate } from "react-router-dom";
+import useQuizCreationService, {
+  type QuestionDTO,
+  type QuizDTO,
+} from "../../../../core/hooks/quiz-creation-microservice/useQuizService";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface CreateContextType {
   state: CreateState;
   dispatch: React.Dispatch<Action>;
   completeCreation: () => void;
+  createQuestion: (questionType: string) => void;
 }
 
 const CreateContext = createContext<CreateContextType | undefined>(undefined);
@@ -17,6 +21,8 @@ export default function CreateProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const { quizId } = useParams();
+  const { createNewQuestion } = useQuizCreationService();
   const saved = localStorage.getItem("quizDraft");
   const initialState = saved
     ? JSON.parse(saved)
@@ -36,6 +42,19 @@ export default function CreateProvider({
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!quizId) return;
+
+    dispatch({
+      type: "UPDATE_QUIZ_SETTINGS",
+      payload: {
+        data: {
+          id: Number(quizId),
+        },
+      },
+    });
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem(
       "quizDraft",
       JSON.stringify({
@@ -46,17 +65,33 @@ export default function CreateProvider({
   }, [state.quiz, state.currentQuestion]);
 
   const completeCreation = () => {
-    const quiz = {
+    const quiz: QuizDTO = {
       title: state.quiz.title,
       description: state.quiz.description,
+      quantityQuestions: state.quiz.questions.length,
     };
     // addQuiz(quiz);
+    const quizId = 1;
 
-    const questions = state.quiz.questions.map((q) => {
-      return { text: q.text, type: q.type };
+    const questions: QuestionDTO[] = state.quiz.questions.map((q) => {
+      return { title: q.text, type: q.type, quizId: quizId };
     });
 
     navigate("/quiz/complete-creation");
+  };
+
+  const createQuestion = async (questionType: string) => {
+    const questionId = await createNewQuestion(Number(quizId), questionType);
+
+    if (questionId === undefined) {
+      console.log("Error get questionId");
+      return;
+    }
+
+    dispatch({
+      type: "CREATE_QUESTION",
+      payload: { id: questionId, type: questionType },
+    });
   };
 
   return (
@@ -65,6 +100,7 @@ export default function CreateProvider({
         state,
         dispatch,
         completeCreation,
+        createQuestion,
       }}
     >
       {children}

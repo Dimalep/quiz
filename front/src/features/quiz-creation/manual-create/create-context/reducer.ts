@@ -32,7 +32,7 @@ export type Action =
   | {type: "CREATE_ANSWER"}
   | {type: "DELETE_ANSWER", payload: {id: number}}
   | {type: "UPDATE_QUIZ_SETTINGS", payload: {data: Partial<Quiz>}}
-  | {type: "CREATE_QUESTION", payload: {type: string}}
+  | {type: "CREATE_QUESTION", payload: {id: number, type: string}}
   | {type: "OPEN_CHOSE"}
   | {type: "OPEN_NEXT_QUESTION"}
   | {type: "SELECT_QUESTION", payload: {number: number}}
@@ -140,9 +140,9 @@ export default function reducer(state: CreateState, action: Action) {
         const length = state.quiz.questions.length;
         const number = length === 0 ? 1 : length + 1;
 
-        const {type} = action.payload;
+        const {type, id} = action.payload;
         const newQuestion = {
-          id: -1,
+          id: id,
           text: "",
           type: type,
           number: number,
