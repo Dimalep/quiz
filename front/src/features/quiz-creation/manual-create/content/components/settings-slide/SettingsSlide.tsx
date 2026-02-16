@@ -21,7 +21,7 @@ export default function SettingsSlide() {
             placeholder="Название"
             defaultValue={title}
             onChange={(e) => setTitle(e.target.value)}
-            onBlur={(e) =>
+            onBlur={() =>
               dispatch({
                 type: "UPDATE_QUIZ_SETTINGS",
                 payload: { data: { title } },
@@ -33,7 +33,7 @@ export default function SettingsSlide() {
             placeholder="Описание"
             defaultValue={state.quiz.description}
             onChange={(e) => setDescription(e.target.value)}
-            onBlur={(e) =>
+            onBlur={() =>
               dispatch({
                 type: "UPDATE_QUIZ_SETTINGS",
                 payload: { data: { description } },

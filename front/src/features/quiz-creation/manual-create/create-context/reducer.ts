@@ -41,7 +41,6 @@ export type Action =
   | {type: "UPDATE_QUESTION", payload: {text: string}}
 
 
-
 export default function reducer(state: CreateState, action: Action) {
   switch(action.type){
     //answer
@@ -59,7 +58,7 @@ export default function reducer(state: CreateState, action: Action) {
               answers: q.answers.map(a => a.id === answerId ? {...a, ...data} : a )
             } : q)
           },
-          currentQuestion: state.currentQuestion?.id === currentNumber ? {
+          currentQuestion: state.currentQuestion?.number === currentNumber ? {
             ...state.currentQuestion,
             answers: state.currentQuestion.answers.map(a => a.id === answerId ? {...a, ...data} : a)
           } : state.currentQuestion
@@ -147,7 +146,7 @@ export default function reducer(state: CreateState, action: Action) {
           text: "",
           type: type,
           number: number,
-          answers: [{id: -1, text: "", isCorrectly: false}]
+          answers: [{id: -1, text: "", isCorrectly: true}]
         }
 
         return{

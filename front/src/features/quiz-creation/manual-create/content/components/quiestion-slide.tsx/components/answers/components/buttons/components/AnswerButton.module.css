@@ -1,0 +1,36 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 5px;
+    padding: 10px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    /* border-color: lightgray; */
+}
+
+.correclty{
+    border: none;
+}
+
+.incorreclty{
+    background-color: #fef2f2;
+    border-color: #ef4444;
+}
+
+.input {
+  height: 40px;
+  padding: 0 10px;
+  flex: 1;
+}
+
+.button {
+    display: flex;
+    align-self: self-end;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@ export default function Media() {
   return (
     <div className={styles.main}>
       <div className={styles.content}>
-        <button>Выбрать файл</button>
+        <span>Выбрать файл</span>
       </div>
     </div>
   );

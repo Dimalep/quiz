@@ -10,6 +10,6 @@
     border-radius: 5px;
 }
 
-.content button{
-    padding: 0px 40px ;
+.content span{
+     cursor: pointer;
 }

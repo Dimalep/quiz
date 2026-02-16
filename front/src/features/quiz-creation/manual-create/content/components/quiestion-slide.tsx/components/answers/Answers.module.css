@@ -1,15 +1,16 @@
 .main {
-  padding: 10px 20px;
+  padding: 10px 30px;
 }
 
 .content {
   display: flex;
   justify-self: stretch;
   flex-direction: column;
-  border: 2px solid black;
-  border-radius: 13px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   padding: 10px;
-  gap: 5px;
+  gap: 15px;
+  background-color: #f8fafc;
 }
 
 .button_add {
