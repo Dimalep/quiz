@@ -4,10 +4,11 @@ import styles from "./Answers.module.css";
 import AnswerCheckBox from "./components/checkbox/AnswerCheckBox";
 
 export default function Answers() {
-  const { state, dispatch } = useCreateContext();
+  const { state, createAnswer } = useCreateContext();
 
   const addAnswerHandleClick = () => {
-    dispatch({ type: "CREATE_ANSWER" });
+    createAnswer();
+    // dispatch({ type: "CREATE_ANSWER" });
   };
 
   return (

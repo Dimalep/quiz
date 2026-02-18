@@ -1,27 +1,33 @@
 import type { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
-import useQuizCreationService from "../../../../../../../../core/hooks/quiz-creation-microservice/useQuizService";
+import useQuizApi from "../../../../../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 
 export default function Button() {
   const navigate = useNavigate();
-  const { createNewQuiz } = useQuizCreationService();
+  const { createNewQuiz } = useQuizApi();
 
   const handleClick = async () => {
     //request to backend for creation new quiz and return quiz id
-    // const fakeQuizId = crypto.randomUUID();
+    //const fakeQuizId = crypto.randomUUID();
     //
-    const quizId = await createNewQuiz();
+    const saved = localStorage.getItem("quizDraft");
 
-    if (localStorage.getItem("quizDraft") !== null) {
+    let quizId: number | undefined;
+
+    if (saved) {
       const result = window.confirm(
         "У вас есть недоделанный тест, хотите ли удалить его?",
       );
 
       if (result) {
         localStorage.removeItem("quizDraft");
+        quizId = await createNewQuiz();
       } else {
-        console.log("Пользователь отменил удаление");
+        const parsed = JSON.parse(saved);
+        quizId = parsed.quiz.id;
       }
+    } else {
+      quizId = await createNewQuiz();
     }
 
     navigate(`quiz/${quizId}`);

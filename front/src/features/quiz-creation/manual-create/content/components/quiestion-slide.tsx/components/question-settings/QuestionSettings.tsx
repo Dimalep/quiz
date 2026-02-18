@@ -6,8 +6,8 @@ export default function QuestionSettings() {
   const { dispatch, completeCreation } = useCreateContext();
   const [openSettings, setOpenSettings] = useState(false);
 
-  const completeCreationHandleClick = () => {
-    completeCreation();
+  const completeCreationHandleClick = async () => {
+    await completeCreation();
   };
 
   return (

@@ -26,7 +26,7 @@ namespace services.services
             return _mapper.ToDTO(addedQuestion.Entity);
         }
 
-        public async Task<int> AddQuestions(ICollection<QuestionDTO> questionDTOs)
+        public async Task<int> UpdateQuestions(ICollection<QuestionDTO> questionDTOs)
         {
             if (questionDTOs == null)
                 throw new ArgumentNullException(nameof(questionDTOs));
@@ -34,12 +34,20 @@ namespace services.services
             if (!questionDTOs.Any())
                 throw new ArgumentException("Collection of questions cannot be empty", nameof(questionDTOs));
 
-            var newCollection = questionDTOs.Select(que => _mapper.FromDTO(que)).ToList();
+            var ids = questionDTOs.Select(x => x.Id).ToList();
+            var existing = await _dbContext.Questions.Where(q => ids.Contains(q.Id)).ToListAsync();
 
-            await _dbContext.Questions.AddRangeAsync(newCollection);
-            await _dbContext.SaveChangesAsync();    
+            foreach(var question in existing)
+            {
+                var dto = questionDTOs.First(q => q.Id == question.Id);
 
-            return newCollection.Count;
+                question.Title = dto.Title;
+                question.Type = dto.Type;
+
+                _dbContext.Entry(question).State = EntityState.Modified;
+            }
+
+            return await _dbContext.SaveChangesAsync();
         }
 
         public async Task<QuestionDTO> DeleteQuestionById(int questionId)

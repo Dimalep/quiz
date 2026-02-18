@@ -53,5 +53,15 @@
     "C:\\Users\\.1\\.nuget\\packages\\system.text.json\\9.0.0\\system.text.json.9.0.0.nupkg.sha512",
     "C:\\Users\\.1\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Произошла ошибка при получении данных уязвимости пакета: Не удалось загрузить индекс службы для источника https://api.nuget.org/v3/index.json.",
+      "projectPath": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\presentation.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\presentation.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

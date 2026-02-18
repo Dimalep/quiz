@@ -2,6 +2,7 @@ export type Answer = {
   id: number;
   text: string;
   isCorrectly: boolean;
+  questionId: number
 }
 
 export type Question = {
@@ -9,6 +10,7 @@ export type Question = {
   text: string;
   type: string;
   answers: Answer[];
+  quizId: number;
 
   //for UI
   number: number;
@@ -29,10 +31,10 @@ export interface CreateState {
 
 export type Action = 
   | {type: "UPDATE_ANSWER", payload: { answerId: number, data: Partial<Answer>}}
-  | {type: "CREATE_ANSWER"}
+  | {type: "CREATE_ANSWER", payload: {answerId: number}}
   | {type: "DELETE_ANSWER", payload: {id: number}}
   | {type: "UPDATE_QUIZ_SETTINGS", payload: {data: Partial<Quiz>}}
-  | {type: "CREATE_QUESTION", payload: {id: number, type: string}}
+  | {type: "CREATE_QUESTION", payload: {questionId: number, answer: Answer, type: string}}
   | {type: "OPEN_CHOSE"}
   | {type: "OPEN_NEXT_QUESTION"}
   | {type: "SELECT_QUESTION", payload: {number: number}}
@@ -43,7 +45,7 @@ export type Action =
 
 export default function reducer(state: CreateState, action: Action) {
   switch(action.type){
-    //answer
+    //#region answer
     case ("UPDATE_ANSWER"): {
       if(state.currentQuestion === undefined) return state;
         const {answerId, data} = action.payload;
@@ -103,12 +105,15 @@ export default function reducer(state: CreateState, action: Action) {
     case ("CREATE_ANSWER"):{
       if(!state.currentQuestion) return state;
       const currentNumber = state.currentQuestion.number;
-      const length = state.currentQuestion.answers.length;
+      //const length = state.currentQuestion.answers.length;
+      const currentQuestionId = state.currentQuestion?.id;
+      const {answerId} = action.payload;
 
       const newAnswer: Answer = {
-        id: length+1,
+        id: answerId,
         text: "",
-        isCorrectly: false
+        isCorrectly: false,
+        questionId: currentQuestionId
       }
 
       const updatedQuestions = state.quiz.questions.map(q => q.number === currentNumber ?
@@ -127,6 +132,7 @@ export default function reducer(state: CreateState, action: Action) {
         },
       };
     }
+    //#endregion
     //quiz
     case ("UPDATE_QUIZ_SETTINGS"):{
         const {data} = action.payload;
@@ -139,14 +145,16 @@ export default function reducer(state: CreateState, action: Action) {
     case ("CREATE_QUESTION"):{
         const length = state.quiz.questions.length;
         const number = length === 0 ? 1 : length + 1;
+        const quizId = state.quiz.id;
 
-        const {type, id} = action.payload;
+        const {questionId, answer, type} = action.payload;
         const newQuestion = {
-          id: id,
+          id: questionId,
           text: "",
           type: type,
           number: number,
-          answers: [{id: -1, text: "", isCorrectly: true}]
+          answers: [answer],
+          quizId: quizId
         }
 
         return{

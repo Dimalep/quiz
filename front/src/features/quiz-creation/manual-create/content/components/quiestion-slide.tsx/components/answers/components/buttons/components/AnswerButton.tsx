@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./AnswerButton.module.css";
 import type { Answer } from "../../../../../../../../create-context/reducer";
 import { useCreateContext } from "../../../../../../../../create-context/CreateProvider";
@@ -9,12 +9,14 @@ interface Props {
 }
 
 export default function AnswerButton({ answer, isCorrectly }: Props) {
-  const [text, setText] = useState(answer.text);
+  //const [text, setText] = useState(answer.text);
   const { dispatch } = useCreateContext();
+
+  //useEffect(() => {}, [answer.text]);
 
   const textChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setText(value);
+    //setText(value);
 
     dispatch({
       type: "UPDATE_ANSWER",
@@ -40,7 +42,7 @@ export default function AnswerButton({ answer, isCorrectly }: Props) {
       <input
         className={styles.input}
         placeholder="Ответ"
-        value={text}
+        value={answer.text}
         onChange={textChangeHandler}
       />
       {!isCorrectly && (

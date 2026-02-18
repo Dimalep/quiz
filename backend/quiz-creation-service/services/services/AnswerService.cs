@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
 using services.interfaces;
+using System.Diagnostics;
 
 namespace services.services
 {
@@ -83,8 +84,31 @@ namespace services.services
             answer.Question = question;
 
             var updatedAnswer = _dbContext.Answers.Update(answer);
+            await _dbContext.SaveChangesAsync();
 
             return _mapper.ToDTO(updatedAnswer.Entity);
         }
+
+        public async Task<int> UpdateAnswers(ICollection<AnswerDTO> answerDTOs)
+        {
+            Console.WriteLine("1234");
+            if (answerDTOs == null || !answerDTOs.Any())
+                throw new ArgumentException(nameof(answerDTOs));
+
+            var ids = answerDTOs.Select(a => a.Id).ToList();
+            var answers = await _dbContext.Answers.Where(a => ids.Contains(a.Id)).ToListAsync();
+            foreach(var answer in answers)
+            {
+                var dto = answerDTOs.First(a => a.Id == answer.Id);
+
+                answer.Text = dto.Text;
+                answer.QuestionId = dto.QuestionId;
+                answer.IsCorrect = dto.IsCorrect;
+
+                _dbContext.Entry(answer).State = EntityState.Modified;
+            }
+            return await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
-import useQuizService, { type Quiz } from "../../../../core/hooks/quiz-creation-microservice/useQuizService"
+import { useParams } from "react-router-dom";
+import type { QuizDTO } from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
+import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 
 export default function useQuiz() {
-  const [quiz, setQuiz] = useState<Quiz>();
+  const {quizId} = useParams();
+  const [quiz, setQuiz] = useState<QuizDTO>();
 
-  const {getQuizById} = useQuizService();
+  const {getQuizById} = useQuizApi();
  
-  useEffect(()=> {
+  useEffect(() => {
     const loadQuiz = async () => {
-        const data = await getQuizById(1);
-        setQuiz(data);
-    }
+      if (!quizId) return;
+      const data = await getQuizById(Number(quizId));
+      setQuiz(data);
+    };
     loadQuiz();
-  },[]);
+  }, [quizId]);
 
   return {getQuizById, quiz}
 }

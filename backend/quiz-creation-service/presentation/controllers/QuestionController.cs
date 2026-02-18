@@ -22,10 +22,10 @@ namespace presentation.controllers
             return Ok(result);
         }
 
-        [HttpPost("batch")]
+        [HttpPut("batch")]
         public async Task<IActionResult> AddQuestions([FromBody] ICollection<QuestionDTO> questionDTOs)
         {
-            var result = await _questionService.AddQuestions(questionDTOs);
+            var result = await _questionService.UpdateQuestions(questionDTOs);
             return Ok(result);
         }
 

@@ -8,6 +8,7 @@ namespace services.interfaces
         public Task<int> AddAnswers(ICollection<AnswerDTO> answerDTOs);
         public Task<AnswerDTO> DeleteAnswerById(int answerId);
         public Task<AnswerDTO> UpdateAnswer(AnswerDTO answerDTO);
+        public Task<int> UpdateAnswers(ICollection<AnswerDTO> answerDTOs);
         public Task<AnswerDTO> GetAnswerById(int answerId);
         public Task<ICollection<AnswerDTO>> GetAnswersByQuestionId(int questionId);
     }

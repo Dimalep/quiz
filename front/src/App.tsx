@@ -30,7 +30,7 @@ function App() {
             /> */}
             {/* <Route path="quiz/:quizId/:slideId/" element={<ManualCreate />} /> */}
             <Route
-              path="/quiz/complete-creation"
+              path="/quiz/:quizId/complete-creation"
               element={<CompleteCreation />}
             />
           </Routes>
