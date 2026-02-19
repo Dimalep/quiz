@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<Protobuf Include="Grpc\Protos\quiz.proto" GrpcServices="Server" />
+	  <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
+	  <PackageReference Include="Google.Protobuf" Version="3.23.1" />
+	  <PackageReference Include="Grpc.Tools" Version="2.78.0">
+		  <PrivateAssets>All</PrivateAssets>
+	  </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,6 +23,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\services\services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="grpc\Protos\quiz.proto">
+      <GrpcServices>Server</GrpcServices>
+    </None>
   </ItemGroup>
 
 </Project>

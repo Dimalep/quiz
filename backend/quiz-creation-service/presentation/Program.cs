@@ -1,7 +1,19 @@
 using Microsoft.OpenApi.Models;
+using presentation.grpc;
 using services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region gRPC
+builder.Services.AddGrpc();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5050, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+    });
+});
+#endregion
 
 #region CORS
 builder.Services.AddCors(opt =>
@@ -27,6 +39,10 @@ builder.Services.AddSwaggerGen(c =>
 #endregion
 
 var app = builder.Build();
+
+#region gRPC
+app.MapGrpcService<QuizGrpcService>();
+#endregion
 
 #region CORS
 app.UseCors("AllowFrontend");

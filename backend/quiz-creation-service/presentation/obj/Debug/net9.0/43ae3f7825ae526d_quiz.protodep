@@ -1,0 +1,2 @@
+obj\Debug\net9.0\Grpc\Protos/Quiz.cs \
+obj\Debug\net9.0\Grpc\Protos/QuizGrpc.cs: Grpc/Protos/quiz.proto

@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "QuizCreationService";
+
+service QuizGrpc {
+  rpc GetQuizById (QuizRequest) returns (QuizResponse);
+}
+
+message QuizRequest {
+    int32 quizId = 1;
+}
+
+message QuizResponse {
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    int32 quantityQuestions = 4;
+}
