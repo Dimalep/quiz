@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using presentation.grpc;
 using services;
@@ -10,7 +11,11 @@ builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenLocalhost(5050, listenOptions =>
     {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+    options.ListenLocalhost(5051, ListenOptions => 
+    {
+        ListenOptions.Protocols = HttpProtocols.Http1;
     });
 });
 #endregion
@@ -40,12 +45,15 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-#region gRPC
-app.MapGrpcService<QuizGrpcService>();
-#endregion
 
 #region CORS
 app.UseCors("AllowFrontend");
+#endregion
+
+app.MapControllers();
+
+#region gRPC
+app.MapGrpcService<QuizGrpcService>();
 #endregion
 
 #region Swagger UI
@@ -57,5 +65,4 @@ if (app.Environment.IsDevelopment())
 #endregion
 
 //app.UseHttpsRedirection();
-app.MapControllers();
 app.Run();
