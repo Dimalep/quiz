@@ -12,6 +12,7 @@ import ManualCreate from "./features/quiz-creation/manual-create/ManualCreate";
 import Authorization from "./features/auth/Authorization";
 import WindowSizeProvider from "./shared/components/WindowSizeProvider";
 import CompleteCreation from "./features/quiz-creation/complete-creation/CompleteCreation";
+import QuizGame from "./features/quiz-game/QuizGame";
 //import QuestionSlide from "./features/quiz-creation/manual-create/content/components/quiestion-slide.tsx/QuestionSlide";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               path="/quiz/:quizId/complete-creation"
               element={<CompleteCreation />}
             />
+            <Route path="quiz/game/:sessionKey" element={<QuizGame />} />
           </Routes>
         </WindowSizeProvider>
       </AuthProvider>

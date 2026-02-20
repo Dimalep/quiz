@@ -8,7 +8,7 @@ export type QuestionDTO = {
 export default function useQuestion() {
   
   const createNewQuestion = async (quizId: number, type: string) : Promise<number | undefined> => {
-    const response = await fetch("http://localhost:5050/api/questions", {
+    const response = await fetch("http://localhost:5051/api/questions", {
       method: "POST",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify({
@@ -28,7 +28,7 @@ export default function useQuestion() {
   }
 
   const updateQuestionsBatch = async (questions: QuestionDTO[]) : Promise<boolean> => {
-    const response = await fetch("http://localhost:5050/api/questions/batch", {
+    const response = await fetch("http://localhost:5051/api/questions/batch", {
       method: "PUT",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify(questions)

@@ -8,7 +8,7 @@ export type AnswerDTO = {
 export default function useAnswer() {
 
   const updateAnswersBatch = async (answers: AnswerDTO[]) : Promise<boolean> => {
-      const response = await fetch("http://localhost:5050/api/answers/batch", {
+      const response = await fetch("http://localhost:5051/api/answers/batch", {
         method: "PUT",
         headers: {"Content-type" :"application/json"},
         body: JSON.stringify(answers)
@@ -23,7 +23,7 @@ export default function useAnswer() {
   }
 
   const addAnswer = async (answer: AnswerDTO) : Promise<AnswerDTO | undefined> => {
-    const response = await fetch("http://localhost:5050/api/answers", {
+    const response = await fetch("http://localhost:5051/api/answers", {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(answer)

@@ -25,7 +25,7 @@ export default function useQuizApi() {
   }
   
   const createNewQuiz = async () : Promise<number | undefined> => {
-    const response = await fetch("http://localhost:5050/api/quizzes/create_new_empty_quiz", {
+    const response = await fetch("http://localhost:5051/api/quizzes/create_new_empty_quiz", {
       method: "POST",
       headers: {"Content-type":"application/json"}
     });
@@ -40,7 +40,7 @@ export default function useQuizApi() {
   }
 
   const getQuizById = async (quizId: number) : Promise<QuizDTO | undefined> =>  {
-    const response = await fetch(`http://localhost:5050/api/quizzes/${quizId}`, {
+    const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
       method: "GET",
       headers: {"Content-type": "application/json"},
     });
