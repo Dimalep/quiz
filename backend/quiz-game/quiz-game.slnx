@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="database/database.csproj" />
+  <Project Path="domains/domains.csproj" />
+  <Project Path="presentation/presentation.csproj" />
+  <Project Path="services/services.csproj" />
+</Solution>
