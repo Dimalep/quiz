@@ -136,7 +136,7 @@
               "RelativeDocumentMoniker": "presentation\\Program.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\Program.cs",
               "RelativeToolTip": "presentation\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-14T08:40:02.575Z",
               "EditorCaption": ""
@@ -151,8 +151,7 @@
               "RelativeToolTip": "services\\ServicesCollectionExtentions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:52:38.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T05:52:38.718Z"
             },
             {
               "$type": "Document",
@@ -164,8 +163,7 @@
               "RelativeToolTip": "domains\\DatabaseContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:16:41.65Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T05:16:41.65Z"
             },
             {
               "$type": "Document",
@@ -177,8 +175,7 @@
               "RelativeToolTip": "domains\\ServicesCollectionExtentions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:45:01.456Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T05:45:01.456Z"
             },
             {
               "$type": "Document",
@@ -190,8 +187,7 @@
               "RelativeToolTip": "presentation\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-14T08:35:17.139Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T08:35:17.139Z"
             },
             {
               "$type": "Document",
@@ -203,8 +199,7 @@
               "RelativeToolTip": "services\\services\\AnswerService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAIwGoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T07:18:21.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T07:18:21.708Z"
             },
             {
               "$type": "Document",
@@ -216,8 +211,7 @@
               "RelativeToolTip": "services\\Mapper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T06:23:23.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T06:23:23.9Z"
             },
             {
               "$type": "Document",
@@ -229,8 +223,7 @@
               "RelativeToolTip": "presentation\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-19T07:53:22.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T07:53:22.377Z"
             },
             {
               "$type": "Document",
@@ -242,8 +235,7 @@
               "RelativeToolTip": "presentation\\presentation.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-02-14T08:35:14.905Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T08:35:14.905Z"
             },
             {
               "$type": "Document",

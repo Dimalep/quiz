@@ -25,5 +25,12 @@ namespace presentation.controllers
             //var qr = _qrService.GenerateQrBase64($"http://localhost:5173/quiz/game/{quizSession.Key}");
             return Ok(quizSession);
         }
+
+        [HttpGet("{sessionKey}")]
+        public async Task<IActionResult> GetQuizSessionByKey([FromRoute] string sessionKey)
+        {
+            var result = await _quizSessionService.GetQuizSessionByKey(sessionKey);
+            return Ok(result);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using presentation.hubs;
 using services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,12 @@ builder.Services.AddCors(opt =>
 });
 #endregion
 
-builder.Services.AddControllers();
+builder.Services.AddSignalR();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+}); 
 
 builder.Services.AddServices(
     quizGrpcAddress, 
@@ -41,9 +47,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.MapHub<QuizHub>("/quizHub");
 app.MapControllers();
 
 app.UseHttpsRedirection();
 
 app.Run();
-

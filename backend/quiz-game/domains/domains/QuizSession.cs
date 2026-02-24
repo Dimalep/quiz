@@ -14,6 +14,9 @@ namespace domains.domains
         [Column("create_at")]
         public DateTime CreateAt {get; set;}
 
+        [Column("start_at")]
+        public DateTime StartAt { get; set;}
+
         [Column("complete_at")]
         public DateTime CompleteAt { get; set; }
 
@@ -22,5 +25,15 @@ namespace domains.domains
 
         [Column("quiz_id")]
         public int QuizId { get; set;}
+
+        [Column("status")]
+        public Status Status{ get; set; } = Status.inactive;
+    }
+
+    public enum Status
+    {
+        active,
+        inactive,
+        game
     }
 }

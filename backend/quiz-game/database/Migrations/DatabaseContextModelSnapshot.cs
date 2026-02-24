@@ -22,6 +22,40 @@ namespace database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("domains.domains.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("login");
+
+                    b.Property<int>("QuizSessionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("quiz_session_id");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("role");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizSessionId");
+
+                    b.ToTable("players");
+                });
+
             modelBuilder.Entity("domains.domains.QuizSession", b =>
                 {
                     b.Property<int>("Id")
@@ -48,9 +82,28 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("quiz_id");
 
+                    b.Property<DateTime>("StartAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_at");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
                     b.HasKey("Id");
 
                     b.ToTable("quiz_sessions");
+                });
+
+            modelBuilder.Entity("domains.domains.Player", b =>
+                {
+                    b.HasOne("domains.domains.QuizSession", "QuizSession")
+                        .WithMany()
+                        .HasForeignKey("QuizSessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuizSession");
                 });
 #pragma warning restore 612, 618
         }

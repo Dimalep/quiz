@@ -17,6 +17,7 @@ public static class ServicesCollectionExtention
         services.AddSingleton<QuizGrpcServiceClient>(new QuizGrpcServiceClient(channel));
 
         services.AddScoped<IQuizSessionService, QuizSessionService>();
+        services.AddScoped<IPlayerService, PlayerService>();
         services.AddSingleton<Mapper>();
 
         return services;
