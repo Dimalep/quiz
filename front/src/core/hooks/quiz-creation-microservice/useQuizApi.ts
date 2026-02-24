@@ -8,7 +8,7 @@ export type QuizDTO = {
 export default function useQuizApi() {
 
   const updateQuiz = async (quiz: QuizDTO) : Promise<boolean | undefined> => {
-    const response = await fetch("http://localhost:5050/api/quizzes", {
+    const response = await fetch("http://localhost:5051/api/quizzes", {
       method: "PUT",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify(quiz)

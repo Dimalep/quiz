@@ -13,7 +13,6 @@ import Authorization from "./features/auth/Authorization";
 import WindowSizeProvider from "./shared/components/WindowSizeProvider";
 import CompleteCreation from "./features/quiz-creation/complete-creation/CompleteCreation";
 import QuizGame from "./features/quiz-game/QuizGame";
-//import QuestionSlide from "./features/quiz-creation/manual-create/content/components/quiestion-slide.tsx/QuestionSlide";
 
 function App() {
   return (
@@ -25,11 +24,6 @@ function App() {
             <Route path="/auth" element={<Authorization />} />
             <Route path="/" element={<Home />} />
             <Route path="quiz/:quizId" element={<ManualCreate />} />
-            {/* <Route
-              path="quiz/create/manual/:quizId/:slideId"
-              element={<ManualCreate />}
-            /> */}
-            {/* <Route path="quiz/:quizId/:slideId/" element={<ManualCreate />} /> */}
             <Route
               path="/quiz/:quizId/complete-creation"
               element={<CompleteCreation />}

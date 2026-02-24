@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { QuizDTO } from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import useQuizSession from "../../../../core/hooks/quiz-game-microservice/useQuizSession";
+import usePlayer from "../../../../core/hooks/quiz-game-microservice/usePlayer";
 
 export default function useQuiz() {
   const {quizId} = useParams();
@@ -10,6 +11,7 @@ export default function useQuiz() {
 
   const {getQuizById} = useQuizApi();
   const {addQuizSession} = useQuizSession();
+  const {addPlayer} = usePlayer();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,8 +26,21 @@ export default function useQuiz() {
   const newQuizSession = async () => {
     console.log(Number(quizId));
     const quizSession = await addQuizSession(Number(quizId));
+    // const player: Player = {
+    //   id: 0,
+    //   nickname: "",
+    //   role: "admin"
+    // }
+    if(quizSession === undefined){
+      console.log("Error add quiz session");
+      return;
+    }
+    localStorage.setItem("quizSession", JSON.stringify(quizSession));
 
-    navigate(`/quiz/game/${quizSession?.key}`);
+    const player = await addPlayer("admin", quizSession?.sessionKey);
+    localStorage.setItem("player", JSON.stringify(player));
+
+    navigate(`/quiz/game/${quizSession?.sessionKey}`);
   }
 
   return {getQuizById, quiz, newQuizSession}

@@ -1,0 +1,6 @@
+.main{
+    display: flex;
+    height: 500px;
+    border: 2px solid black;
+    padding: 20px;
+}

@@ -1,9 +1,15 @@
 import type { CSSProperties } from "react";
 
-export default function ButtonToConnect() {
+interface Props {
+  connectToQuizHanlder: () => void;
+}
+
+export default function ButtonToConnect({ connectToQuizHanlder }: Props) {
   return (
     <div style={styles.main}>
-      <button style={styles.button}>присоединиться</button>
+      <button style={styles.button} onClick={connectToQuizHanlder}>
+        присоединиться
+      </button>
     </div>
   );
 }

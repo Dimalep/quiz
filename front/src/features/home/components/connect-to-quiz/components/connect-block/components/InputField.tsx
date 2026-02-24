@@ -1,15 +1,21 @@
-import { useState, type CSSProperties } from "react";
+import { type CSSProperties, type Dispatch, type SetStateAction } from "react";
 
-export default function InputField() {
-  const [inputValue, setInputValue] = useState("");
+interface Props {
+  inputSessionKey: string;
+  setInputSessionKey: Dispatch<SetStateAction<string>>;
+}
 
+export default function InputField({
+  setInputSessionKey,
+  inputSessionKey,
+}: Props) {
   return (
     <div style={styles.main}>
       <input
         style={styles.input}
         placeholder="Введи код"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        value={inputSessionKey}
+        onChange={(e) => setInputSessionKey(e.target.value)}
       />
     </div>
   );
