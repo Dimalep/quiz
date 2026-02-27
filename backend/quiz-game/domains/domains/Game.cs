@@ -27,13 +27,14 @@ namespace domains.domains
         public int QuizId { get; set;}
 
         [Column("status")]
-        public Status Status{ get; set; } = Status.active;
+        public Status Status{ get; set; } = Status.opened;
     }
 
     public enum Status
     {
-        active,
-        inactive,
-        game    
+        opened,
+        closed,
+        launched,
+        completed
     }
 }

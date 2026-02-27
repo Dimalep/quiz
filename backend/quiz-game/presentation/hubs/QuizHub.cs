@@ -40,6 +40,22 @@ namespace presentation.hubs
         private static readonly Dictionary<string, QuizRuntimeSession> _sessions = new();
         private static readonly object _lock = new();
 
+        public async Task CloseForConnect(string sessionKey)
+        {
+            var game = await _gameService.CloseForConnect(sessionKey);
+            
+            await Clients.Group($"quiz_{sessionKey}").SendAsync("GameClose", game);
+            await Clients.Group($"quiz_admin_{sessionKey}").SendAsync("GameClose", game);
+        }
+        
+        public async Task OpenForConnect(string sessionKey)
+        {
+            var game = await _gameService.OpenForConnect(sessionKey);
+            
+            await Clients.Group($"quiz_{sessionKey}").SendAsync("GameOpen", game);
+            await Clients.Group($"quiz_admin_{sessionKey}").SendAsync("GameOpen", game);
+        }
+        
         public async Task CompleteGame(string sessionKey)
         {
             var session = GetOrCreateSession(sessionKey);
@@ -115,10 +131,18 @@ namespace presentation.hubs
             await SendProgressToAdmin(session);
         }
         
+        //*need to optimize
         public async Task StartGame(string sessionKey, int playerId)
         {
             var session = GetOrCreateSession(sessionKey);
 
+            var game = await _gameService.GetQuizSessionByKey(sessionKey);
+            if (game == null)
+                throw new ArgumentException("Game cannot by null");
+
+            if (game.Status == Status.completed || game.Status == Status.closed)
+                throw new ArgumentException("Game cannot by started");
+            
             var progress = await _progressService.AddPlayerProgress(playerId, sessionKey);
 
             lock (session.SyncRoot)

@@ -20,6 +20,74 @@ namespace services.services
             _mapper = mapper;
         }
 
+        #region Work with status
+        
+        public async Task<Game> Launch(double lifetime, string sessionKey)
+        {
+            var quizSession = await _dbContext.Games
+                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+            
+            if(quizSession == null)
+            {
+                throw new ArgumentNullException("Not found quiz session by id");
+            }
+
+            if (quizSession.Status == Status.launched)
+            {
+                throw new InvalidOperationException("Quiz session is already started");
+            }
+            
+            quizSession.StartAt = DateTime.UtcNow;
+            quizSession.Status = Status.launched;
+            quizSession.CompleteAt = DateTime.UtcNow.AddHours(lifetime);
+            
+            await _dbContext.SaveChangesAsync();
+            return quizSession;
+        }
+        
+        public async Task<Game> Complete(string sessionKey)
+        {
+            var quizSession = await _dbContext.Games
+                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+            
+            if (quizSession == null)
+                throw new ArgumentNullException("Not found quiz session by id");
+
+            // quizSession.CompleteAt = DateTime.UtcNow;
+            quizSession.Status = Status.completed;
+            
+            await _dbContext.SaveChangesAsync();
+            return quizSession;
+        }
+
+        public async Task<Game> OpenForConnect(string sessionKey)
+        {
+            var quizSession = await _dbContext.Games
+                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+            
+            if (quizSession == null)
+                throw new ArgumentNullException("Not found quiz session by id");
+
+            quizSession.Status = Status.opened;
+            await _dbContext.SaveChangesAsync();
+            return quizSession;
+        }
+
+        public async Task<Game> CloseForConnect(string sessionKey)
+        {
+            var quizSession = await _dbContext.Games
+                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+            
+            if (quizSession == null)
+                throw new ArgumentNullException("Not found quiz session by id");
+
+            quizSession.Status = Status.closed;
+            await _dbContext.SaveChangesAsync();
+            return quizSession;
+        }
+
+        #endregion
+        
         public async Task<GameResponse> Add(int quizId)
         {
             var quizResponse = await _quizGrpcClient.GetQuizByIdAsync(quizId);
@@ -31,14 +99,14 @@ namespace services.services
 
             if(existsQuizSession != null)
             {
-                existsQuizSession.Status = Status.active;
+                existsQuizSession.Status = Status.opened;
                 await _dbContext.SaveChangesAsync();
 
                 return new GameResponse
                 {
                     Id = existsQuizSession.Id,
                     SessionKey = existsQuizSession.Key,
-                    Status = Status.active
+                    Status = Status.opened
                 };
             }
 
@@ -49,7 +117,7 @@ namespace services.services
                 CreateAt = DateTime.UtcNow,
                 QuizId = quizResponse.Id,
                 Key = sessionKey,
-                Status = Status.active,
+                Status = Status.opened,
             };
 
             await _dbContext.Games.AddAsync(quizSession);
@@ -59,7 +127,7 @@ namespace services.services
             {
                 Id = quizSession.Id,
                 SessionKey = sessionKey,
-                Status = Status.active
+                Status = Status.opened
             };
         }
 
@@ -71,22 +139,7 @@ namespace services.services
                 return false;
             }
 
-            return (quizSession.Status != Status.inactive) ? true : false;
-        }
-
-        public async Task<Game> Complete(string sessionKey)
-        {
-            var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
-            
-            if (quizSession == null)
-                throw new ArgumentNullException("Not found quiz session by id");
-
-            // quizSession.CompleteAt = DateTime.UtcNow;
-            quizSession.Status = Status.inactive;
-            
-            await _dbContext.SaveChangesAsync();
-            return quizSession;
+            return (quizSession.Status != Status.closed) ? true : false;
         }
 
         public async Task<GameResponse> GetQuizSessionByKey(string sessionKey)
@@ -100,29 +153,6 @@ namespace services.services
                 SessionKey = sessionKey,
                 Status = quizSession.Status
             };
-        }
-
-        public async Task<Game> Launch(double lifetime, string sessionKey)
-        {
-            var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
-            
-            if(quizSession == null)
-            {
-                throw new ArgumentNullException("Not found quiz session by id");
-            }
-
-            if (quizSession.Status == Status.game)
-            {
-                throw new InvalidOperationException("Quiz session is already started");
-            }
-            
-            quizSession.StartAt = DateTime.UtcNow;
-            quizSession.Status = Status.game;
-            quizSession.CompleteAt = DateTime.UtcNow.AddHours(lifetime);
-            
-            await _dbContext.SaveChangesAsync();
-            return quizSession;
         }
 
         public async Task<GameDTO> UpdateQuizSession(GameDTO game)
