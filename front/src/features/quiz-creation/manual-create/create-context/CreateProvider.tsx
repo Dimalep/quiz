@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import type { Action, CreateState } from "./reducer";
 import reducer from "./reducer";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,7 +26,6 @@ export default function CreateProvider({
   children: React.ReactNode;
 }) {
   const navigate = useNavigate();
-  const [loadingCompleteCreation, setLoadingCompleteCreation] = useState(false);
   const { quizId } = useParams();
 
   //#region start data
@@ -53,11 +46,9 @@ export default function CreateProvider({
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  //#region services from back
   const { createNewQuestion, updateQuestionsBatch } = useQuestion();
   const { updateQuiz } = useQuizApi();
   const { updateAnswersBatch, addAnswer } = useAnswer();
-  //#endregion
 
   useEffect(() => {
     if (state.quiz.id) return;
@@ -92,7 +83,6 @@ export default function CreateProvider({
       quantityQuestions: state.quiz.questions.length,
     };
     await updateQuiz(quiz);
-    //const quizId = 1;
 
     // questions
     const questions: QuestionDTO[] = state.quiz.questions.map((q) => {

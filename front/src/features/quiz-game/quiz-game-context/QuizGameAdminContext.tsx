@@ -1,13 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlayer";
-import useQuizHub from "../../../core/hooks/quiz-game-microservice/useQuizHub";
+import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
+import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
+import useQuizHubAdmin from "../../../core/hooks/quiz-game-microservice/useQuizHubAdmin";
+import type {
+  Progress,
+  ProgressDTO,
+} from "../../../core/hooks/quiz-game-microservice/useProgress";
 
 export interface QuizGameAdminContextType {
   sessionKey: string | undefined;
   players: Player[] | undefined;
-  gameStatus: "wait" | "play" | "complete";
+  currentGame: GameDTO | undefined;
+  progresses: ProgressDTO[];
   startGame: () => void;
+  completeGame: () => void;
 }
 
 const AdminContext = createContext<QuizGameAdminContextType | undefined>(
@@ -20,6 +28,8 @@ export default function QuizGameAdminContext({
   children: React.ReactNode;
 }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
+
+  const { getGameBySessionKey } = useGame();
   const { sessionKey } = useParams<{ sessionKey: string }>();
 
   useEffect(() => {
@@ -30,21 +40,43 @@ export default function QuizGameAdminContext({
     }
     const player = JSON.parse(data);
     setCurrentPlayer(player);
+
+    async function getCurrentQuizSession() {
+      if (!sessionKey) return;
+      const game = await getGameBySessionKey(sessionKey);
+      setCurrentGame(game);
+    }
+
+    getCurrentQuizSession();
   }, []);
 
-  const { connection, players } = useQuizHub(sessionKey, currentPlayer);
+  const { connection, players, currentGame, setCurrentGame, progresses } =
+    useQuizHubAdmin(sessionKey, currentPlayer ?? undefined);
 
-  const [gameStatus, setGameStatus] = useState<"wait" | "play" | "complete">(
-    "wait",
-  );
+  if (!currentPlayer) {
+    return null;
+  }
 
-  const startGame = () => {
-    setGameStatus("play");
+  const completeGame = async () => {
+    if (connection === null) return;
+    await connection.invoke("CompleteGame", sessionKey);
+  };
+
+  const startGame = async () => {
+    if (connection === null) return;
+    await connection.invoke("LaunchGame", sessionKey, 1.0);
   };
 
   return (
     <AdminContext.Provider
-      value={{ sessionKey, players, gameStatus, startGame }}
+      value={{
+        sessionKey,
+        players,
+        startGame,
+        completeGame,
+        currentGame,
+        progresses,
+      }}
     >
       {children}
     </AdminContext.Provider>

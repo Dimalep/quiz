@@ -4,16 +4,16 @@ import GameRoom from "./components/game-room-for-admin/GameRoom";
 import WaitingRoom from "./components/waiting-room/WaitingRoom";
 
 export default function AdminRoom() {
-  const { gameStatus } = useQuizGameAdminContext();
+  const { currentGame } = useQuizGameAdminContext();
 
-  if (gameStatus === "wait")
+  if (currentGame?.status !== 2)
     return (
       <div className={styles.main}>
         <WaitingRoom />
       </div>
     );
 
-  if (gameStatus === "play")
+  if (currentGame?.status === 2)
     return (
       <div className={styles.main}>
         <GameRoom />

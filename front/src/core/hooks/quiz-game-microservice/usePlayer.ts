@@ -6,13 +6,12 @@ export type Player = {
 
 export type AddPlayerRequest = {
     nickname: string;
-    role: "admin" | "player";
+    role: string;
     userId: number;
     quizSessionKey: string;
 }
 
 export default function usePlayer() {
-  
   const getPlayerById = async (playerId: number) => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/players/${playerId}`, {
         method: "GET",
@@ -25,15 +24,20 @@ export default function usePlayer() {
     }
 
     const data: Player = await response.json();
-
     return data;
   };
 
   const addPlayer = async (role: string, sessionKey: string) => {
+    const userId = Number(localStorage.getItem("userId"));
+    if(!userId){
+        console.error("Error userId is undefined");
+        return;
+    }
+
     const player: AddPlayerRequest = {
-        nickname: role === "admin" ? "admin" : "player",
-        role: role === "admin" ? "admin" : "player",
-        userId: 0,
+        nickname: role,
+        role: role,
+        userId: userId,
         quizSessionKey: sessionKey
     };
 

@@ -1,7 +1,7 @@
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import NavigationPanel from "../../shared/components/navigation-panel/NavigationPanel";
-import useWidth from "../../core/hooks/useWindowSize";
 import InputForm from "./components/InputForm";
+import styles from "./Authorization.module.css";
 
 const TITLES = {
   login: "Вход",
@@ -24,10 +24,8 @@ const BUTTONS = {
 
 export default function Authorization() {
   const [authMode, setAuthMode] = useState<"login" | "registrate" | "forgot">(
-    "login"
+    "login",
   );
-
-  const { width } = useWidth();
 
   const titleLabel = TITLES[authMode];
   const logOrRegLabel = BUTTONS.logOrReg[authMode];
@@ -42,22 +40,30 @@ export default function Authorization() {
   };
 
   return (
-    <div style={styles.page}>
+    <div className={styles.page}>
       <NavigationPanel />
 
-      <div style={styles.content(width)}>
-        <div
-          style={{ ...styles.authForm, height: width < 478 ? "100vh" : "auto" }}
-        >
-          <h1 style={{ margin: 30 }}>{titleLabel}</h1>
+      <div className={styles.content}>
+        <div className={styles.authForm}>
+          <h1 className={styles.title}>{titleLabel}</h1>
 
-          <div style={styles.column}>
-            <div>{/*for future*/}</div>
+          <div className={styles.column}>
+            <div>{/* for future */}</div>
+
             <InputForm authMode={authMode} />
 
-            <div style={styles.bottomPanel(authMode)}>
+            <div
+              className={`${styles.bottomPanel} ${
+                authMode === "forgot" || authMode === "registrate"
+                  ? styles.bottomPanelCenter
+                  : styles.bottomPanelSpaceBetween
+              }`}
+            >
               {authMode !== "forgot" && (
-                <span onClick={handleClickLogOrReg} style={styles.clickable}>
+                <span
+                  onClick={handleClickLogOrReg}
+                  className={styles.clickable}
+                >
                   {logOrRegLabel}
                 </span>
               )}
@@ -65,7 +71,7 @@ export default function Authorization() {
               {(authMode === "login" || authMode === "forgot") && (
                 <span
                   onClick={handleClickForgotOrNoFo}
-                  style={styles.clickable}
+                  className={styles.clickable}
                 >
                   {forgotLabel}
                 </span>
@@ -77,57 +83,3 @@ export default function Authorization() {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    fontFamily: "Rubik",
-    color: "#1E1E1E",
-  } as CSSProperties,
-
-  content: (width: number) =>
-    ({
-      flex: width < 478 ? 1 : "0 1 auto",
-      display: "flex",
-      justifyContent: "center",
-      marginTop: width < 478 ? "0" : "200px",
-    } as CSSProperties),
-
-  column: {
-    display: "flex",
-    flexDirection: "column",
-  } as CSSProperties,
-
-  clickable: {
-    cursor: "pointer",
-  } as CSSProperties,
-
-  forgotLable: {
-    cursor: "pointer",
-  } as CSSProperties,
-
-  bottomPanel: (authMode: string) =>
-    ({
-      display: "flex",
-      justifyContent:
-        authMode === "forgot" || authMode === "registrate"
-          ? "center"
-          : "space-between",
-      width: "100%",
-      marginTop: "10px",
-    } as CSSProperties),
-
-  authForm: {
-    display: "flex",
-    flexDirection: "column",
-    borderRadius: "20px",
-    padding: "30px",
-    alignItems: "center",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
-    backdropFilter: "blur(10px)",
-    background: "rgba(76, 110, 245, 0.7)",
-    border: "3px solid black",
-  } as CSSProperties,
-};

@@ -1,11 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 import type { Player } from "./usePlayer";
+import type { GameDTO } from "./useGame";
 
 
 export default function useQuizHub(sessionKey?: string, currentPlayer?: Player) {
   const connectionRef = useRef<signalR.HubConnection | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
+  const [currentQuizSession, setCurrentQuizSession] = useState<GameDTO>();
+
+  //#region handlers 
+  const startHandler = (quizSession: GameDTO, allPlayer: Player[]) => {
+    setCurrentQuizSession({...quizSession});
+    console.log("Game is started", quizSession);
+    console.log("All players:", allPlayer);
+  };
+  const completeHandler = (quizSession: GameDTO, allPlayer: Player[]) => {
+    setCurrentQuizSession({...quizSession})
+    console.log("Game is complete", quizSession);
+    console.log("All players:", allPlayer);
+  };
+  const joinHandler = (player: Player, allPlayers: Player[]) => {
+    setPlayers(allPlayers);
+    console.log("User joined", player);
+  } 
+  const leftHandler = (player: Player, allPlayer: Player[]) => {
+    setPlayers(allPlayer);
+    console.log("User left", player);
+  }
+  //#endregion 
 
   useEffect(() => {
     if(!sessionKey || !currentPlayer) return;
@@ -27,28 +50,25 @@ export default function useQuizHub(sessionKey?: string, currentPlayer?: Player) 
         }
     }
     
-    const joinHandler = (player: Player, allPlayers: Player[]) => {
-        setPlayers(allPlayers);
-        console.log("User joined", player);
-    } 
-    const ledtHandler = (player: Player, allPlayer: Player[]) => {
-        setPlayers(allPlayer);
-        console.log("User left", player);
-    }
-
     connection.on("UserJoined", joinHandler);
-    connection.on("UserLeft", ledtHandler);
+    connection.on("UserLeft", leftHandler);
+    connection.on("GameCompleted", completeHandler);
+    connection.on("GameStarted", startHandler);
 
     start();
 
     return () => {
         connection.off("UserJoined", joinHandler);
-        connection.off("UserLeft", ledtHandler);
+        connection.off("UserLeft", leftHandler);
+        connection.off("GameCompleted", completeHandler);
+        connection.off("GameStarted", startHandler);
         connection.stop();
     }
   }, [sessionKey, currentPlayer])
   return {
     connection: connectionRef.current,
-    players
+    players,
+    currentQuizSession,
+    setCurrentQuizSession
   }
 }

@@ -1,12 +1,12 @@
-export type QuizSession = {
+export type GameDTO = {
     id: number;
     sessionKey: string;
-    // quizId: number;
+    status: number;
 }
 
-export default function useQuizSession() {
+export default function useGame() {
 
-  const getQuizSessionBySessionKey = async (sessionKey: string) : Promise<QuizSession | undefined>=> {
+  const getGameBySessionKey = async (sessionKey: string) : Promise<GameDTO | undefined>=> {
     const response = await fetch(`http://localhost:5103/api/quiz-sessions/${sessionKey}`,{
         method: "GET",
         headers: {"Content-type": "application/json"}
@@ -17,12 +17,12 @@ export default function useQuizSession() {
         return;
     }
 
-    const data: QuizSession = await response.json();
+    const data: GameDTO = await response.json();
 
     return data;
   };
 
-  const addQuizSession = async (quizId: number) : Promise<QuizSession | undefined>=> {
+  const addGame = async (quizId: number) : Promise<GameDTO | undefined>=> {
     const response = await fetch(`http://localhost:5103/api/quiz-sessions/${quizId}`,{
         method: "POST",
         headers: {"Content-type": "application/json"}
@@ -33,7 +33,7 @@ export default function useQuizSession() {
         return;
     }
 
-    const data: QuizSession = await response.json();
+    const data: GameDTO = await response.json();
     return data;
   };
 
@@ -41,5 +41,5 @@ export default function useQuizSession() {
     //
   };
 
-  return {addQuizSession, startQuizSession, getQuizSessionBySessionKey}
+  return {addQuizSession: addGame, startQuizSession, getGameBySessionKey}
 }

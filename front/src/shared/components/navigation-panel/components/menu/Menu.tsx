@@ -4,14 +4,13 @@ import UserInfoBlock from "./componetns/UserInfoBlock";
 import LogoutBlock from "./componetns/LogoutBlock";
 import type { CSSProperties } from "react";
 import SettingsButtons from "./componetns/SettingsButtons/SettingsButtons";
-import { useWindowSizeContext } from "../../../WindowSizeProvider";
 
 interface Props {
   setIsOpenMenu: (value: boolean) => void;
 }
 
 export default function Menu({ setIsOpenMenu }: Props) {
-  const { width } = useWindowSizeContext();
+  const width = window.innerWidth;
 
   return (
     <div style={styles.background} onClick={() => setIsOpenMenu(false)}>
@@ -43,10 +42,10 @@ const styles = {
         width < 550
           ? "100%"
           : width < 780
-          ? "65%"
-          : width < 1250
-          ? "45%"
-          : "25%",
+            ? "65%"
+            : width < 1250
+              ? "45%"
+              : "25%",
       backgroundColor: "white",
       display: "flex",
       flexDirection: "column",
@@ -56,7 +55,7 @@ const styles = {
       borderBottomLeftRadius: "15px",
       border: "3px solid black",
       boxShadow: "0 2px 20px rgba(0,0,0, 0.9)",
-    } as CSSProperties),
+    }) as CSSProperties,
   background: {
     top: 0,
     left: 0,
