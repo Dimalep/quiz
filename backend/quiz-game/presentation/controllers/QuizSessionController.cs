@@ -7,19 +7,17 @@ namespace presentation.controllers
     [Route("api/quiz-sessions")]
     public class QuizSessionController : ControllerBase
     {
-        private readonly IQuizSessionService _quizSessionService;
-        //private readonly IQrService _qrService;
+        private readonly IGameService _gameService;
 
-        public QuizSessionController(IQuizSessionService quizSessionService)
+        public QuizSessionController(IGameService gameService)
         {
-            //_qrService = qrService;
-            _quizSessionService = quizSessionService;
+            _gameService = gameService;
         }
 
         [HttpPost("{quizId}")]
         public async Task<IActionResult> AddQuizSession([FromRoute] int quizId)
         {
-            var quizSession = await _quizSessionService.AddQuizSession(quizId);
+            var quizSession = await _gameService.Add(quizId);
             if (quizSession == null) throw new ArgumentNullException("Quiz session cannot by null");
 
             //var qr = _qrService.GenerateQrBase64($"http://localhost:5173/quiz/game/{quizSession.Key}");
@@ -29,7 +27,7 @@ namespace presentation.controllers
         [HttpGet("{sessionKey}")]
         public async Task<IActionResult> GetQuizSessionByKey([FromRoute] string sessionKey)
         {
-            var result = await _quizSessionService.GetQuizSessionByKey(sessionKey);
+            var result = await _gameService.GetQuizSessionByKey(sessionKey);
             return Ok(result);
         }
     }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace domains.domains
 {
     [Table("quiz_sessions")]
-    public class QuizSession
+    public class Game
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -27,13 +27,13 @@ namespace domains.domains
         public int QuizId { get; set;}
 
         [Column("status")]
-        public Status Status{ get; set; } = Status.inactive;
+        public Status Status{ get; set; } = Status.active;
     }
 
     public enum Status
     {
         active,
         inactive,
-        game
+        game    
     }
 }

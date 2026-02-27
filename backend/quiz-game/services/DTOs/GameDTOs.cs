@@ -2,7 +2,7 @@
 
 namespace services.DTOs
 {
-    public record QuizSessionDTO
+    public record GameDTO
     {
         public int Id { get; set; }
         public DateTime CreateAt { get; set; }
@@ -12,9 +12,11 @@ namespace services.DTOs
         public Status Status { get; set; }
     }
 
-    public record QuizSessionResponse 
+    public record GameResponse 
     {
         public int Id { get; set; }
         public string SessionKey { get; set; } = null!;
+        public Status Status { get; set; }
     }
+    
 }

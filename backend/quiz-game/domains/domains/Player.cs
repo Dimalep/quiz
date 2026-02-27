@@ -21,14 +21,9 @@ namespace domains.domains
         public int UserId { get; set; }
 
         [ForeignKey("QuizSessionId")]
-        public QuizSession QuizSession { get; set; } = null!;
+        public Game Game { get; set; } = null!;
 
         [Column("quiz_session_id")]
         public int QuizSessionId { get; set; }
     }
-
-    //public enum Role {
-    //    admin,
-    //    player
-    //}
 }

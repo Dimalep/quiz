@@ -5,27 +5,29 @@ namespace services
 {
     public class Mapper
     {
-        public QuizSessionDTO ToDTO(QuizSession quizSession)
+        public GameDTO ToDTO(Game game)
         {
-            return new QuizSessionDTO 
+            return new GameDTO 
             {
-                Id = quizSession.Id,
-                CreateAt = quizSession.CreateAt,
-                CompleteAt = quizSession.CompleteAt,
-                QuizId = quizSession.QuizId,
-                Key = quizSession.Key,
+                Id = game.Id,
+                CreateAt = game.CreateAt,
+                CompleteAt = game.CompleteAt,
+                QuizId = game.QuizId,
+                Key = game.Key,
+                Status = game.Status
             };
         }
 
-        public QuizSession FromDTO(QuizSessionDTO quizSessionDTO)
+        public Game FromDTO(GameDTO gameDto)
         {
-            return new QuizSession
+            return new Game
             {
-                Id = quizSessionDTO.Id,
-                CreateAt = quizSessionDTO.CreateAt,
-                CompleteAt = quizSessionDTO.CompleteAt,
-                QuizId = quizSessionDTO.QuizId,
-                Key = quizSessionDTO.Key,
+                Id = gameDto.Id,
+                CreateAt = gameDto.CreateAt,
+                CompleteAt = gameDto.CompleteAt,
+                QuizId = gameDto.QuizId,
+                Key = gameDto.Key,
+                Status = gameDto.Status
             };
         }
     }

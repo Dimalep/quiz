@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "D:\\quiz\\backend\\quiz-game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\hubs\\quizhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\hubs\\quizhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\services\\quizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\services\\quizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\services\\playerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\services\\playerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\services\\quizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\services\\quizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\dtos\\playerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\dtos\\playerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\controllers\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|d:\\quiz\\backend\\quiz-game\\domains\\domains\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|solutionrelative:domains\\domains\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|d:\\quiz\\backend\\quiz-game\\domains\\domains\\quizsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,16 +23,28 @@
       "RelativeMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|solutionrelative:domains\\domains\\playerprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|d:\\quiz\\backend\\quiz-game\\domains\\domains\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A1A3588-EDB1-25ED-8F1D-9975D69AB212}|domains\\domains.csproj|solutionrelative:domains\\domains\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\hubs\\quizhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\hubs\\quizhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\interfaces\\iquizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\interfaces\\iquizsessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\dtos\\playerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\dtos\\playerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\controllers\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\controllers\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-game\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-game\\services\\dtos\\quizsessiondtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,102 +94,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PlayerProgress.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\PlayerProgress.cs",
-              "RelativeDocumentMoniker": "domains\\domains\\PlayerProgress.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\PlayerProgress.cs",
-              "RelativeToolTip": "domains\\domains\\PlayerProgress.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T09:51:57.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\presentation\\Program.cs",
-              "RelativeDocumentMoniker": "presentation\\Program.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-game\\presentation\\Program.cs",
-              "RelativeToolTip": "presentation\\Program.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABQAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T07:10:52.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PlayerService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\services\\services\\PlayerService.cs",
               "RelativeDocumentMoniker": "services\\services\\PlayerService.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\services\\services\\PlayerService.cs",
               "RelativeToolTip": "services\\services\\PlayerService.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAowCkAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T11:40:54.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T11:40:54.249Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "Player.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\Player.cs",
               "RelativeDocumentMoniker": "domains\\domains\\Player.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\Player.cs",
               "RelativeToolTip": "domains\\domains\\Player.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwB0AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T07:08:02.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T07:08:02.5Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "QuizSessionService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\services\\services\\QuizSessionService.cs",
               "RelativeDocumentMoniker": "services\\services\\QuizSessionService.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\services\\services\\QuizSessionService.cs",
               "RelativeToolTip": "services\\services\\QuizSessionService.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAuwCoAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-21T05:33:37.144Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "QuizHub.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\presentation\\hubs\\QuizHub.cs",
               "RelativeDocumentMoniker": "presentation\\hubs\\QuizHub.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\presentation\\hubs\\QuizHub.cs",
               "RelativeToolTip": "presentation\\hubs\\QuizHub.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAADwvx4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAiwDAAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T15:26:26.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T15:26:26.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "QuizSession.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\QuizSession.cs",
               "RelativeDocumentMoniker": "domains\\domains\\QuizSession.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\QuizSession.cs",
               "RelativeToolTip": "domains\\domains\\QuizSession.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCQAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwB4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T05:34:54.86Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T05:34:54.86Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\presentation\\controllers\\PlayerController.cs",
               "RelativeDocumentMoniker": "presentation\\controllers\\PlayerController.cs",
@@ -197,12 +167,11 @@
               "RelativeToolTip": "presentation\\controllers\\PlayerController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwCAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T16:52:39.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T16:52:39.091Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "PlayerDTOs.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\services\\DTOs\\PlayerDTOs.cs",
               "RelativeDocumentMoniker": "services\\DTOs\\PlayerDTOs.cs",
@@ -210,12 +179,11 @@
               "RelativeToolTip": "services\\DTOs\\PlayerDTOs.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T11:33:58.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T11:33:58.552Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "Mapper.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\services\\Mapper.cs",
               "RelativeDocumentMoniker": "services\\Mapper.cs",
@@ -223,12 +191,11 @@
               "RelativeToolTip": "services\\Mapper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-20T07:47:42.21Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-20T07:47:42.21Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
               "Title": "IQuizSessionService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\services\\interfaces\\IQuizSessionService.cs",
               "RelativeDocumentMoniker": "services\\interfaces\\IQuizSessionService.cs",
@@ -236,8 +203,31 @@
               "RelativeToolTip": "services\\interfaces\\IQuizSessionService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T08:58:48.592Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T08:58:48.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerProgress.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\PlayerProgress.cs",
+              "RelativeDocumentMoniker": "domains\\domains\\PlayerProgress.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-game\\domains\\domains\\PlayerProgress.cs",
+              "RelativeToolTip": "domains\\domains\\PlayerProgress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-24T09:51:57.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-game\\presentation\\Program.cs",
+              "RelativeDocumentMoniker": "presentation\\Program.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-game\\presentation\\Program.cs",
+              "RelativeToolTip": "presentation\\Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-24T07:10:52.877Z"
             },
             {
               "$type": "Document",
@@ -249,8 +239,7 @@
               "RelativeToolTip": "services\\DTOs\\QuizSessionDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T05:45:22.299Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T05:45:22.299Z"
             },
             {
               "$type": "Document",
@@ -262,8 +251,7 @@
               "RelativeToolTip": "services\\ServicesCollectionExtention.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T09:51:54.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T09:51:54.826Z"
             },
             {
               "$type": "Document",

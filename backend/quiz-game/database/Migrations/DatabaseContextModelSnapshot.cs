@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using database;
+using domains.domains;
 
 #nullable disable
 
@@ -22,41 +23,7 @@ namespace database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("domains.domains.Player", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nickname")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("login");
-
-                    b.Property<int>("QuizSessionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("quiz_session_id");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("role");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizSessionId");
-
-                    b.ToTable("players");
-                });
-
-            modelBuilder.Entity("domains.domains.QuizSession", b =>
+            modelBuilder.Entity("domains.domains.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,13 +64,86 @@ namespace database.Migrations
 
             modelBuilder.Entity("domains.domains.Player", b =>
                 {
-                    b.HasOne("domains.domains.QuizSession", "QuizSession")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("login");
+
+                    b.Property<int>("QuizSessionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("quiz_session_id");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("role");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizSessionId");
+
+                    b.ToTable("players");
+                });
+
+            modelBuilder.Entity("domains.domains.Progress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CompleteAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("complete_at");
+
+                    b.Property<int>("CurrentQuestionIndex")
+                        .HasColumnType("integer")
+                        .HasColumnName("current_question_index");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("player_id");
+
+                    b.Property<PlayerQuizResult>("QuizResult")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("quiz_result");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("session_id");
+
+                    b.Property<DateTime>("StartAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("progresses");
+                });
+
+            modelBuilder.Entity("domains.domains.Player", b =>
+                {
+                    b.HasOne("domains.domains.Game", "Game")
                         .WithMany()
                         .HasForeignKey("QuizSessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("QuizSession");
+                    b.Navigation("Game");
                 });
 #pragma warning restore 612, 618
         }

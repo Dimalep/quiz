@@ -17,11 +17,29 @@ namespace services.services
 
         public async Task<PlayerDTO> AddPlayer(AddPlayerRequest addPlayerDTO)
         {
-            var quizSession = await _dbContext.QuizSessions
+            var quizSession = await _dbContext.Games
                 .FirstOrDefaultAsync(qs => qs.Key == addPlayerDTO.QuizSessionKey);
 
             if (quizSession == null)
+            {
                 throw new ArgumentNullException("Not found quiz session by session key");
+            }
+
+            var existsPlayer = await _dbContext.Players
+                .FirstOrDefaultAsync(p => p.UserId == addPlayerDTO.UserId);
+
+            if(existsPlayer != null) 
+            {
+                var editedPlayer =  new PlayerDTO
+                {
+                    Nickname = addPlayerDTO.Nickname,
+                    Id = existsPlayer.Id,
+                    Role = addPlayerDTO.Role,
+                };
+
+                await _dbContext.SaveChangesAsync();
+                return editedPlayer;
+            }
 
             var player = new Player
             {

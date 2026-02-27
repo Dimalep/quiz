@@ -16,8 +16,9 @@ public static class ServicesCollectionExtention
         var channel = GrpcChannel.ForAddress(quizCreationAddress);
         services.AddSingleton<QuizGrpcServiceClient>(new QuizGrpcServiceClient(channel));
 
-        services.AddScoped<IQuizSessionService, QuizSessionService>();
+        services.AddScoped<IGameService, GameService>();
         services.AddScoped<IPlayerService, PlayerService>();
+        services.AddScoped<IProgressService, ProgressService>();
         services.AddSingleton<Mapper>();
 
         return services;

@@ -9,7 +9,7 @@ namespace presentation.controllers
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playService;
-
+        
         public PlayerController(IPlayerService playerService) 
         {
             _playService = playerService;
