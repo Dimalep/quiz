@@ -4,8 +4,8 @@ import styles from "./ConnectInfo.module.css";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function ConnectInfo() {
-  const { currentQuizSession, sessionKey } = useQuizGameAdminContext();
-  const quizUrl = `http://localhost:5173/quiz/game/${currentQuizSession?.sessionKey}`;
+  const { currentGame, sessionKey } = useQuizGameAdminContext();
+  const quizUrl = `http://localhost:5173/quiz/game/${currentGame?.sessionKey}`;
 
   const [isShowQr, setIsShowQr] = useState(false);
   return (

@@ -58,6 +58,14 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
       setCurrentGame(game);
     });
 
+    connection.on("GameOpen", (game: GameDTO) => {
+      setCurrentGame(game);
+    });
+
+    connection.on("GameClose", (game: GameDTO) => {
+      setCurrentGame(game);
+    });
+
     start();
     return() => {
       connection.off("UserJoined");

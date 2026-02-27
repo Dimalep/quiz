@@ -1,0 +1,15 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+    box-shadow: 0px 2px 4px rgba(0,0,0, 0.24);
+    width: 50%;
+}
+
+@media(max-width: 778px){
+    .main{
+        width: 95%;
+    }
+}

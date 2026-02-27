@@ -52,6 +52,16 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
       localStorage.removeItem("currentGame");
     });
 
+    connection.on("GameClose", (game: GameDTO) => {
+        setCurrentGame(game);
+        localStorage.setItem("currentGame", JSON.stringify(game));
+    });
+
+    connection.on("GameOpen", (game: GameDTO) => {
+        setCurrentGame(game);
+        localStorage.setItem("currentGame", JSON.stringify(game));
+    });
+
     start();
 
     return () => {
@@ -59,6 +69,8 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         connection.off("GameLaunched");
         connection.off("UserLeft");
         connection.off("GameCompleted");
+        connection.off("GameOpen");
+        connection.off("GameClose");
         connection.stop();
     }
   },[sessionKey, player]);

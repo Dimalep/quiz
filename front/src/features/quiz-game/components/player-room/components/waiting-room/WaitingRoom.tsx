@@ -2,8 +2,13 @@ import { QRCodeSVG } from "qrcode.react";
 import styles from "./WaitingRoom.module.css";
 import PlayersList from "./components/PlayersList";
 import { useQuizGamePlayerContext } from "../../../../quiz-game-context/QuizGamePlayerContext";
+import type { Dispatch, SetStateAction } from "react";
 
-export default function WaitingRoom() {
+interface Props {
+  setIsStart: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function WaitingRoom({ setIsStart }: Props) {
   const quizUrl = `http://localhost:5173/quiz/game/${2}`;
   const { currentGame } = useQuizGamePlayerContext();
 
@@ -12,7 +17,7 @@ export default function WaitingRoom() {
       <div className={styles.description}>
         <div>
           <button>Закончить</button>
-          <button>Приступить к решению</button>
+          <button onClick={() => setIsStart(true)}>Приступить к решению</button>
         </div>
         <div className={styles.info}>
           <h3>Описание</h3>

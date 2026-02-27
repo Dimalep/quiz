@@ -4,10 +4,7 @@ import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlaye
 import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
 import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
 import useQuizHubAdmin from "../../../core/hooks/quiz-game-microservice/useQuizHubAdmin";
-import type {
-  Progress,
-  ProgressDTO,
-} from "../../../core/hooks/quiz-game-microservice/useProgress";
+import type { ProgressDTO } from "../../../core/hooks/quiz-game-microservice/useProgress";
 
 export interface QuizGameAdminContextType {
   sessionKey: string | undefined;
@@ -16,6 +13,8 @@ export interface QuizGameAdminContextType {
   progresses: ProgressDTO[];
   startGame: () => void;
   completeGame: () => void;
+  closeForConnect: () => void;
+  openForConnect: () => void;
 }
 
 const AdminContext = createContext<QuizGameAdminContextType | undefined>(
@@ -67,6 +66,16 @@ export default function QuizGameAdminContext({
     await connection.invoke("LaunchGame", sessionKey, 1.0);
   };
 
+  const openForConnect = async () => {
+    if (connection === null) return;
+    await connection.invoke("OpenForConnect", sessionKey);
+  };
+
+  const closeForConnect = async () => {
+    if (connection === null) return;
+    await connection.invoke("CloseForConnect", sessionKey);
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -76,6 +85,8 @@ export default function QuizGameAdminContext({
         completeGame,
         currentGame,
         progresses,
+        openForConnect,
+        closeForConnect,
       }}
     >
       {children}
