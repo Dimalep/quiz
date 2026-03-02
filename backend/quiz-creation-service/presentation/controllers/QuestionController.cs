@@ -56,5 +56,12 @@ namespace presentation.controllers
             var result = await _questionService.GetQuestionsByQuizId(quizId);
             return Ok(result);
         }
+
+        [HttpGet("with-answers/{questionId}")]
+        public async Task<IActionResult> GetQuestionWithAnswersById([FromRoute] int questionId)
+        {
+            var result = await _questionService.GetWithAnswersById(questionId);
+            return Ok(result);
+        }
     }
 }

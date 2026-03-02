@@ -31,4 +31,54 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="obj\Debug\net9.0\43ae3f7825ae526d_quiz.protodep" />
+    <Content Include="obj\Debug\net9.0\apphost.exe" />
+    <Content Include="obj\Debug\net9.0\presenta.D2D87D9E.Up2Date" />
+    <Content Include="obj\Debug\net9.0\presentation.AssemblyInfoInputs.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.assets.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net9.0\presentation.dll" />
+    <Content Include="obj\Debug\net9.0\presentation.GeneratedMSBuildEditorConfig.editorconfig" />
+    <Content Include="obj\Debug\net9.0\presentation.genruntimeconfig.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.MvcApplicationPartsAssemblyInfo.cache" />
+    <Content Include="obj\Debug\net9.0\presentation.pdb" />
+    <Content Include="obj\Debug\net9.0\presentation.sourcelink.json" />
+    <Content Include="obj\Debug\net9.0\refint\presentation.dll" />
+    <Content Include="obj\Debug\net9.0\ref\presentation.dll" />
+    <Content Include="obj\Debug\net9.0\rjsmcshtml.dswa.cache.json" />
+    <Content Include="obj\Debug\net9.0\rjsmrazor.dswa.cache.json" />
+    <Content Include="obj\Debug\net9.0\rpswa.dswa.cache.json" />
+    <Content Include="obj\Debug\net9.0\staticwebassets.build.endpoints.json" />
+    <Content Include="obj\Debug\net9.0\staticwebassets.build.json" />
+    <Content Include="obj\Debug\net9.0\staticwebassets.build.json.cache" />
+    <Content Include="obj\Debug\net9.0\staticwebassets.references.upToDateCheck.txt" />
+    <Content Include="obj\Debug\net9.0\staticwebassets.removed.txt" />
+    <Content Include="obj\Debug\net9.0\swae.build.ex.cache" />
+    <Content Include="obj\presentation.csproj.EntityFrameworkCore.targets" />
+    <Content Include="obj\presentation.csproj.nuget.dgspec.json" />
+    <Content Include="obj\presentation.csproj.nuget.g.props" />
+    <Content Include="obj\presentation.csproj.nuget.g.targets" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\project.nuget.cache" />
+    <Content Include="obj\project.packagespec.json" />
+    <Content Include="obj\rider.project.model.nuget.info" />
+    <Content Include="obj\rider.project.restore.info" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net9.0\Grpc\Protos\Quiz.cs" />
+    <Compile Include="obj\Debug\net9.0\Grpc\Protos\QuizGrpc.cs" />
+    <Compile Include="obj\Debug\net9.0\presentation.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net9.0\presentation.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net9.0\presentation.MvcApplicationPartsAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="obj\Debug\net9.0\staticwebassets\" />
+  </ItemGroup>
+
 </Project>

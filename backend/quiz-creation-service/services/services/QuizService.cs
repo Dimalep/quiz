@@ -1,4 +1,5 @@
 ﻿using domains;
+using Microsoft.EntityFrameworkCore;
 using services.DTOs;
 using services.interfaces;
 
@@ -53,6 +54,29 @@ namespace services.services
             var quiz = await _dbContext.Quizzes.FindAsync(quizId);
             if (quiz == null) throw new KeyNotFoundException($"Quiz with id {quizId} not found");
             return _mapper.ToDTO(quiz);
+        }
+
+        public async Task<QuizWithQuestionsIds> GetWithQuestionsIdsById(int quizId)
+        {
+            var quiz = await _dbContext.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
+            if (quiz == null)
+                throw new ArgumentException("Not found quiz by id");
+
+            var questionsIds = await _dbContext.Questions
+                .Where(q => q.QuizId == quizId)
+                .Select(q => q.Id)
+                .ToListAsync();
+
+            var result = new QuizWithQuestionsIds
+            {
+                Id = quizId,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                QuantityQuestions = quiz.QuantityQuestions,
+                QuestionsIds = questionsIds
+            };
+
+            return result;
         }
 
         public async Task<QuizDTO> UpdateQuiz(QuizDTO quizDTO)

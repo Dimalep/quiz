@@ -10,7 +10,7 @@ interface Props {
 
 export default function WaitingRoom({ setIsStart }: Props) {
   const quizUrl = `http://localhost:5173/quiz/game/${2}`;
-  const { currentGame } = useQuizGamePlayerContext();
+  const { currentGame, lightQuiz } = useQuizGamePlayerContext();
 
   return (
     <div className={styles.main}>
@@ -21,7 +21,9 @@ export default function WaitingRoom({ setIsStart }: Props) {
         </div>
         <div className={styles.info}>
           <h3>Описание</h3>
-          <span>Data</span>
+          <span>Название квиза: {lightQuiz?.title}</span>
+          <span>Описание: {lightQuiz?.description}</span>
+          <span>Количество вопросов: {lightQuiz?.quantityQuestions}</span>
           <span>status: {currentGame?.status}</span>
         </div>
 

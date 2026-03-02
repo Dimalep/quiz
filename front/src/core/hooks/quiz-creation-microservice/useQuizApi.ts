@@ -5,7 +5,30 @@ export type QuizDTO = {
     quantityQuestions: number;
 }
 
+export interface QuizWithQuestionsIds {
+  id: number,
+  title: string;
+  description: string;
+  quantityQuestions: number;
+  questionsIds: number[];
+}
+
 export default function useQuizApi() {
+
+  const getQuizWithQuestionsIds = async (quizId: number) : Promise<QuizWithQuestionsIds | undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/with-questions-ids/${quizId}`, {
+      method: "GET",
+      headers: {"Content-type": "application/json"},
+    });
+
+    if(!response.ok){
+      console.log("Error get quiz with questions ids");
+      return undefined;
+    }
+
+    const data: QuizWithQuestionsIds = await response.json();
+    return data;
+  }
 
   const updateQuiz = async (quiz: QuizDTO) : Promise<boolean | undefined> => {
     const response = await fetch("http://localhost:5051/api/quizzes", {
@@ -18,8 +41,6 @@ export default function useQuizApi() {
       console.log("Error update quiz");
       return;
     }
-  
-    //const data: QuizDTO = await response.json(); 
   
     return response.ok;
   }
@@ -72,5 +93,5 @@ export default function useQuizApi() {
     return data;
   }
 
-  return {createNewQuiz, addQuiz, getQuizById, updateQuiz}
+  return {createNewQuiz, addQuiz, getQuizById, updateQuiz, getQuizWithQuestionsIds}
 }

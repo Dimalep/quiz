@@ -9,5 +9,6 @@ namespace services.interfaces
         public Task<QuizDTO> DeleteQuizById(int quizId);
         public Task<QuizDTO> UpdateQuiz(QuizDTO quizDTO);
         public Task<QuizDTO?> GetQuizById(int quizId);
+        public Task<QuizWithQuestionsIds> GetWithQuestionsIdsById(int quizId);
     }
 }

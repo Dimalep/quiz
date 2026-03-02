@@ -1,4 +1,5 @@
-﻿using domains;
+﻿using System.Diagnostics.CodeAnalysis;
+using domains;
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
 using services.interfaces;
@@ -75,6 +76,28 @@ namespace services.services
                 .Where(que => que.QuizId == quizId)
                 .Select(que => _mapper.ToDTO(que))
                 .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<QuestionWithAnswers> GetWithAnswersById(int questionId)
+        {
+            var question = await _dbContext.Questions.FirstOrDefaultAsync(q => q.Id == questionId);
+            if (question == null)
+                throw new ArgumentException("Question by id not found");
+
+            var answers = await _dbContext.Answers
+                .Where(a => a.QuestionId == questionId)
+                .Select(a => _mapper.ToDTO(a))
+                .ToListAsync();
+
+            var result = new QuestionWithAnswers
+            {
+                QuestionId = question.Id,
+                Title = question.Title,
+                Type = question.Type,
+                Answers = answers
+            };
 
             return result;
         }

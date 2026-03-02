@@ -20,17 +20,4 @@ export default function PlayerRoom() {
         <WaitingRoom setIsStart={setIsStart} />
       </div>
     );
-
-  // if (currentGame?.status !== 2)
-  //   return (
-  //     <div className={styles.main}>
-  //       <WaitingRoom />
-  //     </div>
-  //   );
-  // if (currentGame?.status === 2)
-  //   return (
-  //     <div className={styles.main}>
-  //       <GameRoomPlayer />
-  //     </div>
-  //   );
 }

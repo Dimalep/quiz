@@ -32,6 +32,11 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         };
     };
 
+    connection.on("FirstConnect", (game: GameDTO) => {
+        setCurrentGame(game);
+        localStorage.setItem("currentGame", JSON.stringify(game));
+    });
+
     connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
         setPlayers(allPlayers);
         setConnectedPlayer(player);

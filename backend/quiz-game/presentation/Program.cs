@@ -3,6 +3,7 @@ using presentation.hubs;
 using services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://localhost:5103");
 
 #region gRPC client
 string? quizGrpcAddress = builder.Configuration["QuizCreationGrpc:Address"];

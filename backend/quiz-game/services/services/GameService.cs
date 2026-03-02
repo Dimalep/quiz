@@ -106,7 +106,8 @@ namespace services.services
                 {
                     Id = existsQuizSession.Id,
                     SessionKey = existsQuizSession.Key,
-                    Status = Status.opened
+                    Status = Status.opened,
+                    QuizId = existsQuizSession.QuizId
                 };
             }
 
@@ -127,7 +128,8 @@ namespace services.services
             {
                 Id = quizSession.Id,
                 SessionKey = sessionKey,
-                Status = Status.opened
+                Status = Status.opened,
+                QuizId = quizSession.QuizId
             };
         }
 
@@ -151,7 +153,8 @@ namespace services.services
             {
                 Id = quizSession.Id,
                 SessionKey = sessionKey,
-                Status = quizSession.Status
+                Status = quizSession.Status,
+                QuizId = quizSession.QuizId
             };
         }
 

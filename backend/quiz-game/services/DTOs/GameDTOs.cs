@@ -17,6 +17,7 @@ namespace services.DTOs
         public int Id { get; set; }
         public string SessionKey { get; set; } = null!;
         public Status Status { get; set; }
+        public int QuizId { get; set; }
     }
     
 }

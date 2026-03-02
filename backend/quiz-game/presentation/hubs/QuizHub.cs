@@ -190,8 +190,14 @@ namespace presentation.hubs
                 session.Connections[Context.ConnectionId] = player;
             }
 
+            var game = await _gameService.GetQuizSessionByKey(sessionKey);
+            
             await Clients.Group($"quiz_{sessionKey}")
-                .SendAsync("UserJoined", player, session.Connections.Values.ToList());
+                .SendAsync("UserJoined", 
+                    player,
+                    session.Connections.Values.ToList());
+
+            await Clients.Caller.SendAsync("FirstConnect", game);
         }
         
         private static QuizRuntimeSession GetOrCreateSession(string sessionKey)

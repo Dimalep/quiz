@@ -10,5 +10,7 @@ namespace services.interfaces
         public Task<QuestionDTO> UpdateQuestion(QuestionDTO questionDTO);
         public Task<QuestionDTO> GetQuestionById(int questionId);
         public Task<ICollection<QuestionDTO>> GetQuestionsByQuizId(int quizId);
+
+        public Task<QuestionWithAnswers> GetWithAnswersById(int questionId);
     }
 }

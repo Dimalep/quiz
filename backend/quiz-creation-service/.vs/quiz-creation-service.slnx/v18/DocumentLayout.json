@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "D:\\quiz\\backend\\quiz-creation-service\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|d:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|solutionrelative:domains\\domains\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-creation-service\\presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\services\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\services\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\dtos\\quizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\dtos\\quizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-creation-service\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,20 +31,12 @@
       "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\presentation.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-creation-service\\presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|d:\\quiz\\backend\\quiz-creation-service\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\servicescollectionextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\servicescollectionextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\services\\answerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,16 +67,8 @@
       "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|presentation\\presentation.csproj|solutionrelative:presentation\\presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\dtos\\quizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\dtos\\quizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\interfaces\\iquizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\interfaces\\iquizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\services\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|solutionrelative:services\\services\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{97207750-6972-232F-BB7B-6106666106AF}|services\\services.csproj|d:\\quiz\\backend\\quiz-creation-service\\services\\services\\questionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -103,10 +107,6 @@
       "RelativeMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|solutionrelative:domains\\domains\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|d:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|solutionrelative:domains\\domains\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|d:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\answer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1540A63C-8419-7760-C06B-129881F7EBA9}|domains\\database.csproj|solutionrelative:domains\\domains\\answer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -126,11 +126,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\Program.cs",
               "RelativeDocumentMoniker": "presentation\\Program.cs",
@@ -138,36 +138,11 @@
               "RelativeToolTip": "presentation\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T08:40:02.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T08:40:02.575Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ServicesCollectionExtentions.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\ServicesCollectionExtentions.cs",
-              "RelativeDocumentMoniker": "services\\ServicesCollectionExtentions.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\ServicesCollectionExtentions.cs",
-              "RelativeToolTip": "services\\ServicesCollectionExtentions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:52:38.718Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DatabaseContext.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\DatabaseContext.cs",
-              "RelativeDocumentMoniker": "domains\\DatabaseContext.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\domains\\DatabaseContext.cs",
-              "RelativeToolTip": "domains\\DatabaseContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:16:41.65Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "ServicesCollectionExtentions.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\ServicesCollectionExtentions.cs",
               "RelativeDocumentMoniker": "domains\\ServicesCollectionExtentions.cs",
@@ -179,7 +154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\appsettings.json",
               "RelativeDocumentMoniker": "presentation\\appsettings.json",
@@ -191,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "AnswerService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\AnswerService.cs",
               "RelativeDocumentMoniker": "services\\services\\AnswerService.cs",
@@ -203,19 +178,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Mapper.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\Mapper.cs",
               "RelativeDocumentMoniker": "services\\Mapper.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\Mapper.cs",
               "RelativeToolTip": "services\\Mapper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAywBoAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-14T06:23:23.9Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "presentation\\Properties\\launchSettings.json",
@@ -227,7 +202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "presentation.http",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\presentation.http",
               "RelativeDocumentMoniker": "presentation\\presentation.http",
@@ -239,7 +214,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 0,
+              "Title": "Quiz.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\Quiz.cs",
+              "RelativeDocumentMoniker": "domains\\domains\\Quiz.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\Quiz.cs",
+              "RelativeToolTip": "domains\\domains\\Quiz.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-14T05:06:47.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QuizService.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\QuizService.cs",
+              "RelativeDocumentMoniker": "services\\services\\QuizService.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\QuizService.cs",
+              "RelativeToolTip": "services\\services\\QuizService.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAiwCEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-14T06:04:04.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "QuizDTO.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\QuizDTO.cs",
+              "RelativeDocumentMoniker": "services\\DTOs\\QuizDTO.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\QuizDTO.cs",
+              "RelativeToolTip": "services\\DTOs\\QuizDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-14T05:53:29.11Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "domains\\DatabaseContext.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\domains\\DatabaseContext.cs",
+              "RelativeToolTip": "domains\\DatabaseContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-14T05:16:41.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ServicesCollectionExtentions.cs",
+              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\ServicesCollectionExtentions.cs",
+              "RelativeDocumentMoniker": "services\\ServicesCollectionExtentions.cs",
+              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\ServicesCollectionExtentions.cs",
+              "RelativeToolTip": "services\\ServicesCollectionExtentions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-14T05:52:38.718Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "QuestionService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\QuestionService.cs",
               "RelativeDocumentMoniker": "services\\services\\QuestionService.cs",
@@ -252,18 +288,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "QuizService.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\QuizService.cs",
-              "RelativeDocumentMoniker": "services\\services\\QuizService.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\services\\QuizService.cs",
-              "RelativeToolTip": "services\\services\\QuizService.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAUwEEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T06:04:04.136Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "presentation.csproj",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\presentation.csproj",
               "RelativeDocumentMoniker": "presentation\\presentation.csproj",
@@ -275,7 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "QuizGrpcService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\grpc\\Services\\QuizGrpcService.cs",
               "RelativeDocumentMoniker": "presentation\\grpc\\Services\\QuizGrpcService.cs",
@@ -287,7 +311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "quiz.proto",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\grpc\\Protos\\quiz.proto",
               "RelativeDocumentMoniker": "presentation\\grpc\\Protos\\quiz.proto",
@@ -299,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\appsettings.Development.json",
               "RelativeDocumentMoniker": "presentation\\appsettings.Development.json",
@@ -311,7 +335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "QuestionController.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\controllers\\QuestionController.cs",
               "RelativeDocumentMoniker": "presentation\\controllers\\QuestionController.cs",
@@ -323,7 +347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "IAnswerService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\interfaces\\IAnswerService.cs",
               "RelativeDocumentMoniker": "services\\interfaces\\IAnswerService.cs",
@@ -335,7 +359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "AnswerDTO.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\AnswerDTO.cs",
               "RelativeDocumentMoniker": "services\\DTOs\\AnswerDTO.cs",
@@ -347,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "IQuizService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\interfaces\\IQuizService.cs",
               "RelativeDocumentMoniker": "services\\interfaces\\IQuizService.cs",
@@ -359,19 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "QuizDTO.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\QuizDTO.cs",
-              "RelativeDocumentMoniker": "services\\DTOs\\QuizDTO.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\QuizDTO.cs",
-              "RelativeToolTip": "services\\DTOs\\QuizDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:53:29.11Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "AnswerController.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\controllers\\AnswerController.cs",
               "RelativeDocumentMoniker": "presentation\\controllers\\AnswerController.cs",
@@ -383,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "QuizController.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\presentation\\controllers\\QuizController.cs",
               "RelativeDocumentMoniker": "presentation\\controllers\\QuizController.cs",
@@ -395,7 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "QuestionDTO.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\DTOs\\QuestionDTO.cs",
               "RelativeDocumentMoniker": "services\\DTOs\\QuestionDTO.cs",
@@ -407,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "IQuestionService.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\services\\interfaces\\IQuestionService.cs",
               "RelativeDocumentMoniker": "services\\interfaces\\IQuestionService.cs",
@@ -419,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "Question.cs",
               "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\Question.cs",
               "RelativeDocumentMoniker": "domains\\domains\\Question.cs",
@@ -428,18 +440,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwBkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-14T05:33:48.282Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Quiz.cs",
-              "DocumentMoniker": "D:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\Quiz.cs",
-              "RelativeDocumentMoniker": "domains\\domains\\Quiz.cs",
-              "ToolTip": "D:\\quiz\\backend\\quiz-creation-service\\domains\\domains\\Quiz.cs",
-              "RelativeToolTip": "domains\\domains\\Quiz.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T05:06:47.777Z"
             },
             {
               "$type": "Document",
