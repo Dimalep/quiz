@@ -29,12 +29,21 @@ namespace domains.domains
         
         [Column("complete_at")]
         public DateTime CompleteAt { get; set; }
-        
+
+        [Column("status")]
+        public ProgressStatus Status { get; set; } = ProgressStatus.waiting;
         
         [Column("quiz_result", TypeName="jsonb")]
         public PlayerQuizResult QuizResult { get; set; } = new();
     }
 
+    public enum ProgressStatus
+    {
+        waiting,
+        in_game,
+        completed,
+    }
+    
     public class PlayerQuizResult
     {
         [JsonPropertyName("quizId")]

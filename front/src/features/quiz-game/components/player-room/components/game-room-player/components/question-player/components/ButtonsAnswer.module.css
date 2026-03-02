@@ -1,0 +1,9 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+.main button{
+    padding: 10px 25px;
+}

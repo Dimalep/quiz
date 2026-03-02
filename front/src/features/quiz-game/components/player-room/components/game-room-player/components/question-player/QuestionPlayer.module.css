@@ -1,4 +1,10 @@
-.answers {
+.main{
     display: flex;
     flex-direction: column;
+    background-color: antiquewhite;
+    width: 60%;
+}
+
+.main h3{
+    margin-bottom: 30px;
 }

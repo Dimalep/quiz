@@ -1,21 +1,17 @@
-import type { QuestionWithAnswers } from "../../../../../../../../core/hooks/quiz-creation-microservice/useQuestion";
+import { useQuizGamePlayerContext } from "../../../../../../quiz-game-context/QuizGamePlayerContext";
+import ButtonsAnswer from "./components/ButtonsAnswer";
 import styles from "./QuestionPlayer.module.css";
 
-interface Props {
-  question: QuestionWithAnswers | undefined;
-}
+export default function QuestionPlayer() {
+  const { currentQuestion } = useQuizGamePlayerContext();
 
-export default function QuestionPlayer({ question }: Props) {
-  if (!question) return;
+  if (!currentQuestion) return;
 
   return (
-    <div>
-      <h3>{question?.title}</h3>
-      <div className={styles.answers}>
-        {question.answers.map((el) => (
-          <button key={el.id}>{el.text}</button>
-        ))}
-      </div>
+    <div className={styles.main}>
+      <span>Вопрос:</span>
+      <h3>{currentQuestion.title}</h3>
+      <ButtonsAnswer answers={currentQuestion.answers} />
     </div>
   );
 }

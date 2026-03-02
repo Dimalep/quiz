@@ -40,6 +40,20 @@ namespace presentation.hubs
         private static readonly Dictionary<string, QuizRuntimeSession> _sessions = new();
         private static readonly object _lock = new();
 
+        public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
+        {
+            var session = GetOrCreateSession(sessionKey);
+
+            var progress = await _progressService.AddAnswer(sessionKey, questionResult, playerId);
+            
+            lock (session.SyncRoot)
+            {
+                session.Progresses[playerId] = progress;
+            }
+            
+            await SendProgressToAdmin(session);
+        }
+        
         public async Task CloseForConnect(string sessionKey)
         {
             var game = await _gameService.CloseForConnect(sessionKey);
@@ -111,17 +125,21 @@ namespace presentation.hubs
                 {
                     Id = p.Player.Id,
                     Nickname = p.Player.Nickname,
-                }
+                },
+                Status = p.Status
             }).ToList();
             
             await Clients.Group($"quiz_admin_{session.SessionKey}")
                 .SendAsync("ProgressUpdatedForAdmin", progressDTOs);
         }
 
-        public async Task FinishGame(string sessionKey, Progress progress)
+        public async Task FinishGame(string sessionKey, int playerId)
         {
+            Console.WriteLine($"Session key: {sessionKey}, Player id: {playerId}");
             var session = GetOrCreateSession(sessionKey);
 
+            var progress = await _progressService.Finish(playerId, sessionKey);
+            
             lock (session.SyncRoot)
             {
                 session.Progresses[progress.PlayerId] = progress;
@@ -135,21 +153,29 @@ namespace presentation.hubs
         public async Task StartGame(string sessionKey, int playerId)
         {
             var session = GetOrCreateSession(sessionKey);
-
-            var game = await _gameService.GetQuizSessionByKey(sessionKey);
-            if (game == null)
-                throw new ArgumentException("Game cannot by null");
-
-            if (game.Status == Status.completed || game.Status == Status.closed)
-                throw new ArgumentException("Game cannot by started");
             
-            var progress = await _progressService.AddPlayerProgress(playerId, sessionKey);
+            var progress = await _progressService.Start(playerId, sessionKey);
 
             lock (session.SyncRoot)
             {
                 session.Progresses[playerId] = progress;
             }
 
+            await Clients.Caller.SendAsync("ProgressUpdated", progress);
+            await SendProgressToAdmin(session);
+        }
+
+        public async Task CreateProgress(string sessionKey, int playerId)
+        {
+            var session = GetOrCreateSession(sessionKey);
+
+            var progress = await _progressService.CreateProgress(playerId, sessionKey);
+            
+            lock(session.SyncRoot)
+            {
+                session.Progresses[playerId] = progress;
+            }
+            
             await Clients.Caller.SendAsync("ProgressUpdated", progress);
             await SendProgressToAdmin(session);
         }

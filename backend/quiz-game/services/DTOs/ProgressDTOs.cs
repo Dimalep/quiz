@@ -11,4 +11,5 @@ public record ProgressDTO
     public int QuantityQuestion { get; set; }
     public DateTime StartAt { get; set; }
     public DateTime CompleteAt { get; set; }
+    public ProgressStatus Status { get; set; }
 }   

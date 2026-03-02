@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Player } from "./usePlayer";
 import * as signalR from "@microsoft/signalr";
 import type { GameDTO } from "./useGame";
+import type { ProgressDTO } from "./useProgress";
 
 export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const connectionRef = useRef<signalR.HubConnection | null>(null);
@@ -9,12 +10,20 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [connectedPlayer, setConnectedPlayer] = useState<Player | null>(null);
   const [currentGame, setCurrentGame] = useState<GameDTO>();
+  const [currentProgress, setCurrentProgress] = useState<ProgressDTO>();
+
+  useEffect(() => {
+    if(!currentProgress) return;
+    localStorage.setItem("currentProgress", JSON.stringify(currentProgress));
+  }, [currentProgress])
+
+  useEffect(() => {
+    if(!currentGame) return;
+    localStorage.setItem("currentGame", JSON.stringify(currentGame));
+  }, [currentGame])
 
   useEffect(()=>{
-    if(!sessionKey || !player) {
-        console.log("Player sk or p is null");
-        return;
-    }
+    if(!sessionKey || !player) return;
 
     const connection = new signalR.HubConnectionBuilder()
             .withUrl("http://localhost:5103/quizHub", { withCredentials: true })
@@ -27,6 +36,7 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         try{
             await connection.start();
             await connection.invoke("ConnectToQuiz", sessionKey, player);
+            await connection.invoke("CreateProgress", sessionKey, player.id);
         }catch(err){
             console.log(err)
         };
@@ -34,7 +44,6 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
 
     connection.on("FirstConnect", (game: GameDTO) => {
         setCurrentGame(game);
-        localStorage.setItem("currentGame", JSON.stringify(game));
     });
 
     connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
@@ -49,23 +58,22 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
 
     connection.on("GameLaunched", (game: GameDTO) => {
         setCurrentGame(game);
-        localStorage.setItem("currentGame", JSON.stringify(game));
     });
 
     connection.on("GameCompleted", (game: GameDTO) => {
       setCurrentGame(game);
-      localStorage.removeItem("currentGame");
     });
 
     connection.on("GameClose", (game: GameDTO) => {
         setCurrentGame(game);
-        localStorage.setItem("currentGame", JSON.stringify(game));
     });
 
     connection.on("GameOpen", (game: GameDTO) => {
         setCurrentGame(game);
-        localStorage.setItem("currentGame", JSON.stringify(game));
     });
+    connection.on("ProgressUpdated", (progress: ProgressDTO) => {
+        setCurrentProgress(progress);
+    })
 
     start();
 
@@ -76,6 +84,7 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         connection.off("GameCompleted");
         connection.off("GameOpen");
         connection.off("GameClose");
+        connection.off("ProgressUpdated");
         connection.stop();
     }
   },[sessionKey, player]);
@@ -85,6 +94,8 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
     players,
     connectedPlayer,
     currentGame,
+    currentProgress,
+    setCurrentProgress,
     setCurrentGame
   }
 }

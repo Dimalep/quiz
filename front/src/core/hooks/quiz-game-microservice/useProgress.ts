@@ -8,6 +8,7 @@ export interface Progress {
   startAt: string;
   completeAt: string;
   quizResult: PlayerQuizResult;
+  status: number;
 }
 
 export interface PlayerQuizResult {
@@ -31,6 +32,7 @@ export interface ProgressDTO {
   currentQuestionIndex: number;
   startAt: string;
   completeAt: string;
+  status: number;
 }
 
 export default function useProgress() {

@@ -8,6 +8,11 @@ import useQuizApi, {
 } from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import type { QuestionWithAnswers } from "../../../core/hooks/quiz-creation-microservice/useQuestion";
 import useQuestion from "../../../core/hooks/quiz-creation-microservice/useQuestion";
+import type {
+  ProgressDTO,
+  QuestionResult,
+} from "../../../core/hooks/quiz-game-microservice/useProgress";
+import type { AnswerDTO } from "../../../core/hooks/quiz-creation-microservice/useAnswer";
 
 interface QuizGamePlayerContextType {
   currentQuestion: QuestionWithAnswers | undefined;
@@ -15,8 +20,11 @@ interface QuizGamePlayerContextType {
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
   lightQuiz: QuizWithQuestionsIds | undefined;
+  currentProgress: ProgressDTO | undefined;
   startGame: () => void;
   selectCurrentQuestion: (questionId: number) => void;
+  giveAnswer: (question: AnswerDTO) => void;
+  finishGame: () => void;
 }
 
 const PlayerContext = createContext<QuizGamePlayerContextType | undefined>(
@@ -37,10 +45,14 @@ export default function QuizGamePlayerContext({
   const { getQuestionWithAnswers } = useQuestion();
   const { sessionKey } = useParams();
 
-  const { connection, players, currentGame, setCurrentGame } = useQuizHubPlayer(
-    sessionKey,
-    currentPlayer,
-  );
+  const {
+    connection,
+    players,
+    currentGame,
+    setCurrentGame,
+    currentProgress,
+    setCurrentProgress,
+  } = useQuizHubPlayer(sessionKey, currentPlayer);
 
   useEffect(() => {
     const data = localStorage.getItem("player");
@@ -54,6 +66,13 @@ export default function QuizGamePlayerContext({
       return;
     }
     setCurrentGame(JSON.parse(game));
+
+    const progress = localStorage.getItem("currentProgress");
+    if (progress === null) {
+      console.log("Progress is null");
+      return;
+    }
+    setCurrentProgress(JSON.parse(progress));
   }, []);
 
   useEffect(() => {
@@ -97,6 +116,22 @@ export default function QuizGamePlayerContext({
     await connection?.invoke("StartGame", sessionKey, currentPlayer?.id);
   };
 
+  const finishGame = async () => {
+    await connection?.invoke("FinishGame", sessionKey, currentPlayer?.id);
+  };
+
+  const giveAnswer = async (answer: AnswerDTO) => {
+    if (!answer.id || !currentQuestion) return;
+    const question: QuestionResult = {
+      answer: answer.text,
+      answerId: answer.id,
+      isCorrect: answer.isCorrect,
+      question: currentQuestion.title,
+      questionId: currentQuestion.questionId,
+    };
+    console.log("Answer for server:", question);
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -106,7 +141,10 @@ export default function QuizGamePlayerContext({
         startGame,
         lightQuiz,
         selectCurrentQuestion,
+        giveAnswer,
         currentQuestion,
+        currentProgress,
+        finishGame,
       }}
     >
       {children}
