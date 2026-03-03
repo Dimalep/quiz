@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react"
 import * as signalR from "@microsoft/signalr";
 import type { Player } from "./usePlayer";
 import type { GameDTO } from "./useGame";
-import type { Progress, ProgressDTO } from "./useProgress";
+import type { ProgressForAdmin } from "./useProgress";
 
 export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
   const connectionRef = useRef<signalR.HubConnection | null>(null);
   
   const [currentGame, setCurrentGame] = useState<GameDTO>();
   const [players, setPlayers] = useState<Player[]>([]);
-  const [progresses, setProgresses] = useState<ProgressDTO[]>([]);
+  const [progresses, setProgresses] = useState<ProgressForAdmin[]>([]);
 
   useEffect(()=>{
     if(!sessionKey || !admin){
@@ -30,6 +30,7 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
       try{
         await connection.start();
         await connection.invoke("ConnectToQuiz", sessionKey, admin);
+        await connection.invoke("GetProgressesForAdmin", sessionKey);
       }catch(err){
         console.log(err);
       }
@@ -49,7 +50,7 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
       console.log("Current game: ", game);
     });
 
-    connection.on("ProgressUpdatedForAdmin", (progresses: ProgressDTO[]) => {
+    connection.on("ProgressUpdatedForAdmin", (progresses: ProgressForAdmin[]) => {
       setProgresses(progresses);
       console.log("Progresses: ", progresses);
     })
@@ -82,6 +83,7 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
     players,
     currentGame,
     setCurrentGame,
+    setProgresses,
     progresses
   }
 }

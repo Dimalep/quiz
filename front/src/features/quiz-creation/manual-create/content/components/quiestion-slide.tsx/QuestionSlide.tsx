@@ -9,7 +9,7 @@ export default function QuestionSlide() {
   const { state, dispatch } = useCreateContext();
 
   const nextHandleClick = () => {
-    if (state.currentQuestion?.number === state.quiz.questions.length) {
+    if (state.currentQuestion?.index === state.quiz.questions.length) {
       dispatch({ type: "OPEN_CHOSE" });
     } else {
       dispatch({ type: "OPEN_NEXT_QUESTION" });

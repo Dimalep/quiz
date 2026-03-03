@@ -9,7 +9,7 @@ export default function useQuiz() {
   const {quizId} = useParams();
   const [quiz, setQuiz] = useState<QuizDTO>();
 
-  const {getQuizById} = useQuizApi();
+  const {getShortQuizById} = useQuizApi();
   const {addQuizSession} = useGame();
   const {addPlayer} = usePlayer();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function useQuiz() {
   useEffect(() => {
     const loadQuiz = async () => {
       if (!quizId) return;
-      const data = await getQuizById(Number(quizId));
+      const data = await getShortQuizById(Number(quizId));
       setQuiz(data);
     };
     loadQuiz();
@@ -39,5 +39,5 @@ export default function useQuiz() {
     navigate(`/quiz/game/${quizSession?.sessionKey}`);
   }
 
-  return {getQuizById, quiz, newQuizSession}
+  return {quiz, newQuizSession}
 }

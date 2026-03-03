@@ -30,7 +30,7 @@ namespace presentation.controllers
         [HttpPost("registrate")]
         public async Task<IActionResult> RegistrateByUsername([FromBody] RegRequestDTO req)
         {
-            var res = await authService.Registrate(req);
+            var res = await authService.Registration(req);
 
             return Ok(res);
         }

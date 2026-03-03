@@ -1,25 +1,21 @@
 export type Answer = {
-  id: number;
+  index: number;
   text: string;
   isCorrectly: boolean;
-  questionId: number
 }
 
 export type Question = {
-  id: number;
+  index: number;
   text: string;
   type: string;
   answers: Answer[];
-  quizId: number;
-
-  //for UI
-  number: number;
 }
 
 export type Quiz = {
   id: number;
   title: string;
   description: string;
+  quantityQuestion: number;
   questions: Question[];
 }
 
@@ -30,14 +26,14 @@ export interface CreateState {
 }
 
 export type Action = 
-  | {type: "UPDATE_ANSWER", payload: { answerId: number, data: Partial<Answer>}}
-  | {type: "CREATE_ANSWER", payload: {answerId: number}}
+  | {type: "UPDATE_ANSWER", payload: { answerIndex: number, data: Partial<Answer>}}
+  | {type: "CREATE_ANSWER"}
   | {type: "DELETE_ANSWER", payload: {id: number}}
-  | {type: "UPDATE_QUIZ_SETTINGS", payload: {data: Partial<Quiz>}}
-  | {type: "CREATE_QUESTION", payload: {questionId: number, answer: Answer, type: string}}
+  | {type: "UPDATE_QUIZ", payload: {data: Partial<Quiz>}}
+  | {type: "CREATE_QUESTION", payload: {type: string}}
   | {type: "OPEN_CHOSE"}
   | {type: "OPEN_NEXT_QUESTION"}
-  | {type: "SELECT_QUESTION", payload: {number: number}}
+  | {type: "SELECT_QUESTION", payload: {index: number}}
   | {type: "OPEN_SETTINGS"}
   | {type: "DELETE_QUESTION"}
   | {type: "UPDATE_QUESTION", payload: {text: string}}
@@ -48,21 +44,21 @@ export default function reducer(state: CreateState, action: Action) {
     //#region answer
     case ("UPDATE_ANSWER"): {
       if(state.currentQuestion === undefined) return state;
-        const {answerId, data} = action.payload;
-        const currentNumber = state.currentQuestion?.number;
+        const {answerIndex, data} = action.payload;
+        const currentQustionIndex = state.currentQuestion?.index;
 
         return {
           ...state,
           quiz: {
             ...state.quiz,
-            questions: state.quiz?.questions.map(q => q.number === currentNumber ? {
+            questions: state.quiz?.questions.map(q => q.index === currentQustionIndex ? {
               ...q,
-              answers: q.answers.map(a => a.id === answerId ? {...a, ...data} : a )
+              answers: q.answers.map(a => a.index === answerIndex ? {...a, ...data} : a )
             } : q)
           },
-          currentQuestion: state.currentQuestion?.number === currentNumber ? {
+          currentQuestion: state.currentQuestion?.index === currentQustionIndex ? {
             ...state.currentQuestion,
-            answers: state.currentQuestion.answers.map(a => a.id === answerId ? {...a, ...data} : a)
+            answers: state.currentQuestion.answers.map(a => a.index === answerIndex ? {...a, ...data} : a)
           } : state.currentQuestion
         };
     }
@@ -71,12 +67,12 @@ export default function reducer(state: CreateState, action: Action) {
 
       if (!state.currentQuestion) return state;
 
-      const currentNumber = state.currentQuestion.number;
+      const currnetQuestionIndex = state.currentQuestion.index;
 
       const updatedQuestions = state.quiz.questions.map(q => {
-        if (q.number !== currentNumber) return q;
+        if (q.index !== currnetQuestionIndex) return q;
 
-        const filteredAnswers = q.answers.filter(a => a.id !== id);
+        const filteredAnswers = q.answers.filter(a => a.index !== id);
 
         const renumberedAnswers = filteredAnswers.map((a, index) => ({
           ...a,
@@ -90,7 +86,7 @@ export default function reducer(state: CreateState, action: Action) {
       });
 
       const updatedCurrentQuestion = updatedQuestions.find(
-        q => q.number === currentNumber
+        q => q.index === currnetQuestionIndex
       );
 
       return {
@@ -104,19 +100,17 @@ export default function reducer(state: CreateState, action: Action) {
     }
     case ("CREATE_ANSWER"):{
       if(!state.currentQuestion) return state;
-      const currentNumber = state.currentQuestion.number;
-      //const length = state.currentQuestion.answers.length;
-      const currentQuestionId = state.currentQuestion?.id;
-      const {answerId} = action.payload;
+      const currnetQuestionIndex = state.currentQuestion.index;
+      
+      const newAnswerIndex = state.currentQuestion.answers.length + 1; 
 
       const newAnswer: Answer = {
-        id: answerId,
+        index: newAnswerIndex,
         text: "",
         isCorrectly: false,
-        questionId: currentQuestionId
       }
 
-      const updatedQuestions = state.quiz.questions.map(q => q.number === currentNumber ?
+      const updatedQuestions = state.quiz.questions.map(q => q.index === currnetQuestionIndex ?
         {
           ...q, answers: [...q.answers, newAnswer]
         } : q)
@@ -134,7 +128,7 @@ export default function reducer(state: CreateState, action: Action) {
     }
     //#endregion
     //quiz
-    case ("UPDATE_QUIZ_SETTINGS"):{
+    case ("UPDATE_QUIZ"):{
         const {data} = action.payload;
         return{
           ...state,
@@ -144,17 +138,14 @@ export default function reducer(state: CreateState, action: Action) {
     //question
     case ("CREATE_QUESTION"):{
         const length = state.quiz.questions.length;
-        const number = length === 0 ? 1 : length + 1;
-        const quizId = state.quiz.id;
 
-        const {questionId, answer, type} = action.payload;
+        const {type} = action.payload;
+
         const newQuestion = {
-          id: questionId,
+          index: length + 1,
           text: "",
           type: type,
-          number: number,
-          answers: [answer],
-          quizId: quizId
+          answers: [{index: 1, text: "", isCorrectly: true}]
         }
 
         return{
@@ -176,7 +167,7 @@ export default function reducer(state: CreateState, action: Action) {
     }
     case "OPEN_NEXT_QUESTION": {
         const currentIndex = state.quiz.questions.findIndex(
-          q => q.number === state.currentQuestion?.number
+          q => q.index === state.currentQuestion?.index
         );
 
         const nextQuestion =
@@ -191,10 +182,10 @@ export default function reducer(state: CreateState, action: Action) {
         };
     }
     case ("SELECT_QUESTION"):{
-      const {number} = action.payload;
+      const {index} = action.payload;
       return {
         ...state,
-        currentQuestion: state.quiz.questions.find(q => q.number === number),
+        currentQuestion: state.quiz.questions.find(q => q.index === index),
         editorMode: "slide" as "settings" | "slide"
       }
     }
@@ -208,10 +199,10 @@ export default function reducer(state: CreateState, action: Action) {
     case "DELETE_QUESTION": {
       if (!state.currentQuestion) throw Error("Error delete question");
 
-      const currentNumber = state.currentQuestion.number;
+      const currentNumber = state.currentQuestion.index;
 
       const newQuestions = state.quiz.questions.filter(
-        q => q.number !== currentNumber
+        q => q.index !== currentNumber
       );
 
       const renumberedQuestions = newQuestions.map((q, index) => ({
@@ -241,10 +232,10 @@ export default function reducer(state: CreateState, action: Action) {
       if (!state.currentQuestion) return state;
 
       const { text } = action.payload;
-      const currentNumber = state.currentQuestion.number;
+      const currentIndex = state.currentQuestion.index;
 
       const updatedQuestions = state.quiz.questions.map(q =>
-        q.number === currentNumber
+        q.index === currentIndex
           ? { ...q, text }
           : q
       );

@@ -1,3 +1,5 @@
+import type { Quiz } from "../../../features/quiz-creation/manual-create/create-context/reducer";
+
 export type QuizDTO = {
     id?: number;
     title: string;
@@ -15,22 +17,23 @@ export interface QuizWithQuestionsIds {
 
 export default function useQuizApi() {
 
-  const getQuizWithQuestionsIds = async (quizId: number) : Promise<QuizWithQuestionsIds | undefined> => {
-    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/with-questions-ids/${quizId}`, {
+  const getShortQuizById = async (quizId: number) : Promise<QuizDTO | undefined>=> {
+    const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
       method: "GET",
       headers: {"Content-type": "application/json"},
     });
-
+  
     if(!response.ok){
-      console.log("Error get quiz with questions ids");
-      return undefined;
+      console.log("Error update quiz");
+      return;
     }
+    
+    const data: QuizDTO = await response.json();
 
-    const data: QuizWithQuestionsIds = await response.json();
     return data;
-  }
+  };
 
-  const updateQuiz = async (quiz: QuizDTO) : Promise<boolean | undefined> => {
+  const updateQuiz = async (quiz: Quiz) : Promise<boolean | undefined> => {
     const response = await fetch("http://localhost:5051/api/quizzes", {
       method: "PUT",
       headers: {"Content-type": "application/json"},
@@ -60,38 +63,6 @@ export default function useQuizApi() {
     return quizId;
   }
 
-  const getQuizById = async (quizId: number) : Promise<QuizDTO | undefined> =>  {
-    const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
-      method: "GET",
-      headers: {"Content-type": "application/json"},
-    });
 
-    if(!response.ok){
-      console.log("Error get quiz by id");
-      return;
-    }
-    
-    const data: QuizDTO = await response.json();
-
-    return data;
-  }
-
-  const addQuiz = async (quiz: QuizDTO) : Promise<QuizDTO | undefined> => {
-    const response = await fetch("", {
-      method: "POST",
-      headers: {"Content-type": "application/json"},
-      body: JSON.stringify(quiz)
-    });
-
-    if(!response.ok){
-      console.log("Error add quiz");
-      return;
-    }
-
-    const data: QuizDTO = await response.json();
-
-    return data;
-  }
-
-  return {createNewQuiz, addQuiz, getQuizById, updateQuiz, getQuizWithQuestionsIds}
+  return {createNewQuiz, updateQuiz, getShortQuizById}
 }

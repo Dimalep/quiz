@@ -11,8 +11,10 @@ export default function AdminRoom() {
   const [room, setRoom] = useState<"wait" | "game">("wait");
 
   useEffect(() => {
-    if (currentGame?.status === 2) setRoom("game");
-  }, [currentGame?.status]);
+    if (currentGame?.status === 2) {
+      setRoom("game");
+    }
+  }, [currentGame]);
 
   if (currentGame?.status !== 3) {
     if (room === "wait")

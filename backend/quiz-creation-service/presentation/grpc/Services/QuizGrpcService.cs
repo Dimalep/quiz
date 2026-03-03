@@ -3,18 +3,11 @@ using services.interfaces;
 
 namespace presentation.grpc
 {
-    public class QuizGrpcService : QuizGrpc.QuizGrpcBase
+    public class QuizGrpcService(IQuizService quizService) : QuizGrpc.QuizGrpcBase
     {
-        private readonly IQuizService _quizService;
-
-        public QuizGrpcService(IQuizService quizService)
-        {
-            _quizService = quizService;
-        }
-
         public override async Task<QuizResponse> GetQuizById(QuizRequest request, ServerCallContext context)
         {
-            var quiz = await _quizService.GetQuizById(request.QuizId);
+            var quiz = await quizService.GetQuizById(request.QuizId);
 
             if(quiz == null)
             {

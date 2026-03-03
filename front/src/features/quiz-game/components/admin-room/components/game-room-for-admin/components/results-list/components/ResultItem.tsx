@@ -1,12 +1,15 @@
-import type {
-  Progress,
-  ProgressDTO,
-} from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
+import type { ProgressForAdmin } from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
 
 interface Props {
-  progress: ProgressDTO;
+  progress: ProgressForAdmin;
 }
 
 export default function ResultItem({ progress }: Props) {
-  return <div>{progress.player.nickname}</div>;
+  return (
+    <tr>
+      <td>{progress.player.nickname}</td>
+      <td>{progress.quantityCorrectAnswers}</td>
+      <td>{progress.status}</td>
+    </tr>
+  );
 }

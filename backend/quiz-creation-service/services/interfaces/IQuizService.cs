@@ -1,14 +1,21 @@
-﻿using services.DTOs;
+﻿
+using domains.domains;
+using services.DTOs;
 
 namespace services.interfaces
 {
     public interface IQuizService
     {
         public Task<int> CreateEmptyQuiz();
-        public Task<QuizDTO> AddQuiz(QuizDTO quizDTO);
-        public Task<QuizDTO> DeleteQuizById(int quizId);
-        public Task<QuizDTO> UpdateQuiz(QuizDTO quizDTO);
-        public Task<QuizDTO?> GetQuizById(int quizId);
-        public Task<QuizWithQuestionsIds> GetWithQuestionsIdsById(int quizId);
+        public Task<Quiz> UpdateQuiz(Quiz quiz);
+        public Task<Quiz> GetQuizById(int quizId);
+        public Task<ShortQuiz> GetShortQuizById(int quizId);
+
+        // public Task<int> CreateEmptyQuiz();
+        // public Task<QuizDTO> AddQuiz(QuizDTO quizDTO);
+        // public Task<QuizDTO> DeleteQuizById(int quizId);
+        // public Task<QuizDTO> UpdateQuiz(QuizDTO quizDTO);
+        // public Task<QuizDTO?> GetQuizById(int quizId);
+        // public Task<QuizWithQuestionsIds> GetWithQuestionsIdsById(int quizId);
     }
 }

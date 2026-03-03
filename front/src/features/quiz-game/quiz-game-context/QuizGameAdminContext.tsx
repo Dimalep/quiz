@@ -4,14 +4,15 @@ import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlaye
 import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
 import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
 import useQuizHubAdmin from "../../../core/hooks/quiz-game-microservice/useQuizHubAdmin";
-import type { ProgressDTO } from "../../../core/hooks/quiz-game-microservice/useProgress";
-import useQuizApi from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
+import type {
+  ProgressForAdmin,
+} from "../../../core/hooks/quiz-game-microservice/useProgress";
 
 export interface QuizGameAdminContextType {
   sessionKey: string | undefined;
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
-  progresses: ProgressDTO[];
+  progresses: ProgressForAdmin[];
   startGame: () => void;
   completeGame: () => void;
   closeForConnect: () => void;
@@ -29,7 +30,7 @@ export default function QuizGameAdminContext({
 }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
 
-  const { getQuizWithQuestionsIds } = useQuizApi();
+  // const { getQuizWithQuestionsIds } = useQuizApi();
   const { getGameBySessionKey } = useGame();
   const { sessionKey } = useParams<{ sessionKey: string }>();
 

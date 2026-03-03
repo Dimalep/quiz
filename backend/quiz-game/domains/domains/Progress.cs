@@ -33,7 +33,6 @@ namespace domains.domains
         [Column("status")]
         public ProgressStatus Status { get; set; } = ProgressStatus.waiting;
         
-        [Column("quiz_result", TypeName="jsonb")]
         public PlayerQuizResult QuizResult { get; set; } = new();
     }
 
@@ -61,12 +60,14 @@ namespace domains.domains
         [JsonPropertyName("questionId")]
         public int QuestionId { get; set; }
 
-        [JsonPropertyName("question")] public string Question { get; set; } = null!;
+        [JsonPropertyName("question")] 
+        public string Question { get; set; } = null!;
         
         [JsonPropertyName("answerId")]
         public int AnswerId { get; set; }
 
-        [JsonPropertyName("answer")] public string Answer { get; set; } = null!;
+        [JsonPropertyName("answer")] 
+        public string Answer { get; set; } = null!;
         
         [JsonPropertyName("isCorrect")]
         public bool IsCorrect { get; set; }

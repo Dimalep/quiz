@@ -1,10 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//Components
 import Home from "./features/home/Home";
-//Styles
 import "./shared/styles/app_styles.css";
-//import SelectTypeCreation from "./features/quiz-creation/type-selection/SelectTypeCreation";
-//import CompleteCreation from "./features/quiz-creation/manual-create/complete-creation/CompleteCreation";
 
 import { AuthProvider } from "./shared/components/AuthProvider";
 import ScrollToStart from "./shared/components/scroll-to-start/ScrollToStart";

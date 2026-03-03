@@ -7,40 +7,6 @@ interface Props {
 }
 
 export default function AnswerBlock({ answers }: Props) {
-  // const [inputAnswer, setInputAnswer] = useState(answer.text);
-  //const { dispatch } = useCreateContext();
-
-  // useEffect(() => {
-  //   setInputAnswer(answer.text);
-  // }, [answer.text]);
-
-  // const removeHandleClick = () => {
-  //   dispatch({ type: "DELETE_ANSWER", payload: { id: answer.id } });
-  // };
-
-  // const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   setInputAnswer(value);
-
-  //   dispatch({
-  //     type: "UPDATE_ANSWER",
-  //     payload: {
-  //       answerId: answer.id,
-  //       data: { text: value },
-  //     },
-  //   });
-  // };
-
-  // const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   dispatch({
-  //     type: "UPDATE_ANSWER",
-  //     payload: {
-  //       answerId: answer.id,
-  //       data: { isCorrectly: e.target.checked },
-  //     },
-  //   });
-  // };
-
   const correctAnswers = answers.filter((a) => a.isCorrectly);
   const incorrectAnswers = answers.filter((a) => !a.isCorrectly);
 
@@ -52,7 +18,7 @@ export default function AnswerBlock({ answers }: Props) {
             <span>Правильный ответ</span>
             <div className={styles.correct_block}>
               {correctAnswers.map((el) => (
-                <AnswerButton key={el.id} answer={el} isCorrectly={true} />
+                <AnswerButton key={el.index} answer={el} isCorrectly={true} />
               ))}
             </div>
           </>
@@ -60,7 +26,7 @@ export default function AnswerBlock({ answers }: Props) {
         <span>Неправильные ответы</span>
         <div className={styles.incorrect_block}>
           {incorrectAnswers.map((el) => (
-            <AnswerButton key={el.id} answer={el} isCorrectly={false} />
+            <AnswerButton key={el.index} answer={el} isCorrectly={false} />
           ))}
         </div>
       </div>

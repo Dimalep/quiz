@@ -116,11 +116,6 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("player_id");
 
-                    b.Property<string>("QuizResult")
-                        .IsRequired()
-                        .HasColumnType("jsonb")
-                        .HasColumnName("quiz_result");
-
                     b.Property<int>("SessionId")
                         .HasColumnType("integer")
                         .HasColumnName("session_id");
@@ -159,7 +154,76 @@ namespace database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("domains.domains.PlayerQuizResult", "QuizResult", b1 =>
+                        {
+                            b1.Property<int>("ProgressId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("QuantityCorrectAnswers")
+                                .HasColumnType("integer")
+                                .HasAnnotation("Relational:JsonPropertyName", "quantityCorrectAnswers");
+
+                            b1.Property<int>("QuizId")
+                                .HasColumnType("integer")
+                                .HasAnnotation("Relational:JsonPropertyName", "quizId");
+
+                            b1.HasKey("ProgressId");
+
+                            b1.ToTable("progresses");
+
+                            b1.ToJson("quiz_result");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProgressId");
+
+                            b1.OwnsMany("domains.domains.QuestionResult", "Questions", b2 =>
+                                {
+                                    b2.Property<int>("PlayerQuizResultProgressId")
+                                        .HasColumnType("integer");
+
+                                    b2.Property<int>("__synthesizedOrdinal")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("integer");
+
+                                    b2.Property<string>("Answer")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasAnnotation("Relational:JsonPropertyName", "answer");
+
+                                    b2.Property<int>("AnswerId")
+                                        .HasColumnType("integer")
+                                        .HasAnnotation("Relational:JsonPropertyName", "answerId");
+
+                                    b2.Property<bool>("IsCorrect")
+                                        .HasColumnType("boolean")
+                                        .HasAnnotation("Relational:JsonPropertyName", "isCorrect");
+
+                                    b2.Property<string>("Question")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasAnnotation("Relational:JsonPropertyName", "question");
+
+                                    b2.Property<int>("QuestionId")
+                                        .HasColumnType("integer")
+                                        .HasAnnotation("Relational:JsonPropertyName", "questionId");
+
+                                    b2.HasKey("PlayerQuizResultProgressId", "__synthesizedOrdinal");
+
+                                    b2.ToTable("progresses");
+
+                                    b2.HasAnnotation("Relational:JsonPropertyName", "questions");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("PlayerQuizResultProgressId");
+                                });
+
+                            b1.Navigation("Questions");
+                        });
+
                     b.Navigation("Player");
+
+                    b.Navigation("QuizResult")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

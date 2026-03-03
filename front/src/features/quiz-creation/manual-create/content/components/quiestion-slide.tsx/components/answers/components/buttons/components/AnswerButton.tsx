@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styles from "./AnswerButton.module.css";
 import type { Answer } from "../../../../../../../../create-context/reducer";
 import { useCreateContext } from "../../../../../../../../create-context/CreateProvider";
@@ -9,26 +8,21 @@ interface Props {
 }
 
 export default function AnswerButton({ answer, isCorrectly }: Props) {
-  //const [text, setText] = useState(answer.text);
   const { dispatch } = useCreateContext();
-
-  //useEffect(() => {}, [answer.text]);
 
   const textChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    //setText(value);
-
     dispatch({
       type: "UPDATE_ANSWER",
       payload: {
-        answerId: answer.id,
+        answerIndex: answer.index,
         data: { text: value, isCorrectly: isCorrectly },
       },
     });
   };
 
   const removeHandler = () => {
-    dispatch({ type: "DELETE_ANSWER", payload: { id: answer.id } });
+    dispatch({ type: "DELETE_ANSWER", payload: { id: answer.index } });
   };
 
   return (

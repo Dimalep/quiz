@@ -11,11 +11,11 @@ public static class ServicesCollectionExtentions
     {
         services.AddQuizCreationDbContext(connectionString);
 
-        services.AddScoped<IAnswerService, AnswerService>();
-        services.AddScoped<IQuestionService, QuestionService>();
+        // services.AddScoped<IAnswerService, AnswerService>();
+        // services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IQuizService, QuizService>();
 
-        services.AddSingleton<Mapper>();
+        // services.AddSingleton<Mapper>();
 
         return services;
     }

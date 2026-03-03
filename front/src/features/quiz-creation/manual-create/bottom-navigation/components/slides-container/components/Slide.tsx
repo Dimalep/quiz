@@ -12,13 +12,13 @@ export default function Slide({ number }: Props) {
     if (number === 0) {
       dispatch({ type: "OPEN_SETTINGS" });
     } else {
-      dispatch({ type: "SELECT_QUESTION", payload: { number: number } });
+      dispatch({ type: "SELECT_QUESTION", payload: { index: number } });
     }
   };
 
   return (
     <div
-      className={`${styles.main} ${state.currentQuestion?.number === number ? styles.active : ""}`}
+      className={`${styles.main} ${state.currentQuestion?.index === number ? styles.active : ""}`}
       onClick={handleClick}
     >
       {number}

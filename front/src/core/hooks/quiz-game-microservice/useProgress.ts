@@ -33,6 +33,16 @@ export interface ProgressDTO {
   startAt: string;
   completeAt: string;
   status: number;
+  quantityCorrectAnswers: number;
+}
+
+export interface ProgressForAdmin
+{
+  player: Player
+  quantityRemainedQuestions: number;
+  quantityCorrectAnswers: number;
+  currentQuestionIndex: number;
+  status: number;
 }
 
 export default function useProgress() {

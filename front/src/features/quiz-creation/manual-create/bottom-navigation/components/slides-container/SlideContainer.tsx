@@ -8,7 +8,7 @@ export default function SlideContainer() {
     <div style={styles.main}>
       <Slide number={0} />
       {state.quiz.questions.map((el) => (
-        <Slide number={el.number} key={el.number} />
+        <Slide number={el.index} key={el.index} />
       ))}
     </div>
   );

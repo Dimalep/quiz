@@ -14,13 +14,15 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Progress>()
-            .Property(p => p.QuizResult)
-            .HasConversion(
-                v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
-                v => JsonSerializer.Deserialize<PlayerQuizResult>(v, new JsonSerializerOptions())!
-            );
-        
+        //base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Progress>(entity =>
+        {
+            entity.OwnsOne(p => p.QuizResult, qr =>
+            {
+                qr.ToJson("quiz_result");
+
+                qr.OwnsMany(q => q.Questions);
+            });
+        });
     }
 }

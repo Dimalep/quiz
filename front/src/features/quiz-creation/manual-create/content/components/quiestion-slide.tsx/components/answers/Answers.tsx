@@ -4,11 +4,11 @@ import styles from "./Answers.module.css";
 import AnswerCheckBox from "./components/checkbox/AnswerCheckBox";
 
 export default function Answers() {
-  const { state, createAnswer } = useCreateContext();
+  const { state, dispatch } = useCreateContext();
 
   const addAnswerHandleClick = () => {
-    createAnswer();
-    // dispatch({ type: "CREATE_ANSWER" });
+    // createAnswer();
+    dispatch({ type: "CREATE_ANSWER"});
   };
 
   return (
@@ -18,7 +18,7 @@ export default function Answers() {
           <AnswerButtons answers={state.currentQuestion.answers} />
         ) : (
           state?.currentQuestion?.answers.map((el) => (
-            <AnswerCheckBox key={el.id} answer={el} />
+            <AnswerCheckBox key={el.index} answer={el} />
           ))
         )}
         <button className={styles.button_add} onClick={addAnswerHandleClick}>

@@ -78,7 +78,7 @@ namespace application.services
 
         }
 
-        public async Task<ResponseDTO> Registrate(RegRequestDTO req)
+        public async Task<ResponseDTO> Registration(RegRequestDTO req)
         {
             if (req == null)
                 throw new BadRequestException("Request cannot by null");

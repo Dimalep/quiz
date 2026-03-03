@@ -1,4 +1,5 @@
-﻿using domains.domains;
+﻿using System.Text.Json;
+using domains.domains;
 using Microsoft.AspNetCore.SignalR;
 using services.DTOs;
 using services.interfaces;
@@ -42,6 +43,9 @@ namespace presentation.hubs
 
         public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
         {
+            Console.WriteLine(questionResult == null);
+            Console.WriteLine(JsonSerializer.Serialize(questionResult));
+            
             var session = GetOrCreateSession(sessionKey);
 
             var progress = await _progressService.AddAnswer(sessionKey, questionResult, playerId);
@@ -100,6 +104,14 @@ namespace presentation.hubs
             await Clients.Group($"quiz_{session.SessionKey}").SendAsync("GameLaunched", game);
             await SendProgressToAdmin(session);
         }
+
+        #region for admin
+
+        public async Task GetProgressesForAdmin(string sessionKey)
+        {
+            var session = GetOrCreateSession(sessionKey);
+            await SendProgressToAdmin(session);
+        }
         
         private async Task SendProgressToAdmin(QuizRuntimeSession session)
         {
@@ -113,25 +125,25 @@ namespace presentation.hubs
                     .ToList();
             }
 
-            List<ProgressDTO> progressDTOs = progresses.Select(p => new ProgressDTO()
-            {
-                Id = p.Id,
-                CompleteAt = p.CompleteAt,
-                CurrentQuestionIndex = p.CurrentQuestionIndex,
-                QuantityQuestion = p.CurrentQuestionIndex,
-                SessionId = p.SessionId,
-                StartAt = p.StartAt,
-                Player = new services.DTOs.PlayerDTO
+            List<ProgressForAdmin> progressesForAdmin = progresses
+                .Select(p => new ProgressForAdmin
                 {
-                    Id = p.Player.Id,
-                    Nickname = p.Player.Nickname,
-                },
-                Status = p.Status
-            }).ToList();
+                    Player = new services.DTOs.PlayerDTO
+                    {
+                        Id = p.Player.Id,
+                        Nickname = p.Player.Nickname
+                    },
+                    CurrentQuestionIndex = p.CurrentQuestionIndex,
+                    QuantityCorrectAnswers = p.QuizResult.QuantityCorrectAnswers,
+                    QuantityRemainedQuestions = p.QuizResult.Questions.Count(),
+                    Status = p.Status
+                }).ToList();
             
             await Clients.Group($"quiz_admin_{session.SessionKey}")
-                .SendAsync("ProgressUpdatedForAdmin", progressDTOs);
+                .SendAsync("ProgressUpdatedForAdmin", progressesForAdmin);
         }
+
+        #endregion
 
         public async Task FinishGame(string sessionKey, int playerId)
         {

@@ -55,25 +55,38 @@ export default function QuizGamePlayerContext({
   } = useQuizHubPlayer(sessionKey, currentPlayer);
 
   useEffect(() => {
-    const data = localStorage.getItem("player");
-    if (data === null) return;
-    const player = JSON.parse(data);
-    setCurrentPlayer(player);
+    const rawPlayer = localStorage.getItem("player");
+    if (!rawPlayer) return;
 
-    const game = localStorage.getItem("currentGame");
-    if (game === null) {
+    try {
+      const player = JSON.parse(rawPlayer) as Player;
+      setCurrentPlayer(player);
+    } catch {
+      console.log("Failed to parse player from localStorage");
+    }
+
+    const rawGame = localStorage.getItem("currentGame");
+    if (!rawGame) {
       console.log("Game is null");
-      return;
+    } else {
+      try {
+        setCurrentGame(JSON.parse(rawGame));
+      } catch {
+        console.log("Failed to parse currentGame from localStorage");
+      }
     }
-    setCurrentGame(JSON.parse(game));
 
-    const progress = localStorage.getItem("currentProgress");
-    if (progress === null) {
+    const rawProgress = localStorage.getItem("currentProgress");
+    if (!rawProgress) {
       console.log("Progress is null");
-      return;
+    } else {
+      try {
+        setCurrentProgress(JSON.parse(rawProgress));
+      } catch {
+        console.log("Failed to parse currentProgress from localStorage");
+      }
     }
-    setCurrentProgress(JSON.parse(progress));
-  }, []);
+  }, [setCurrentGame, setCurrentProgress]);
 
   useEffect(() => {
     if (!currentGame) {
@@ -81,22 +94,19 @@ export default function QuizGamePlayerContext({
       return;
     }
 
-    const init = async () => {
-      const tmp = await getQuizWithQuestionsIds(currentGame.quizId);
-      setLightQuiz(tmp);
+    let cancelled = false;
+
+    (async () => {
+      const quiz = await getQuizWithQuestionsIds(currentGame.quizId);
+      if (!cancelled) {
+        setLightQuiz(quiz);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
     };
-
-    init();
-  }, [currentGame]);
-
-  useEffect(() => {
-    const firstQuestion = lightQuiz?.questionsIds[0];
-    if (!firstQuestion) {
-      console.log("first question is null");
-      return;
-    }
-    selectCurrentQuestion(firstQuestion);
-  }, [lightQuiz]);
+  }, [currentGame, getQuizWithQuestionsIds]);
 
   const selectCurrentQuestion = async (questionId: number) => {
     const question = await getQuestionWithAnswers(questionId);
@@ -112,6 +122,17 @@ export default function QuizGamePlayerContext({
     setCurrentQuestion(question);
   };
 
+  useEffect(() => {
+    const firstQuestion = lightQuiz?.questionsIds[0];
+    if (!firstQuestion) {
+      if (lightQuiz) {
+        console.log("first question is null");
+      }
+      return;
+    }
+    void selectCurrentQuestion(firstQuestion);
+  }, [lightQuiz]);
+
   const startGame = async () => {
     await connection?.invoke("StartGame", sessionKey, currentPlayer?.id);
   };
@@ -121,7 +142,16 @@ export default function QuizGamePlayerContext({
   };
 
   const giveAnswer = async (answer: AnswerDTO) => {
-    if (!answer.id || !currentQuestion) return;
+    if (!answer.id || !currentQuestion) {
+      console.log("Error add answer");
+      return;
+    }
+
+    if (!currentGame || !currentPlayer || !connection) {
+      console.log("Current game, player or connection is undefined");
+      return;
+    }
+
     const question: QuestionResult = {
       answer: answer.text,
       answerId: answer.id,
@@ -129,7 +159,15 @@ export default function QuizGamePlayerContext({
       question: currentQuestion.title,
       questionId: currentQuestion.questionId,
     };
+
     console.log("Answer for server:", question);
+
+    await connection.invoke(
+      "GiveAnswer",
+      currentGame.sessionKey,
+      question,
+      currentPlayer.id,
+    );
   };
 
   return (

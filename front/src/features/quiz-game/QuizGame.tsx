@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Player } from "../../core/hooks/quiz-game-microservice/usePlayer";
 import QuizGamePlayerContext from "./quiz-game-context/QuizGamePlayerContext";
 import QuizGameAdminContext from "./quiz-game-context/QuizGameAdminContext";
@@ -6,15 +6,16 @@ import PlayerRoom from "./components/player-room/PlayerRoom";
 import AdminRoom from "./components/admin-room/AdminRoom";
 
 export default function QuizGame() {
-  const [player, setPlayer] = useState<Player>();
-
-  useEffect(() => {
+  const [player] = useState<Player | null>(() => {
     const data = localStorage.getItem("player");
-    if (data !== null) {
-      const player = JSON.parse(data);
-      setPlayer(player);
+    if (!data) return null;
+
+    try {
+      return JSON.parse(data) as Player;
+    } catch {
+      return null;
     }
-  }, []);
+  });
 
   if (player?.role === "player") {
     return (

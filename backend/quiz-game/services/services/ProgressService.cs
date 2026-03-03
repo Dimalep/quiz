@@ -1,8 +1,6 @@
 ﻿using database;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
-using services.DTOs;
-using services.grpc;
 using services.interfaces;
 
 namespace services.services;
@@ -45,20 +43,43 @@ public class ProgressService(DatabaseContext _dbContext) : IProgressService
         return progress;
     }
 
-    public async Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId)
+    public async Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int playerId)
     {
-        var updatingProgress = await _dbContext.PlayerProgresses
-            .FirstOrDefaultAsync(p => p.Id == progressId);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Key == sessionKey);
+        if (game == null)
+            throw new ArgumentNullException("Not found game by session key");
 
-        if (updatingProgress == null)
+        var progress = await _dbContext.PlayerProgresses
+            .Include(p => p.Player)
+            .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.SessionId == game.Id);
+
+        if (progress == null)
             throw new ArgumentException("Progress not found");
         
-        updatingProgress.QuizResult.Questions.Add(answer);
-        updatingProgress.QuizResult.QuantityCorrectAnswers =
-            updatingProgress.QuizResult.Questions.Count(q => q.IsCorrect);
-
+        var existing = progress.QuizResult.Questions.FirstOrDefault(q => q.QuestionId == answer.QuestionId);
+        if (existing != null)
+        {
+            existing.Answer = answer.Answer;
+            existing.AnswerId = answer.AnswerId;
+            existing.IsCorrect = answer.IsCorrect;
+        }
+        else
+        {
+            progress.QuizResult.Questions.Add(answer);
+        }
+        
+        progress.QuizResult.QuantityCorrectAnswers =
+            progress.QuizResult.Questions.Count(q => q.IsCorrect);
+        
         await _dbContext.SaveChangesAsync();
-        return updatingProgress;
+
+        return progress;
+    }
+
+    //?
+    public Task<ICollection<Progress>> GetProgressesBySessionKey(string sessionKey)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Progress> UpdateProgress(Progress progress)

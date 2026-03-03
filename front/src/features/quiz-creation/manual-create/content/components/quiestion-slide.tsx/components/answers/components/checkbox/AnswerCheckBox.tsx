@@ -19,14 +19,14 @@ export default function AnswerCheckBox({ answer }: Props) {
     dispatch({
       type: "UPDATE_ANSWER",
       payload: {
-        answerId: answer.id,
+        answerIndex: answer.index,
         data: { text: value, isCorrectly: correct },
       },
     });
   };
 
   const removeHandler = () => {
-    dispatch({ type: "DELETE_ANSWER", payload: { id: answer.id } });
+    dispatch({ type: "DELETE_ANSWER", payload: { id: answer.index } });
   };
 
   const checkboxChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ export default function AnswerCheckBox({ answer }: Props) {
     dispatch({
       type: "UPDATE_ANSWER",
       payload: {
-        answerId: answer.id,
+        answerIndex: answer.index,
         data: { isCorrectly: value },
       },
     });
