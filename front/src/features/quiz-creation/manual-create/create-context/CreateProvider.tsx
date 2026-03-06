@@ -21,7 +21,7 @@ export default function CreateProvider({
   const { quizId } = useParams();
   const { updateQuiz, createNewQuiz } = useQuizApi();
 
-  if (!quizId) return;
+  if (!quizId) return null;
 
   const initialState: CreateState = {
     quiz: {
@@ -35,18 +35,30 @@ export default function CreateProvider({
     editorMode: "slide",
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
+    const saved = localStorage.getItem("quizDraft");
+
+    if (!saved) return initial;
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      ...initial,
+      quiz: parsed.quiz,
+      currentQuestion: parsed.currentQuestion,
+    };
+  });
 
   useEffect(() => {
-    if (state.quiz.id) return;
+    // if (state.quiz.id) return;
 
     const quiz = localStorage.getItem("quizDraft");
     if (quiz === null) {
       async function createQuiz() {
-        const createdQuizId = await createNewQuiz();
+        console.log("quiz is null - ", quiz);
 
         const data: Quiz = {
-          id: Number(createdQuizId),
+          id: Number(quizId),
           title: "test",
           description: "description",
           quantityQuestion: 0,
@@ -60,12 +72,22 @@ export default function CreateProvider({
           },
         });
 
-        localStorage.setItem("quizDraft", JSON.stringify(data));
+        localStorage.setItem(
+          "quizDraft",
+          JSON.stringify({
+            quiz: data,
+            currentQuestion: undefined,
+          }),
+        );
       }
 
       createQuiz();
     } else {
-      dispatch({ type: "UPDATE_QUIZ", payload: { data: JSON.parse(quiz) } });
+      console.log("quiz is not null - ", quiz);
+      dispatch({
+        type: "UPDATE_QUIZ",
+        payload: { data: JSON.parse(quiz).quiz },
+      });
     }
   }, []);
 

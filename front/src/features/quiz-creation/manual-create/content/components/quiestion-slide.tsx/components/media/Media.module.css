@@ -13,3 +13,13 @@
 .content span{
      cursor: pointer;
 }
+
+.remove{
+  display: flex;
+  justify-self: end;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(206, 42, 42);
+  cursor: pointer;
+}

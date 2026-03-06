@@ -7,9 +7,6 @@ export default function Button() {
   const { createNewQuiz } = useQuizApi();
 
   const handleClick = async () => {
-    //request to backend for creation new quiz and return quiz id
-    //const fakeQuizId = crypto.randomUUID();
-    //
     const saved = localStorage.getItem("quizDraft");
 
     let quizId: number | undefined;
