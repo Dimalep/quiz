@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Player } from "./usePlayer";
 import * as signalR from "@microsoft/signalr";
 import type { GameDTO } from "./useGame";
-import type { ProgressDTO } from "./useProgress";
+import type { ProgressForPlayer } from "./useProgress";
 
 export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const connectionRef = useRef<signalR.HubConnection | null>(null);
@@ -10,7 +10,9 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [connectedPlayer, setConnectedPlayer] = useState<Player | null>(null);
   const [currentGame, setCurrentGame] = useState<GameDTO>();
-  const [currentProgress, setCurrentProgress] = useState<ProgressDTO>();
+//   const [currentProgress, setCurrentProgress] = useState<ProgressDTO>();
+  const [currentProgress, setCurrentProgress] = useState<ProgressForPlayer>();
+//   const [completedProgress, setCompletedProgress] = useState<ProgressDTO>();
 
   useEffect(() => {
     if(!currentProgress) return;
@@ -32,6 +34,37 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
 
     connectionRef.current = connection;
 
+    connection.on("FirstConnect", (game: GameDTO) => {
+        setCurrentGame(game);
+    });
+    connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
+        setPlayers(allPlayers);
+        setConnectedPlayer(player);
+        console.log("Connected player: ", player);
+    })
+    connection.on("UserLeft", (player: Player, allPlayers: Player[]) => {
+        setPlayers(allPlayers);
+    });
+    connection.on("GameLaunched", (game: GameDTO) => {
+        setCurrentGame(game);
+    });
+    connection.on("GameCompleted", (game: GameDTO) => {
+      setCurrentGame(game);
+    });
+    connection.on("GameClose", (game: GameDTO) => {
+        setCurrentGame(game);
+    });
+    connection.on("GameOpen", (game: GameDTO) => {
+        setCurrentGame(game);
+    });
+    // connection.on("CompletedProgress", (progress: ProgressDTO) => {
+    //     console.log("Completed progress - ", progress);
+    //     setCompletedProgress(progress);
+    // });
+    connection.on("ProgressUpdatedForPlayer", (progress: ProgressForPlayer) => {
+        setCurrentProgress(progress);
+    });
+
     const start = async () => {
         try{
             await connection.start();
@@ -42,39 +75,6 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         };
     };
 
-    connection.on("FirstConnect", (game: GameDTO) => {
-        setCurrentGame(game);
-    });
-
-    connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
-        setPlayers(allPlayers);
-        setConnectedPlayer(player);
-        console.log("Connected player: ", player);
-    })
-
-    connection.on("UserLeft", (player: Player, allPlayers: Player[]) => {
-        setPlayers(allPlayers);
-    });
-
-    connection.on("GameLaunched", (game: GameDTO) => {
-        setCurrentGame(game);
-    });
-
-    connection.on("GameCompleted", (game: GameDTO) => {
-      setCurrentGame(game);
-    });
-
-    connection.on("GameClose", (game: GameDTO) => {
-        setCurrentGame(game);
-    });
-
-    connection.on("GameOpen", (game: GameDTO) => {
-        setCurrentGame(game);
-    });
-    connection.on("ProgressUpdated", (progress: ProgressDTO) => {
-        setCurrentProgress(progress);
-    })
-
     start();
 
     return () => {
@@ -84,7 +84,8 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
         connection.off("GameCompleted");
         connection.off("GameOpen");
         connection.off("GameClose");
-        connection.off("ProgressUpdated");
+        connection.off("CompletedProgress");
+        connection.off("ProgressUpdatedForPlayer");
         connection.stop();
     }
   },[sessionKey, player]);
@@ -96,6 +97,6 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
     currentGame,
     currentProgress,
     setCurrentProgress,
-    setCurrentGame
+    setCurrentGame,
   }
 }

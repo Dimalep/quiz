@@ -9,7 +9,7 @@ interface Props {
 
 export default function AnswerCheckBox({ answer }: Props) {
   const [text, setText] = useState(answer.text);
-  const [correct, setCorrect] = useState(answer.isCorrectly);
+  const [correct, setCorrect] = useState(answer.isCorrect);
   const { dispatch } = useCreateContext();
 
   const textChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ export default function AnswerCheckBox({ answer }: Props) {
       type: "UPDATE_ANSWER",
       payload: {
         answerIndex: answer.index,
-        data: { text: value, isCorrectly: correct },
+        data: { text: value, isCorrect: correct },
       },
     });
   };
@@ -37,7 +37,7 @@ export default function AnswerCheckBox({ answer }: Props) {
       type: "UPDATE_ANSWER",
       payload: {
         answerIndex: answer.index,
-        data: { isCorrectly: value },
+        data: { isCorrect: value },
       },
     });
   };

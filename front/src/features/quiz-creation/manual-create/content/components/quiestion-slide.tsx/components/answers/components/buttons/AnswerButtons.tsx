@@ -7,8 +7,8 @@ interface Props {
 }
 
 export default function AnswerBlock({ answers }: Props) {
-  const correctAnswers = answers.filter((a) => a.isCorrectly);
-  const incorrectAnswers = answers.filter((a) => !a.isCorrectly);
+  const correctAnswers = answers.filter((a) => a.isCorrect);
+  const incorrectAnswers = answers.filter((a) => !a.isCorrect);
 
   return (
     <div className={styles.main}>
@@ -18,7 +18,7 @@ export default function AnswerBlock({ answers }: Props) {
             <span>Правильный ответ</span>
             <div className={styles.correct_block}>
               {correctAnswers.map((el) => (
-                <AnswerButton key={el.index} answer={el} isCorrectly={true} />
+                <AnswerButton key={el.index} answer={el} isCorrect={true} />
               ))}
             </div>
           </>
@@ -26,7 +26,7 @@ export default function AnswerBlock({ answers }: Props) {
         <span>Неправильные ответы</span>
         <div className={styles.incorrect_block}>
           {incorrectAnswers.map((el) => (
-            <AnswerButton key={el.index} answer={el} isCorrectly={false} />
+            <AnswerButton key={el.index} answer={el} isCorrect={false} />
           ))}
         </div>
       </div>

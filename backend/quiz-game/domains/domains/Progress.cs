@@ -23,6 +23,12 @@ namespace domains.domains
         
         [Column("current_question_index")]
         public int CurrentQuestionIndex { get; set; } = 0;
+
+        [Column("quantity_questions")]
+        public int QuantityQuestions { get; set; } = 0;
+    
+        [Column("quantity_completed_questions")]
+        public int QuantityCompletedQuestions { get; set; } = 0;
         
         [Column("start_at")]
         public DateTime StartAt { get; set; }
@@ -57,17 +63,23 @@ namespace domains.domains
     
     public class QuestionResult
     {
-        [JsonPropertyName("questionId")]
-        public int QuestionId { get; set; }
+        [JsonPropertyName("questionIndex")]
+        public int QuestionIndex { get; set; }
 
-        [JsonPropertyName("question")] 
-        public string Question { get; set; } = null!;
+        [JsonPropertyName("questionText")] 
+        public string QuestionText { get; set; } = null!;
         
-        [JsonPropertyName("answerId")]
-        public int AnswerId { get; set; }
+        [JsonPropertyName("answers")]
+        public List<AnswerResult> Answers { get; set; } = new();
+    }
 
-        [JsonPropertyName("answer")] 
-        public string Answer { get; set; } = null!;
+    public class AnswerResult
+    {
+        [JsonPropertyName("answerIndex")]
+        public int AnswerIndex { get; set; }
+
+        [JsonPropertyName("answerText")] 
+        public string AnswerText { get; set; } = null!;
         
         [JsonPropertyName("isCorrect")]
         public bool IsCorrect { get; set; }

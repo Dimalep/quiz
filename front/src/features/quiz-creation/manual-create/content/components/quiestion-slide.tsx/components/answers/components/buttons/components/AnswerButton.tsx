@@ -4,10 +4,10 @@ import { useCreateContext } from "../../../../../../../../create-context/CreateP
 
 interface Props {
   answer: Answer;
-  isCorrectly: boolean;
+  isCorrect: boolean;
 }
 
-export default function AnswerButton({ answer, isCorrectly }: Props) {
+export default function AnswerButton({ answer, isCorrect }: Props) {
   const { dispatch } = useCreateContext();
 
   const textChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ export default function AnswerButton({ answer, isCorrectly }: Props) {
       type: "UPDATE_ANSWER",
       payload: {
         answerIndex: answer.index,
-        data: { text: value, isCorrectly: isCorrectly },
+        data: { text: value, isCorrect: isCorrect },
       },
     });
   };
@@ -28,7 +28,7 @@ export default function AnswerButton({ answer, isCorrectly }: Props) {
   return (
     <div
       className={
-        isCorrectly
+        isCorrect
           ? `${styles.main} ${styles.correclty}`
           : `${styles.main} ${styles.incorreclty}`
       }
@@ -39,7 +39,7 @@ export default function AnswerButton({ answer, isCorrectly }: Props) {
         value={answer.text}
         onChange={textChangeHandler}
       />
-      {!isCorrectly && (
+      {!isCorrect && (
         <button className={styles.button} onClick={removeHandler}>
           -
         </button>

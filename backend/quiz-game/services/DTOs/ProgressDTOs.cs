@@ -23,3 +23,12 @@ public record ProgressForAdmin
     public int CurrentQuestionIndex { get; set; }
     public ProgressStatus Status { get; set; }
 }
+
+public record ProgressForPlayer
+{
+    public int ProgressId { get; set; }
+    public ProgressStatus Status { get; set; }
+    public int CurrentQuestionIndex { get; set; }
+    public int QuantityQuestions { get; set; }
+    public int QuantityCompletedQuestions { get; set; }
+}

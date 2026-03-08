@@ -1,7 +1,7 @@
 export type Answer = {
   index: number;
   text: string;
-  isCorrectly: boolean;
+  isCorrect: boolean;
 }
 
 export type Question = {
@@ -15,7 +15,7 @@ export type Quiz = {
   id: number;
   title: string;
   description: string;
-  quantityQuestion: number;
+  quantityQuestions: number;
   questions: Question[];
 }
 
@@ -107,7 +107,7 @@ export default function reducer(state: CreateState, action: Action) {
       const newAnswer: Answer = {
         index: newAnswerIndex,
         text: "",
-        isCorrectly: false,
+        isCorrect: false,
       }
 
       const updatedQuestions = state.quiz.questions.map(q => q.index === currnetQuestionIndex ?
@@ -145,7 +145,7 @@ export default function reducer(state: CreateState, action: Action) {
           index: length + 1,
           text: "",
           type: type,
-          answers: [{index: 1, text: "", isCorrectly: true}]
+          answers: [{index: 1, text: "", isCorrect: true}]
         }
 
         return{

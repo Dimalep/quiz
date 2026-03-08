@@ -86,6 +86,23 @@ namespace services.services
             return quizSession;
         }
 
+        public async Task<Game> Restart(string sessionKey)
+        {
+            var game = await _dbContext.Games
+                .FirstOrDefaultAsync(g => g.Key == sessionKey);
+
+            if (game == null)
+            {
+                throw new ArgumentNullException("Not found game by session key");
+            }
+            
+            game.Status = Status.opened;
+            
+            await _dbContext.SaveChangesAsync();
+            
+            return game;
+        }
+
         #endregion
         
         public async Task<GameResponse> Add(int quizId)

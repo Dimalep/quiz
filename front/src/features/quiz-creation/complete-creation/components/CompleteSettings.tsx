@@ -24,7 +24,7 @@ export default function CompleteSettings({ quiz }: Props) {
             <div>Название: {quiz.title}</div>
             <div>Описание: {quiz.description}</div>
             <div>Тема: </div>
-            <div>Количество вопросв: </div>
+            <div>Количество вопросв: {quiz.quantityQuestions}</div>
             {/* <div>Время на выполнение: {quiz.time}</div> */}
           </div>
         )}

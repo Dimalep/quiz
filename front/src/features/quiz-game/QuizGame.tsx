@@ -23,11 +23,17 @@ export default function QuizGame() {
         <PlayerRoom />
       </QuizGamePlayerContext>
     );
-  } else {
+  } else if (player?.role === "admin") {
     return (
       <QuizGameAdminContext>
         <AdminRoom />
       </QuizGameAdminContext>
+    );
+  } else {
+    return (
+      <div>
+        <h1>Error loading player</h1>
+      </div>
     );
   }
 }

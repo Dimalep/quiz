@@ -9,9 +9,12 @@ namespace services.interfaces
         
         public Task<Progress> Start(int playerId, string sessionKey);
         public Task<Progress> Finish(int playerId, string sessionKey);
+        public Task<ICollection<Progress>> Restart(int gameId);//(session = game)
         
         public Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId);
 
+        public Task<Progress> GetById(int progressId);
+        
         public Task<ICollection<Progress>> GetProgressesBySessionKey(string sessionKey);
         
         public Task<Progress> UpdateProgress(Progress progress);

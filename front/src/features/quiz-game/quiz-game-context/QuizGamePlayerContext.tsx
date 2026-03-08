@@ -3,27 +3,27 @@ import { useParams } from "react-router-dom";
 import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlayer";
 import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
 import useQuizHubPlayer from "../../../core/hooks/quiz-game-microservice/useQuizHubPlayer";
-import useQuizApi, {
-  type QuizWithQuestionsIds,
-} from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
-import type { QuestionWithAnswers } from "../../../core/hooks/quiz-creation-microservice/useQuestion";
-import useQuestion from "../../../core/hooks/quiz-creation-microservice/useQuestion";
+import useQuizApi from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import type {
-  ProgressDTO,
+  AnswerResult,
+  ProgressForPlayer,
   QuestionResult,
 } from "../../../core/hooks/quiz-game-microservice/useProgress";
-import type { AnswerDTO } from "../../../core/hooks/quiz-creation-microservice/useAnswer";
+import type {
+  Question,
+  Quiz,
+} from "../../quiz-creation/manual-create/create-context/reducer";
 
 interface QuizGamePlayerContextType {
-  currentQuestion: QuestionWithAnswers | undefined;
+  quiz: Quiz | undefined;
+  currentQuestion: Question | undefined;
   sessionKey: string | undefined;
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
-  lightQuiz: QuizWithQuestionsIds | undefined;
-  currentProgress: ProgressDTO | undefined;
+  currentProgress: ProgressForPlayer | undefined;
   startGame: () => void;
   selectCurrentQuestion: (questionId: number) => void;
-  giveAnswer: (question: AnswerDTO) => void;
+  giveAnswer: (answers: AnswerResult[]) => void;
   finishGame: () => void;
 }
 
@@ -36,13 +36,11 @@ export default function QuizGamePlayerContext({
 }: {
   children: React.ReactNode;
 }) {
-  const [currentQuestion, setCurrentQuestion] = useState<QuestionWithAnswers>();
-  const [lightQuiz, setLightQuiz] = useState<QuizWithQuestionsIds>();
-
+  const [quiz, setQuiz] = useState<Quiz | undefined>(undefined);
+  const [currentQuestion, setCurrentQuestion] = useState<Question>();
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
 
-  const { getQuizWithQuestionsIds } = useQuizApi();
-  const { getQuestionWithAnswers } = useQuestion();
+  const { getQuizById } = useQuizApi();
   const { sessionKey } = useParams();
 
   const {
@@ -86,7 +84,7 @@ export default function QuizGamePlayerContext({
         console.log("Failed to parse currentProgress from localStorage");
       }
     }
-  }, [setCurrentGame, setCurrentProgress]);
+  }, []);
 
   useEffect(() => {
     if (!currentGame) {
@@ -97,41 +95,37 @@ export default function QuizGamePlayerContext({
     let cancelled = false;
 
     (async () => {
-      const quiz = await getQuizWithQuestionsIds(currentGame.quizId);
+      const quiz = await getQuizById(currentGame.quizId);
       if (!cancelled) {
-        setLightQuiz(quiz);
+        setQuiz(quiz);
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [currentGame, getQuizWithQuestionsIds]);
-
-  const selectCurrentQuestion = async (questionId: number) => {
-    const question = await getQuestionWithAnswers(questionId);
-    if (question === undefined) {
-      console.log("Error selectCurrentQuestion");
-      return;
-    }
-
-    localStorage.setItem(
-      "currentQuestionId",
-      JSON.stringify(question.questionId),
-    );
-    setCurrentQuestion(question);
-  };
+  }, [currentGame]);
 
   useEffect(() => {
-    const firstQuestion = lightQuiz?.questionsIds[0];
+    const firstQuestion = quiz?.questions[0];
     if (!firstQuestion) {
-      if (lightQuiz) {
+      if (quiz) {
         console.log("first question is null");
       }
       return;
     }
-    void selectCurrentQuestion(firstQuestion);
-  }, [lightQuiz]);
+    void selectCurrentQuestion(firstQuestion.index);
+  }, [quiz]);
+
+  const selectCurrentQuestion = async (questionIndex: number) => {
+    const question = quiz?.questions.find((q) => q.index === questionIndex);
+
+    localStorage.setItem(
+      "currentQuestionIndex",
+      JSON.stringify(question?.index),
+    );
+    setCurrentQuestion(question);
+  };
 
   const startGame = async () => {
     await connection?.invoke("StartGame", sessionKey, currentPlayer?.id);
@@ -141,8 +135,8 @@ export default function QuizGamePlayerContext({
     await connection?.invoke("FinishGame", sessionKey, currentPlayer?.id);
   };
 
-  const giveAnswer = async (answer: AnswerDTO) => {
-    if (!answer.id || !currentQuestion) {
+  const giveAnswer = async (answers: AnswerResult[]) => {
+    if (!currentQuestion) {
       console.log("Error add answer");
       return;
     }
@@ -152,15 +146,20 @@ export default function QuizGamePlayerContext({
       return;
     }
 
-    const question: QuestionResult = {
-      answer: answer.text,
-      answerId: answer.id,
-      isCorrect: answer.isCorrect,
-      question: currentQuestion.title,
-      questionId: currentQuestion.questionId,
-    };
+    if (!quiz) return;
 
-    console.log("Answer for server:", question);
+    const nextQuestionIndex =
+      quiz.quantityQuestions <= currentQuestion.index + 1
+        ? quiz.quantityQuestions
+        : currentQuestion.index + 1;
+
+    selectCurrentQuestion(nextQuestionIndex);
+
+    const question: QuestionResult = {
+      answers: answers,
+      questionIndex: currentQuestion.index,
+      questionText: currentQuestion.text,
+    };
 
     await connection.invoke(
       "GiveAnswer",
@@ -173,11 +172,11 @@ export default function QuizGamePlayerContext({
   return (
     <PlayerContext.Provider
       value={{
+        quiz,
         sessionKey,
         players,
         currentGame,
         startGame,
-        lightQuiz,
         selectCurrentQuestion,
         giveAnswer,
         currentQuestion,

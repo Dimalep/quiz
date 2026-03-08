@@ -116,6 +116,14 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("player_id");
 
+                    b.Property<int>("QuantityCompletedQuestions")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity_completed_questions");
+
+                    b.Property<int>("QuantityQuestions")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity_questions");
+
                     b.Property<int>("SessionId")
                         .HasColumnType("integer")
                         .HasColumnName("session_id");
@@ -185,27 +193,14 @@ namespace database.Migrations
                                         .ValueGeneratedOnAdd()
                                         .HasColumnType("integer");
 
-                                    b2.Property<string>("Answer")
+                                    b2.Property<int>("QuestionIndex")
+                                        .HasColumnType("integer")
+                                        .HasAnnotation("Relational:JsonPropertyName", "questionIndex");
+
+                                    b2.Property<string>("QuestionText")
                                         .IsRequired()
                                         .HasColumnType("text")
-                                        .HasAnnotation("Relational:JsonPropertyName", "answer");
-
-                                    b2.Property<int>("AnswerId")
-                                        .HasColumnType("integer")
-                                        .HasAnnotation("Relational:JsonPropertyName", "answerId");
-
-                                    b2.Property<bool>("IsCorrect")
-                                        .HasColumnType("boolean")
-                                        .HasAnnotation("Relational:JsonPropertyName", "isCorrect");
-
-                                    b2.Property<string>("Question")
-                                        .IsRequired()
-                                        .HasColumnType("text")
-                                        .HasAnnotation("Relational:JsonPropertyName", "question");
-
-                                    b2.Property<int>("QuestionId")
-                                        .HasColumnType("integer")
-                                        .HasAnnotation("Relational:JsonPropertyName", "questionId");
+                                        .HasAnnotation("Relational:JsonPropertyName", "questionText");
 
                                     b2.HasKey("PlayerQuizResultProgressId", "__synthesizedOrdinal");
 
@@ -215,6 +210,43 @@ namespace database.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("PlayerQuizResultProgressId");
+
+                                    b2.OwnsMany("domains.domains.AnswerResult", "Answers", b3 =>
+                                        {
+                                            b3.Property<int>("QuestionResultPlayerQuizResultProgressId")
+                                                .HasColumnType("integer");
+
+                                            b3.Property<int>("QuestionResult__synthesizedOrdinal")
+                                                .HasColumnType("integer");
+
+                                            b3.Property<int>("__synthesizedOrdinal")
+                                                .ValueGeneratedOnAdd()
+                                                .HasColumnType("integer");
+
+                                            b3.Property<int>("AnswerIndex")
+                                                .HasColumnType("integer")
+                                                .HasAnnotation("Relational:JsonPropertyName", "answerIndex");
+
+                                            b3.Property<string>("AnswerText")
+                                                .IsRequired()
+                                                .HasColumnType("text")
+                                                .HasAnnotation("Relational:JsonPropertyName", "answerText");
+
+                                            b3.Property<bool>("IsCorrect")
+                                                .HasColumnType("boolean")
+                                                .HasAnnotation("Relational:JsonPropertyName", "isCorrect");
+
+                                            b3.HasKey("QuestionResultPlayerQuizResultProgressId", "QuestionResult__synthesizedOrdinal", "__synthesizedOrdinal");
+
+                                            b3.ToTable("progresses");
+
+                                            b3.HasAnnotation("Relational:JsonPropertyName", "answers");
+
+                                            b3.WithOwner()
+                                                .HasForeignKey("QuestionResultPlayerQuizResultProgressId", "QuestionResult__synthesizedOrdinal");
+                                        });
+
+                                    b2.Navigation("Answers");
                                 });
 
                             b1.Navigation("Questions");

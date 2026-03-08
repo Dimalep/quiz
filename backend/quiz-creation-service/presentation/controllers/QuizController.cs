@@ -35,41 +35,5 @@ namespace presentation.controllers
             var result = await quizService.GetShortQuizById(quizId);
             return Ok(result);
         }
-
-        // [HttpPost]
-        // public async Task<IActionResult> AddQuiz([FromBody] QuizDTO quizDTO)
-        // {
-        //     var result = await _quizService.AddQuiz(quizDTO);
-        //     return Ok(result);
-        // }
-        //
-        // [HttpDelete("{quizId}")]
-        // public async Task<IActionResult> DeleteQuiz([FromRoute] int quizId)
-        // {
-        //     var result = await _quizService.DeleteQuizById(quizId);
-        //     return Ok(result);
-        // }
-        //
-        // [HttpPut]
-        // public async Task<IActionResult> UpdateQuiz([FromBody] QuizDTO quizDTO)
-        // {
-        //     var result = await _quizService.UpdateQuiz(quizDTO);
-        //     return Ok(result);
-        // }
-        //
-        // [HttpGet("{quizId}")]
-        // public async Task<IActionResult> GetById([FromRoute] int quizId)
-        // {
-        //     var result = await _quizService.GetQuizById(quizId);
-        //     return Ok(result);
-        // }
-        //
-        // [HttpGet("with-questions-ids/{quizId}")]
-        // public async Task<IActionResult> GetWithQuestionsIdsById([FromRoute] int quizId)
-        // {
-        //     var result = await _quizService.GetWithQuestionsIdsById(quizId);
-        //     Console.WriteLine(result);
-        //     return Ok(result);
-        // }
     }
 }

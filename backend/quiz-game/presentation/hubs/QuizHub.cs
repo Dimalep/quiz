@@ -43,9 +43,6 @@ namespace presentation.hubs
 
         public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
         {
-            Console.WriteLine(questionResult == null);
-            Console.WriteLine(JsonSerializer.Serialize(questionResult));
-            
             var session = GetOrCreateSession(sessionKey);
 
             var progress = await _progressService.AddAnswer(sessionKey, questionResult, playerId);
@@ -54,7 +51,16 @@ namespace presentation.hubs
             {
                 session.Progresses[playerId] = progress;
             }
+
+            ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
+            {
+                CurrentQuestionIndex = progress.CurrentQuestionIndex,
+                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+                QuantityQuestions = progress.QuantityQuestions,
+                Status = progress.Status,
+            };
             
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", prgoressForPlayer);
             await SendProgressToAdmin(session);
         }
         
@@ -105,6 +111,22 @@ namespace presentation.hubs
             await SendProgressToAdmin(session);
         }
 
+        public async Task RestartGame(string sessionKey)
+        {
+            var session = GetOrCreateSession(sessionKey);
+            //
+            var game = await _gameService.Restart(sessionKey);
+            var progresses = await _progressService.Restart(game.Id);
+            //
+            lock (session.SyncRoot)
+            {
+                session.Progresses = progresses.ToDictionary(p => p.PlayerId);
+            }
+            
+            await Clients.Group($"quiz_admin_{session.SessionKey}").SendAsync("RestartForAdmin", game);
+            await SendProgressToAdmin(session);
+        }
+        
         #region for admin
 
         public async Task GetProgressesForAdmin(string sessionKey)
@@ -114,7 +136,9 @@ namespace presentation.hubs
         }
         
         private async Task SendProgressToAdmin(QuizRuntimeSession session)
-        {
+        {   
+            
+            
             List<Progress> progresses;
             
             lock (session.SyncRoot)
@@ -135,7 +159,7 @@ namespace presentation.hubs
                     },
                     CurrentQuestionIndex = p.CurrentQuestionIndex,
                     QuantityCorrectAnswers = p.QuizResult.QuantityCorrectAnswers,
-                    QuantityRemainedQuestions = p.QuizResult.Questions.Count(),
+                    QuantityRemainedQuestions = p.QuizResult?.Questions?.Count ?? 0,
                     Status = p.Status
                 }).ToList();
             
@@ -147,7 +171,6 @@ namespace presentation.hubs
 
         public async Task FinishGame(string sessionKey, int playerId)
         {
-            Console.WriteLine($"Session key: {sessionKey}, Player id: {playerId}");
             var session = GetOrCreateSession(sessionKey);
 
             var progress = await _progressService.Finish(playerId, sessionKey);
@@ -156,8 +179,29 @@ namespace presentation.hubs
             {
                 session.Progresses[progress.PlayerId] = progress;
             }
-
-            await Clients.Caller.SendAsync("ProgressUpdated", progress);
+            
+            ProgressForPlayer progressForPlayer = new ProgressForPlayer
+            {   
+                ProgressId = progress.Id,
+                CurrentQuestionIndex = progress.CurrentQuestionIndex,
+                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+                QuantityQuestions = progress.QuantityQuestions,
+                Status = progress.Status,
+            };
+            //
+            // ProgressDTO progressDto = new ProgressDTO
+            // {
+            //     Id = progress.Id,
+            //     CompleteAt = progress.CompleteAt,
+            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
+            //     QuantityCorrectAnswers = progress.QuizResult.QuantityCorrectAnswers,
+            //     //Player = progress.Player,
+            //     QuantityQuestion = progress.QuantityQuestions,
+            //     Status = progress.Status,
+            //     SessionId = progress.SessionId
+            // };
+            
+            await Clients.Caller.SendAsync("CompletedProgress", progressForPlayer);
             await SendProgressToAdmin(session);
         }
         
@@ -172,8 +216,17 @@ namespace presentation.hubs
             {
                 session.Progresses[playerId] = progress;
             }
-
-            await Clients.Caller.SendAsync("ProgressUpdated", progress);
+        
+            ProgressForPlayer progressForPlayer = new ProgressForPlayer
+            {
+                ProgressId = progress.Id,
+                CurrentQuestionIndex = progress.CurrentQuestionIndex,
+                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+                QuantityQuestions = progress.QuantityQuestions,
+                Status = progress.Status,
+            };
+            
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progressForPlayer);
             await SendProgressToAdmin(session);
         }
 
@@ -188,7 +241,16 @@ namespace presentation.hubs
                 session.Progresses[playerId] = progress;
             }
             
-            await Clients.Caller.SendAsync("ProgressUpdated", progress);
+            ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
+            {
+                ProgressId = progress.Id,
+                CurrentQuestionIndex = progress.CurrentQuestionIndex,
+                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+                QuantityQuestions = progress.QuantityQuestions,
+                Status = progress.Status,
+            };
+            
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", prgoressForPlayer);
             await SendProgressToAdmin(session);
         }
         

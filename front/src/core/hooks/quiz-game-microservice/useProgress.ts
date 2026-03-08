@@ -18,10 +18,14 @@ export interface PlayerQuizResult {
 }
 
 export interface QuestionResult {
-  questionId: number;
-  question: string;
-  answerId: number;
-  answer: string;
+  questionIndex: number;
+  questionText: string;
+  answers: AnswerResult[]
+}
+
+export interface AnswerResult{
+  answerIndex: number;
+  answerText: string;
   isCorrect: boolean;
 }
 
@@ -45,6 +49,30 @@ export interface ProgressForAdmin
   status: number;
 }
 
+export interface ProgressForPlayer{
+  progressId: number;
+  currentQuestionIndex: number;
+  QuantityQuestions: number;
+  QuantityCompletedQuestions: number;
+  status: number;
+}
+
 export default function useProgress() {
-  return {}
+  const getProgressById = async (progressId: number) => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/progresses/${progressId}`, {
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get progress by id");
+      return;
+    }
+
+    const data: Progress = await response.json();
+
+    return data;
+  };
+
+  return {getProgressById}
 }

@@ -2,7 +2,7 @@ import { useQuizGamePlayerContext } from "../../../../../../quiz-game-context/Qu
 import styles from "./PlayerNavigation.module.css";
 
 export default function PlayerNavigation() {
-  const { lightQuiz, currentQuestion, selectCurrentQuestion, finishGame } =
+  const { quiz, currentQuestion, selectCurrentQuestion, finishGame } =
     useQuizGamePlayerContext();
 
   if (!currentQuestion) return;
@@ -14,15 +14,17 @@ export default function PlayerNavigation() {
   return (
     <div className={styles.main}>
       Вопросы:
-      {lightQuiz?.questionsIds.map((el) => (
+      {quiz?.questions.map((el) => (
         <button
           className={
-            currentQuestion?.questionId === el ? styles.selected : styles.button
+            currentQuestion?.index === el.index
+              ? styles.selected
+              : styles.button
           }
-          onClick={() => selectQuestionHandler(el)}
-          key={el}
+          onClick={() => selectQuestionHandler(el.index)}
+          key={el.index}
         >
-          {el}
+          {el.index}
         </button>
       ))}
       <button onClick={() => finishGame()}>Завершить</button>

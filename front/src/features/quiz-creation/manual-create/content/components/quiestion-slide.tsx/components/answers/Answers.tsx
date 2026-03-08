@@ -7,8 +7,7 @@ export default function Answers() {
   const { state, dispatch } = useCreateContext();
 
   const addAnswerHandleClick = () => {
-    // createAnswer();
-    dispatch({ type: "CREATE_ANSWER"});
+    dispatch({ type: "CREATE_ANSWER" });
   };
 
   return (

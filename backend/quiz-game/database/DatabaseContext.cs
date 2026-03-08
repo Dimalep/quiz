@@ -20,8 +20,14 @@ public class DatabaseContext : DbContext
             entity.OwnsOne(p => p.QuizResult, qr =>
             {
                 qr.ToJson("quiz_result");
+                
+                qr.Property(x => x.QuizId);
+                qr.Property(x => x.QuantityCorrectAnswers);
 
-                qr.OwnsMany(q => q.Questions);
+                qr.OwnsMany(q => q.Questions, question =>
+                {
+                    question.OwnsMany(q => q.Answers);
+                });
             });
         });
     }

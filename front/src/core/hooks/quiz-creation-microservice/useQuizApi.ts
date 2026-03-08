@@ -17,6 +17,22 @@ export interface QuizWithQuestionsIds {
 
 export default function useQuizApi() {
 
+  const getQuizById = async (quizId: number) : Promise<Quiz | undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
+      method: "GET",
+      headers: {"Content-type": "application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get quiz by id");
+      return undefined;
+    }
+
+    const data: Quiz = await response.json();
+
+    return data;
+  }
+
   const getShortQuizById = async (quizId: number) : Promise<QuizDTO | undefined>=> {
     const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
       method: "GET",
@@ -64,5 +80,5 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getShortQuizById}
+  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById}
 }

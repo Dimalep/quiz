@@ -55,8 +55,6 @@ export default function CreateProvider({
     const quiz = localStorage.getItem("quizDraft");
     if (quiz === null) {
       async function createQuiz() {
-        console.log("quiz is null - ", quiz);
-
         const data: Quiz = {
           id: Number(quizId),
           title: "test",
@@ -83,7 +81,6 @@ export default function CreateProvider({
 
       createQuiz();
     } else {
-      console.log("quiz is not null - ", quiz);
       dispatch({
         type: "UPDATE_QUIZ",
         payload: { data: JSON.parse(quiz).quiz },

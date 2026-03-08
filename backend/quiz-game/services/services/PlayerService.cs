@@ -30,15 +30,17 @@ namespace services.services
 
             if(existsPlayer != null) 
             {
-                var editedPlayer =  new PlayerDTO
-                {
-                    Nickname = addPlayerDTO.Nickname,
-                    Id = existsPlayer.Id,
-                    Role = addPlayerDTO.Role,
-                };
-
+                existsPlayer.Nickname = addPlayerDTO.Nickname;
+                existsPlayer.Role = addPlayerDTO.Role;
+                existsPlayer.QuizSessionId = quizSession.Id;
+                
                 await _dbContext.SaveChangesAsync();
-                return editedPlayer;
+                return new PlayerDTO
+                {
+                    Id = existsPlayer.Id,
+                    Role = existsPlayer.Role,
+                    Nickname = existsPlayer.Nickname,
+                };
             }
 
             var player = new Player

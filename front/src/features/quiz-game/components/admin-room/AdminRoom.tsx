@@ -6,7 +6,7 @@ import SettingsSession from "./components/settings-session/SettingsSession";
 import WaitingRoom from "./components/waiting-room/WaitingRoom";
 
 export default function AdminRoom() {
-  const { currentGame, openForConnect } = useQuizGameAdminContext();
+  const { currentGame, restartGane } = useQuizGameAdminContext();
 
   const [room, setRoom] = useState<"wait" | "game">("wait");
 
@@ -44,7 +44,7 @@ export default function AdminRoom() {
   } else
     return (
       <div className={styles.main}>
-        <button onClick={openForConnect}>Запустить снова</button>
+        <button onClick={restartGane}>Запустить снова</button>
       </div>
     );
 }

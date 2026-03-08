@@ -13,6 +13,7 @@ namespace services.interfaces
         public Task<Game> Complete(string sessionKey);
         public Task<Game> OpenForConnect(string sessionKey);
         public Task<Game> CloseForConnect(string sessionKey);
+        public Task<Game> Restart(string sessionKey);
         #endregion
         
         public Task<GameDTO> UpdateQuizSession(GameDTO game);
