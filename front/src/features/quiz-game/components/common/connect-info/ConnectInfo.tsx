@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useQuizGameAdminContext } from "../../../../../quiz-game-context/QuizGameAdminContext";
 import styles from "./ConnectInfo.module.css";
 import { QRCodeSVG } from "qrcode.react";
 
-export default function ConnectInfo() {
-  const { currentGame, sessionKey } = useQuizGameAdminContext();
-  const quizUrl = `http://localhost:5173/quiz/game/${currentGame?.sessionKey}`;
+export interface Props {
+  sessionKey: string | undefined;
+  url: string;
+}
 
+export default function ConnectInfo({ sessionKey, url }: Props) {
   const [isShowQr, setIsShowQr] = useState(false);
   return (
     <div className={styles.main}>
@@ -26,7 +27,7 @@ export default function ConnectInfo() {
       </div>
       {isShowQr && (
         <div className={styles.qr}>
-          <QRCodeSVG value={quizUrl} size={256}></QRCodeSVG>
+          <QRCodeSVG value={url} size={256}></QRCodeSVG>
         </div>
       )}
     </div>

@@ -13,6 +13,7 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
 //   const [currentProgress, setCurrentProgress] = useState<ProgressDTO>();
   const [currentProgress, setCurrentProgress] = useState<ProgressForPlayer>();
 //   const [completedProgress, setCompletedProgress] = useState<ProgressDTO>();
+//   const [currentPlayer, setCurrentPlayer] = useState<Player>(player);
 
   useEffect(() => {
     if(!currentProgress) return;
@@ -64,7 +65,13 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
     connection.on("ProgressUpdatedForPlayer", (progress: ProgressForPlayer) => {
         setCurrentProgress(progress);
     });
-
+    // connection.on("UpdatedPlayer", (player: Player) => {
+    //     console.log("player");
+    // });
+    connection.on("UpdatedPlayerCaller", (player: Player) => {
+        localStorage.setItem("currentPlayer", JSON.stringify(player));
+        console.log(player);
+    });
     const start = async () => {
         try{
             await connection.start();

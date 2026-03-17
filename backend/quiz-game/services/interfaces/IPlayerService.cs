@@ -6,5 +6,6 @@ namespace services.interfaces
     {
         public Task<PlayerDTO> AddPlayer(AddPlayerRequest addPlayerDTO);
         public Task<GetPlayerResponse> GetPlayerById(int id);
+        public Task<PlayerDTO> Update(PlayerDTO player);
     }
 }

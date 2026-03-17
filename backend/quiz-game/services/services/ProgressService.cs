@@ -11,11 +11,11 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 {
     public async Task<Progress> Start(int playerId, string sessionKey)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Key == sessionKey);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
         if (game == null)
             throw new ArgumentException("Game is null");
         
-        var progress = await _dbContext.PlayerProgresses
+        var progress = await _dbContext.Progresses
             .Include(p => p.Player)
             .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
         
@@ -30,11 +30,11 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<Progress> Finish(int playerId, string sessionKey)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Key == sessionKey);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
         if (game == null)
             throw new ArgumentException("Game is null");
         
-        var progress = await _dbContext.PlayerProgresses
+        var progress = await _dbContext.Progresses
             .Include(p => p.Player)
             .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
         if (progress == null)
@@ -48,7 +48,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<ICollection<Progress>> Restart(int gameId)
     {
-        var progresses = await _dbContext.PlayerProgresses
+        var progresses = await _dbContext.Progresses
             .Include(p => p.Player)
             .Where(p => p.SessionId == gameId)
             .ToListAsync();
@@ -65,13 +65,13 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int playerId)
     {   
-        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Key == sessionKey);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
         if (game == null)
             throw new ArgumentNullException("Not found game by session key");
 
         var quiz = await quizGrpcServiceClient.GetQuizByIdAsync(game.QuizId);
         
-        var progress = await _dbContext.PlayerProgresses
+        var progress = await _dbContext.Progresses
             .Include(p => p.Player)
             .ThenInclude(p => p.Game)
             .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.SessionId == game.Id);
@@ -107,7 +107,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<Progress> GetById(int progressId)
     {
-        var progress = await _dbContext.PlayerProgresses.FirstOrDefaultAsync(p => p.Id == progressId);
+        var progress = await _dbContext.Progresses.FirstOrDefaultAsync(p => p.Id == progressId);
         if (progress == null)
             throw new ArgumentException("Progress not found");
 
@@ -122,7 +122,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<Progress> UpdateProgress(Progress progress)
     {
-        var updatingProgress = await _dbContext.PlayerProgresses
+        var updatingProgress = await _dbContext.Progresses
             .FirstOrDefaultAsync(p => p.Id == progress.Id);
 
         if (updatingProgress != null)
@@ -137,11 +137,11 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<Progress?> GetBySessionKeyAndPlayerId(string sessionKey, int playerId)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Key == sessionKey);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
         if (game == null)
             throw new ArgumentException("Game is null");
         
-        var progress = await _dbContext.PlayerProgresses
+        var progress = await _dbContext.Progresses
             .Include(p => p.Player)
             .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
         
@@ -158,7 +158,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         if (player == null)
             throw new ArgumentNullException("Not found player by playerId");
 
-        var game = await _dbContext.Games.FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
         if (game == null)
             throw new ArgumentNullException("Not found quiz session by sessionId");
 

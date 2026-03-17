@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function CompleteSettings({ quiz }: Props) {
-  const { newQuizSession } = useQuiz();
+  const { newQuizSession, saveAndGoToProfile } = useQuiz();
 
   const startQuizSessionHandler = async () => {
     await newQuizSession();
@@ -25,11 +25,10 @@ export default function CompleteSettings({ quiz }: Props) {
             <div>Описание: {quiz.description}</div>
             <div>Тема: </div>
             <div>Количество вопросв: {quiz.quantityQuestions}</div>
-            {/* <div>Время на выполнение: {quiz.time}</div> */}
           </div>
         )}
         <div className={styles.buttons}>
-          <button>Сохранить</button>
+          <button onClick={() => saveAndGoToProfile()}>Сохранить</button>
           <button onClick={startQuizSessionHandler}>Запустить</button>
         </div>
       </div>

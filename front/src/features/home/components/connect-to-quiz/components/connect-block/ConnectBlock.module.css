@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 60%;
+    gap: 10px;
+}
+
+@media(max-width: 880px){
+    .main{
+        flex-direction: column;
+    }
+}

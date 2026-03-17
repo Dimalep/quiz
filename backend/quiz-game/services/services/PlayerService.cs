@@ -1,4 +1,5 @@
-﻿using database;
+﻿using System.Security.Principal;
+using database;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
@@ -18,7 +19,7 @@ namespace services.services
         public async Task<PlayerDTO> AddPlayer(AddPlayerRequest addPlayerDTO)
         {
             var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == addPlayerDTO.QuizSessionKey);
+                .FirstOrDefaultAsync(qs => qs.sessionKey == addPlayerDTO.QuizSessionKey);
 
             if (quizSession == null)
             {
@@ -74,6 +75,26 @@ namespace services.services
                 Nickname = player.Nickname,
                 UserId = player.UserId,
                 Role = player.Role
+            };
+        }
+
+        public async Task<PlayerDTO> Update(PlayerDTO player)
+        {
+            var existsPlayer = await _dbContext.Players
+                .FirstOrDefaultAsync(p => p.Id == player.Id);
+
+            if (existsPlayer == null)
+                throw new ArgumentException("Player not found");
+
+            existsPlayer.Nickname = player.Nickname;
+
+            await _dbContext.SaveChangesAsync();
+            
+            return new PlayerDTO
+            {
+                Id = existsPlayer.Id,
+                Nickname = existsPlayer.Nickname,
+                Role = existsPlayer.Role
             };
         }
     }

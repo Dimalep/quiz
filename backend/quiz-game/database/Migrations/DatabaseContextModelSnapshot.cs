@@ -56,9 +56,13 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("status");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
                     b.HasKey("Id");
 
-                    b.ToTable("quiz_sessions");
+                    b.ToTable("games");
                 });
 
             modelBuilder.Entity("domains.domains.Player", b =>

@@ -8,13 +8,14 @@ namespace services.services
 {
     public class QuizService(DatabaseContext db) : IQuizService
     {
-         public async Task<int> CreateEmptyQuiz()
+         public async Task<int> CreateEmptyQuiz(int userId)
          {
              var newQuiz = new Quiz
              {
                  Title = string.Empty,
                  Description = string.Empty,
                  QuantityQuestions = 0,
+                 UserId = userId,
              };
 
              var createdQuiz = await db.Quizzes.AddAsync(newQuiz);
@@ -27,17 +28,25 @@ namespace services.services
         {
             var updatingQuiz = await GetQuizById(quiz.Id);
 
-            Console.WriteLine($"Cout questions 1 - {quiz.Questions.Count()}");
-
             db.Entry(updatingQuiz).CurrentValues.SetValues(quiz);
-
-            Console.WriteLine($"Cout questions 2 - {quiz.Questions.Count()}");
 
             updatingQuiz.QuantityQuestions = quiz.Questions.Count();
 
             await db.SaveChangesAsync();
 
             return updatingQuiz;
+        }
+
+        public async Task<Quiz> DeleteQuizById(int quizId)
+        {
+            var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
+            if (quiz == null)
+                throw new ArgumentException("Not found quiz");
+
+            var deletedQuiz = db.Quizzes.Remove(quiz);
+            await db.SaveChangesAsync();
+
+            return deletedQuiz.Entity;
         }
 
         public async Task<Quiz> GetQuizById(int quizId)
@@ -68,6 +77,13 @@ namespace services.services
             };
             
             return shortQuiz;
+        }
+
+        public async Task<ICollection<Quiz>> GetQuizzesByUserId(int userId)
+        {
+            return await db.Quizzes
+                .Where(q => q.UserId == userId)
+                .ToListAsync();
         }
     }
 }

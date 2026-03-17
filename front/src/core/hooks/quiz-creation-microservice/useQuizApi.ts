@@ -17,6 +17,35 @@ export interface QuizWithQuestionsIds {
 
 export default function useQuizApi() {
 
+  const deleteQuizById = async (quizId: number) => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
+      method: "DELETE",
+      headers: {"Content-Type": "applcation/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get quizzes by user id");
+      return false;
+    }
+
+    return true;
+  };
+
+  const getQuizzesByUserId = async (userId: number) : Promise<Quiz[] | undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/by-userid/${userId}`, {
+      method: "GET",
+      headers: {"Content-Type": "applcation/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get quizzes by user id");
+      return undefined;
+    }
+
+    const data = await response.json();
+    return data;
+  };
+
   const getQuizById = async (quizId: number) : Promise<Quiz | undefined> => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
       method: "GET",
@@ -64,8 +93,8 @@ export default function useQuizApi() {
     return response.ok;
   }
   
-  const createNewQuiz = async () : Promise<number | undefined> => {
-    const response = await fetch("http://localhost:5051/api/quizzes/create_new_empty_quiz", {
+  const createNewQuiz = async (userId: number) : Promise<number | undefined> => {
+    const response = await fetch(`http://localhost:5051/api/quizzes/create_new_empty_quiz/${userId}`, {
       method: "POST",
       headers: {"Content-type":"application/json"}
     });
@@ -80,5 +109,5 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById}
+  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById}
 }

@@ -1,11 +1,12 @@
-import { QRCodeSVG } from "qrcode.react";
 import styles from "./WaitingRoom.module.css";
 import PlayersList from "./components/PlayersList";
 import { useQuizGamePlayerContext } from "../../../../quiz-game-context/QuizGamePlayerContext";
+import ConnectInfo from "../../../common/connect-info/ConnectInfo";
+import PlayerSettings from "./components/PlayerSettings";
 
 export default function WaitingRoom() {
-  const quizUrl = `http://localhost:5173/quiz/game/${2}`;
-  const { currentGame, lightQuiz, startGame } = useQuizGamePlayerContext();
+  const { currentGame, quiz, startGame, currentPlayer } =
+    useQuizGamePlayerContext();
 
   const startGameHandler = async () => {
     if (currentGame?.status !== 2) alert("Игра еще не запущена админом");
@@ -21,16 +22,18 @@ export default function WaitingRoom() {
         </div>
         <div className={styles.info}>
           <h3>Описание</h3>
-          <span>Название квиза: {lightQuiz?.title}</span>
-          <span>Описание: {lightQuiz?.description}</span>
-          <span>Количество вопросов: {lightQuiz?.quantityQuestions}</span>
+          <span>Название квиза: {quiz?.title}</span>
+          <span>Описание: {quiz?.description}</span>
+          <span>Количество вопросов: {quiz?.quantityQuestions}</span>
           <span>status: {currentGame?.status}</span>
         </div>
 
-        <div className={styles.connect}>
-          <h4>sessoinKey</h4>
-          <QRCodeSVG value={quizUrl} size={256}></QRCodeSVG>
-        </div>
+        <PlayerSettings />
+
+        <ConnectInfo
+          sessionKey={currentGame?.sessionKey}
+          url={`http://localhost:5173/quiz/game/${currentGame?.sessionKey}`}
+        />
       </div>
 
       <PlayersList />

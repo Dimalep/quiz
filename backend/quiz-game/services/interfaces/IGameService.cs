@@ -5,8 +5,10 @@ namespace services.interfaces
 {
     public interface IGameService
     {
-        public Task<GameResponse> Add(int quizId);
+        public Task<GameResponse> Add(int quizId, int userId);
         public Task<GameResponse> GetQuizSessionByKey(string sessionKey);
+        public Task<GameResponse> GetGameByQuizIdAndUserId(int quizId, int userId);
+        public Task<ICollection<GameDTO>> GetGamesByUserId(int userId);
 
         #region admin function
         public Task<Game> Launch(double lifetime, string sessionKey);

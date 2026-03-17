@@ -1,0 +1,63 @@
+.main{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 50px;
+}
+
+.name_and_logo{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.logo{
+    width: 75px;
+    height: 75px;
+    background-color: black;
+}
+.name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 20px;
+
+    border: 1px solid rgba(42, 72, 100, 0.685);
+    border-radius: 5px;
+
+    background-color: rgba(123, 182, 236, 0.171);
+}
+.name:hover{
+    background-color: rgba(158, 196, 231, 0.171);
+}
+
+.more_info{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.info_card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 10px 20px;
+
+    border: 1px solid rgba(42, 72, 100, 0.685);
+    border-radius: 5px;
+
+    background-color: rgba(123, 182, 236, 0.171);
+}
+.info_card:hover{
+    background-color: rgba(158, 196, 231, 0.171);
+}
+
+@media(max-width: 880px){
+    .more_info{
+        display: none;
+    }
+}

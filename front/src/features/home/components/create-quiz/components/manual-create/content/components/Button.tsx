@@ -8,6 +8,12 @@ export default function Button() {
 
   const handleClick = async () => {
     const saved = localStorage.getItem("quizDraft");
+    const rowUserId = localStorage.getItem("userId");
+
+    if (rowUserId === null) {
+      console.log("User id is null");
+      return;
+    }
 
     let quizId: number | undefined;
 
@@ -18,13 +24,13 @@ export default function Button() {
 
       if (result) {
         localStorage.removeItem("quizDraft");
-        quizId = await createNewQuiz();
+        quizId = await createNewQuiz(Number(rowUserId));
       } else {
         const parsed = JSON.parse(saved);
         quizId = parsed.quiz.id;
       }
     } else {
-      quizId = await createNewQuiz();
+      quizId = await createNewQuiz(Number(rowUserId));
     }
 
     navigate(`quiz/${quizId}`);

@@ -22,5 +22,5 @@ const styles = {
     ({
       color: isHover ? "blue" : "black",
       cursor: "pointer",
-    } as CSSProperties),
+    }) as CSSProperties,
 };

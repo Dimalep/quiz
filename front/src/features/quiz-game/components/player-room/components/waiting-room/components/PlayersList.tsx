@@ -8,7 +8,7 @@ export default function PlayersList() {
   return (
     <div className={styles.main}>
       {players?.map((e) => (
-        <PlayerItem key={e.id} />
+        <PlayerItem key={e.id} player={e} />
       ))}
     </div>
   );

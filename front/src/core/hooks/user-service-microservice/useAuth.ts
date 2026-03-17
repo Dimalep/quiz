@@ -6,6 +6,12 @@ export interface AuthError{
   isSuccess: boolean;
 } 
 
+export interface authToken {
+  accessToken: string;
+  refreshToke: string;
+  userid: string;
+}
+
 export default function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authResponse, setAuthResponse] = useState<AuthError>({title:"", message:"", isSuccess: false});
@@ -13,6 +19,64 @@ export default function useAuth() {
   useEffect(() => {
     checkStatusAuth();
   }, []);
+
+  const refreshToken = async ()=> {
+    const rowAuthToken = localStorage.getItem("authToken");
+    if (!rowAuthToken) return null;
+
+    const refreshTokenValue = JSON.parse(rowAuthToken).refreshToken;
+
+    const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/auth/refresh`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(refreshTokenValue)
+    });
+
+    if(!response.ok){
+      console.log("Error 11");
+      return;
+    }
+
+    const data: authToken = await response.json();
+
+    localStorage.setItem("authToken", JSON.stringify(data));
+
+    return data;
+  }
+
+  const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
+    const rowAuthToken = localStorage.getItem("authToken");
+
+    if(!rowAuthToken) {
+      console.log("Token not found");
+      return;
+    };
+
+    const accesToken = JSON.parse(rowAuthToken).accessToken;
+
+    const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      "Authorization": `Bearer ${accesToken}`
+    }
+  });
+
+    if (response.status === 401) {
+      const newToken = await refreshToken();
+      if (!newToken) throw new Error("Не удалось обновить токен");
+
+      return fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          "Authorization": `Bearer ${newToken.accessToken}`
+        }
+      });
+    }
+
+    return response;
+  };
 
   const loginFromHook = async (login: string, password: string) => {
     try{
@@ -37,9 +101,9 @@ export default function useAuth() {
         return;
       }
 
-      const token = await response.text();
+      const token: authToken = await response.json();
 
-      localStorage.setItem("authToken", token);
+      localStorage.setItem("authToken", JSON.stringify(token));
       setIsAuthenticated(true);
       setAuthResponse({
         title: "Успех",
@@ -63,13 +127,13 @@ export default function useAuth() {
   //Send registration request
   const registerFromHook = async (login: string, password: string) => {
     try{
-        const anonUserId = sessionStorage.getItem("anonUserId");
+        const userId = localStorage.getItem("userId");
 
         const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/auth/registrate`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-              id: anonUserId,
+              id: userId,
               authType: 0,
               email: "",
               phone: "",
@@ -82,8 +146,8 @@ export default function useAuth() {
             throw new Error("Ошибка регистрации");
         }
 
-        const token = await response.text();
-        localStorage.setItem("authToken", token);
+        const token: authToken = await response.json();
+        localStorage.setItem("authToken", JSON.stringify(token));
         return token;
     } catch (err) {
       console.error("Error registration:", err);
@@ -95,5 +159,5 @@ export default function useAuth() {
     setIsAuthenticated(storedToken !== null && storedToken !== "error");
   }
 
-  return {registerFromHook, checkStatusAuth, isAuthenticated, loginFromHook, authResponse}
+  return {registerFromHook, checkStatusAuth, isAuthenticated, loginFromHook, authResponse, fetchWithAuth}
 }

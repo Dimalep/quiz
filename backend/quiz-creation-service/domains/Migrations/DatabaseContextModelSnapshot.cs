@@ -51,6 +51,10 @@ namespace database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
                     b.HasKey("Id");
 
                     b.ToTable("quizzes");

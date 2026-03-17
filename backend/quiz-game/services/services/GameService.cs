@@ -21,11 +21,45 @@ namespace services.services
         }
 
         #region Work with status
-        
+
+        public async Task<GameResponse> GetGameByQuizIdAndUserId(int quizId, int userId)
+        {
+            var game = await _dbContext.Games
+                .FirstOrDefaultAsync(q => q.QuizId == quizId && q.UserId == userId);
+
+            if (game == null)
+                throw new ArgumentException("Not found game by quizId and userId");
+
+            return new GameResponse
+            {
+                Id = game.Id,
+                QuizId = game.QuizId,
+                SessionKey = game.sessionKey,
+                Status = game.Status
+            };
+        }
+
+        public async Task<ICollection<GameDTO>> GetGamesByUserId(int userId)
+        {
+            var data = await _dbContext.Games
+                .Where(g => g.UserId == userId)
+                .Select(g => new GameDTO
+                {
+                    Id = g.Id,
+                    QuizId = g.UserId,
+                    Status = g.Status,
+                    sessionKey = g.sessionKey,
+                    CompleteAt = g.CompleteAt,
+                    CreateAt = g.CreateAt
+                }).ToListAsync();
+            
+            return data;
+        }
+
         public async Task<Game> Launch(double lifetime, string sessionKey)
         {
             var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+                .FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
             
             if(quizSession == null)
             {
@@ -48,7 +82,7 @@ namespace services.services
         public async Task<Game> Complete(string sessionKey)
         {
             var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+                .FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
             
             if (quizSession == null)
                 throw new ArgumentNullException("Not found quiz session by id");
@@ -63,7 +97,7 @@ namespace services.services
         public async Task<Game> OpenForConnect(string sessionKey)
         {
             var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+                .FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
             
             if (quizSession == null)
                 throw new ArgumentNullException("Not found quiz session by id");
@@ -76,7 +110,7 @@ namespace services.services
         public async Task<Game> CloseForConnect(string sessionKey)
         {
             var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+                .FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
             
             if (quizSession == null)
                 throw new ArgumentNullException("Not found quiz session by id");
@@ -89,7 +123,7 @@ namespace services.services
         public async Task<Game> Restart(string sessionKey)
         {
             var game = await _dbContext.Games
-                .FirstOrDefaultAsync(g => g.Key == sessionKey);
+                .FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
 
             if (game == null)
             {
@@ -102,10 +136,9 @@ namespace services.services
             
             return game;
         }
-
         #endregion
         
-        public async Task<GameResponse> Add(int quizId)
+        public async Task<GameResponse> Add(int quizId, int userId)
         {
             var quizResponse = await _quizGrpcClient.GetQuizByIdAsync(quizId);
             if (quizResponse == null)
@@ -122,9 +155,9 @@ namespace services.services
                 return new GameResponse
                 {
                     Id = existsQuizSession.Id,
-                    SessionKey = existsQuizSession.Key,
+                    SessionKey = existsQuizSession.sessionKey,
                     Status = Status.opened,
-                    QuizId = existsQuizSession.QuizId
+                    QuizId = existsQuizSession.QuizId,
                 };
             }
 
@@ -134,8 +167,9 @@ namespace services.services
             {
                 CreateAt = DateTime.UtcNow,
                 QuizId = quizResponse.Id,
-                Key = sessionKey,
+                sessionKey = sessionKey,
                 Status = Status.opened,
+                UserId = userId,
             };
 
             await _dbContext.Games.AddAsync(quizSession);
@@ -163,7 +197,7 @@ namespace services.services
 
         public async Task<GameResponse> GetQuizSessionByKey(string sessionKey)
         {
-            var quizSession = await _dbContext.Games.FirstOrDefaultAsync(qs => qs.Key == sessionKey);
+            var quizSession = await _dbContext.Games.FirstOrDefaultAsync(qs => qs.sessionKey == sessionKey);
             if (quizSession == null)
                 throw new ArgumentNullException("Not found quizSession by token");
             return new GameResponse 
@@ -190,7 +224,7 @@ namespace services.services
             }
 
             quizSessionFromDb.Status = game.Status;
-            quizSessionFromDb.Key = game.Key; 
+            quizSessionFromDb.sessionKey = game.sessionKey; 
 
             await _dbContext.SaveChangesAsync();
 

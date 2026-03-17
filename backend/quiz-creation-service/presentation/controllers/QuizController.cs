@@ -8,10 +8,24 @@ namespace presentation.controllers
     [Route("api/quizzes")]
     public class QuizController(IQuizService quizService) : ControllerBase
     {
-        [HttpPost("create_new_empty_quiz")]
-        public async Task<IActionResult> CreateNewEmptyQuiz()
+        [HttpDelete("{quizId}")]
+        public async Task<IActionResult> DeleteQuizById([FromRoute] int quizId)
         {
-            var result = await quizService.CreateEmptyQuiz();
+            var result = await quizService.DeleteQuizById(quizId);
+            return Ok(result);
+        }
+        
+        [HttpGet("by-userid/{userId}")]
+        public async Task<IActionResult> GetQuizzesByUserId([FromRoute] int userId)
+        {
+            var result = await quizService.GetQuizzesByUserId(userId);
+            return Ok(result);
+        }
+        
+        [HttpPost("create_new_empty_quiz/{userId}")]
+        public async Task<IActionResult> CreateNewEmptyQuiz([FromRoute] int userId)
+        {
+            var result = await quizService.CreateEmptyQuiz(userId);
             return Ok(result);
         }
 

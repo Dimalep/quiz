@@ -7,7 +7,9 @@ import ScrollToStart from "./shared/components/scroll-to-start/ScrollToStart";
 import ManualCreate from "./features/quiz-creation/manual-create/ManualCreate";
 import Authorization from "./features/auth/Authorization";
 import CompleteCreation from "./features/quiz-creation/complete-creation/CompleteCreation";
-import QuizGame from "./features/quiz-game/QuizGame";
+import Profile from "./features/profile/Profile";
+import QuizGamePlayer from "./features/quiz-game/QuizGamePlayer";
+import QuizGameAdmin from "./features/quiz-game/QuizGameAdmin";
 
 function App() {
   return (
@@ -22,7 +24,15 @@ function App() {
             path="/quiz/:quizId/complete-creation"
             element={<CompleteCreation />}
           />
-          <Route path="quiz/game/:sessionKey" element={<QuizGame />} />
+          <Route
+            path="quiz/game/player/:sessionKey"
+            element={<QuizGamePlayer />}
+          />
+          <Route
+            path="quiz/game/admin/:sessionKey"
+            element={<QuizGameAdmin />}
+          />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

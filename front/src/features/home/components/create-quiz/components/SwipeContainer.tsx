@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, {
-  type CSSProperties,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
 } from "react";
+import styles from "./SwipeContainer.module.css";
 
 interface Props {
   children: ReactNode[];
@@ -60,7 +60,7 @@ export default function SwipeContainer({ children, setType, type }: Props) {
           if (info.offset.x < -swipeConfidence) paginate(1);
           else if (info.offset.x > swipeConfidence) paginate(-1);
         }}
-        style={styles.content}
+        className={styles.content}
         onWheel={handleWheel}
       >
         {children[type]}
@@ -68,15 +68,3 @@ export default function SwipeContainer({ children, setType, type }: Props) {
     </AnimatePresence>
   );
 }
-
-const styles = {
-  content: {
-    display: "flex",
-    flexDirection: "column",
-    width: "80%",
-    border: "2px solid black",
-    borderRadius: "17px",
-    padding: "30px",
-    boxShadow: "0 4px 24px rgba(0,0,0,0.34)",
-  } as CSSProperties,
-};

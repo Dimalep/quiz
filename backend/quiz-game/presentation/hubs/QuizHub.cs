@@ -6,13 +6,6 @@ using services.interfaces;
 
 namespace presentation.hubs
 {
-    public record PlayerDTO
-    {
-        public int Id { get; set; }
-        public string Nickname { get; set;  } = string.Empty;
-        public string Role { get; set; } = null!;
-    }
-    
     public class QuizRuntimeSession
     {
         public string SessionKey = null!;
@@ -31,16 +24,40 @@ namespace presentation.hubs
     {
         private readonly IGameService _gameService;
         private readonly IProgressService _progressService;
+        private readonly IPlayerService playerService;
 
-        public QuizHub(IGameService gameService, IProgressService progressService)
+        public QuizHub(IGameService gameService, IProgressService progressService, IPlayerService playerService)
         {
             _gameService = gameService;
             _progressService = progressService;
+            this.playerService = playerService;
         }
 
         private static readonly Dictionary<string, QuizRuntimeSession> _sessions = new();
         private static readonly object _lock = new();
 
+        public async Task ChangeName(PlayerDTO playerDto, string sessionKey)
+        {
+            var session = GetOrCreateSession(sessionKey);
+
+            var changedPlayer = await playerService.Update(playerDto);
+
+            lock (session.SyncRoot)
+            {
+                session.Connections[Context.ConnectionId] = changedPlayer;
+
+                if (session.Progresses.ContainsKey(playerDto.Id))
+                {
+                    session.Progresses[playerDto.Id].Player.Nickname = changedPlayer.Nickname;
+                }
+            }
+
+            await Clients
+                .Group($"quiz_{sessionKey}")
+                .SendAsync("UpdatedPlayers", session.Connections.Values.ToList());
+            await Clients.Caller.SendAsync("UpdatedPlayerCaller", changedPlayer);
+        }
+        
         public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
         {
             var session = GetOrCreateSession(sessionKey);
@@ -188,18 +205,6 @@ namespace presentation.hubs
                 QuantityQuestions = progress.QuantityQuestions,
                 Status = progress.Status,
             };
-            //
-            // ProgressDTO progressDto = new ProgressDTO
-            // {
-            //     Id = progress.Id,
-            //     CompleteAt = progress.CompleteAt,
-            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
-            //     QuantityCorrectAnswers = progress.QuizResult.QuantityCorrectAnswers,
-            //     //Player = progress.Player,
-            //     QuantityQuestion = progress.QuantityQuestions,
-            //     Status = progress.Status,
-            //     SessionId = progress.SessionId
-            // };
             
             await Clients.Caller.SendAsync("CompletedProgress", progressForPlayer);
             await SendProgressToAdmin(session);
@@ -266,7 +271,7 @@ namespace presentation.hubs
                         session.Connections.Remove(Context.ConnectionId);
 
                         Clients.Group($"quiz_{session.SessionKey}")
-                            .SendAsync("UserLeft", player, session.Connections.Values.ToList());
+                            .SendAsync("UserLeft", player, session.Connections.Values.Where(p => p.Role == "player").ToList());
                     }
                 }
             }
@@ -295,7 +300,7 @@ namespace presentation.hubs
             await Clients.Group($"quiz_{sessionKey}")
                 .SendAsync("UserJoined", 
                     player,
-                    session.Connections.Values.ToList());
+                    session.Connections.Values.Where(p => p.Role == "player").ToList());
 
             await Clients.Caller.SendAsync("FirstConnect", game);
         }

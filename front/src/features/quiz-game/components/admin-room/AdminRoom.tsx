@@ -21,7 +21,7 @@ export default function AdminRoom() {
       return (
         <div className={styles.main}>
           {currentGame?.status === 2 && (
-            <button onClick={() => setRoom("game")}>
+            <button className={styles.navigation_button} onClick={() => setRoom("game")}>
               {"комната игры -->"}
             </button>
           )}
@@ -33,7 +33,7 @@ export default function AdminRoom() {
       return (
         <div className={styles.main}>
           {currentGame?.status === 2 && (
-            <button onClick={() => setRoom("wait")}>
+            <button className={styles.navigation_button} onClick={() => setRoom("wait")}>
               {"<-- комнта ожидания"}
             </button>
           )}

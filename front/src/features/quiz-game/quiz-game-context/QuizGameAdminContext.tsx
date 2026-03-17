@@ -5,6 +5,7 @@ import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame
 import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
 import useQuizHubAdmin from "../../../core/hooks/quiz-game-microservice/useQuizHubAdmin";
 import type { ProgressForAdmin } from "../../../core/hooks/quiz-game-microservice/useProgress";
+import usePlayer from "../../../core/hooks/quiz-game-microservice/usePlayer";
 
 export interface QuizGameAdminContextType {
   sessionKey: string | undefined;
@@ -29,18 +30,30 @@ export default function QuizGameAdminContext({
 }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
 
-  // const { getQuizWithQuestionsIds } = useQuizApi();
+  const { addPlayer } = usePlayer();
   const { getGameBySessionKey } = useGame();
   const { sessionKey } = useParams<{ sessionKey: string }>();
 
   useEffect(() => {
+    async function launchPage() {
+      if (!sessionKey) return;
+
+      const createdPlayer = await addPlayer("admin", sessionKey);
+
+      if (!createdPlayer) return;
+
+      setCurrentPlayer(currentPlayer);
+      localStorage.setItem("player", JSON.stringify(createdPlayer));
+    }
+
     const data = localStorage.getItem("player");
     if (data === null) {
-      console.log("player empty");
+      launchPage();
       return;
+    } else {
+      const player = JSON.parse(data);
+      setCurrentPlayer(player);
     }
-    const player = JSON.parse(data);
-    setCurrentPlayer(player);
 
     async function getCurrentQuizSession() {
       if (!sessionKey) return;

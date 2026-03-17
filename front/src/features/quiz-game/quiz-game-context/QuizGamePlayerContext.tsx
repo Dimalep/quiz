@@ -13,6 +13,7 @@ import type {
   Question,
   Quiz,
 } from "../../quiz-creation/manual-create/create-context/reducer";
+import usePlayer from "../../../core/hooks/quiz-game-microservice/usePlayer";
 
 interface QuizGamePlayerContextType {
   quiz: Quiz | undefined;
@@ -21,10 +22,12 @@ interface QuizGamePlayerContextType {
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
   currentProgress: ProgressForPlayer | undefined;
+  currentPlayer: Player | undefined;
   startGame: () => void;
   selectCurrentQuestion: (questionId: number) => void;
   giveAnswer: (answers: AnswerResult[]) => void;
   finishGame: () => void;
+  changeName: (name: string) => void;
 }
 
 const PlayerContext = createContext<QuizGamePlayerContextType | undefined>(
@@ -41,6 +44,7 @@ export default function QuizGamePlayerContext({
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
 
   const { getQuizById } = useQuizApi();
+  const { addPlayer } = usePlayer();
   const { sessionKey } = useParams();
 
   const {
@@ -53,14 +57,27 @@ export default function QuizGamePlayerContext({
   } = useQuizHubPlayer(sessionKey, currentPlayer);
 
   useEffect(() => {
-    const rawPlayer = localStorage.getItem("player");
-    if (!rawPlayer) return;
+    async function launchPage() {
+      if (!sessionKey) return;
 
-    try {
-      const player = JSON.parse(rawPlayer) as Player;
-      setCurrentPlayer(player);
-    } catch {
-      console.log("Failed to parse player from localStorage");
+      const createdPlayer = await addPlayer("player", sessionKey);
+      if (!createdPlayer) return;
+
+      setCurrentPlayer(createdPlayer);
+      localStorage.setItem("player", JSON.stringify(createdPlayer));
+    }
+
+    const rawPlayer = localStorage.getItem("player");
+    if (!rawPlayer) {
+      launchPage();
+      return;
+    } else {
+      try {
+        const player = JSON.parse(rawPlayer) as Player;
+        setCurrentPlayer(player);
+      } catch {
+        console.log("Failed to parse player from localStorage");
+      }
     }
 
     const rawGame = localStorage.getItem("currentGame");
@@ -135,6 +152,18 @@ export default function QuizGamePlayerContext({
     await connection?.invoke("FinishGame", sessionKey, currentPlayer?.id);
   };
 
+  const changeName = async (name: string) => {
+    if (!currentPlayer) return;
+
+    const changedPlayer: Player = {
+      id: currentPlayer.id,
+      nickname: name,
+      role: currentPlayer.role,
+    };
+
+    await connection?.invoke("ChangeName", changedPlayer, sessionKey);
+  };
+
   const giveAnswer = async (answers: AnswerResult[]) => {
     if (!currentQuestion) {
       console.log("Error add answer");
@@ -182,6 +211,8 @@ export default function QuizGamePlayerContext({
         currentQuestion,
         currentProgress,
         finishGame,
+        currentPlayer,
+        changeName,
       }}
     >
       {children}

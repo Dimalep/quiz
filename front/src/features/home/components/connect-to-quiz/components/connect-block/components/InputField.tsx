@@ -1,4 +1,5 @@
-import { type CSSProperties, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
+import styles from "./InputFeild.module.css";
 
 interface Props {
   inputSessionKey: string;
@@ -10,9 +11,9 @@ export default function InputField({
   inputSessionKey,
 }: Props) {
   return (
-    <div style={styles.main}>
+    <div className={styles.main}>
       <input
-        style={styles.input}
+        className={styles.input}
         placeholder="Введи код"
         value={inputSessionKey}
         onChange={(e) => setInputSessionKey(e.target.value)}
@@ -20,17 +21,3 @@ export default function InputField({
     </div>
   );
 }
-
-const styles = {
-  main: {
-    width: "60%",
-    padding: "20px 0px 20px 0px",
-    display: "flex",
-    alignItems: "stretch",
-  } as CSSProperties,
-  input: {
-    justifyContent: "center",
-    width: "100%",
-    fontSize: "24px",
-  } as CSSProperties,
-};

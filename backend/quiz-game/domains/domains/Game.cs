@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace domains.domains
 {
-    [Table("quiz_sessions")]
+    [Table("games")]
     public class Game
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,13 +21,16 @@ namespace domains.domains
         public DateTime CompleteAt { get; set; }
 
         [Column("key")]
-        public string Key { get; set; } = null!;
+        public string sessionKey { get; set; } = null!;
 
         [Column("quiz_id")]
         public int QuizId { get; set;}
 
         [Column("status")]
         public Status Status{ get; set; } = Status.opened;
+        
+        [Column("user_id")]
+        public int UserId { get; set; }
     }
 
     public enum Status

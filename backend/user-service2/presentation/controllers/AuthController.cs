@@ -22,7 +22,6 @@ namespace presentation.controllers
         public async Task<IActionResult> LoginByUsername([FromBody] LogRequestDTO req)
         {
             var res = await authService.Login(req);
-
             return Ok(res);
         }
 
@@ -31,7 +30,6 @@ namespace presentation.controllers
         public async Task<IActionResult> RegistrateByUsername([FromBody] RegRequestDTO req)
         {
             var res = await authService.Registration(req);
-
             return Ok(res);
         }
 
@@ -39,7 +37,6 @@ namespace presentation.controllers
         public async Task<IActionResult> Refresh([FromBody] string refreshToken)
         {
             var res = await authService.Refresh(refreshToken);
-
             return Ok(res);
         }
 

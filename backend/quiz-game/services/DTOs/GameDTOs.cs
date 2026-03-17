@@ -7,7 +7,7 @@ namespace services.DTOs
         public int Id { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime CompleteAt { get; set; }
-        public string Key { get; set; } = null!;
+        public string sessionKey { get; set; } = null!;
         public int QuizId { get; set; }
         public Status Status { get; set; }
     }

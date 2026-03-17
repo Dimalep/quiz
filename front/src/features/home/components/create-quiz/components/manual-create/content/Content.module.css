@@ -1,0 +1,12 @@
+.main {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+@media (max-width: 880px) {
+    .main {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

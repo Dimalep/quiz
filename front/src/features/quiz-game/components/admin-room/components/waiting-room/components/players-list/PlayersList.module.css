@@ -1,9 +1,21 @@
 .main{
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 2px solid black;
-    border-radius: 7px;
-    min-height: 400px;
     gap: 10px;
+
+    padding: 20px 20px 30px 20px;
+
+    border: none;
+    border-radius: 15px;
+
+    background-color: rgb(17, 80, 60);
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: Rubik;
+    font-size: 14px;
 }

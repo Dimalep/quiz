@@ -19,16 +19,18 @@ export default function CreateProvider({
 }) {
   const navigate = useNavigate();
   const { quizId } = useParams();
-  const { updateQuiz, createNewQuiz } = useQuizApi();
+  const { updateQuiz } = useQuizApi();
+  const rowUserId = localStorage.getItem("userId");
 
   if (!quizId) return null;
 
   const initialState: CreateState = {
     quiz: {
       id: Number(quizId),
+      userId: Number(rowUserId),
       title: "",
       description: "",
-      quantityQuestion: 0,
+      quantityQuestions: 0,
       questions: [],
     },
     currentQuestion: undefined,
@@ -50,16 +52,16 @@ export default function CreateProvider({
   });
 
   useEffect(() => {
-    // if (state.quiz.id) return;
-
     const quiz = localStorage.getItem("quizDraft");
-    if (quiz === null) {
+
+    if (quiz === null || rowUserId === null) {
       async function createQuiz() {
         const data: Quiz = {
           id: Number(quizId),
+          userId: Number(rowUserId),
           title: "test",
           description: "description",
-          quantityQuestion: 0,
+          quantityQuestions: 0,
           questions: [],
         };
 

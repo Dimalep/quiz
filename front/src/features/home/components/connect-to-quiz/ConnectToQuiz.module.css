@@ -1,0 +1,20 @@
+.main {
+    padding: 20px;
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 80%;
+    margin-left: 10%;
+    border: 2px solid black;
+    border-radius: 17px;
+    padding: 10px 30px 10px 30px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+
+@media(max-width: 880px){
+    .content{
+        flex-direction: column;
+    }
+}

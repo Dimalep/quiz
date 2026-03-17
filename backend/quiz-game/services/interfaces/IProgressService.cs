@@ -9,7 +9,7 @@ namespace services.interfaces
         
         public Task<Progress> Start(int playerId, string sessionKey);
         public Task<Progress> Finish(int playerId, string sessionKey);
-        public Task<ICollection<Progress>> Restart(int gameId);//(session = game)
+        public Task<ICollection<Progress>> Restart(int gameId);
         
         public Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId);
 

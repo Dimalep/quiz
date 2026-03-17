@@ -10,7 +10,7 @@ public class DatabaseContext : DbContext
 
     public DbSet<Game> Games { get; set; }
     public DbSet<Player> Players { get; set; }
-    public DbSet<Progress> PlayerProgresses { get; set; }
+    public DbSet<Progress> Progresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

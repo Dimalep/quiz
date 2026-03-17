@@ -1,0 +1,21 @@
+.main{
+    padding: 20px;
+
+    border: none;
+    border-radius: 15px;
+
+    display: flex;
+    gap: 50px;
+
+    background: linear-gradient(135deg, #5c6f82, #7f95a8);
+}
+
+.status{
+    display: flex;
+    flex-direction: column;
+}
+
+.key{
+    display: flex;
+    flex-direction: column;
+}
