@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuizGamePlayerContext } from "../../../../../quiz-game-context/QuizGamePlayerContext";
+import { useQuizGamePlayerContext } from "../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./PlayerSettings.module.css";
 
 export default function PlayerSettings() {

@@ -5,7 +5,10 @@ export default function BottomNavigation() {
   return (
     <div className={styles.main}>
       <SlideContainer />
-      <button className={styles.add_button}>+</button>
+      <div className={styles.add_block}>
+        <span>|</span>
+        <button className={styles.add_button}>+</button>
+      </div>
     </div>
   );
 }

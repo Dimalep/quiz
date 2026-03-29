@@ -1,40 +1,86 @@
+.nav_btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
+.title{
+  color: white;
+}
+
+.nav_btns button{
+  border: none;
+  border-radius: 7px;
+  padding: 10px 15px;
+}
+
+.next{
+  width: 150px;
+}
+
 .main {
   display: flex;
   flex-direction: column;
-  min-height: 70%;
-  align-items: center;
+  gap: 30px;
+
+  width: 40%;
+
+  padding-top: 50px;
+}
+
+.main h1{
+  display: flex;
+  align-self: center; 
+}
+
+.details{
+  color: #9d91b8;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+
+  padding: 20px;
+
+  background: #3b265f;
+
+  border: none;
+  border-radius: 15px;
+}
+
+.details span{
+  color: #9d91b8;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding: 20px;
 }
 
 .input {
-  width: 500px;
-  height: 50px;
+  height: 40px; 
   padding: 0 10px;
   font-size: 16px;
 }
 
 .inputForm{
-    padding: 20px;
-    border-width: 2px;
-    border-color: black;
-    border-style: solid;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  display: flex ;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 20px;
+
+  border: none;
+  border-radius: 15px;
+
+  background: #3b265f;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
-@media (min-width: 768px) {
-  .main {
-    max-width: 500px;
+@media (max-width: 880px) {
+  .main{
+    width: 90%;
   }
 }
 
-@media (min-width: 1024px) {
-  .main {
-    max-width: 500px;
-  }
-}

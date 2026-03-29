@@ -1,21 +1,22 @@
 .main {
   transition: 0.1s ease;
+  
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 10px;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
-  border-radius: 5px;
+
+  padding: 1px;
+
+  border-radius: 7px;
 }
 
 .span{
     font-family: Rubik;
     font-size: 14px;
-    font-weight: 400px;
-    margin-bottom: -15px;
+    font-weight: 400px; 
+
+    color: #9d91b8;
 }
 
 .incorrectly {
@@ -23,9 +24,8 @@
   border-color: #ef4444;
 }
 
-.correctly {
-  background-color: #f0fdf4;
-  border-color: #22c55e;
+.correclty {
+  background-color: #004d04e8;
 }
 
 .checkbox {

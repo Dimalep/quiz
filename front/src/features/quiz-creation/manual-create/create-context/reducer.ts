@@ -8,6 +8,7 @@ export type Question = {
   index: number;
   text: string;
   type: string;
+  complexity?: number;
   answers: Answer[];
 }
 
@@ -167,6 +168,16 @@ export default function reducer(state: CreateState, action: Action) {
         }
     }
     case "OPEN_NEXT_QUESTION": {
+        if(state.currentQuestion === undefined){
+          const nextQuestion = state.quiz.questions[0];
+          
+          return {
+            ...state,
+            currentQuestion: nextQuestion,
+            editorMode: "slide" as "settings" | "slide"
+          }
+        }
+
         const currentIndex = state.quiz.questions.findIndex(
           q => q.index === state.currentQuestion?.index
         );

@@ -1,9 +1,15 @@
 .main{
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    box-shadow: 0px 2px 4px rgba(0,0,0, 0.24);
     justify-content: space-between;
+
+    padding: 20px;
+
+    box-shadow: 0px 2px 4px rgba(0,0,0, 0.24);
+    background-color: rgb(13, 83, 61);
+
+    border: none;
+    border-radius: 15px;
 }
 
 .main div{

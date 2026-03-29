@@ -1,0 +1,100 @@
+.title {
+    color: #9d91b8;
+    font-size: 14px;
+    padding-left: 4px;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+
+    border-radius: 7px;
+    border: 1.5px solid #2e1f4d;
+
+    background: #160c29;
+
+    transition: all 0.2s ease;
+}
+
+.main:hover {
+    border-color: #5a3fa3;
+}
+
+.main:focus-within {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
+}
+
+/* ошибка */
+.error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.input {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* input */
+.input input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    color: #ffffff;
+
+    background: transparent;
+}
+
+/* placeholder */
+.input input::placeholder {
+    color: #8a7ca8;
+}
+
+/* controls */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 4px;
+}
+
+/* кнопка очистки */
+.controls button {
+    width: 22px;
+    height: 22px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #2e1f4d;
+    color: #aaa;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.controls button:hover {
+    background: #8b5cf6;
+    color: white;
+}
+
+.controls label {
+    font-size: 12px;
+    color: #8a7ca8;
+}
+
+/* ошибка текста */
+.error_limit {
+    color: #ef4444;
+    font-size: 12px;
+    padding-left: 4px;
+}

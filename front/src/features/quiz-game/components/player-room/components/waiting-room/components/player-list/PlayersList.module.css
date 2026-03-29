@@ -1,0 +1,19 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+    gap: 5px;
+}
+
+.head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: rgb(17, 80, 60);
+
+    padding: 10px 20px 10px 20px;
+
+    border: none;
+    border-radius: 15px 15px 5px 5px;
+}

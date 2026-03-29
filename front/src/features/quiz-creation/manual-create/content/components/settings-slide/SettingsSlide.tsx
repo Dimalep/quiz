@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useCreateContext } from "../../../create-context/CreateProvider";
 import styles from "./SettingsSlide.module.css";
-import BottomButtons from "./components/BottomButtons";
-import Details from "./components/Details";
+import ShortTextBox from "../../../../common/input/ShortTextBox";
+import LongTextBox from "../../../../common/input/LongTextBox";
 
 export default function SettingsSlide() {
   const { state, dispatch } = useCreateContext();
@@ -12,37 +12,51 @@ export default function SettingsSlide() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.content}>
-        <h1>Настройки</h1>
-        <Details />
-        <div className={styles.inputForm}>
-          <input
-            className={styles.input}
-            placeholder="Название"
-            defaultValue={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={() =>
-              dispatch({
-                type: "UPDATE_QUIZ",
-                payload: { data: { title } },
-              })
-            }
-          />
-          <input
-            className={styles.input}
-            placeholder="Описание"
-            defaultValue={state.quiz.description}
-            onChange={(e) => setDescription(e.target.value)}
-            onBlur={() =>
-              dispatch({
-                type: "UPDATE_QUIZ",
-                payload: { data: { description } },
-              })
-            }
-          />
-          <input className={styles.input} placeholder="Тема" />
+      <h1 className={styles.title}>Настройки</h1>
+
+      <div className={styles.nav_btns}>
+        <button className={styles.delete_quiz}>Удалить квиз</button>
+        <button
+          className={styles.next}
+          onClick={() => dispatch({ type: "OPEN_NEXT_QUESTION" })}
+        >
+          Следующий
+        </button>
+      </div>
+
+      <div className={styles.details}>
+        <div>
+          <span>Количество вопросов: </span>
+          <label>{state.quiz.questions.length}</label>
         </div>
-        <BottomButtons />
+      </div>
+
+      <div className={styles.inputForm}>
+        <ShortTextBox
+          placeholder="Введите название квиза..."
+          value={title}
+          setValue={setTitle}
+          onBlur={() =>
+            dispatch({
+              type: "UPDATE_QUIZ",
+              payload: { data: { title } },
+            })
+          }
+          title="Нзвание"
+        />
+
+        <LongTextBox
+          placeholder="Ввдите описание квиза"
+          value={description}
+          setValue={setDescription}
+          onBlur={() =>
+            dispatch({
+              type: "UPDATE_QUIZ",
+              payload: { data: { description } },
+            })
+          }
+          title="Описание"
+        />
       </div>
     </div>
   );

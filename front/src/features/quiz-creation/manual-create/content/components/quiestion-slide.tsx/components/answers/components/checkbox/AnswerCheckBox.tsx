@@ -43,7 +43,7 @@ export default function AnswerCheckBox({ answer }: Props) {
   };
 
   return (
-    <>
+    <div>
       <span className={styles.span}>
         {correct ? "Правильный ответ" : "Неправильный ответ"}
       </span>
@@ -69,6 +69,6 @@ export default function AnswerCheckBox({ answer }: Props) {
           -
         </button>
       </div>
-    </>
+    </div>
   );
 }

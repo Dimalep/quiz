@@ -5,6 +5,7 @@ export type GameDTO = {
     sessionKey: string;
     status: number;
     quizId: number;
+    userId: number;
 }
 
 export default function useGame() {

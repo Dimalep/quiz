@@ -13,7 +13,7 @@ export default function PlayerNavigation() {
 
   return (
     <div className={styles.main}>
-      Вопросы:
+      {/* Вопросы:
       {quiz?.questions.map((el) => (
         <button
           className={
@@ -26,7 +26,10 @@ export default function PlayerNavigation() {
         >
           {el.index}
         </button>
-      ))}
+      ))} */}
+
+      <button>Прошлые вопросы</button>
+
       <button onClick={() => finishGame()}>Завершить</button>
     </div>
   );

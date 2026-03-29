@@ -1,0 +1,9 @@
+.main{
+    display: flex;
+
+    background-color: rgb(17, 80, 60);
+    
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}

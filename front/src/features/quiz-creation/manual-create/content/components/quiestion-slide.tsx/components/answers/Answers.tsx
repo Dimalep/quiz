@@ -11,8 +11,9 @@ export default function Answers() {
   };
 
   return (
-    <div className={styles.main}>
-      <div className={styles.content}>
+    <>
+      <h3 className={styles.title}>Ответы</h3>
+      <div className={styles.main}>
         {state.currentQuestion?.type === "buttons" ? (
           <AnswerButtons answers={state.currentQuestion.answers} />
         ) : (
@@ -21,9 +22,9 @@ export default function Answers() {
           ))
         )}
         <button className={styles.button_add} onClick={addAnswerHandleClick}>
-          +
+          Добавить ответ
         </button>
       </div>
-    </div>
+    </>
   );
 }

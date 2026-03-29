@@ -8,6 +8,10 @@ interface Props {
 export default function Slide({ number }: Props) {
   const { state, dispatch } = useCreateContext();
 
+  const isSelected =
+    (state.currentQuestion === undefined && number === 0) ||
+    state.currentQuestion?.index === number;
+
   const handleClick = () => {
     if (number === 0) {
       dispatch({ type: "OPEN_SETTINGS" });
@@ -18,7 +22,7 @@ export default function Slide({ number }: Props) {
 
   return (
     <div
-      className={`${styles.main} ${state.currentQuestion?.index === number ? styles.active : ""}`}
+      className={`${styles.main} ${isSelected ? styles.active : ""}`}
       onClick={handleClick}
     >
       {number}

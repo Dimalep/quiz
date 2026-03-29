@@ -1,0 +1,15 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    width: 90%;    
+
+    overflow-x: auto;
+}
+
+
+.main > * {
+    flex: 0 0 auto;
+    max-width: 200px;
+}

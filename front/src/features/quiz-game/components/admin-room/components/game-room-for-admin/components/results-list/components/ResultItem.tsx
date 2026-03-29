@@ -1,4 +1,5 @@
 import type { ProgressForAdmin } from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
+import styles from "./ResultItem.module.css";
 
 interface Props {
   progress: ProgressForAdmin;
@@ -6,10 +7,13 @@ interface Props {
 
 export default function ResultItem({ progress }: Props) {
   return (
-    <tr>
-      <td>{progress.player.nickname}</td>
-      <td>{progress.quantityCorrectAnswers}</td>
-      <td>{progress.status}</td>
-    </tr>
+    <div className={styles.main}>
+      <label>{progress.player.nickname}</label>
+      <span>
+        {progress.quantityCorrectAnswers} из{" "}
+        {progress.quantityRemainedQuestions}
+      </span>
+      <label> {progress.status}</label>
+    </div>
   );
 }

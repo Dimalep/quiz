@@ -7,7 +7,7 @@ export default function Content() {
   const { myQuizzes, mode, games } = useProfileContext();
 
   const quizList = myQuizzes ? (
-    <div className={styles.quiz_list}>
+    <div className={styles.list}>
       {myQuizzes?.map((el) => (
         <QuizItem key={el.id} quiz={el} />
       ))}
@@ -17,7 +17,7 @@ export default function Content() {
   );
 
   const gameList = games ? (
-    <div>
+    <div className={styles.list}>
       {games?.map((el) => (
         <GameItem key={el.id} game={el} />
       ))}

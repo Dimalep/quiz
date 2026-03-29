@@ -30,7 +30,7 @@ export default function useUser() {
       if(!res.ok) throw new Error(`Error on server: ${res.status}`);
 
       const id: number = await res.json();
-      // sessionStorage.setItem("anonUserId", id.toString());
+      sessionStorage.setItem("anonUserId", id.toString());
       localStorage.setItem("userId", id.toString());
     }catch(error){
         console.log("Error adding anonymous user: ", error);

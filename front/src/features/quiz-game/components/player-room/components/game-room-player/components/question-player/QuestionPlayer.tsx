@@ -10,8 +10,10 @@ export default function QuestionPlayer() {
 
   return (
     <div className={styles.main}>
-      <span>Вопрос:</span>
-      <h3>{currentQuestion.text}</h3>
+      <div className={styles.question}>
+        <span>Вопрос:</span>
+        <h3>{currentQuestion.text}</h3>
+      </div>
       {currentQuestion.type === "buttons" ? (
         <ButtonsAnswer answers={currentQuestion.answers} />
       ) : (

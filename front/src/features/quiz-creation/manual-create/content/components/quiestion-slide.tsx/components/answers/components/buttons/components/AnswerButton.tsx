@@ -27,15 +27,15 @@ export default function AnswerButton({ answer, isCorrect }: Props) {
 
   return (
     <div
-      className={
-        isCorrect
-          ? `${styles.main} ${styles.correclty}`
-          : `${styles.main} ${styles.incorreclty}`
-      }
+      className={`${styles.main} ${
+        isCorrect ? styles.correclty : styles.incorreclty
+      }`}
     >
       <input
-        className={styles.input}
-        placeholder="Ответ"
+        className={`${styles.input} ${
+          isCorrect ? styles.input_correct : styles.input_incorrect
+        }`}
+        placeholder={`${isCorrect ? "Введите правильный ответ..." : "Введите ложный ответ..."}`}
         value={answer.text}
         onChange={textChangeHandler}
       />

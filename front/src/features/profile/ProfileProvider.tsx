@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import useQuizApi from "../../core/hooks/quiz-creation-microservice/useQuizApi";
+import useQuizApi, {
+  type QuizDTO,
+} from "../../core/hooks/quiz-creation-microservice/useQuizApi";
 import type { Quiz } from "../quiz-creation/manual-create/create-context/reducer";
 import useGame, {
   type GameDTO,
@@ -19,6 +21,9 @@ interface ProfileContextType {
   openHistory: () => void;
   openGames: () => void;
   editQuiz: (quizId: number) => void;
+  launchQuizGame: (quiz: Quiz) => void;
+  openGame: (game: GameDTO) => void;
+  openGameResults: (sessionKey: string) => void;
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
@@ -62,6 +67,24 @@ export default function ProfileProvider({
     GetMyQuizzes();
   }, []);
 
+  const openGameResults = async (sessionKey: string) => {
+    navigate(`/game-result/${sessionKey}`);
+  };
+
+  const launchQuizGame = async (quiz: Quiz) => {
+    const res = confirm(`Запустить квиз ${quiz.title}?`);
+    if (res) {
+      const game = await addGame(quiz.id);
+      if (!game) return;
+      localStorage.setItem("quizSession", JSON.stringify(game));
+      navigate(`/quiz/game/admin/${game.sessionKey}`);
+    }
+  };
+
+  const openGame = (game: GameDTO) => {
+    navigate(`/quiz/game/admin/${game.sessionKey}`);
+  };
+
   const editQuiz = (quizId: number) => {
     navigate(`/quiz/${quizId}`);
   };
@@ -97,6 +120,9 @@ export default function ProfileProvider({
         openHistory,
         openGames,
         editQuiz,
+        launchQuizGame,
+        openGame,
+        openGameResults,
       }}
     >
       {children}

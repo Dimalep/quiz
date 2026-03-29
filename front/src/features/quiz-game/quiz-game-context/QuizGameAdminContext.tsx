@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlayer";
 import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
 import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
@@ -17,6 +17,7 @@ export interface QuizGameAdminContextType {
   closeForConnect: () => void;
   openForConnect: () => void;
   restartGane: () => void;
+  openGameResults: () => void;
 }
 
 const AdminContext = createContext<QuizGameAdminContextType | undefined>(
@@ -33,6 +34,7 @@ export default function QuizGameAdminContext({
   const { addPlayer } = usePlayer();
   const { getGameBySessionKey } = useGame();
   const { sessionKey } = useParams<{ sessionKey: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function launchPage() {
@@ -71,6 +73,10 @@ export default function QuizGameAdminContext({
     return null;
   }
 
+  const openGameResults = () => {
+    navigate(`game-result/${currentGame?.sessionKey}`);
+  };
+
   const completeGame = async () => {
     if (connection === null) return;
     await connection.invoke("CompleteGame", sessionKey);
@@ -108,6 +114,7 @@ export default function QuizGameAdminContext({
         openForConnect,
         closeForConnect,
         restartGane,
+        openGameResults,
       }}
     >
       {children}

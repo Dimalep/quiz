@@ -10,6 +10,7 @@ import CompleteCreation from "./features/quiz-creation/complete-creation/Complet
 import Profile from "./features/profile/Profile";
 import QuizGamePlayer from "./features/quiz-game/QuizGamePlayer";
 import QuizGameAdmin from "./features/quiz-game/QuizGameAdmin";
+import GameResults from "./features/game-results/GameResults";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             element={<QuizGameAdmin />}
           />
           <Route path="profile" element={<Profile />} />
+          <Route path="game-result/:sessionKey" element={<GameResults />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

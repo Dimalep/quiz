@@ -6,7 +6,7 @@ import SettingsSession from "./components/settings-session/SettingsSession";
 import WaitingRoom from "./components/waiting-room/WaitingRoom";
 
 export default function AdminRoom() {
-  const { currentGame, restartGane } = useQuizGameAdminContext();
+  const { currentGame, openGameResults } = useQuizGameAdminContext();
 
   const [room, setRoom] = useState<"wait" | "game">("wait");
 
@@ -16,12 +16,16 @@ export default function AdminRoom() {
     }
   }, [currentGame]);
 
+  if (currentGame?.status !== 4) openGameResults();
   if (currentGame?.status !== 3) {
     if (room === "wait")
       return (
         <div className={styles.main}>
           {currentGame?.status === 2 && (
-            <button className={styles.navigation_button} onClick={() => setRoom("game")}>
+            <button
+              className={styles.navigation_button}
+              onClick={() => setRoom("game")}
+            >
               {"комната игры -->"}
             </button>
           )}
@@ -33,7 +37,10 @@ export default function AdminRoom() {
       return (
         <div className={styles.main}>
           {currentGame?.status === 2 && (
-            <button className={styles.navigation_button} onClick={() => setRoom("wait")}>
+            <button
+              className={styles.navigation_button}
+              onClick={() => setRoom("wait")}
+            >
               {"<-- комнта ожидания"}
             </button>
           )}
@@ -41,10 +48,5 @@ export default function AdminRoom() {
           <GameRoom />
         </div>
       );
-  } else
-    return (
-      <div className={styles.main}>
-        <button onClick={restartGane}>Запустить снова</button>
-      </div>
-    );
+  }
 }

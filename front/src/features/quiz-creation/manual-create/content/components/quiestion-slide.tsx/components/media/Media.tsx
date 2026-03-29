@@ -6,15 +6,18 @@ export default function Media() {
   const [image, setImage] = useState<string | null>(null);
 
   return (
-    <div className={styles.main}>
-      {image && (
-        <span className={styles.remove} onClick={() => setImage(null)}>
-          Убрать
-        </span>
-      )}
-      <div className={styles.content}>
-        <ImageUploader value={image} onChange={setImage} />
+    <>
+      <h3 className={styles.title}>Медиа</h3>
+      <div className={styles.main}>
+        {image && (
+          <span className={styles.remove} onClick={() => setImage(null)}>
+            Убрать
+          </span>
+        )}
+        <div className={styles.content}>
+          <ImageUploader value={image} onChange={setImage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

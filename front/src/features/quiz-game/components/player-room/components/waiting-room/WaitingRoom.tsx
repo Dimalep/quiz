@@ -1,10 +1,18 @@
 import styles from "./WaitingRoom.module.css";
-import PlayersList from "./components/PlayersList";
+import PlayersList from "./components/player-list/PlayersList";
 import { useQuizGamePlayerContext } from "../../../../quiz-game-context/QuizGamePlayerContext";
 import ConnectInfo from "../../../common/connect-info/ConnectInfo";
-import PlayerSettings from "./components/PlayerSettings";
+import PlayerSettings from "./components/player-settings/PlayerSettings";
+import { QRCodeSVG } from "qrcode.react";
+import { useState } from "react";
 
 export default function WaitingRoom() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const qrClickHandler = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   const { currentGame, quiz, startGame, currentPlayer } =
     useQuizGamePlayerContext();
 
@@ -15,25 +23,41 @@ export default function WaitingRoom() {
 
   return (
     <div className={styles.main}>
+      <div className={styles.buttons}>
+        <button>Выйти</button>
+        <button onClick={startGameHandler}>Приступить к решению</button>
+      </div>
+
       <div className={styles.description}>
-        <div>
-          <button>Закончить</button>
-          <button onClick={startGameHandler}>Приступить к решению</button>
-        </div>
-        <div className={styles.info}>
-          <h3>Описание</h3>
-          <span>Название квиза: {quiz?.title}</span>
-          <span>Описание: {quiz?.description}</span>
-          <span>Количество вопросов: {quiz?.quantityQuestions}</span>
-          <span>status: {currentGame?.status}</span>
+        <h3>Описание</h3>
+        <span>Название квиза: {quiz?.title}</span>
+        <span>Описание: {quiz?.description}</span>
+        <span>Количество вопросов: {quiz?.quantityQuestions}</span>
+        <span>status: {currentGame?.status}</span>
+      </div>
+
+      <PlayerSettings />
+
+      <div className={styles.access}>
+        <div className={styles.access_info}>
+          <div className={styles.session_code}>
+            <span>Ключ</span>
+            <h3>{currentGame?.sessionKey}</h3>
+          </div>
+
+          <div className={styles.qr_code}>
+            <label onClick={qrClickHandler}>QR</label>
+          </div>
         </div>
 
-        <PlayerSettings />
-
-        <ConnectInfo
-          sessionKey={currentGame?.sessionKey}
-          url={`http://localhost:5173/quiz/game/${currentGame?.sessionKey}`}
-        />
+        {isOpen && (
+          <div className={styles.qr}>
+            <QRCodeSVG
+              value={`http://localhost:5173/quiz/game/player/${currentGame?.sessionKey}`}
+              size={256}
+            ></QRCodeSVG>
+          </div>
+        )}
       </div>
 
       <PlayersList />

@@ -6,19 +6,15 @@ export default function ResultsList() {
   const { progresses } = useQuizGameAdminContext();
 
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th>Игрок:</th>
-          <th>Отеты:</th>
-          <th>Статус:</th>
-        </tr>
-      </thead>
-      <tbody>
-        {progresses.map((el) => (
-          <ResultItem key={el.player.id} progress={el} />
-        ))}
-      </tbody>
-    </table>
+    <div className={styles.main}>
+      <div className={styles.head}>
+        <span>Игрок</span>
+        <span>Результат</span>
+        <span>Статус</span>
+      </div>
+      {progresses.map((el) => (
+        <ResultItem key={el.player.id} progress={el} />
+      ))}
+    </div>
   );
 }

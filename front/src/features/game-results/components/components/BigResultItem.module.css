@@ -1,0 +1,17 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.short{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: rgb(17, 80, 60);
+    padding: 20px;
+
+    border: none;
+    border-radius: 15px;
+}

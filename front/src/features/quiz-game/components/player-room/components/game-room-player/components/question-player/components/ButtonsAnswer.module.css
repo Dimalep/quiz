@@ -1,9 +1,25 @@
 .main{
     display: flex;
     flex-direction: column;
-    gap: 15px
+    gap: 5px;
+
+    background-color: rgb(17, 80, 60);
+
+    padding: 20px;
+
+    border: none;
+    border-radius: 15px;
 }
 
 .main button{
+    display: flex;
+
     padding: 10px 25px;
+
+    border: none;
+    border-radius: 5px;
+}
+
+.main span{
+    margin-bottom: 5px;
 }

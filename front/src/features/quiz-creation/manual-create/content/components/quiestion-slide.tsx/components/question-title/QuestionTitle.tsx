@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCreateContext } from "../../../../../create-context/CreateProvider";
 import styles from "./QuestionTitle.module.css";
+import AutoTextArea from "../../../../../../common/textarea/AutoTextArea";
 
 export default function QuestionTitle() {
   const { state, dispatch } = useCreateContext();
@@ -25,16 +26,15 @@ export default function QuestionTitle() {
   };
 
   return (
-    <div className={styles.main}>
-      <div className={styles.content}>
-        <input
-          className={styles.input}
-          placeholder="Вопрос"
+    <>
+      <h3 className={styles.title}>Вопрос</h3>
+      <div className={styles.main}>
+        <AutoTextArea
           value={inputQuestion}
-          onChange={(e) => setInputQuestion(e.target.value)}
+          setValue={setInputQuestion}
           onBlur={handleBlur}
         />
       </div>
-    </div>
+    </>
   );
 }
