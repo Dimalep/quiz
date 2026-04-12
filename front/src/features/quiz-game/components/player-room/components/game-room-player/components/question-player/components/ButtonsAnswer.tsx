@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { AnswerResult } from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
@@ -8,26 +9,61 @@ interface Props {
 }
 
 export default function ButtonsAnswer({ answers }: Props) {
-  const { giveAnswer } = useQuizGamePlayerContext();
+  const { giveAnswer, actualProgress, currentQuestion } =
+    useQuizGamePlayerContext();
 
-  const clickHandler = (answer: Answer) => {
+  const actual = actualProgress.questions.find(
+    (el) => el.id === currentQuestion?.id,
+  );
+
+  const [selectedAnswer, setSelectedAnswer] = useState<Answer | undefined>();
+
+  useEffect(() => {
+    if (!currentQuestion) {
+      console.log("Current questions is undefined");
+      return;
+    }
+
+    setSelectedAnswer(
+      currentQuestion?.answers.find((q) => q.id === actual?.answers[0].id),
+    );
+  }, [currentQuestion]);
+
+  const toAnswerHandler = () => {
+    if (!selectedAnswer) {
+      return;
+    }
+
     const answerResult: AnswerResult = {
-      answerIndex: answer.index,
-      answerText: answer.text,
-      isCorrect: answer.isCorrect,
+      id: selectedAnswer.id,
+      answerIndex: selectedAnswer.index,
+      answerText: selectedAnswer.text,
+      isCorrect: selectedAnswer.isCorrect,
     };
 
     giveAnswer([answerResult]);
   };
 
   return (
-    <div className={styles.main}>
-      <span>Ответы:</span>
-      {answers.map((el) => (
-        <button key={el.index} onClick={() => clickHandler(el)}>
-          {el.text}
-        </button>
-      ))}
-    </div>
+    <>
+      <div className={styles.main}>
+        <span>Варианты ответов:</span>
+        <div className={styles.answers}>
+          {answers.map((el) => (
+            <button
+              className={selectedAnswer?.id === el.id ? styles.select : ""}
+              key={el.index}
+              onClick={() => setSelectedAnswer(el)}
+            >
+              {el.text}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <button className={styles.give_answer_btn} onClick={toAnswerHandler}>
+        Дать ответ
+      </button>
+    </>
   );
 }

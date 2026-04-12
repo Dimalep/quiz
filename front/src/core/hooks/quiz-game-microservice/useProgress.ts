@@ -1,4 +1,3 @@
-import useAuth from "../user-service-microservice/useAuth";
 import type { Player } from "./usePlayer";
 
 export interface Progress {
@@ -19,12 +18,14 @@ export interface PlayerQuizResult {
 }
 
 export interface QuestionResult {
+  id: string;
   questionIndex: number;
   questionText: string;
   answers: AnswerResult[]
 }
 
 export interface AnswerResult{
+  id: string;
   answerIndex: number;
   answerText: string;
   isCorrect: boolean;
@@ -58,8 +59,26 @@ export interface ProgressForPlayer{
   status: number;
 }
 
+export interface ProgressPlayer{
+  id: number;
+
+}
+
 export default function useProgress() {
-  const {fetchWithAuth} = useAuth();
+  const getProgressByPlayerIdAndGameId = async (playerId: number, gameId: number) : Promise<Progress | undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/progresses/player_id=${playerId}/game_id=${gameId}}`, {
+      method: "GET",
+      headers: {"Content-Type":"application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get progress by player id and game id");
+      return;
+    }
+
+    const data = await response.json();
+    return data;
+  }
 
   const getProgressById = async (progressId: number) => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/progresses/progress_id=${progressId}`, {
@@ -78,7 +97,7 @@ export default function useProgress() {
   };
 
   const getProgressesBySessionKey = async (sessionKey: string) : Promise<ProgressForAdmin[] | undefined>=> {
-    const response = await fetchWithAuth(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/progresses/session_key=${sessionKey}`,{
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/progresses/session_key=${sessionKey}`,{
       method: "GET",
       headers: {"Content-Type": "application/json"}
     });
@@ -99,5 +118,5 @@ export default function useProgress() {
     return progresses;
   };
 
-  return {getProgressById, getProgressesBySessionKey}
+  return {getProgressById, getProgressesBySessionKey, getProgressByPlayerIdAndGameId}
 }

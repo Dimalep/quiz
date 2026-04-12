@@ -11,7 +11,7 @@ namespace domains.domains
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("login")]
+        [Column("nickname")]
         public string Nickname { get; set; } = string.Empty;
 
         [Column("role")]
@@ -20,10 +20,10 @@ namespace domains.domains
         [Column("user_id")]
         public int UserId { get; set; }
 
-        [ForeignKey("QuizSessionId")]
+        [ForeignKey("GameId ")]
         public Game Game { get; set; } = null!;
 
-        [Column("quiz_session_id")]
-        public int QuizSessionId { get; set; }
+        [Column("game_id")]
+        public int GameId { get; set; }
     }
 }

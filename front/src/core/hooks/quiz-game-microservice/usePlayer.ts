@@ -3,6 +3,8 @@ export type Player = {
     id: number;
     nickname: string;
     role: string;
+    userId?: number;
+    gameId?: number;
 } 
 
 export type AddPlayerRequest = {
@@ -13,6 +15,27 @@ export type AddPlayerRequest = {
 }
 
 export default function usePlayer() {
+  const getOrCreatePlayer = async (gameId: number, role:string) : Promise<Player | undefined> => {
+    const userId = Number(localStorage.getItem("userId"));
+    if(!userId){
+        console.error("Error userId is undefined");
+        return undefined;
+    }
+
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/players/userId=${userId}/gameId=${gameId}/role=${role}`, {
+        method: "GET",
+        headers: {"Content-type": "application/json"}
+    });
+
+    if(!response.ok){
+        console.log("Error get player by id");
+        return undefined;
+    }
+
+    const data: Player = await response.json();
+    return data;
+  }
+
   const getPlayerById = async (playerId: number) => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/players/${playerId}`, {
         method: "GET",
@@ -28,18 +51,20 @@ export default function usePlayer() {
     return data;
   };
 
-  const addPlayer = async (role: string, sessionKey: string) => {
+  const addPlayer = async (role: string, gameId: number) => {
     const userId = Number(localStorage.getItem("userId"));
     if(!userId){
         console.error("Error userId is undefined");
         return;
     }
 
-    const player: AddPlayerRequest = {
+    // id: 0 because i dont want create DTO without id
+    const player: Player = {
+        id: 0,
         nickname: role,
         role: role,
         userId: userId,
-        quizSessionKey: sessionKey
+        gameId: gameId
     };
 
     const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/players`,{
@@ -57,5 +82,5 @@ export default function usePlayer() {
     return data;
   };
 
-  return {addPlayer, getPlayerById}
+  return {addPlayer, getPlayerById, getOrCreatePlayer}
 }

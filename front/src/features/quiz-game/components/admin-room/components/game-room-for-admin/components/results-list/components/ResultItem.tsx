@@ -6,6 +6,17 @@ interface Props {
 }
 
 export default function ResultItem({ progress }: Props) {
+  const convertStatusToString = (value: number) => {
+    switch (value) {
+      case 0:
+        return "в комнате ожидания";
+      case 1:
+        return "в игре";
+      case 2:
+        return "заврешил";
+    }
+  };
+
   return (
     <div className={styles.main}>
       <label>{progress.player.nickname}</label>
@@ -13,7 +24,7 @@ export default function ResultItem({ progress }: Props) {
         {progress.quantityCorrectAnswers} из{" "}
         {progress.quantityRemainedQuestions}
       </span>
-      <label> {progress.status}</label>
+      <label> {convertStatusToString(progress.status)}</label>
     </div>
   );
 }

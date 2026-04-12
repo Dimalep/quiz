@@ -1,9 +1,80 @@
-.main{
-    display: flex;
-    flex-direction: column;
+.main {
+  flex: 1;
+  width: 100%;
+  padding: 20px;
+
+  background-color: rgb(17, 80, 60);
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.answers{
-    display: flex;
-    flex-direction: column;
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answerLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  background: #f7f7f7;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.answerLabel:hover {
+  background: #eef3ff;
+  border-color: #c7d2fe;
+}
+
+.answerLabel input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* выбранный вариант */
+.answerLabel:has(input:checked) {
+  background: #e0e7ff;
+  border-color: #6366f1;
+}
+
+.give_answer_btn{
+    width: 200px;
+    
+    font-size: 15px;
+    font-family: Rubik;
+
+    border: none;
+    border-radius: 13px;
+
+    padding: 10px 20px;
+}
+
+.button:hover {
+  background: #4f46e5;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.select{
+  background-color: green;
 }

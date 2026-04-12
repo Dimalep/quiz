@@ -13,6 +13,8 @@ export default function Slide({ number }: Props) {
     state.currentQuestion?.index === number;
 
   const handleClick = () => {
+    dispatch({ type: "REMOVE_EMPTY_ANSWERS_FROM_QUESTION" });
+
     if (number === 0) {
       dispatch({ type: "OPEN_SETTINGS" });
     } else {
@@ -26,6 +28,7 @@ export default function Slide({ number }: Props) {
       onClick={handleClick}
     >
       {number}
+      {/* <img className={styles.checkboxImage} src={slidecheckBox} /> */}
     </div>
   );
 }

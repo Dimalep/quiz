@@ -12,12 +12,17 @@
     border-radius: 15px;
 }
 
-.main div{
+.content{
+    display: flex;
+    flex-direction: column;
+}
+
+/* .main div{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-}
+} */
 
 /* затемнение фона */
 .modal_overlay{

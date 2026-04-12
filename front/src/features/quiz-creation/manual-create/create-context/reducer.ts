@@ -1,14 +1,16 @@
 export type Answer = {
+  id: string;
   index: number;
   text: string;
   isCorrect: boolean;
 }
 
 export type Question = {
+  id: string;
   index: number;
   text: string;
   type: string;
-  complexity?: number;
+  complexity: number;
   answers: Answer[];
 }
 
@@ -22,9 +24,9 @@ export type Quiz = {
 }
 
 export interface CreateState {
-  quiz: Quiz;
+  quiz: Quiz; 
   currentQuestion: Question | undefined;
-  editorMode: "settings" | "slide";
+  editorMode: string;
 }
 
 export type Action = 
@@ -35,10 +37,14 @@ export type Action =
   | {type: "CREATE_QUESTION", payload: {type: string}}
   | {type: "OPEN_CHOSE"}
   | {type: "OPEN_NEXT_QUESTION"}
+  | {type: "OPEN_PREV_QUESTION"}
   | {type: "SELECT_QUESTION", payload: {index: number}}
   | {type: "OPEN_SETTINGS"}
   | {type: "DELETE_QUESTION"}
   | {type: "UPDATE_QUESTION", payload: {text: string}}
+  | {type: "CHANGE_QUESTION_COMPLEXITY", payload: {complexity: number}}
+  | {type: "REMOVE_EMPTY_ANSWERS_FROM_QUESTION"}
+  | {type: "REMOVE_EMPTY_QUESTION"}
 
 
 export default function reducer(state: CreateState, action: Action) {
@@ -78,7 +84,7 @@ export default function reducer(state: CreateState, action: Action) {
 
         const renumberedAnswers = filteredAnswers.map((a, index) => ({
           ...a,
-          id: index + 1,
+          index: index + 1,
         }));
 
         return {
@@ -107,6 +113,7 @@ export default function reducer(state: CreateState, action: Action) {
       const newAnswerIndex = state.currentQuestion.answers.length + 1; 
 
       const newAnswer: Answer = {
+        id: crypto.randomUUID(),
         index: newAnswerIndex,
         text: "",
         isCorrect: false,
@@ -137,17 +144,100 @@ export default function reducer(state: CreateState, action: Action) {
           quiz: {...state.quiz, ...data} 
         }
     }
+    case "REMOVE_EMPTY_QUESTION": {
+      const clearedQuestions = state.quiz.questions.filter(
+        q => q.text.trim() !== "" && q.answers.length > 0
+      );
+
+      // Опционально: перенумеровываем индексы вопросов
+      const renumberedQuestions = clearedQuestions.map((q, index) => ({
+        ...q,
+        index: index + 1,
+      }));
+
+      return {
+        ...state,
+        quiz: {
+          ...state.quiz,
+          questions: renumberedQuestions
+        },
+        currentQuestion: renumberedQuestions[0] ?? undefined,
+        editorMode: renumberedQuestions.length > 0 ? "slide" : "settings",
+      };
+    }
     //question
+    case "CHANGE_QUESTION_COMPLEXITY": {
+      const { complexity } = action.payload;
+
+      if (!state.currentQuestion) return state;
+
+      const currentQ = state.currentQuestion; 
+
+      const updatedQuestion: Question = {
+        ...currentQ,
+        complexity,
+      };
+
+      return {
+        ...state,
+        currentQuestion: updatedQuestion,
+        quiz: {
+          ...state.quiz,
+          questions: state.quiz.questions.map((q) =>
+            q.id === currentQ.id ? updatedQuestion : q
+          ),
+        },
+      };
+    }
+    case "REMOVE_EMPTY_ANSWERS_FROM_QUESTION": {
+      if (!state.currentQuestion) return state;
+
+      const clearedAnswers = state.currentQuestion.answers.filter(
+        a => a.text.trim() !== "" || a.isCorrect === true
+      );
+
+      const renumberedAnswers = clearedAnswers.map((a, index) => ({
+        ...a,
+        index: index + 1,
+      }));
+
+      const updatedCurrentQuestion = {
+        ...state.currentQuestion,
+        answers: renumberedAnswers,
+      };
+
+      const updatedQuestions = state.quiz.questions.map(q =>
+        q.index === state.currentQuestion!.index ? updatedCurrentQuestion : q
+      );
+
+      return {
+        ...state,
+        currentQuestion: updatedCurrentQuestion,
+        quiz: {
+          ...state.quiz,
+          questions: updatedQuestions,
+        },
+      };
+    }
     case ("CREATE_QUESTION"):{
         const length = state.quiz.questions.length;
 
         const {type} = action.payload;
 
-        const newQuestion = {
+        const newQuestion: Question = {
+          id: crypto.randomUUID(),
           index: length + 1,
           text: "",
           type: type,
-          answers: [{index: 1, text: "", isCorrect: true}]
+          complexity: 1,
+          answers: [
+            {
+              id: crypto.randomUUID(),
+              index: 1,
+              text: "",
+              isCorrect: true,
+            }
+          ]
         }
 
         return{
@@ -157,13 +247,13 @@ export default function reducer(state: CreateState, action: Action) {
             questions: [...state.quiz.questions, newQuestion]
           },
           currentQuestion: newQuestion,
-          editorMode: "slide" as "settings" | "slide",
+          editorMode: "slide" 
         };
     }
     case ("OPEN_CHOSE"):{
         return {
           ...state,
-          editorMode: "slide" as "settings" | "slide",
+          editorMode: "slide",
           currentQuestion: undefined
         }
     }
@@ -174,7 +264,7 @@ export default function reducer(state: CreateState, action: Action) {
           return {
             ...state,
             currentQuestion: nextQuestion,
-            editorMode: "slide" as "settings" | "slide"
+            editorMode: "slide"
           }
         }
 
@@ -190,45 +280,71 @@ export default function reducer(state: CreateState, action: Action) {
         return {
           ...state,
           currentQuestion: nextQuestion,
-          editorMode: "slide" as "settings" | "slide",
+          editorMode: "slide"
         };
+    }
+    case "OPEN_PREV_QUESTION": {
+      if(state.currentQuestion === undefined) return state;
+
+      const currentIndex = state.currentQuestion.index;
+
+      const prevQuestion = currentIndex - 1 === 0 
+        ? undefined
+        : state.quiz.questions.find(q => q.index === currentIndex - 1)
+
+      if(prevQuestion){
+        return{
+          ...state,
+          currentQuestion: prevQuestion,
+          editorMode: "slide"
+        }
+      }else{
+        return{
+          ...state,
+          currentQuestion: prevQuestion,
+          editorMode: "settings" 
+        }
+      }
     }
     case ("SELECT_QUESTION"):{
       const {index} = action.payload;
       return {
         ...state,
         currentQuestion: state.quiz.questions.find(q => q.index === index),
-        editorMode: "slide" as "settings" | "slide"
+        editorMode: "slide"
       }
     }
     case ("OPEN_SETTINGS"):{
       return{
         ...state,
         currentQuestion: undefined,
-        editorMode: "settings" as "settings" | "slide",
+        editorMode: "settings"
       }
     }
     case "DELETE_QUESTION": {
       if (!state.currentQuestion) throw Error("Error delete question");
 
-      const currentNumber = state.currentQuestion.index;
+      const currentIndex = state.currentQuestion.index;
 
-      const newQuestions = state.quiz.questions.filter(
-        q => q.index !== currentNumber
+      // Убираем текущий вопрос
+      const filteredQuestions = state.quiz.questions.filter(
+        q => q.index !== currentIndex
       );
 
-      const renumberedQuestions = newQuestions.map((q, index) => ({
+      // Перенумеровываем оставшиеся вопросы по index
+      const renumberedQuestions = filteredQuestions.map((q, idx) => ({
         ...q,
-        number: index + 1,
+        index: idx + 1,
       }));
 
+      // Определяем, какой вопрос выбрать следующим
       let nextQuestion: Question | undefined;
       if (renumberedQuestions.length === 0) {
         nextQuestion = undefined;
-      } else if (currentNumber - 1 < renumberedQuestions.length) {
-        nextQuestion = renumberedQuestions[currentNumber - 1]; 
+      } else if (currentIndex - 1 < renumberedQuestions.length) {
+        nextQuestion = renumberedQuestions[currentIndex - 1]; // берем следующий по позиции
       } else {
-        nextQuestion = renumberedQuestions[renumberedQuestions.length - 1]; 
+        nextQuestion = renumberedQuestions[renumberedQuestions.length - 1];
       }
 
       return {
@@ -238,6 +354,7 @@ export default function reducer(state: CreateState, action: Action) {
           questions: renumberedQuestions,
         },
         currentQuestion: nextQuestion,
+        editorMode: nextQuestion ? "slide" : "settings",
       };
     }
     case "UPDATE_QUESTION": {

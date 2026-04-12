@@ -28,14 +28,17 @@ namespace domains.domains
 
     public class Question
     {
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public int Index { get; set; }
         public string Text { get; set; } = null!;
         public string Type { get; set; } = "buttons";
+        public int Complexity { get; set; }
         public List<Answer> Answers { get; set; } = new();
     }
 
     public class Answer
     {
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public int Index { get; set; }
         public string Text { get; set; } = null!;
         public bool IsCorrect { get; set; }

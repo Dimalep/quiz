@@ -2,15 +2,52 @@
     width: 100%;
 
     display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 15px;
+    justify-content: stretch;
+    gap: 20px;
+}
+
+.main span{
+    color: rgb(171, 207, 196);
 }
 
 .question{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
     background-color: rgb(17, 80, 60);
 
     border: none;
     border-radius: 15px;
 
     padding: 20px;
+}
+
+.question h2{
+    color: white;
+}
+
+.give_answer_btn{
+    width: 200px;
+    
+    font-size: 15px;
+    font-family: Rubik;
+
+    border: none;
+    border-radius: 13px;
+
+    padding: 10px 20px;
+}
+
+.end{
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
 }

@@ -18,8 +18,11 @@ namespace domains.domains
         [ForeignKey("PlayerId")] 
         public Player Player { get; set; } = null!;
         
-        [Column("session_id")]
-        public int SessionId { get; set; }
+        [Column("game_id")]
+        public int GameId { get; set; }
+        
+        [ForeignKey("GameId")]
+        public Game Game { get; set; }
         
         [Column("current_question_index")]
         public int CurrentQuestionIndex { get; set; } = 0;
@@ -63,6 +66,9 @@ namespace domains.domains
     
     public class QuestionResult
     {
+        [JsonPropertyName("complexity")]
+        public int Complexity { get; set; }
+        
         [JsonPropertyName("questionIndex")]
         public int QuestionIndex { get; set; }
 

@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { QuizDTO } from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import useGame from "../../../../core/hooks/quiz-game-microservice/useGame";
+import type { Quiz } from "../../manual-create/create-context/reducer";
 
 export default function useQuiz() {
   const {quizId} = useParams();
-  const [quiz, setQuiz] = useState<QuizDTO>();
+  const [quiz, setQuiz] = useState<Quiz>();
 
-  const {getShortQuizById} = useQuizApi();
+  const {getQuizById} = useQuizApi();
   const {addGame} = useGame();
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadQuiz = async () => {
       if (!quizId) return;
-      const data = await getShortQuizById(Number(quizId));
+      const data = await getQuizById(Number(quizId));
       setQuiz(data);
     };
     loadQuiz();

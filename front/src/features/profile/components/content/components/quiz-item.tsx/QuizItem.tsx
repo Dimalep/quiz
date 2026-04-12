@@ -23,6 +23,9 @@ export default function QuizItem({ quiz }: Props) {
     if (res) {
       const game = await addGame(quiz.id);
       if (!game) return;
+
+      console.log("Game status: ", game.sessionKey);
+
       localStorage.setItem("quizSession", JSON.stringify(game));
       navigate(`/quiz/game/admin/${game.sessionKey}`);
     }

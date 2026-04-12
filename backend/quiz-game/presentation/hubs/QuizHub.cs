@@ -54,7 +54,10 @@ namespace presentation.hubs
 
             await Clients
                 .Group($"quiz_{sessionKey}")
-                .SendAsync("UpdatedPlayers", session.Connections.Values.ToList());
+                .SendAsync("UpdatedPlayers", session.Connections.Values
+                    .Where(el => el.Role != "admin")
+                    .ToList());
+            
             await Clients.Caller.SendAsync("UpdatedPlayerCaller", changedPlayer);
         }
         
@@ -69,15 +72,15 @@ namespace presentation.hubs
                 session.Progresses[playerId] = progress;
             }
 
-            ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
-            {
-                CurrentQuestionIndex = progress.CurrentQuestionIndex,
-                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-                QuantityQuestions = progress.QuantityQuestions,
-                Status = progress.Status,
-            };
+            // ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
+            // {
+            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
+            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+            //     QuantityQuestions = progress.QuantityQuestions,
+            //     Status = progress.Status,
+            // };
             
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", prgoressForPlayer);
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
             await SendProgressToAdmin(session);
         }
         
@@ -154,8 +157,6 @@ namespace presentation.hubs
         
         private async Task SendProgressToAdmin(QuizRuntimeSession session)
         {   
-            
-            
             List<Progress> progresses;
             
             lock (session.SyncRoot)
@@ -167,6 +168,7 @@ namespace presentation.hubs
             }
 
             List<ProgressForAdmin> progressesForAdmin = progresses
+                .Where(p => p.Player.Role != "admin")
                 .Select(p => new ProgressForAdmin
                 {
                     Player = new services.DTOs.PlayerDTO
@@ -222,16 +224,16 @@ namespace presentation.hubs
                 session.Progresses[playerId] = progress;
             }
         
-            ProgressForPlayer progressForPlayer = new ProgressForPlayer
-            {
-                ProgressId = progress.Id,
-                CurrentQuestionIndex = progress.CurrentQuestionIndex,
-                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-                QuantityQuestions = progress.QuantityQuestions,
-                Status = progress.Status,
-            };
-            
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progressForPlayer);
+            // ProgressForPlayer progressForPlayer = new ProgressForPlayer
+            // {
+            //     ProgressId = progress.Id,
+            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
+            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+            //     QuantityQuestions = progress.QuantityQuestions,
+            //     Status = progress.Status,
+            // };
+            //
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
             await SendProgressToAdmin(session);
         }
 
@@ -246,16 +248,16 @@ namespace presentation.hubs
                 session.Progresses[playerId] = progress;
             }
             
-            ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
-            {
-                ProgressId = progress.Id,
-                CurrentQuestionIndex = progress.CurrentQuestionIndex,
-                QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-                QuantityQuestions = progress.QuantityQuestions,
-                Status = progress.Status,
-            };
+            // ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
+            // {
+            //     ProgressId = progress.Id,
+            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
+            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
+            //     QuantityQuestions = progress.QuantityQuestions,
+            //     Status = progress.Status,
+            // };
             
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", prgoressForPlayer);
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
             await SendProgressToAdmin(session);
         }
         
@@ -268,10 +270,12 @@ namespace presentation.hubs
                 {
                     if (session.Connections.TryGetValue(Context.ConnectionId, out var player))
                     {
-                        session.Connections.Remove(Context.ConnectionId);
+                        // session.Connections.Remove(Context.ConnectionId);
 
                         Clients.Group($"quiz_{session.SessionKey}")
-                            .SendAsync("UserLeft", player, session.Connections.Values.Where(p => p.Role == "player").ToList());
+                            .SendAsync("UserLeft", player, session.Connections
+                                .Values
+                                .Where(p => p.Role == "player").ToList());
                     }
                 }
             }

@@ -11,6 +11,7 @@ import Profile from "./features/profile/Profile";
 import QuizGamePlayer from "./features/quiz-game/QuizGamePlayer";
 import QuizGameAdmin from "./features/quiz-game/QuizGameAdmin";
 import GameResults from "./features/game-results/GameResults";
+import PlayerResult from "./features/player-result/PlayerResult";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/auth" element={<Authorization />} />
           <Route path="/" element={<Home />} />
-          <Route path="quiz/:quizId" element={<ManualCreate />} />
+          <Route path="/quiz/:quizId" element={<ManualCreate />} />
           <Route
             path="/quiz/:quizId/complete-creation"
             element={<CompleteCreation />}
@@ -35,6 +36,7 @@ function App() {
           />
           <Route path="profile" element={<Profile />} />
           <Route path="game-result/:sessionKey" element={<GameResults />} />
+          <Route path="player-result/:progressId" element={<PlayerResult />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

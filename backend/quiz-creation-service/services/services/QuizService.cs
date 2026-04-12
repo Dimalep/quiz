@@ -1,4 +1,6 @@
-﻿using domains;
+﻿using System.Diagnostics;
+using System.Text.Json;
+using domains;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
@@ -26,12 +28,26 @@ namespace services.services
 
         public async Task<Quiz> UpdateQuiz(Quiz quiz)
         {
+            Debug.WriteLine($"{quiz.Id} {quiz.Description}");
+            
             var updatingQuiz = await GetQuizById(quiz.Id);
 
-            db.Entry(updatingQuiz).CurrentValues.SetValues(quiz);
+            if (updatingQuiz == null)
+            {
+                throw new Exception($"Quiz with id {quiz.Id} not found");
+            }
+            
+            Debug.WriteLine($"{updatingQuiz.Id} {updatingQuiz.Description}");
+            
+            
+            // db.Entry(updatingQuiz).CurrentValues.SetValues(quiz);
 
+            updatingQuiz.Description = quiz.Description;
+            updatingQuiz.Title = quiz.Title;
+            updatingQuiz.UserId = quiz.UserId;
+            updatingQuiz.Questions = quiz.Questions;
             updatingQuiz.QuantityQuestions = quiz.Questions.Count();
-
+            
             await db.SaveChangesAsync();
 
             return updatingQuiz;
@@ -49,17 +65,37 @@ namespace services.services
             return deletedQuiz.Entity;
         }
 
-        public async Task<Quiz> GetQuizById(int quizId)
+        public async Task<Quiz?> GetQuizById(int quizId)
         {
-            var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
-            if (quiz == null)
-            {
-                throw new ArgumentException("Quiz not found");
-            }
-
+            var quiz = await db.Quizzes
+                .FirstOrDefaultAsync(q => q.Id == quizId);
+            
             return quiz;
         }
 
+        public async Task<Quiz> GetQuizByIdWithShuffledQuestions(int quizId)
+        {
+            var quiz = await db.Quizzes
+                .FirstOrDefaultAsync(q => q.Id == quizId);
+            
+            if (quiz == null)
+                throw new ArgumentException("Quiz not found");
+            
+            var shuffled = quiz.Questions
+                .OrderBy(q => Guid.NewGuid())
+                .ToList();
+            
+            for (int i = 0; i < shuffled.Count; i++)
+            {
+                shuffled[i].Index = i;
+            }
+            
+            quiz.Questions = shuffled;
+            await db.SaveChangesAsync();
+            
+            return quiz;
+        }
+        
         public async Task<ShortQuiz> GetShortQuizById(int quizId)
         {
             var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Player } from "./usePlayer";
 import * as signalR from "@microsoft/signalr";
 import type { GameDTO } from "./useGame";
-import type { ProgressForPlayer } from "./useProgress";
+import type { Progress } from "./useProgress";
 
 export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const connectionRef = useRef<signalR.HubConnection | null>(null);
@@ -10,15 +10,7 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [connectedPlayer, setConnectedPlayer] = useState<Player | null>(null);
   const [currentGame, setCurrentGame] = useState<GameDTO>();
-//   const [currentProgress, setCurrentProgress] = useState<ProgressDTO>();
-  const [currentProgress, setCurrentProgress] = useState<ProgressForPlayer>();
-//   const [completedProgress, setCompletedProgress] = useState<ProgressDTO>();
-//   const [currentPlayer, setCurrentPlayer] = useState<Player>(player);
-
-  useEffect(() => {
-    if(!currentProgress) return;
-    localStorage.setItem("currentProgress", JSON.stringify(currentProgress));
-  }, [currentProgress])
+  const [currentProgress, setCurrentProgress] = useState<Progress>();
 
   useEffect(() => {
     if(!currentGame) return;
@@ -38,40 +30,45 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
     connection.on("FirstConnect", (game: GameDTO) => {
         setCurrentGame(game);
     });
+    
     connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
         setPlayers(allPlayers);
         setConnectedPlayer(player);
         console.log("Connected player: ", player);
     })
+
     connection.on("UserLeft", (player: Player, allPlayers: Player[]) => {
         setPlayers(allPlayers);
     });
+
     connection.on("GameLaunched", (game: GameDTO) => {
         setCurrentGame(game);
     });
+
     connection.on("GameCompleted", (game: GameDTO) => {
       setCurrentGame(game);
     });
+
     connection.on("GameClose", (game: GameDTO) => {
         setCurrentGame(game);
     });
+
     connection.on("GameOpen", (game: GameDTO) => {
         setCurrentGame(game);
     });
-    // connection.on("CompletedProgress", (progress: ProgressDTO) => {
-    //     console.log("Completed progress - ", progress);
-    //     setCompletedProgress(progress);
-    // });
-    connection.on("ProgressUpdatedForPlayer", (progress: ProgressForPlayer) => {
+
+    connection.on("ProgressUpdatedForPlayer", (progress: Progress) => {
         setCurrentProgress(progress);
     });
-    // connection.on("UpdatedPlayer", (player: Player) => {
-    //     console.log("player");
-    // });
+
     connection.on("UpdatedPlayerCaller", (player: Player) => {
         localStorage.setItem("currentPlayer", JSON.stringify(player));
-        console.log(player);
     });
+
+    connection.on("UpdatedPlayers", (players: Player[]) => {
+      setPlayers(players);
+    });
+
     const start = async () => {
         try{
             await connection.start();

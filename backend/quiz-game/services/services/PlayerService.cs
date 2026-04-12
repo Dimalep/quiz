@@ -14,53 +14,56 @@ namespace services.services
         public PlayerService(DatabaseContext dbContext) 
         {
             _dbContext = dbContext;
-        }  
+        }
 
-        public async Task<PlayerDTO> AddPlayer(AddPlayerRequest addPlayerDTO)
+        public async Task<Player?> GetPlayerByGameIdAndUserId(int gameId, int userId)
         {
-            var quizSession = await _dbContext.Games
-                .FirstOrDefaultAsync(qs => qs.sessionKey == addPlayerDTO.QuizSessionKey);
+            var player = await _dbContext.Players
+                .FirstOrDefaultAsync(p => p.GameId == gameId && p.UserId == userId);
 
-            if (quizSession == null)
+            return player;
+        }
+
+        public async Task<Player> GetOrCreatePlayer(int userId, int gameId, string role)
+        {
+            var existsUser = await _dbContext.Players
+                .FirstOrDefaultAsync(p => p.UserId == userId && p.GameId == gameId);
+
+            if (existsUser != null)
             {
-                throw new ArgumentNullException("Not found quiz session by session key");
-            }
-
-            var existsPlayer = await _dbContext.Players
-                .FirstOrDefaultAsync(p => p.UserId == addPlayerDTO.UserId);
-
-            if(existsPlayer != null) 
-            {
-                existsPlayer.Nickname = addPlayerDTO.Nickname;
-                existsPlayer.Role = addPlayerDTO.Role;
-                existsPlayer.QuizSessionId = quizSession.Id;
-                
+                existsUser.Role = role;
                 await _dbContext.SaveChangesAsync();
-                return new PlayerDTO
-                {
-                    Id = existsPlayer.Id,
-                    Role = existsPlayer.Role,
-                    Nickname = existsPlayer.Nickname,
-                };
+                
+                Console.WriteLine($"Role - {existsUser.Role}");
+                
+                return existsUser;
             }
 
-            var player = new Player
-            {
-                Nickname = addPlayerDTO.Nickname,
-                QuizSessionId = quizSession.Id,
-                UserId = addPlayerDTO.UserId,
-                Role = addPlayerDTO.Role,
-            };
+            var addedUser = await _dbContext.Players
+                .AddAsync(new Player
+                {
+                    Nickname = "player",
+                    UserId = userId,
+                    GameId = gameId,
+                    Role = role
+                });
 
+            await _dbContext.SaveChangesAsync();
+
+            Console.WriteLine($"Role - {addedUser.Entity.Role}");
+            
+            return addedUser.Entity;
+        }
+
+        public async Task<Player> AddPlayer(Player player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("Cant add new player. Player cannot by null");
+            
             var addedPlayer = await _dbContext.Players.AddAsync(player);
             await _dbContext.SaveChangesAsync();
 
-            return new PlayerDTO
-            {
-                Id = addedPlayer.Entity.Id,
-                Nickname = addedPlayer.Entity.Nickname,
-                Role = addedPlayer.Entity.Role,
-            };
+            return addedPlayer.Entity;
         }
 
         public async Task<GetPlayerResponse> GetPlayerById(int id)

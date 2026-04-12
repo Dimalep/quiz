@@ -37,7 +37,7 @@ export default function AnswerCheckBox({ answer }: Props) {
       type: "UPDATE_ANSWER",
       payload: {
         answerIndex: answer.index,
-        data: { isCorrect: value },
+        data: { isCorrect: value, text },
       },
     });
   };
@@ -48,22 +48,23 @@ export default function AnswerCheckBox({ answer }: Props) {
         {correct ? "Правильный ответ" : "Неправильный ответ"}
       </span>
       <div
-        className={
-          correct
-            ? `${styles.main} ${styles.correctly}`
-            : `${styles.main} ${styles.incorrectly}`
-        }
+        className={`${styles.main} ${
+          correct ? styles.correctly : styles.incorrectly
+        }`}
       >
         <input
-          className={styles.checkbox}
           type="checkbox"
+          className={styles.checkbox}
           checked={correct}
           onChange={checkboxChangeHandler}
         />
         <input
-          className={styles.input}
+          className={`${styles.input} ${
+            correct ? styles.input_correctly : styles.input_incorrectly
+          }`}
           value={text}
           onChange={textChangeHandler}
+          placeholder="Введите ответ"
         />
         <button className={styles.button} onClick={removeHandler}>
           -

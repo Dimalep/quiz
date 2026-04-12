@@ -38,7 +38,7 @@ export default function ProfileProvider({
   const [games, setGames] = useState<GameDTO[]>();
   const [me, setMe] = useState<User>();
 
-  const { getQuizzesByUserId, deleteQuizById } = useQuizApi();
+  const { getQuizzesByUserId, deleteQuizById, getQuizById } = useQuizApi();
   const { addGame, getGamesByUserId } = useGame();
   const { getUserById } = useUser();
   const navigate = useNavigate();
@@ -85,7 +85,21 @@ export default function ProfileProvider({
     navigate(`/quiz/game/admin/${game.sessionKey}`);
   };
 
-  const editQuiz = (quizId: number) => {
+  const editQuiz = async (quizId: number) => {
+    const quiz = await getQuizById(quizId);
+    if (quiz === undefined) {
+      alert("Ошибка получения квизв");
+      return;
+    }
+
+    localStorage.setItem(
+      "quizDraft",
+      JSON.stringify({
+        quiz: quiz,
+        currentQuestion: undefined,
+      }),
+    );
+
     navigate(`/quiz/${quizId}`);
   };
 

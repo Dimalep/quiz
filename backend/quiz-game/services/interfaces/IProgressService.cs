@@ -13,9 +13,10 @@ namespace services.interfaces
         
         public Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId);
 
-        public Task<Progress> GetById(int progressId);
+        public Task<Progress?> GetById(int progressId);
+        public Task<Progress?> GetProgressByPlayerIdAndGameId(int playerId, int gameId); 
         
-        public Task<ICollection<Progress>> GetProgressesBySessionKey(string sessionKey);
+        public Task<ICollection<ProgressForAdmin>> GetProgressesBySessionKey(string sessionKey);
         
         public Task<Progress> UpdateProgress(Progress progress);
         public Task<Progress?> GetBySessionKeyAndPlayerId(string sessionKey, int playerId);

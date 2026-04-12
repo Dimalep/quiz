@@ -11,6 +11,8 @@ namespace services.interfaces
         public Task<ICollection<GameDTO>> GetGamesByUserId(int userId);
 
         #region admin function
+
+        public Task<Game> StartFromProfile(int gameId);
         public Task<Game> Launch(double lifetime, string sessionKey);
         public Task<Game> Complete(string sessionKey);
         public Task<Game> OpenForConnect(string sessionKey);

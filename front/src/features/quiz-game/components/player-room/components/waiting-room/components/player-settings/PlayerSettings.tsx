@@ -16,8 +16,8 @@ export default function PlayerSettings() {
   return (
     <>
       <div className={styles.main}>
-        <div>
-          <div>{"123"}</div>
+        <div className={styles.content}>
+          <h5>Я</h5>
           <span>{currentPlayer?.nickname}</span>
         </div>
 

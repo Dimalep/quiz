@@ -16,7 +16,7 @@ export default function AdminRoom() {
     }
   }, [currentGame]);
 
-  if (currentGame?.status !== 4) openGameResults();
+  if (currentGame?.status === 3) openGameResults();
   if (currentGame?.status !== 3) {
     if (room === "wait")
       return (

@@ -8,12 +8,7 @@ interface Props {
   onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function AutoTextArea({
-  borderColor,
-  value,
-  setValue,
-  onBlur,
-}: Props) {
+export default function AutoTextArea({ value, setValue, onBlur }: Props) {
   const ref = useRef<HTMLTextAreaElement | null>(null);
 
   const handleInput = () => {

@@ -1,7 +1,6 @@
 import styles from "./WaitingRoom.module.css";
 import PlayersList from "./components/player-list/PlayersList";
 import { useQuizGamePlayerContext } from "../../../../quiz-game-context/QuizGamePlayerContext";
-import ConnectInfo from "../../../common/connect-info/ConnectInfo";
 import PlayerSettings from "./components/player-settings/PlayerSettings";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
@@ -36,8 +35,6 @@ export default function WaitingRoom() {
         <span>status: {currentGame?.status}</span>
       </div>
 
-      <PlayerSettings />
-
       <div className={styles.access}>
         <div className={styles.access_info}>
           <div className={styles.session_code}>
@@ -59,6 +56,8 @@ export default function WaitingRoom() {
           </div>
         )}
       </div>
+
+      <PlayerSettings />
 
       <PlayersList />
     </div>

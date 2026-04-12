@@ -1,5 +1,10 @@
 .main{
     display: flex;
+    flex-direction: column;
+}
+
+.buttons{
+    display: flex;
     flex-direction: row;
     gap: 10px;
 
@@ -7,19 +12,44 @@
     width: 100%;
 }
 
-.main button{
+.buttons button{
     border: none;
     border-radius: 11px;
 
     padding: 10px 20px;
 
-    background-color: rgb(17, 80, 60);
-
     font-size: 16px;
     font-family: Rubik;
 }
 
+.questions{
+    display: flex;
+    gap: 7px;
 
-/* .selected{
-    background-color: rebeccapurple;
-} */
+    padding: 15px;
+
+    border: none;
+    border-radius: 15px;
+
+    background-color: rgb(17, 80, 60);
+}
+
+.select{
+    padding: 0px 15px;
+
+    height: 35px;
+
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+    border-radius: 7px;
+}
+
+.not_select{
+    border: none;
+    border-radius: 7px;
+
+    padding: 0px 15px;
+
+    height: 35px;
+}

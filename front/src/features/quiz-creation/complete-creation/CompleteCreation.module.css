@@ -1,5 +1,44 @@
-/* .main {
+.main {
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+    gap: 30px;
+
+    min-height: 100vh;
+    background: #1a0f2e;
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+}   
+
+.nav{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0px 20px;
+}
+
+.nav label{
+    cursor: pointer;
+} 
+
+.buttons{
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button{
+    padding: 7px 23px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 15px;
+} 
+
+@media(max-width: 880px){
+    .nav{
+        width: 97%;
+    }
+}

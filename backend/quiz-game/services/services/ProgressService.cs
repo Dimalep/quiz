@@ -17,7 +17,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         
         var progress = await _dbContext.Progresses
             .Include(p => p.Player)
-            .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
+            .FirstOrDefaultAsync(p => p.GameId == game.Id && p.PlayerId == playerId);
         
         if (progress == null)
             throw new ArgumentException("Progress not found");
@@ -36,7 +36,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         
         var progress = await _dbContext.Progresses
             .Include(p => p.Player)
-            .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
+            .FirstOrDefaultAsync(p => p.GameId == game.Id && p.PlayerId == playerId);
         if (progress == null)
             throw new ArgumentException("Progress not found");
 
@@ -50,7 +50,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
     {
         var progresses = await _dbContext.Progresses
             .Include(p => p.Player)
-            .Where(p => p.SessionId == gameId)
+            .Where(p => p.GameId == gameId)
             .ToListAsync();
             
         foreach (var progress in progresses)
@@ -74,7 +74,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         var progress = await _dbContext.Progresses
             .Include(p => p.Player)
             .ThenInclude(p => p.Game)
-            .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.SessionId == game.Id);
+            .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.GameId == game.Id);
  
         if (progress == null)
             throw new ArgumentException("Progress not found");
@@ -105,19 +105,45 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         return progress;
     }
 
-    public async Task<Progress> GetById(int progressId)
+    public async Task<Progress?> GetById(int progressId)
     {
-        var progress = await _dbContext.Progresses.FirstOrDefaultAsync(p => p.Id == progressId);
-        if (progress == null)
-            throw new ArgumentException("Progress not found");
-
+        var progress = await _dbContext.Progresses
+            .Include(p => p.Game)
+            .Include(p => p.Player)
+            .FirstOrDefaultAsync(p => p.Id == progressId);
+        
+        Console.WriteLine($"Current progress id: {progress.Id}");
+        
         return progress;
     }
 
-    //?
-    public Task<ICollection<Progress>> GetProgressesBySessionKey(string sessionKey)
+    public Task<Progress?> GetProgressByPlayerIdAndGameId(int playerId, int gameId)
     {
-        throw new NotImplementedException();
+        return _dbContext.Progresses
+            .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.GameId == gameId);
+    }
+
+    public async Task<ICollection<ProgressForAdmin>> GetProgressesBySessionKey(string sessionKey)
+    {
+        var progresses = await _dbContext.Progresses
+            .Include(p => p.Game)
+            .Where(p => p.Game.sessionKey == sessionKey)
+            .Select(p => new ProgressForAdmin
+            {
+                CurrentQuestionIndex = p.CurrentQuestionIndex,
+                Player = new PlayerDTO
+                {
+                    Id = p.Player.Id,
+                    Nickname = p.Player.Nickname,
+                    Role = p.Player.Role
+                },
+                Status = p.Status,
+                QuantityRemainedQuestions = p.QuantityCompletedQuestions,
+                QuantityCorrectAnswers = p.QuizResult.QuantityCorrectAnswers
+            })
+            .ToListAsync();
+
+        return progresses;
     }
 
     public async Task<Progress> UpdateProgress(Progress progress)
@@ -143,7 +169,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         
         var progress = await _dbContext.Progresses
             .Include(p => p.Player)
-            .FirstOrDefaultAsync(p => p.SessionId == game.Id && p.PlayerId == playerId);
+            .FirstOrDefaultAsync(p => p.GameId == game.Id && p.PlayerId == playerId);
         
         return progress;
     }
@@ -168,8 +194,7 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         {
             PlayerId = playerId,
             Player = player,
-            SessionId = game.Id,
-            StartAt = DateTime.UtcNow,
+            GameId = game.Id,
             Status = ProgressStatus.waiting,
             QuantityQuestions = quiz.QuantityQuestions,
         };

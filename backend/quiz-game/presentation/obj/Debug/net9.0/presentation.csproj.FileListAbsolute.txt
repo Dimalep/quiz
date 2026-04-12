@@ -136,3 +136,11 @@ D:\quiz\backend\quiz-game\presentation\obj\Debug\net9.0\refint\presentation.dll
 D:\quiz\backend\quiz-game\presentation\obj\Debug\net9.0\presentation.pdb
 D:\quiz\backend\quiz-game\presentation\obj\Debug\net9.0\presentation.genruntimeconfig.cache
 D:\quiz\backend\quiz-game\presentation\obj\Debug\net9.0\ref\presentation.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\quiz\backend\quiz-game\presentation\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

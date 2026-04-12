@@ -1,0 +1,152 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  background: linear-gradient(135deg, #093b2b, #0f5c45);
+  padding: 20px;
+}
+
+/* карточка */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* заголовки */
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: #093b2b;
+}
+
+.subtitle {
+  font-size: 18px;
+  text-align: center;
+  color: #555;
+}
+
+/* блок статистики */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.statBox {
+  flex: 1;
+  background: #f4f6fb;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 20px;
+  font-weight: 600;
+  color: #093b2b;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #666;
+}
+
+/* кнопка */
+.button {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+
+  background: #093b2b;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background: #0f5c45;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* JSON блок */
+.jsonBlock {
+  width: 100%;
+  max-width: 500px;
+
+  background: #111;
+  color: #0f0;
+
+  padding: 15px;
+  border-radius: 12px;
+
+  font-size: 12px;
+  overflow-x: auto;
+}
+
+.questionsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.questionCard {
+  background: #f4f6fb;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.questionTitle {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #093b2b;
+}
+
+.answersBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.answerItem {
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* правильный ответ — зеленый */
+.correct {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* неправильный ответ — красный */
+.incorrect {
+  background-color: #f8d7da;
+  color: #721c24;
+}

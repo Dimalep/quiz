@@ -9,3 +9,32 @@
 
     background-color: rgb(9, 59, 43);
 }
+
+.gotomain{
+    border: none;
+    border-radius: 11px;
+
+    font-size: 16px;
+
+    padding: 10px 15px;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0px 2px 2px rgba(0,0,0, 0.14);
+}
+
+.gotomain:hover{
+    transform: scale(1.03);
+}
+
+.avg_info{
+    display: flex;
+
+    border: none;
+    border-radius: 15px;
+
+    background-color: #17664f;
+    box-shadow: 0px 2px 2px rgba(0,0,0, 0.14);
+
+    padding: 20px;
+}

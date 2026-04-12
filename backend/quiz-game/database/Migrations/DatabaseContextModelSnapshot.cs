@@ -39,11 +39,6 @@ namespace database.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("create_at");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("key");
-
                     b.Property<int>("QuizId")
                         .HasColumnType("integer")
                         .HasColumnName("quiz_id");
@@ -60,6 +55,11 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
+                    b.Property<string>("sessionKey")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("key");
+
                     b.HasKey("Id");
 
                     b.ToTable("games");
@@ -74,14 +74,14 @@ namespace database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer")
+                        .HasColumnName("game_id");
+
                     b.Property<string>("Nickname")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("login");
-
-                    b.Property<int>("QuizSessionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("quiz_session_id");
+                        .HasColumnName("nickname");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -94,7 +94,7 @@ namespace database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuizSessionId");
+                    b.HasIndex("GameId");
 
                     b.ToTable("players");
                 });
@@ -116,6 +116,10 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("current_question_index");
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer")
+                        .HasColumnName("game_id");
+
                     b.Property<int>("PlayerId")
                         .HasColumnType("integer")
                         .HasColumnName("player_id");
@@ -128,10 +132,6 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("quantity_questions");
 
-                    b.Property<int>("SessionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("session_id");
-
                     b.Property<DateTime>("StartAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("start_at");
@@ -142,6 +142,8 @@ namespace database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameId");
+
                     b.HasIndex("PlayerId");
 
                     b.ToTable("progresses");
@@ -151,7 +153,7 @@ namespace database.Migrations
                 {
                     b.HasOne("domains.domains.Game", "Game")
                         .WithMany()
-                        .HasForeignKey("QuizSessionId")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -160,6 +162,12 @@ namespace database.Migrations
 
             modelBuilder.Entity("domains.domains.Progress", b =>
                 {
+                    b.HasOne("domains.domains.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("domains.domains.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
@@ -196,6 +204,10 @@ namespace database.Migrations
                                     b2.Property<int>("__synthesizedOrdinal")
                                         .ValueGeneratedOnAdd()
                                         .HasColumnType("integer");
+
+                                    b2.Property<int>("Complexity")
+                                        .HasColumnType("integer")
+                                        .HasAnnotation("Relational:JsonPropertyName", "complexity");
 
                                     b2.Property<int>("QuestionIndex")
                                         .HasColumnType("integer")
@@ -255,6 +267,8 @@ namespace database.Migrations
 
                             b1.Navigation("Questions");
                         });
+
+                    b.Navigation("Game");
 
                     b.Navigation("Player");
 

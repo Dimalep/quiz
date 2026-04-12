@@ -67,6 +67,13 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
       setCurrentGame(game);
     });
 
+    connection.on("UpdatedPlayers", (players: Player[]) => {
+      setPlayers(players);
+    });
+    connection.on("UpdatedPlayerCaller", (player: Player) => {
+        localStorage.setItem("currentPlayer", JSON.stringify(player));
+    });
+
     start();
     return() => {
       connection.off("UserJoined");

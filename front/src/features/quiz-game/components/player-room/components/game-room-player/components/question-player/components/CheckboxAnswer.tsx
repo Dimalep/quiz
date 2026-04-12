@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./CheckboxAnswer.module.css";
@@ -9,9 +9,23 @@ interface Props {
 }
 
 export default function CheckboxAnswer({ answers }: Props) {
-  const { giveAnswer } = useQuizGamePlayerContext();
+  const { giveAnswer, actualProgress, currentQuestion } =
+    useQuizGamePlayerContext();
 
   const [inputAnswers, setInputAnswers] = useState<AnswerResult[]>([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  const actual = actualProgress.questions.find(
+    (el) => el.id === currentQuestion?.id,
+  );
+
+  useEffect(() => {
+    if (actual) {
+      setInputAnswers(actual.answers);
+    } else {
+      setInputAnswers([]);
+    }
+  }, [currentQuestion, actual]);
 
   const toggleAnswer = (answer: Answer) => {
     setInputAnswers((prev) => {
@@ -21,6 +35,7 @@ export default function CheckboxAnswer({ answers }: Props) {
       return [
         ...prev,
         {
+          id: answer.id,
           answerIndex: answer.index,
           answerText: answer.text,
           isCorrect: answer.isCorrect,
@@ -30,28 +45,36 @@ export default function CheckboxAnswer({ answers }: Props) {
   };
 
   const handleSubmit = () => {
-    if (inputAnswers.length === 0) return;
+    if (inputAnswers.length === 0) {
+      setIsEmpty(true);
+      return;
+    }
     giveAnswer(inputAnswers);
-    setInputAnswers([]);
   };
 
   return (
-    <div>
-      Ответы:
-      <div className={styles.answers}>
-        {answers.map((el) => (
-          <label key={el.index} className={styles.answerLabel}>
-            <input
-              type="checkbox"
-              value={el.text}
-              checked={inputAnswers.some((a) => a.answerIndex === el.index)}
-              onChange={() => toggleAnswer(el)}
-            />
-            {el.text}
-          </label>
-        ))}
+    <>
+      {isEmpty && <label>Выбирите ответ</label>}
+      <div className={styles.main}>
+        <div className={styles.title}>Ответы:</div>
+
+        <div className={styles.answers}>
+          {answers.map((el) => (
+            <label key={el.index} className={styles.answerLabel}>
+              <input
+                type="checkbox"
+                value={el.text}
+                checked={inputAnswers.some((a) => a.answerIndex === el.index)}
+                onChange={() => toggleAnswer(el)}
+              />
+              {el.text}
+            </label>
+          ))}
+        </div>
       </div>
-      <button onClick={handleSubmit}>Дать ответ</button>
-    </div>
+      <button className={styles.give_answer_btn} onClick={handleSubmit}>
+        Дать ответ
+      </button>
+    </>
   );
 }

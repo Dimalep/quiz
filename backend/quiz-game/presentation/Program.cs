@@ -1,9 +1,32 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using presentation.hubs;
 using services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://localhost:5103");
+
+#region jwt
+
+var key = Encoding.UTF8.GetBytes("H8p7OHRGBI8SadRMX5OKSzv5TxQYkEaI03a2VaZagZ2");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+builder.Services.AddAuthentication();
+
+#endregion
 
 #region gRPC client
 string? quizGrpcAddress = builder.Configuration["QuizCreationGrpc:Address"];
@@ -44,6 +67,9 @@ builder.Services.AddServices(
 );
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 #region CORS
 app.UseCors("AllowFrontend");

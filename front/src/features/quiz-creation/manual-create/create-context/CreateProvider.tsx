@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import type { Action, CreateState, Quiz } from "./reducer";
+import type { Action, Answer, CreateState, Quiz } from "./reducer";
 import reducer from "./reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
@@ -101,6 +101,8 @@ export default function CreateProvider({
   }, [state.quiz, state.currentQuestion]);
 
   const completeCreation = async () => {
+    dispatch({ type: "REMOVE_EMPTY_QUESTION" });
+
     const res = await updateQuiz(state.quiz);
     if (!res) {
       console.log("Error cant update quiz");

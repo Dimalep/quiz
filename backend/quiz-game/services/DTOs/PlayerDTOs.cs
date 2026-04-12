@@ -10,13 +10,13 @@ namespace services.DTOs
     }
 
     // For add new player to quiz
-    public record AddPlayerRequest
-    {
-        public string Nickname { get; set; } = null!;
-        public string QuizSessionKey { get; set; } = null!;
-        public int UserId { get; set; }
-        public string Role { get; set; } = null!;
-    }
+    // public record AddPlayerRequest
+    // {
+    //     public string Nickname { get; set; } = null!;
+    //     public string QuizSessionKey { get; set; } = null!;
+    //     public int UserId { get; set; }
+    //     public string Role { get; set; } = null!;
+    // }
 
     public record GetPlayerResponse
     {

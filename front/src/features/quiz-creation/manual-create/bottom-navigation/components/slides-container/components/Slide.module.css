@@ -23,3 +23,10 @@
 .active {
   border: 1px solid whitesmoke;
 }
+
+.checkboxImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}

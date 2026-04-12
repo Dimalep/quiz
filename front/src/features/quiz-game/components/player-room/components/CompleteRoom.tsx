@@ -21,7 +21,7 @@ export default function CompleteRoom() {
   useEffect(() => {
     async function ll() {
       if (!currentProgress) return;
-      const data = await getProgressById(currentProgress.progressId);
+      const data = await getProgressById(currentProgress.id);
       setResults(data);
     }
     ll();

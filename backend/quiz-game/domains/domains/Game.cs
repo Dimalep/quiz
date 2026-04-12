@@ -29,6 +29,7 @@ namespace domains.domains
         [Column("status")]
         public Status Status{ get; set; } = Status.opened;
         
+        //owner
         [Column("user_id")]
         public int UserId { get; set; }
     }

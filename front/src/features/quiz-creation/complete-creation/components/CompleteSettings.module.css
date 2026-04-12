@@ -1,18 +1,17 @@
 .main {
-    height: 100vh;
+    width: 40%;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-.nav{
-    margin-top: 15px;
-    width: 90%;
-    background-color: antiquewhite;
-    font-size: 18px;
-    font-family: Rubik;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0, 0.14);
+.main h2{
+  color: white;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-self: center;
+  align-self: center;  
 }
 
 .nav button{
@@ -20,15 +19,15 @@
 }
 
 .content {
-    width: 90%;
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-color: lightgray;
-    border-width: 1px;
-    border-style: solid;
     gap: 20px;
+
+    background-color:#3b265f; 
+
+    border: none;
+    border-radius: 15px;
 }
 
 .buttons{
@@ -43,20 +42,9 @@
     padding: 10px 15px;
 }
 
-@media (min-width: 768px) {
-  .nav{
-    width: 70%;
-  }
-  .content{
-    width: 70%;
-  }
-}
+@media (max-width: 880px) {
+    .main{
+      width: 97%;
+    }
 
-@media (min-width: 1024px) {
-  .nav{
-    width: 50%;
-  }
-  .content{
-    width: 50%;
-  }
 }

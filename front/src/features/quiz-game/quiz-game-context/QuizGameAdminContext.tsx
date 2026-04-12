@@ -31,50 +31,44 @@ export default function QuizGameAdminContext({
 }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
 
-  const { addPlayer } = usePlayer();
+  const { getOrCreatePlayer } = usePlayer();
   const { getGameBySessionKey } = useGame();
   const { sessionKey } = useParams<{ sessionKey: string }>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function launchPage() {
+    async function init() {
       if (!sessionKey) return;
 
-      const createdPlayer = await addPlayer("admin", sessionKey);
-
-      if (!createdPlayer) return;
-
-      setCurrentPlayer(currentPlayer);
-      localStorage.setItem("player", JSON.stringify(createdPlayer));
-    }
-
-    const data = localStorage.getItem("player");
-    if (data === null) {
-      launchPage();
-      return;
-    } else {
-      const player = JSON.parse(data);
-      setCurrentPlayer(player);
-    }
-
-    async function getCurrentQuizSession() {
-      if (!sessionKey) return;
       const game = await getGameBySessionKey(sessionKey);
+      if (!game) {
+        console.log("Error get game");
+        return;
+      }
+
       setCurrentGame(game);
+      console.log(game.id);
+
+      const player = await getOrCreatePlayer(game.id, "admin");
+      console.log("Current player: ", player);
+
+      if (!player) {
+        console.log("Игрок не создан");
+        return;
+      }
+
+      setCurrentPlayer(player);
+      localStorage.setItem("currentPlayer", JSON.stringify(player));
     }
 
-    getCurrentQuizSession();
-  }, []);
+    init();
+  }, [sessionKey]);
 
   const { connection, players, currentGame, setCurrentGame, progresses } =
-    useQuizHubAdmin(sessionKey, currentPlayer ?? undefined);
-
-  if (!currentPlayer) {
-    return null;
-  }
+    useQuizHubAdmin(sessionKey, currentPlayer);
 
   const openGameResults = () => {
-    navigate(`game-result/${currentGame?.sessionKey}`);
+    navigate(`/game-result/${currentGame?.sessionKey}`);
   };
 
   const completeGame = async () => {

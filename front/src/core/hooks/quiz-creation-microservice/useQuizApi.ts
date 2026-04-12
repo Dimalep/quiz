@@ -46,6 +46,22 @@ export default function useQuizApi() {
     return data;
   };
 
+  const getByIdWithShuffledQuestions = async (quizId: number) => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/with-shuffled-questions/${quizId}`, {
+      method: "GET",
+      headers: {"Content-type": "application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get quiz by id");
+      return undefined;
+    }
+
+    const data: Quiz = await response.json();
+
+    return data;
+  }
+
   const getQuizById = async (quizId: number) : Promise<Quiz | undefined> => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
       method: "GET",
@@ -109,5 +125,5 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById}
+  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById, getByIdWithShuffledQuestions}
 }

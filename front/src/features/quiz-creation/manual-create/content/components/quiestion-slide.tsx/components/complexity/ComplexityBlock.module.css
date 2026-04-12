@@ -1,0 +1,82 @@
+.complexity_choose {
+    width: 300px;
+
+    padding: 12px 16px;
+
+    background: linear-gradient(145deg, #2a1a45, #1f1236);
+    color: #fff;
+
+    border: 1px solid #4c2f7a;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    /* убираем дефолтный стиль */
+    appearance: none;
+}
+
+/* hover эффект */
+.complexity_choose:hover {
+    border-color: #7b4dff;
+    box-shadow: 0 0 10px rgba(123, 77, 255, 0.4);
+}
+
+/* фокус (как на BetBoom) */
+.complexity_choose:focus {
+    border-color: #9d6bff;
+    box-shadow: 0 0 12px rgba(157, 107, 255, 0.6);
+}
+
+/* стрелка */
+.complexity_wrapper {
+    position: relative;
+    width: 300px;
+}
+
+.complexity_wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: #aaa;
+    pointer-events: none;
+}
+
+/* заголовок */
+.title {
+    color: #ddd;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.easy {
+    background: linear-gradient(145deg, #1a4530, #0f2e21);
+    border-color: #2ecc71;
+}
+
+.medium {
+    background: linear-gradient(145deg, #4a3a1a, #2e240f);
+    border-color: #f1c40f;
+}
+
+.hard {
+    background: linear-gradient(145deg, #4a1a1a, #2e0f0f);
+    border-color: #e74c3c;
+}
+
+/* адаптив */
+@media(max-width: 880px){
+    .complexity_choose, 
+    .complexity_wrapper{
+        width: 100%;
+    }
+}

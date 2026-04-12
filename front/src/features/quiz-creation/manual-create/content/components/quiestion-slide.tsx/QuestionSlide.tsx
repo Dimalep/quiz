@@ -4,47 +4,86 @@ import QuestionTitle from "./components/question-title/QuestionTitle";
 import { useCreateContext } from "../../../create-context/CreateProvider";
 import styles from "./QyestionSlide.module.css";
 import { useState } from "react";
+import ComplexityBlock from "./components/complexity/ComplexityBlock";
 
 export default function QuestionSlide() {
-  const { state, dispatch } = useCreateContext();
+  const { state, dispatch, completeCreation } = useCreateContext();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const nextHandleClick = () => {
-    if (state.currentQuestion?.index === state.quiz.questions.length) {
-      dispatch({ type: "OPEN_CHOSE" });
-    } else {
-      dispatch({ type: "OPEN_NEXT_QUESTION" });
-    }
+    dispatch({ type: "REMOVE_EMPTY_ANSWERS_FROM_QUESTION" });
+
+    dispatch({ type: "OPEN_NEXT_QUESTION" });
+  };
+
+  const prevHandleClick = () => {
+    dispatch({ type: "REMOVE_EMPTY_ANSWERS_FROM_QUESTION" });
+
+    dispatch({ type: "OPEN_PREV_QUESTION" });
   };
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>Вопрос {state.currentQuestion?.index}</h1>
-      {isOpen && (
-        <div className={styles.settings}>
-          <button
-            className={styles.button}
-            onClick={() => dispatch({ type: "DELETE_QUESTION" })}
-          >
-            Удалить
-          </button>
-        </div>
-      )}
-
-      <div className={styles.buttons}>
-        <button>Завершить создание</button>
-        <button onClick={() => setIsOpen((prev) => !prev)}>Настройки</button>
-        <button onClick={nextHandleClick}>Следующий</button>
+      <div className={styles.head}>
+        <label className={styles.next_btn} onClick={prevHandleClick}>
+          Предыдущий
+        </label>
+        <h1 className={styles.title}>Вопрос {state.currentQuestion?.index}</h1>
+        <label className={styles.next_btn} onClick={nextHandleClick}>
+          Следующий
+        </label>
       </div>
 
-      {/* <QuestionSettings /> */}
+      <div className={styles.buttons}>
+        <button
+          className={styles.settings_btn}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          Настройки
+        </button>
+        <button
+          className={styles.complete_btn}
+          onClick={async () => await completeCreation()}
+        >
+          Завершить создание
+        </button>
+      </div>
+
+      <ComplexityBlock />
 
       <QuestionTitle />
 
       <Media />
 
       <Answers />
+
+      {/* Модальное окно */}
+      {isOpen && (
+        <div className={styles.modalOverlay} onClick={() => setIsOpen(false)}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Настройки вопроса</h2>
+            <button
+              className={styles.modalButton}
+              onClick={() => {
+                dispatch({ type: "DELETE_QUESTION" });
+                setIsOpen(false);
+              }}
+            >
+              Удалить вопрос
+            </button>
+            <button
+              className={styles.modalClose}
+              onClick={() => setIsOpen(false)}
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,17 +4,24 @@ import CheckboxAnswer from "./components/CheckboxAnswer";
 import styles from "./QuestionPlayer.module.css";
 
 export default function QuestionPlayer() {
-  const { currentQuestion } = useQuizGamePlayerContext();
+  const { currentQuestion, isEnd } = useQuizGamePlayerContext();
 
   if (!currentQuestion) return null;
 
   return (
     <div className={styles.main}>
-      <div className={styles.question}>
-        <span>Вопрос:</span>
-        <h3>{currentQuestion.text}</h3>
-      </div>
-      {currentQuestion.type === "buttons" ? (
+      {!isEnd && (
+        <div className={styles.question}>
+          <span>Вопрос:</span>
+          <h2>{currentQuestion.text}</h2>
+        </div>
+      )}
+      {isEnd ? (
+        <div className={styles.end}>
+          <h3>Конец</h3>
+          <h4>Нажмите заврешить, чтобы посмотреть результаты</h4>
+        </div>
+      ) : currentQuestion.type === "buttons" ? (
         <ButtonsAnswer answers={currentQuestion.answers} />
       ) : (
         <CheckboxAnswer answers={currentQuestion.answers} />
