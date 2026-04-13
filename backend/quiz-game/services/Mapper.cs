@@ -30,5 +30,27 @@ namespace services
                 Status = gameDto.Status
             };
         }
+        
+        public PlayerProgress ToPlayerProgress(Progress progress)
+        {
+            return new PlayerProgress
+            {
+                Id = progress.Id,
+                Status = progress.Status,
+                QuestionResultHistory = progress.QuizResult.Questions
+                    .Select(q => new QuestionResultHistory
+                    {
+                        Id = q.QuestionId,
+                        AnswerResultHistory = q.Answers
+                            .Select(a => new AnswerResultHistory
+                            {
+                                Id = a.AnswerId,
+                                Text = a.AnswerText
+                            })
+                            .ToList()
+                    })
+                    .ToList()
+            };
+        }
     }
 }

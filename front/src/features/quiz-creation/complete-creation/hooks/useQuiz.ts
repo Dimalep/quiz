@@ -9,7 +9,7 @@ export default function useQuiz() {
   const [quiz, setQuiz] = useState<Quiz>();
 
   const {getQuizById} = useQuizApi();
-  const {addGame} = useGame();
+  const {addGame, initialGame} = useGame();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,5 +38,17 @@ export default function useQuiz() {
     navigate(`/quiz/game/admin/${quizSession?.sessionKey}`);
   }
 
-  return {quiz, newQuizSession, saveAndGoToProfile}
+  //new
+  const newGame = async () => {
+    const game = await initialGame(Number(quizId));
+
+    if(!game){
+      console.log("Error initial game");
+      return;
+    }
+
+    navigate(`/quiz/game/admin/${game.sessionKey}`);
+  }
+
+  return {quiz, newQuizSession, saveAndGoToProfile, newGame}
 }

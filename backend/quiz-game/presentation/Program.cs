@@ -4,6 +4,7 @@ using presentation.hubs;
 using services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using services.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://localhost:5103");
@@ -65,6 +66,11 @@ builder.Services.AddServices(
     quizGrpcAddress, 
     builder.Configuration.GetConnectionString("DefaultConnection")
 );
+
+builder.Services.AddHttpClient<QuizCacheService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5051");
+});
 
 var app = builder.Build();
 

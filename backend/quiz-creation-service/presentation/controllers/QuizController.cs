@@ -56,5 +56,12 @@
                 var result = await quizService.GetShortQuizById(quizId);
                 return Ok(result);
             }
+            
+            [HttpGet("get-light/{quizId}")]
+            public async Task<IActionResult> GetLightQuizById([FromRoute] int quizId)
+            {
+                var result = await quizService.GetLightQuizById(quizId);
+                return Ok(result);
+            }
         }
     }

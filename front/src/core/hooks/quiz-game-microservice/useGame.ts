@@ -1,3 +1,4 @@
+import type { QuizDTO } from "../quiz-creation-microservice/useQuizApi";
 import useAuth from "../user-service-microservice/useAuth";
 
 export type GameDTO = {
@@ -87,5 +88,30 @@ export default function useGame() {
     return data;
   };
 
-  return { addGame, getGameBySessionKey, getGameByQuizIdAndUserId, getGamesByUserId}
+  const initialGame = async (quizId: number) : Promise<GameDTO | undefined> => {
+    // Getting current user id 
+    const rowUserId = localStorage.getItem("userId");
+    const userId = Number(rowUserId);
+
+    if(rowUserId === null){
+      console.log("Error get userId from localstorage");
+      return undefined;
+    }
+
+    // Fetch
+    const response = await fetch(`http://localhost:5103/api/games/init/${quizId}/${userId}`,{
+        method: "POST",
+        headers: {"Content-type": "application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error initial game");
+      return undefined;
+    }
+
+    const data = await response.json();
+    return data;
+  }
+
+  return { addGame, getGameBySessionKey, getGameByQuizIdAndUserId, getGamesByUserId, initialGame}
 }

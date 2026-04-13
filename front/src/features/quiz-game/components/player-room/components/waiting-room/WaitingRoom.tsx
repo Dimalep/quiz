@@ -16,8 +16,9 @@ export default function WaitingRoom() {
     useQuizGamePlayerContext();
 
   const startGameHandler = async () => {
-    if (currentGame?.status !== 2) alert("Игра еще не запущена админом");
-    else startGame();
+    // if (currentGame?.status !== 2) alert("Игра еще не запущена админом");
+    // else startGame();
+    startGame();
   };
 
   return (

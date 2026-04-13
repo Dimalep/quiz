@@ -1,6 +1,9 @@
-﻿using database;
+﻿using System.Diagnostics;
+using System.Text.Json;
+using database;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
+using services.Cache;
 using services.DTOs;
 using services.grpc;
 using services.interfaces;
@@ -12,12 +15,14 @@ namespace services.services
         private readonly QuizGrpcServiceClient _quizGrpcClient;
         private readonly DatabaseContext _dbContext;
         private readonly Mapper _mapper;
+        private readonly QuizCacheService _quizCacheService;
 
-        public GameService(QuizGrpcServiceClient quizGrpcClient, DatabaseContext dbContext, Mapper mapper)
+        public GameService(QuizGrpcServiceClient quizGrpcClient, DatabaseContext dbContext, Mapper mapper, QuizCacheService quizCacheService)
         {
             _quizGrpcClient = quizGrpcClient;
             _dbContext = dbContext;
             _mapper = mapper;
+            _quizCacheService = quizCacheService;
         }
         
         public async Task<GameResponse> GetGameByQuizIdAndUserId(int quizId, int userId)
@@ -59,6 +64,54 @@ namespace services.services
             throw new NotImplementedException();
         }
 
+        // The initial method of the game
+        public async Task<Game> InitialGame(int quizId, int userId)
+        {
+            Debug.WriteLine($"Quiz id - {quizId}");
+            
+            // // Get the full quiz
+            // var response = await _httpClient
+            //     .GetAsync($"http://localhost:5051/api/quizzes/{quizId}");
+            //
+            // if (!response.IsSuccessStatusCode)
+            // {
+            //     throw new Exception("Failed to fetch quiz snapshot");
+            // }
+            //
+            // var json = await response.Content.ReadAsStringAsync();
+            //
+            // var quiz = JsonSerializer.Deserialize<Quiz>(json);
+            //
+            // if (quiz == null)
+            //     throw new Exception($"Quiz by id: {quizId} not found");
+            //
+            // // Set quiz in-memory Dictionary
+            // _quizCacheService.Set(quiz.Id, quiz);
+
+            var quiz = await _quizCacheService.GetOrLoad(quizId);
+            if (quiz == null)
+                throw new Exception($"Cannot get quiz by id {quizId}");
+            
+            // Generate key
+            var sessionKey = Random.Shared.Next(100000, 999999).ToString();
+            
+            Debug.WriteLine($"Quiz id - {quiz.Id}");
+            
+            // Create new game
+            var game = new Game
+            {
+                sessionKey = sessionKey,
+                QuizId = quizId,
+                UserId = userId,
+                Status = Status.opened
+            };
+
+            var addedGame = await _dbContext.Games.AddAsync(game);
+            await _dbContext.SaveChangesAsync();
+
+            return addedGame.Entity;
+        }
+        
         public async Task<Game> Launch(double lifetime, string sessionKey)
         {
             var quizSession = await _dbContext.Games

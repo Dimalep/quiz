@@ -11,8 +11,8 @@ export default function PlayersList() {
         <span>Список игроков</span>
         <span>{players?.length}</span>
       </div>
-      {players?.map((e) => (
-        <PlayerItem key={e.id} player={e} />
+      {players?.map((e, index) => (
+        <PlayerItem key={index} player={e} />
       ))}
     </div>
   );

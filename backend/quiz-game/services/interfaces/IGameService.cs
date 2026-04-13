@@ -10,6 +10,8 @@ namespace services.interfaces
         public Task<GameResponse> GetGameByQuizIdAndUserId(int quizId, int userId);
         public Task<ICollection<GameDTO>> GetGamesByUserId(int userId);
 
+        public Task<Game> InitialGame(int quizId, int userId);
+        
         #region admin function
 
         public Task<Game> StartFromProfile(int gameId);

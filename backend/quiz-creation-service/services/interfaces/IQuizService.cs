@@ -11,7 +11,14 @@ namespace services.interfaces
         public Task<Quiz> DeleteQuizById(int quizId);
             
         public Task<Quiz?> GetQuizById(int quizId);
+
+        #region ?
+
         public Task<ShortQuiz> GetShortQuizById(int quizId);
+        public Task<LightQuiz> GetLightQuizById(int quizId);
+
+        #endregion
+        
         public Task<ICollection<Quiz>> GetQuizzesByUserId(int userId);
         public Task<Quiz> GetQuizByIdWithShuffledQuestions(int quizId);
     }

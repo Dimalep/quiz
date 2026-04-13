@@ -34,6 +34,15 @@
     background-color: rgb(17, 80, 60);
 }
 
+.questions button{
+    border: none;
+    border-radius: 5px;
+
+    font-size: 15px;
+
+    padding: 5px 10px;
+}
+
 .select{
     padding: 0px 15px;
 

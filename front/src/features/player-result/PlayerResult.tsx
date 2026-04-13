@@ -77,14 +77,6 @@ export default function PlayerResult() {
           </div>
         ))}
       </div>
-
-      {/* <div className={styles.jsonBlock}>
-        <pre>
-          {progress
-            ? JSON.stringify(progress.quizResult, null, 2)
-            : "result is empty"}
-        </pre>
-      </div> */}
     </div>
   );
 }

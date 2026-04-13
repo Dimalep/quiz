@@ -1,6 +1,7 @@
 ﻿using database;
 using Grpc.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
+using services.Cache;
 using services.grpc;
 using services.interfaces;
 using services.services;
@@ -20,6 +21,7 @@ public static class ServicesCollectionExtention
         services.AddScoped<IPlayerService, PlayerService>();
         services.AddScoped<IProgressService, ProgressService>();
         services.AddSingleton<Mapper>();
+        // services.AddSingleton<QuizCacheService>();
 
         return services;
     }

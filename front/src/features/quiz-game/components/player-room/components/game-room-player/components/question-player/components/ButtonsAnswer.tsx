@@ -9,39 +9,40 @@ interface Props {
 }
 
 export default function ButtonsAnswer({ answers }: Props) {
-  const { giveAnswer, actualProgress, currentQuestion } =
-    useQuizGamePlayerContext();
+  const { actualProgress, curQuestion, toAnswer } = useQuizGamePlayerContext();
 
   const actual = actualProgress.questions.find(
-    (el) => el.id === currentQuestion?.id,
+    (el) => el.id === curQuestion?.id,
   );
 
   const [selectedAnswer, setSelectedAnswer] = useState<Answer | undefined>();
 
   useEffect(() => {
-    if (!currentQuestion) {
+    if (!curQuestion) {
       console.log("Current questions is undefined");
       return;
     }
 
     setSelectedAnswer(
-      currentQuestion?.answers.find((q) => q.id === actual?.answers[0].id),
+      curQuestion?.answers.find((q) => q.id === actual?.answers[0].id),
     );
-  }, [currentQuestion]);
+  }, [curQuestion]);
 
   const toAnswerHandler = () => {
     if (!selectedAnswer) {
       return;
     }
 
-    const answerResult: AnswerResult = {
-      id: selectedAnswer.id,
-      answerIndex: selectedAnswer.index,
-      answerText: selectedAnswer.text,
-      isCorrect: selectedAnswer.isCorrect,
-    };
+    toAnswer([selectedAnswer.id]);
 
-    giveAnswer([answerResult]);
+    // const answerResult: AnswerResult = {
+    //   id: selectedAnswer.id,
+    //   answerIndex: selectedAnswer.index,
+    //   answerText: selectedAnswer.text,
+    //   isCorrect: selectedAnswer.isCorrect,
+    // };
+
+    // giveAnswer([answerResult]);
   };
 
   return (

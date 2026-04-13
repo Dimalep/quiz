@@ -1,8 +1,8 @@
-import type { QuizDTO } from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
+import type { Quiz } from "../../manual-create/create-context/reducer";
 import styles from "./CompleteSettings.module.css";
 
 interface Props {
-  quiz: QuizDTO | undefined;
+  quiz: Quiz | undefined;
 }
 
 export default function CompleteSettings({ quiz }: Props) {

@@ -7,13 +7,22 @@ export type QuizDTO = {
     quantityQuestions: number;
 }
 
-export interface QuizWithQuestionsIds {
+// export interface QuizWithQuestionsIds {
+//   id: number,
+//   title: string;
+//   description: string;
+//   quantityQuestions: number;
+//   questionsIds: number[];
+// }
+
+export interface LightQuiz {
   id: number,
   title: string;
   description: string;
   quantityQuestions: number;
-  questionsIds: number[];
+  questionsIds: string[];
 }
+
 
 export default function useQuizApi() {
 
@@ -78,6 +87,23 @@ export default function useQuizApi() {
     return data;
   }
 
+  //#region ?
+  const getLightQuizById = async (quizId: number) : Promise<LightQuiz | undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/get-light/${quizId}`, {
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    });
+
+    if(!response.ok){
+      console.log("Error get light quiz by id");
+      return undefined;
+    }
+
+    const data: LightQuiz = await response.json();
+
+    return data;
+  }
+
   const getShortQuizById = async (quizId: number) : Promise<QuizDTO | undefined>=> {
     const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
       method: "GET",
@@ -93,6 +119,8 @@ export default function useQuizApi() {
 
     return data;
   };
+  //#endregion
+
 
   const updateQuiz = async (quiz: Quiz) : Promise<boolean | undefined> => {
     const response = await fetch("http://localhost:5051/api/quizzes", {
@@ -125,5 +153,5 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById, getByIdWithShuffledQuestions}
+  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById, getByIdWithShuffledQuestions, getLightQuizById}
 }

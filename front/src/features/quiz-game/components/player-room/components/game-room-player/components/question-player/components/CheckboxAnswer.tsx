@@ -9,14 +9,13 @@ interface Props {
 }
 
 export default function CheckboxAnswer({ answers }: Props) {
-  const { giveAnswer, actualProgress, currentQuestion } =
-    useQuizGamePlayerContext();
+  const { toAnswer, actualProgress, curQuestion } = useQuizGamePlayerContext();
 
   const [inputAnswers, setInputAnswers] = useState<AnswerResult[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
 
   const actual = actualProgress.questions.find(
-    (el) => el.id === currentQuestion?.id,
+    (el) => el.id === curQuestion?.id,
   );
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function CheckboxAnswer({ answers }: Props) {
     } else {
       setInputAnswers([]);
     }
-  }, [currentQuestion, actual]);
+  }, [curQuestion, actual]);
 
   const toggleAnswer = (answer: Answer) => {
     setInputAnswers((prev) => {
@@ -49,8 +48,16 @@ export default function CheckboxAnswer({ answers }: Props) {
       setIsEmpty(true);
       return;
     }
-    giveAnswer(inputAnswers);
+
+    const answerIds = inputAnswers.map((ia) => ia.id);
+    toAnswer(answerIds);
+    // giveAnswer(inputAnswers);
   };
+
+  if (!answers) {
+    console.log("answers is null: ", answers);
+    return;
+  }
 
   return (
     <>

@@ -1,3 +1,4 @@
+import type { Question } from "../../../features/quiz-creation/manual-create/create-context/reducer";
 import type { Player } from "./usePlayer";
 
 export interface Progress {
@@ -61,8 +62,30 @@ export interface ProgressForPlayer{
 
 export interface ProgressPlayer{
   id: number;
-
 }
+
+
+// new
+export interface CurrentPlayerProgress{
+  question: Question;
+  progress: Progress;
+}
+
+export type PlayerProgress = {
+  id: number;
+  status: number;
+  questionResultHistory?: QuestionResultHistory[];
+};
+
+export type QuestionResultHistory = {
+  id: string;
+  answerResultHistory?: AnswerResultHistory[];
+};
+
+export type AnswerResultHistory = {
+  id: string;
+  text?: string;
+};
 
 export default function useProgress() {
   const getProgressByPlayerIdAndGameId = async (playerId: number, gameId: number) : Promise<Progress | undefined> => {

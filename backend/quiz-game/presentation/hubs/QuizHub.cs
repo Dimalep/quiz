@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using domains.domains;
 using Microsoft.AspNetCore.SignalR;
+using services;
+using services.Cache;
 using services.DTOs;
 using services.interfaces;
 
@@ -25,12 +27,16 @@ namespace presentation.hubs
         private readonly IGameService _gameService;
         private readonly IProgressService _progressService;
         private readonly IPlayerService playerService;
-
-        public QuizHub(IGameService gameService, IProgressService progressService, IPlayerService playerService)
+        private readonly Mapper _mapper;
+        private readonly QuizCacheService _quizCacheService;
+        
+        public QuizHub(IGameService gameService, IProgressService progressService, IPlayerService playerService, Mapper mapper, QuizCacheService quizCacheService)
         {
             _gameService = gameService;
             _progressService = progressService;
             this.playerService = playerService;
+            _mapper = mapper;
+            _quizCacheService = quizCacheService;
         }
 
         private static readonly Dictionary<string, QuizRuntimeSession> _sessions = new();
@@ -60,6 +66,40 @@ namespace presentation.hubs
             
             await Clients.Caller.SendAsync("UpdatedPlayerCaller", changedPlayer);
         }
+
+        // Player selected past question
+        public async Task SelectCurrentQuestion(string questionId, int quizId)
+        {
+            var quiz = await _quizCacheService.GetOrLoad(quizId);
+            if (quiz == null)
+                throw new Exception($"Error select current question. Not found quiz by id {quizId}");
+
+            var question = quiz.Questions.FirstOrDefault(q => q.Id == questionId);
+
+            await Clients.Caller.SendAsync("SetQuestion", question);
+        }
+        
+        #region new
+
+        public async Task ToAnswer(ToAnswerProgressRequest toAnswerProgressRequest)
+        {
+            var toAnswerResponse =  await _progressService.ToAnswer(toAnswerProgressRequest);
+            
+            var session = GetOrCreateSession(toAnswerProgressRequest.SessionKey);
+
+            lock (session.SyncRoot)
+            {
+                session.Progresses[toAnswerProgressRequest.PlayerId] = toAnswerResponse.Progress;
+            }
+            
+            // map to PlayerProgress
+            var playerProgress = _mapper.ToPlayerProgress(toAnswerResponse.Progress);
+            
+            // return 
+            await Clients.Caller.SendAsync("SetQuestion", toAnswerResponse.Question);
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", playerProgress);
+            await SendProgressToAdmin(session);
+        }
         
         public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
         {
@@ -71,18 +111,12 @@ namespace presentation.hubs
             {
                 session.Progresses[playerId] = progress;
             }
-
-            // ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
-            // {
-            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
-            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-            //     QuantityQuestions = progress.QuantityQuestions,
-            //     Status = progress.Status,
-            // };
             
             await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
             await SendProgressToAdmin(session);
         }
+
+        #endregion
         
         public async Task CloseForConnect(string sessionKey)
         {
@@ -212,28 +246,39 @@ namespace presentation.hubs
             await SendProgressToAdmin(session);
         }
         
-        //*need to optimize
+        // Player start his game
         public async Task StartGame(string sessionKey, int playerId)
         {
             var session = GetOrCreateSession(sessionKey);
             
-            var progress = await _progressService.Start(playerId, sessionKey);
-
+            // Deleted
+            // var progress = await _progressService.Start(playerId, sessionKey);
+            //
+            // lock (session.SyncRoot)
+            // {
+            //     session.Progresses[playerId] = progress;
+            // }
+ 
+            var progress = await _progressService.PlayerStarted(playerId, sessionKey);
+        
+            if (progress.Progress == null)
+                throw new Exception("Error player progress cannot by null");
+            
             lock (session.SyncRoot)
             {
-                session.Progresses[playerId] = progress;
+                session.Progresses[playerId] = progress.Progress;
             }
         
-            // ProgressForPlayer progressForPlayer = new ProgressForPlayer
-            // {
-            //     ProgressId = progress.Id,
-            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
-            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-            //     QuantityQuestions = progress.QuantityQuestions,
-            //     Status = progress.Status,
-            // };
-            //
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
+            Console.WriteLine($"Current player progress {progress.Progress.Player.Id}");
+            
+            // map progress
+            var playerProgress = _mapper.ToPlayerProgress(progress.Progress); 
+            
+            // Give first question
+            await Clients.Caller.SendAsync("SetQuestion", progress.Question);
+            
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", playerProgress);
+            
             await SendProgressToAdmin(session);
         }
 
@@ -256,8 +301,10 @@ namespace presentation.hubs
             //     QuantityQuestions = progress.QuantityQuestions,
             //     Status = progress.Status,
             // };
+
+            var playerProgress = _mapper.ToPlayerProgress(progress);
             
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
+            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", playerProgress);
             await SendProgressToAdmin(session);
         }
         
@@ -270,7 +317,7 @@ namespace presentation.hubs
                 {
                     if (session.Connections.TryGetValue(Context.ConnectionId, out var player))
                     {
-                        // session.Connections.Remove(Context.ConnectionId);
+                        session.Connections.Remove(Context.ConnectionId);
 
                         Clients.Group($"quiz_{session.SessionKey}")
                             .SendAsync("UserLeft", player, session.Connections

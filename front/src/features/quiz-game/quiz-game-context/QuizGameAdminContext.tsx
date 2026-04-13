@@ -40,6 +40,7 @@ export default function QuizGameAdminContext({
     async function init() {
       if (!sessionKey) return;
 
+      // Getting game
       const game = await getGameBySessionKey(sessionKey);
       if (!game) {
         console.log("Error get game");
@@ -49,6 +50,7 @@ export default function QuizGameAdminContext({
       setCurrentGame(game);
       console.log(game.id);
 
+      // Getting player (admin)
       const player = await getOrCreatePlayer(game.id, "admin");
       console.log("Current player: ", player);
 

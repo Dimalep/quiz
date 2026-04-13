@@ -21,6 +21,10 @@
     appearance: none;
 }
 
+.complexity_choose option{
+    background: black;
+}
+
 /* hover эффект */
 .complexity_choose:hover {
     border-color: #7b4dff;

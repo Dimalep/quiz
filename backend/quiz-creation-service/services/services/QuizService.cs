@@ -115,6 +115,28 @@ namespace services.services
             return shortQuiz;
         }
 
+        //Get by id light version of quiz  
+        public async Task<LightQuiz> GetLightQuizById(int quizId)
+        {
+            var quiz = await db.Quizzes
+                .FirstOrDefaultAsync(q => q.Id == quizId);
+
+            if (quiz == null)
+                throw new ArgumentException("Not found quiz by id");
+
+            var questionsIds = quiz.Questions
+                .Select(question => question.Id)
+                .ToList();
+
+            return new LightQuiz
+            {
+                Id = quiz.Id,
+                Description = quiz.Description,
+                QuantityQuestions = quiz.QuantityQuestions,
+                QuestionsIds = questionsIds,
+            };
+        }
+
         public async Task<ICollection<Quiz>> GetQuizzesByUserId(int userId)
         {
             return await db.Quizzes

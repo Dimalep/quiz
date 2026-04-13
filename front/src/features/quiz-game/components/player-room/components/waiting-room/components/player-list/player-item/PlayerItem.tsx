@@ -6,5 +6,9 @@ export interface Props {
 }
 
 export default function PlayerItem({ player }: Props) {
-  return <div className={styles.main}>{player.nickname}</div>;
+  return (
+    <div className={styles.main}>
+      {player.nickname} {player.id}
+    </div>
+  );
 }

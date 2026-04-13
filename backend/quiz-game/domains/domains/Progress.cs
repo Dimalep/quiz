@@ -66,6 +66,9 @@ namespace domains.domains
     
     public class QuestionResult
     {
+        [JsonPropertyName("questionId")]
+        public string QuestionId { get; set; }
+        
         [JsonPropertyName("complexity")]
         public int Complexity { get; set; }
         
@@ -81,6 +84,9 @@ namespace domains.domains
 
     public class AnswerResult
     {
+        [JsonPropertyName("answerId")]
+        public string AnswerId { get; set; }
+        
         [JsonPropertyName("answerIndex")]
         public int AnswerIndex { get; set; }
 

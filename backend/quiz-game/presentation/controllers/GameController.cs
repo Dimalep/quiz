@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using services.DTOs;
 using services.interfaces;
 
 namespace presentation.controllers
@@ -41,6 +40,17 @@ namespace presentation.controllers
         public async Task<IActionResult> GetQuizSessionByKey([FromRoute] string sessionKey)
         {
             var result = await _gameService.GetQuizSessionByKey(sessionKey);
+            return Ok(result);
+        }
+
+        [HttpPost("init/{quizId}/{userId}")]
+        public async Task<IActionResult> InitialGame(
+            [FromRoute] int quizId, 
+            [FromRoute] int userId)
+        {
+            Console.WriteLine($"INIT CALLED quizId={quizId}, userId={userId}");
+
+            var result = await _gameService.InitialGame(quizId, userId);
             return Ok(result);
         }
     }
