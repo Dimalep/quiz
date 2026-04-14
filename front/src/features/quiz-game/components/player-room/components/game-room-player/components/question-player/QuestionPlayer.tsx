@@ -33,26 +33,4 @@ export default function QuestionPlayer() {
         </div>
       </div>
     );
-
-  // Deleted
-  // return (
-  //   <div className={styles.main}>
-  //     {!isEnd && (
-  //       <div className={styles.question}>
-  //         <span>Вопрос:</span>
-  //         <h2>{curQuestion.text}</h2>
-  //       </div>
-  //     )}
-  //     {isEnd ? (
-  //       <div className={styles.end}>
-  //         <h3>Конец</h3>
-  //         <h4>Нажмите заврешить, чтобы посмотреть результаты</h4>
-  //       </div>
-  //     ) : curQuestion.type === "buttons" ? (
-  //       <ButtonsAnswer answers={curQuestion.answers} />
-  //     ) : (
-  //       <CheckboxAnswer answers={curQuestion.answers} />
-  //     )}
-  //   </div>
-  // );
 }

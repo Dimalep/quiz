@@ -23,6 +23,7 @@ public class DatabaseContext : DbContext
                 
                 qr.Property(x => x.QuizId);
                 qr.Property(x => x.QuantityCorrectAnswers);
+                qr.Property(x => x.IsFinished);
 
                 qr.OwnsMany(q => q.Questions, question =>
                 {

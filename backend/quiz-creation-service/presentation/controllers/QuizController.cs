@@ -42,25 +42,11 @@
                 var result = await quizService.GetQuizById(quizId);
                 return Ok(result);
             }
-            
-            [HttpGet("with-shuffled-questions/{quizId}")]
-            public async Task<IActionResult> GetQuizByIdWithShuffledQuestions([FromRoute] int quizId)
-            {
-                var result = await quizService.GetQuizByIdWithShuffledQuestions(quizId);
-                return Ok(result);
-            }
 
-            [HttpGet("get-short/{quizId}")]
-            public async Task<IActionResult> GetShortQuizById([FromRoute] int quizId)
+            [HttpGet("get-info-about-quiz/{quizId}")]
+            public async Task<IActionResult> GetInfoAboudQuizByQuizId([FromRoute] int quizId)
             {
-                var result = await quizService.GetShortQuizById(quizId);
-                return Ok(result);
-            }
-            
-            [HttpGet("get-light/{quizId}")]
-            public async Task<IActionResult> GetLightQuizById([FromRoute] int quizId)
-            {
-                var result = await quizService.GetLightQuizById(quizId);
+                var result = await quizService.GetInfoAboutQuizByQuizId(quizId);
                 return Ok(result);
             }
         }

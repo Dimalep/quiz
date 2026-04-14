@@ -1,0 +1,187 @@
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    padding:  10px 0px 0px 0px;
+
+    border: none;
+    border-radius: 7px;
+}
+
+.search_block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+
+  height: 42px;
+
+  background: linear-gradient(
+    145deg,
+    #0b1f17,
+    #0f2e22
+  );
+
+  border: 1px solid rgba(0, 255, 170, 0.15);
+
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 170, 0.05),
+    0 0 12px rgba(0, 255, 170, 0.08);
+
+  transition: all 0.25s ease;
+
+  cursor: pointer;
+}
+
+/* hover эффект как в betting UI */
+.search_block:hover {
+  border: 1px solid rgba(0, 255, 170, 0.35);
+
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 170, 0.1),
+    0 0 18px rgba(0, 255, 170, 0.25);
+
+  transform: translateY(-1px);
+}
+
+/* иконка */
+.search_block svg {
+  color: #00ff9d;
+  filter: drop-shadow(0 0 4px rgba(0, 255, 157, 0.6));
+}
+
+/* input стиль */
+.search_block input {
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: #d7fff2;
+
+  font-size: 14px;
+
+  width: 160px;
+}
+
+/* placeholder */
+.search_block input::placeholder {
+  color: rgba(215, 255, 242, 0.4);
+}
+
+.progress_block {
+    position: relative; 
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0px 12px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        145deg,
+        #0b1f17,
+        #0f2e22
+    );
+
+    border: 1px solid rgba(0, 255, 170, 0.15);
+
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 170, 0.05),
+        0 0 12px rgba(0, 255, 170, 0.08);
+
+    transition: all 0.25s ease;
+
+    cursor: pointer;
+}
+
+/* hover как в betting UI */
+.progress_block:hover {
+  border: 1px solid rgba(0, 255, 170, 0.35);
+
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 170, 0.1),
+    0 0 18px rgba(0, 255, 170, 0.25);
+
+  transform: translateY(-1px);
+}
+
+/* header (иконка зона) */
+.progress_block .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 6px;
+  border-radius: 8px;
+
+  transition: 0.2s ease;
+}
+
+.header{
+    color: whitesmoke;
+}
+
+/* hover на иконку */
+.progress_block .header:hover {
+  background: rgba(0, 255, 157, 0.08);
+}
+
+/* SVG стиль */
+.progress_block svg {
+  color: #00ff9d;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 157, 0.5));
+}
+
+.dropdown_progress {
+  position: absolute;
+  top: calc(100% + 8px); /* под блоком */
+  left: 0;
+
+  min-width: 180px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(145deg, #0b1f17, #0f2e22);
+
+  border: 1px solid rgba(0, 255, 170, 0.15);
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 170, 0.05),
+    0 0 18px rgba(0, 255, 170, 0.15);
+
+  overflow: hidden;
+
+  z-index: 100;
+}
+
+
+.dropdown_progress button {
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+
+  color: #d7fff2;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.dropdown_progress button:hover {
+  background: rgba(0, 255, 157, 0.08);
+}

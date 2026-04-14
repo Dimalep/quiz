@@ -14,6 +14,7 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
   const [currentProgress, setCurrentProgress] = useState<PlayerProgress>();
   const [curQuestion, setCurQuestion] = useState<Question>();
 
+
   useEffect(() => {
     if(!currentGame) return;
     localStorage.setItem("currentGame", JSON.stringify(currentGame));

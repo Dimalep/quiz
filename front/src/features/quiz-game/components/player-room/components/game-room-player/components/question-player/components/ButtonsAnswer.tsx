@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import type { AnswerResult } from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
+import { useState } from "react";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./ButtonsAnswer.module.css";
@@ -9,24 +8,9 @@ interface Props {
 }
 
 export default function ButtonsAnswer({ answers }: Props) {
-  const { actualProgress, curQuestion, toAnswer } = useQuizGamePlayerContext();
-
-  const actual = actualProgress.questions.find(
-    (el) => el.id === curQuestion?.id,
-  );
+  const { toAnswer } = useQuizGamePlayerContext();
 
   const [selectedAnswer, setSelectedAnswer] = useState<Answer | undefined>();
-
-  useEffect(() => {
-    if (!curQuestion) {
-      console.log("Current questions is undefined");
-      return;
-    }
-
-    setSelectedAnswer(
-      curQuestion?.answers.find((q) => q.id === actual?.answers[0].id),
-    );
-  }, [curQuestion]);
 
   const toAnswerHandler = () => {
     if (!selectedAnswer) {
@@ -34,15 +18,6 @@ export default function ButtonsAnswer({ answers }: Props) {
     }
 
     toAnswer([selectedAnswer.id]);
-
-    // const answerResult: AnswerResult = {
-    //   id: selectedAnswer.id,
-    //   answerIndex: selectedAnswer.index,
-    //   answerText: selectedAnswer.text,
-    //   isCorrect: selectedAnswer.isCorrect,
-    // };
-
-    // giveAnswer([answerResult]);
   };
 
   return (

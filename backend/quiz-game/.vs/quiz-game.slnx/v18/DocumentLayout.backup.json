@@ -106,8 +106,7 @@
               "RelativeToolTip": "services\\services\\PlayerService.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T11:40:54.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T11:40:54.249Z"
             },
             {
               "$type": "Document",
@@ -119,8 +118,7 @@
               "RelativeToolTip": "domains\\domains\\Player.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-21T07:08:02.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-21T07:08:02.5Z"
             },
             {
               "$type": "Document",
@@ -130,7 +128,7 @@
               "RelativeDocumentMoniker": "services\\services\\QuizSessionService.cs",
               "ToolTip": "D:\\quiz\\backend\\quiz-game\\services\\services\\QuizSessionService.cs",
               "RelativeToolTip": "services\\services\\QuizSessionService.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCMAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-21T05:33:37.144Z",
               "EditorCaption": ""

@@ -105,6 +105,8 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
     public async Task<ToAnswerProgressResponse> ToAnswer(ToAnswerProgressRequest toAnswerProgressRequest)
     {
+        Question? nextQuestion = null;
+
         // Get quiz from cache
         var quiz = await quizCacheService.GetOrLoad(toAnswerProgressRequest.QuizId);
         if (quiz == null)
@@ -146,6 +148,9 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
 
         var questionResult = new QuestionResult
         {
+            Index = progress.QuizResult.Questions.Any()
+                ? progress.QuizResult.Questions.Max(q => q.Index) + 1
+                : 1,
             Answers = answers,
             Complexity = question.Complexity,
             QuestionId = question.Id,
@@ -160,6 +165,30 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         if (existsQuestionResult != null)
         {
             existsQuestionResult.Answers = answers;
+
+            // count question where all answers correct 
+            progress.QuizResult.QuantityCorrectAnswers = progress.QuizResult.Questions
+                .Count(q => q.Answers.All(a => a.IsCorrect));
+
+            await _dbContext.SaveChangesAsync();
+
+             var nextAnsweredQuizResult = progress.QuizResult.Questions
+                .FirstOrDefault(q => q.Index == existsQuestionResult.Index + 1);
+
+            if (nextAnsweredQuizResult != null)
+            {
+                nextQuestion = quiz.Questions
+                    .FirstOrDefault(q => q.Id == nextAnsweredQuizResult.QuestionId);
+
+                if(nextQuestion != null)
+                {
+                    return new ToAnswerProgressResponse
+                    {
+                        Question = nextQuestion,
+                        Progress = progress,
+                    };
+                }
+            } 
         }
         else
         {
@@ -173,48 +202,119 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
         progress.QuizResult.QuantityCorrectAnswers = quantityCorrectAnswers;
         
         await _dbContext.SaveChangesAsync();
-        
-        // forming next question 
-        var isCorrect = playerAnswers.All(a => a.IsCorrect);
 
+        // forming next question
+        // not forming next question if quiz for player is finished
+        if (progress.QuizResult.IsFinished)
+        {
+            return new ToAnswerProgressResponse
+            {
+                Question = null,
+                Progress = progress
+            }; 
+        }
+
+        // current question is correct?
+        var isCorrectCurrentQuestion = playerAnswers.All(a => a.IsCorrect);
+
+        // find all remained questions
+        // my answered questions
         var answeredIds = progress.QuizResult.Questions
             .Select(q => q.QuestionId)
             .ToHashSet();
 
+        // all remained questions
         var remainedQuestions = quiz.Questions
             .Where(q => !answeredIds.Contains(q.Id))
             .ToList();
-        
+
+
         if (!remainedQuestions.Any())
         {
+
+            progress.QuizResult.IsFinished = true;
+            await _dbContext.SaveChangesAsync();
+
             return new ToAnswerProgressResponse
             {
                 Question = null,
                 Progress = progress
             };
         }
-        
-        // Complexity logic
+
         var currentComplexity = question.Complexity;
 
-        var targetComplexity = isCorrect
-            ? currentComplexity + 1
-            : currentComplexity - 1;
+        if (isCorrectCurrentQuestion)
+        {
+            // вверх
+            nextQuestion = remainedQuestions
+                .Where(q => q.Complexity > currentComplexity)
+                .OrderBy(q => q.Complexity)
+                .FirstOrDefault();
 
-        const int min = 1;
-        const int max = 3;
+            if (nextQuestion == null)
+            {
+                nextQuestion = remainedQuestions
+                    .Where(q => q.Complexity == currentComplexity)
+                    .OrderBy(q => q.Complexity)
+                    .FirstOrDefault();
 
-        targetComplexity = Math.Clamp(targetComplexity, min, max);
+                if (nextQuestion == null) 
+                { 
+                    progress.QuizResult.IsFinished = true;
+                    await _dbContext.SaveChangesAsync();
+                }
 
-        var nextQuestion = remainedQuestions
-            .OrderBy(q => Math.Abs(q.Complexity - targetComplexity))
-            .FirstOrDefault();
-        
-        // End
+                return new ToAnswerProgressResponse
+                {
+                    Question = nextQuestion,
+                    Progress = progress
+                };
+            }
+        }
+        else
+        {
+            // вниз
+            nextQuestion = remainedQuestions
+                .Where(q => q.Complexity < currentComplexity)
+                .OrderByDescending(q => q.Complexity)
+                .FirstOrDefault();
+
+            // если вниз нет → равный
+            if (nextQuestion == null)
+            {
+                nextQuestion = remainedQuestions
+                    .Where(q => q.Complexity == currentComplexity)
+                    .FirstOrDefault();
+            }
+
+            // если равного нет → вверх
+            if (nextQuestion == null)
+            {
+                nextQuestion = remainedQuestions
+                    .Where(q => q.Complexity > currentComplexity)
+                    .OrderBy(q => q.Complexity)
+                    .FirstOrDefault();
+            }
+
+            // если вообще ничего нет
+            if (nextQuestion == null)
+            {
+                progress.QuizResult.IsFinished = true;
+                await _dbContext.SaveChangesAsync();
+
+                return new ToAnswerProgressResponse
+                {
+                    Question = null,
+                    Progress = progress
+                };
+            }
+        }
+
         return new ToAnswerProgressResponse
         {
             Question = nextQuestion,
-            Progress = progress
+            Progress = progress,
         };
     }
     

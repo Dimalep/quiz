@@ -22,7 +22,7 @@ namespace domains.domains
         public int GameId { get; set; }
         
         [ForeignKey("GameId")]
-        public Game Game { get; set; }
+        public Game? Game { get; set; }
         
         [Column("current_question_index")]
         public int CurrentQuestionIndex { get; set; } = 0;
@@ -60,14 +60,20 @@ namespace domains.domains
         [JsonPropertyName("quantityCorrectAnswers")]
         public int QuantityCorrectAnswers { get; set; }
 
+        [JsonPropertyName("isFinished")]
+        public bool IsFinished { get; set; }
+
         [JsonPropertyName("questions")]
         public List<QuestionResult> Questions { get; set; } = new();
     }
     
     public class QuestionResult
     {
+        [JsonPropertyName("Index")]
+        public int Index { get; set; }
+
         [JsonPropertyName("questionId")]
-        public string QuestionId { get; set; }
+        public string QuestionId { get; set; } = null!;
         
         [JsonPropertyName("complexity")]
         public int Complexity { get; set; }
@@ -85,7 +91,7 @@ namespace domains.domains
     public class AnswerResult
     {
         [JsonPropertyName("answerId")]
-        public string AnswerId { get; set; }
+        public string AnswerId { get; set; } = null!;
         
         [JsonPropertyName("answerIndex")]
         public int AnswerIndex { get; set; }

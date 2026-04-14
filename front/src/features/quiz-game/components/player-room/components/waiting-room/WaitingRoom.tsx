@@ -12,12 +12,11 @@ export default function WaitingRoom() {
     setIsOpen((prev) => !prev);
   };
 
-  const { currentGame, quiz, startGame, currentPlayer } =
-    useQuizGamePlayerContext();
+  const { currentGame, infoAboutQuiz, startGame } = useQuizGamePlayerContext();
 
   const startGameHandler = async () => {
-    // if (currentGame?.status !== 2) alert("Игра еще не запущена админом");
-    // else startGame();
+    if (currentGame?.status !== 2) alert("Игра еще не запущена админом");
+    else startGame();
     startGame();
   };
 
@@ -30,9 +29,9 @@ export default function WaitingRoom() {
 
       <div className={styles.description}>
         <h3>Описание</h3>
-        <span>Название квиза: {quiz?.title}</span>
-        <span>Описание: {quiz?.description}</span>
-        <span>Количество вопросов: {quiz?.quantityQuestions}</span>
+        <span>Название квиза: {infoAboutQuiz?.title}</span>
+        <span>Описание: {infoAboutQuiz?.description}</span>
+        <span>Количество вопросов: {infoAboutQuiz?.quantityQuestions}</span>
         <span>status: {currentGame?.status}</span>
       </div>
 

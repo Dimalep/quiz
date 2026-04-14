@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using domains.domains;
+﻿using domains.domains;
 using Microsoft.AspNetCore.SignalR;
 using services;
 using services.Cache;
@@ -26,7 +25,7 @@ namespace presentation.hubs
     {
         private readonly IGameService _gameService;
         private readonly IProgressService _progressService;
-        private readonly IPlayerService playerService;
+        private readonly IPlayerService _playerService;
         private readonly Mapper _mapper;
         private readonly QuizCacheService _quizCacheService;
         
@@ -34,7 +33,7 @@ namespace presentation.hubs
         {
             _gameService = gameService;
             _progressService = progressService;
-            this.playerService = playerService;
+            _playerService = playerService;
             _mapper = mapper;
             _quizCacheService = quizCacheService;
         }
@@ -46,7 +45,7 @@ namespace presentation.hubs
         {
             var session = GetOrCreateSession(sessionKey);
 
-            var changedPlayer = await playerService.Update(playerDto);
+            var changedPlayer = await _playerService.Update(playerDto);
 
             lock (session.SyncRoot)
             {
@@ -79,8 +78,6 @@ namespace presentation.hubs
             await Clients.Caller.SendAsync("SetQuestion", question);
         }
         
-        #region new
-
         public async Task ToAnswer(ToAnswerProgressRequest toAnswerProgressRequest)
         {
             var toAnswerResponse =  await _progressService.ToAnswer(toAnswerProgressRequest);
@@ -101,22 +98,20 @@ namespace presentation.hubs
             await SendProgressToAdmin(session);
         }
         
-        public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
-        {
-            var session = GetOrCreateSession(sessionKey);
+        //public async Task GiveAnswer(string sessionKey, QuestionResult questionResult, int playerId)
+        //{
+        //    var session = GetOrCreateSession(sessionKey);
 
-            var progress = await _progressService.AddAnswer(sessionKey, questionResult, playerId);
+        //    var progress = await _progressService.AddAnswer(sessionKey, questionResult, playerId);
             
-            lock (session.SyncRoot)
-            {
-                session.Progresses[playerId] = progress;
-            }
+        //    lock (session.SyncRoot)
+        //    {
+        //        session.Progresses[playerId] = progress;
+        //    }
             
-            await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
-            await SendProgressToAdmin(session);
-        }
-
-        #endregion
+        //    await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", progress);
+        //    await SendProgressToAdmin(session);
+        //}
         
         public async Task CloseForConnect(string sessionKey)
         {
@@ -251,14 +246,6 @@ namespace presentation.hubs
         {
             var session = GetOrCreateSession(sessionKey);
             
-            // Deleted
-            // var progress = await _progressService.Start(playerId, sessionKey);
-            //
-            // lock (session.SyncRoot)
-            // {
-            //     session.Progresses[playerId] = progress;
-            // }
- 
             var progress = await _progressService.PlayerStarted(playerId, sessionKey);
         
             if (progress.Progress == null)
@@ -291,16 +278,7 @@ namespace presentation.hubs
             lock(session.SyncRoot)
             {
                 session.Progresses[playerId] = progress;
-            }
-            
-            // ProgressForPlayer prgoressForPlayer = new ProgressForPlayer
-            // {
-            //     ProgressId = progress.Id,
-            //     CurrentQuestionIndex = progress.CurrentQuestionIndex,
-            //     QuantityCompletedQuestions = progress.QuizResult.Questions.Count(),
-            //     QuantityQuestions = progress.QuantityQuestions,
-            //     Status = progress.Status,
-            // };
+            } 
 
             var playerProgress = _mapper.ToPlayerProgress(progress);
             

@@ -4,34 +4,32 @@ import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlaye
 import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
 import useQuizHubPlayer from "../../../core/hooks/quiz-game-microservice/useQuizHubPlayer";
 import useQuizApi, {
-  type LightQuiz,
+  type InfoAboutQuiz,
 } from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
 import type {
   AnswerResult,
   PlayerProgress,
 } from "../../../core/hooks/quiz-game-microservice/useProgress";
-import type {
-  Question,
-  Quiz,
-} from "../../quiz-creation/manual-create/create-context/reducer";
+import type { Question } from "../../quiz-creation/manual-create/create-context/reducer";
 import usePlayer from "../../../core/hooks/quiz-game-microservice/usePlayer";
 import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
 
 interface QuizGamePlayerContextType {
+  isEdit: boolean;
+  infoAboutQuiz: InfoAboutQuiz | undefined;
   curQuestion: Question | undefined;
-  lightQuiz: LightQuiz | undefined;
   toAnswer: (answerId: string[]) => void;
-  quiz: Quiz | undefined;
   sessionKey: string | undefined;
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
   currentProgress: PlayerProgress | undefined;
   currentPlayer: Player | undefined;
-  actualProgress: ActualProgress;
+  // actualProgress: ActualProgress;
   startGame: () => void;
   selectCurrentQuestion: (questionId: string) => void;
   finishGame: () => void;
   changeName: (name: string) => void;
+  setIsEdit: (value: boolean) => void;
 }
 
 const PlayerContext = createContext<QuizGamePlayerContextType | undefined>(
@@ -43,23 +41,13 @@ export default function QuizGamePlayerContext({
 }: {
   children: React.ReactNode;
 }) {
-  const [lightQuiz, setLightQuiz] = useState<LightQuiz>();
-
-  const [quiz, setQuiz] = useState<Quiz | undefined>(undefined);
+  const [isEdit, setIsEdit] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
-  const [actualProgress, setActualProgress] = useState<ActualProgress>(() => {
-    const saved = localStorage.getItem("progress");
-    if (saved) {
-      try {
-        return JSON.parse(saved) as ActualProgress;
-      } catch {
-        return { id: 0, questions: [] };
-      }
-    }
-    return { id: 0, questions: [] };
-  });
+  const [infoAboutQuiz, setInfoAboutQuiz] = useState<InfoAboutQuiz | undefined>(
+    undefined,
+  );
 
-  const { getByIdWithShuffledQuestions, getLightQuizById } = useQuizApi();
+  const { getInfoAboutQuizByQuizId } = useQuizApi();
   const { getOrCreatePlayer } = usePlayer();
   const { sessionKey } = useParams();
   const { getGameBySessionKey } = useGame();
@@ -111,29 +99,22 @@ export default function QuizGamePlayerContext({
       return;
     }
 
-    let cancelled = false;
-
+    // Get info aboud quiz
     (async () => {
-      const quiz = await getByIdWithShuffledQuestions(currentGame.quizId);
-      if (!cancelled && quiz?.questions) {
-        const questions: Question[] = quiz.questions.map((q, index) => ({
-          ...q,
-          index: index,
-        }));
-
-        setQuiz({
-          ...quiz,
-          questions,
-        });
-      }
+      const infoAboutQuizFromBack = await getInfoAboutQuizByQuizId(
+        currentGame.quizId,
+      );
+      setInfoAboutQuiz(infoAboutQuizFromBack);
     })();
 
-    return () => {
-      cancelled = true;
-    };
+    return () => {};
   }, [currentGame]);
 
+  // Select past question
   const selectCurrentQuestion = async (questionId: string) => {
+    // dont delete me
+    setIsEdit(true);
+
     await connection?.invoke(
       "SelectCurrentQuestion",
       questionId,
@@ -198,20 +179,16 @@ export default function QuizGamePlayerContext({
   return (
     <PlayerContext.Provider
       value={{
+        isEdit,
+        setIsEdit,
+        infoAboutQuiz,
         curQuestion,
         toAnswer,
-        lightQuiz,
-        quiz,
         sessionKey,
         players,
         currentGame,
-        // isEnd,
-        actualProgress,
-        // setIsEnd,
         startGame,
         selectCurrentQuestion,
-        // giveAnswer,
-        // currentQuestion,
         currentProgress,
         finishGame,
         currentPlayer,

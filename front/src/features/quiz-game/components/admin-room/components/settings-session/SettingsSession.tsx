@@ -2,7 +2,8 @@ import { useQuizGameAdminContext } from "../../../../quiz-game-context/QuizGameA
 import styles from "./SettingsSession.module.css";
 
 export default function SettingsSession() {
-  const { currentGame, completeGame, startGame } = useQuizGameAdminContext();
+  const { currentGame, completeGame, startGame, progresses } =
+    useQuizGameAdminContext();
 
   if (currentGame?.status === 0)
     return (
@@ -29,6 +30,11 @@ export default function SettingsSession() {
   if (currentGame?.status === 2)
     return (
       <div className={styles.main}>
+        <div className={styles.info}>
+          <label>В комнате ожидания: {}</label>
+          <label>в игре: {}</label>
+          <label>Завершено: {}</label>
+        </div>
         <button onClick={completeGame}>Завершить квиз</button>
       </div>
     );

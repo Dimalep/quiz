@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-using domains;
+﻿using domains;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
 using services.DTOs;
 using services.interfaces;
+using System.Diagnostics;
 
 namespace services.services
 {
@@ -96,52 +95,69 @@ namespace services.services
             return quiz;
         }
         
-        public async Task<ShortQuiz> GetShortQuizById(int quizId)
-        {
-            var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
-            if (quiz == null)
-            {
-                throw new ArgumentException("Quiz not found");
-            }
+        // Deleted
+        //public async Task<ShortQuiz> GetShortQuizById(int quizId)
+        //{
+        //    var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
+        //    if (quiz == null)
+        //    {
+        //        throw new ArgumentException("Quiz not found");
+        //    }
 
-            var shortQuiz = new ShortQuiz
-            {
-                Id = quiz.Id,
-                Title = quiz.Title,
-                Description = quiz.Description,
-                QuantityQuestions = quiz.QuantityQuestions
-            };
+        //    var shortQuiz = new ShortQuiz
+        //    {
+        //        Id = quiz.Id,
+        //        Title = quiz.Title,
+        //        Description = quiz.Description,
+        //        QuantityQuestions = quiz.QuantityQuestions
+        //    };
             
-            return shortQuiz;
-        }
+        //    return shortQuiz;
+        //}
 
         //Get by id light version of quiz  
-        public async Task<LightQuiz> GetLightQuizById(int quizId)
-        {
-            var quiz = await db.Quizzes
-                .FirstOrDefaultAsync(q => q.Id == quizId);
+        //public async Task<LightQuiz> GetLightQuizById(int quizId)
+        //{
+        //    var quiz = await db.Quizzes
+        //        .FirstOrDefaultAsync(q => q.Id == quizId);
 
-            if (quiz == null)
-                throw new ArgumentException("Not found quiz by id");
+        //    if (quiz == null)
+        //        throw new ArgumentException("Not found quiz by id");
 
-            var questionsIds = quiz.Questions
-                .Select(question => question.Id)
-                .ToList();
+        //    var questionsIds = quiz.Questions
+        //        .Select(question => question.Id)
+        //        .ToList();
 
-            return new LightQuiz
-            {
-                Id = quiz.Id,
-                Description = quiz.Description,
-                QuantityQuestions = quiz.QuantityQuestions,
-                QuestionsIds = questionsIds,
-            };
-        }
+        //    return new LightQuiz
+        //    {
+        //        Id = quiz.Id,
+        //        Description = quiz.Description,
+        //        QuantityQuestions = quiz.QuantityQuestions,
+        //        QuestionsIds = questionsIds,
+        //    };
+        //}
 
         public async Task<ICollection<Quiz>> GetQuizzesByUserId(int userId)
         {
             return await db.Quizzes
                 .Where(q => q.UserId == userId)
                 .ToListAsync();
+        }
+
+        // Get only info about quiz with no questions
+        public async Task<InfoAboutQuiz> GetInfoAboutQuizByQuizId(int quizId)
+        {
+            var quiz = await GetQuizById(quizId);
+            if (quiz == null)
+                throw new Exception($"Error get info about quiz. Not found quiz by id {quizId}");
+
+            return new InfoAboutQuiz
+            {
+                Id = quiz.Id,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                QuantityQuestions = quiz.QuantityQuestions
+            };
         }
     }
 }

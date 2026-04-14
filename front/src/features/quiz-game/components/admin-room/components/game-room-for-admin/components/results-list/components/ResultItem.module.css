@@ -1,5 +1,5 @@
 .main{
-    padding: 10px;
+    padding: 15px;
 
     flex: 1;
     display: flex;
@@ -11,4 +11,23 @@
 
     background-color: rgb(27, 104, 79);
     box-shadow: 0px 2px 4px rgba(0,0,0, 0.24);
+}
+
+.nickname{
+    display: flex;
+    flex-direction: column;
+}
+
+.nickname{
+    color: rgb(204, 226, 219);
+}
+
+.progress{
+    display: flex;
+    flex-direction: column;
+}
+
+.status{
+    display: flex;
+    flex-direction: column;
 }

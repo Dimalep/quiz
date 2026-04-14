@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./CheckboxAnswer.module.css";
@@ -9,22 +9,10 @@ interface Props {
 }
 
 export default function CheckboxAnswer({ answers }: Props) {
-  const { toAnswer, actualProgress, curQuestion } = useQuizGamePlayerContext();
+  const { toAnswer } = useQuizGamePlayerContext();
 
   const [inputAnswers, setInputAnswers] = useState<AnswerResult[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
-
-  const actual = actualProgress.questions.find(
-    (el) => el.id === curQuestion?.id,
-  );
-
-  useEffect(() => {
-    if (actual) {
-      setInputAnswers(actual.answers);
-    } else {
-      setInputAnswers([]);
-    }
-  }, [curQuestion, actual]);
 
   const toggleAnswer = (answer: Answer) => {
     setInputAnswers((prev) => {
@@ -51,7 +39,6 @@ export default function CheckboxAnswer({ answers }: Props) {
 
     const answerIds = inputAnswers.map((ia) => ia.id);
     toAnswer(answerIds);
-    // giveAnswer(inputAnswers);
   };
 
   if (!answers) {

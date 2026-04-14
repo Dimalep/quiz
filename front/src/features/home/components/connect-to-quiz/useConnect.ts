@@ -6,13 +6,13 @@ export default function useConnect() {
   const {getGameBySessionKey} = useGame();
 
   const connectToQuiz = async (sessionKey: string) => {
-    const data = await getGameBySessionKey(sessionKey);
+    const data = await getGameBySessionKey(sessionKey.trim());
     if (data === undefined) {
       console.log("Quiz session by session key not exists");
       return;
     }
 
-    navigate(`/quiz/game/player/${sessionKey}`);
+    navigate(`/quiz/game/player/${sessionKey.trim()}`);
   };
   
   return {connectToQuiz}

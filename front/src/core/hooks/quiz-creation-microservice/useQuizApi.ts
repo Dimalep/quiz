@@ -1,11 +1,11 @@
 import type { Quiz } from "../../../features/quiz-creation/manual-create/create-context/reducer";
 
-export type QuizDTO = {
-    id?: number;
-    title: string;
-    description: string;
-    quantityQuestions: number;
-}
+// export type QuizDTO = {
+//     id?: number;
+//     title: string;
+//     description: string;
+//     quantityQuestions: number;
+// }
 
 // export interface QuizWithQuestionsIds {
 //   id: number,
@@ -15,16 +15,37 @@ export type QuizDTO = {
 //   questionsIds: number[];
 // }
 
-export interface LightQuiz {
-  id: number,
+// export interface LightQuiz {
+//   id: number,
+//   title: string;
+//   description: string;
+//   quantityQuestions: number;
+//   questionsIds: string[];
+// }
+
+export interface InfoAboutQuiz{
+  id: number;
   title: string;
   description: string;
   quantityQuestions: number;
-  questionsIds: string[];
 }
 
-
 export default function useQuizApi() {
+
+  const getInfoAboutQuizByQuizId = async (quizId: number) : Promise<InfoAboutQuiz| undefined> => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/get-info-about-quiz/${quizId}`, {
+      method: "GET",
+      headers: {"Content-type": "application/json"}
+    })
+
+    if(!response.ok){
+      console.log("Error get info about quiz.");
+      return;
+    }
+
+    const data: InfoAboutQuiz = await response.json();
+    return data;
+  }
 
   const deleteQuizById = async (quizId: number) => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
@@ -55,21 +76,21 @@ export default function useQuizApi() {
     return data;
   };
 
-  const getByIdWithShuffledQuestions = async (quizId: number) => {
-    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/with-shuffled-questions/${quizId}`, {
-      method: "GET",
-      headers: {"Content-type": "application/json"}
-    });
+  // const getByIdWithShuffledQuestions = async (quizId: number) => {
+  //   const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/with-shuffled-questions/${quizId}`, {
+  //     method: "GET",
+  //     headers: {"Content-type": "application/json"}
+  //   });
 
-    if(!response.ok){
-      console.log("Error get quiz by id");
-      return undefined;
-    }
+  //   if(!response.ok){
+  //     console.log("Error get quiz by id");
+  //     return undefined;
+  //   }
 
-    const data: Quiz = await response.json();
+  //   const data: Quiz = await response.json();
 
-    return data;
-  }
+  //   return data;
+  // }
 
   const getQuizById = async (quizId: number) : Promise<Quiz | undefined> => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/${quizId}`, {
@@ -88,37 +109,37 @@ export default function useQuizApi() {
   }
 
   //#region ?
-  const getLightQuizById = async (quizId: number) : Promise<LightQuiz | undefined> => {
-    const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/get-light/${quizId}`, {
-      method: "GET",
-      headers: {"Content-Type": "application/json"}
-    });
+  // const getLightQuizById = async (quizId: number) : Promise<LightQuiz | undefined> => {
+  //   const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/get-light/${quizId}`, {
+  //     method: "GET",
+  //     headers: {"Content-Type": "application/json"}
+  //   });
 
-    if(!response.ok){
-      console.log("Error get light quiz by id");
-      return undefined;
-    }
+  //   if(!response.ok){
+  //     console.log("Error get light quiz by id");
+  //     return undefined;
+  //   }
 
-    const data: LightQuiz = await response.json();
+  //   const data: LightQuiz = await response.json();
 
-    return data;
-  }
+  //   return data;
+  // }
 
-  const getShortQuizById = async (quizId: number) : Promise<QuizDTO | undefined>=> {
-    const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
-      method: "GET",
-      headers: {"Content-type": "application/json"},
-    });
+  // const getShortQuizById = async (quizId: number) : Promise<QuizDTO | undefined>=> {
+  //   const response = await fetch(`http://localhost:5051/api/quizzes/${quizId}`, {
+  //     method: "GET",
+  //     headers: {"Content-type": "application/json"},
+  //   });
   
-    if(!response.ok){
-      console.log("Error update quiz");
-      return;
-    }
+  //   if(!response.ok){
+  //     console.log("Error update quiz");
+  //     return;
+  //   }
     
-    const data: QuizDTO = await response.json();
+  //   const data: QuizDTO = await response.json();
 
-    return data;
-  };
+  //   return data;
+  // };
   //#endregion
 
 
@@ -153,5 +174,6 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getShortQuizById, getQuizById, getQuizzesByUserId, deleteQuizById, getByIdWithShuffledQuestions, getLightQuizById}
+  return {createNewQuiz, updateQuiz, getQuizById, getQuizzesByUserId, deleteQuizById, getInfoAboutQuizByQuizId}
 }
+

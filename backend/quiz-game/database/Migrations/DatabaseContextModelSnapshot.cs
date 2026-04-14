@@ -179,6 +179,10 @@ namespace database.Migrations
                             b1.Property<int>("ProgressId")
                                 .HasColumnType("integer");
 
+                            b1.Property<bool>("IsFinished")
+                                .HasColumnType("boolean")
+                                .HasAnnotation("Relational:JsonPropertyName", "isFinished");
+
                             b1.Property<int>("QuantityCorrectAnswers")
                                 .HasColumnType("integer")
                                 .HasAnnotation("Relational:JsonPropertyName", "quantityCorrectAnswers");
@@ -209,6 +213,15 @@ namespace database.Migrations
                                         .HasColumnType("integer")
                                         .HasAnnotation("Relational:JsonPropertyName", "complexity");
 
+                                    b2.Property<int>("Index")
+                                        .HasColumnType("integer")
+                                        .HasAnnotation("Relational:JsonPropertyName", "Index");
+
+                                    b2.Property<string>("QuestionId")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasAnnotation("Relational:JsonPropertyName", "questionId");
+
                                     b2.Property<int>("QuestionIndex")
                                         .HasColumnType("integer")
                                         .HasAnnotation("Relational:JsonPropertyName", "questionIndex");
@@ -238,6 +251,11 @@ namespace database.Migrations
                                             b3.Property<int>("__synthesizedOrdinal")
                                                 .ValueGeneratedOnAdd()
                                                 .HasColumnType("integer");
+
+                                            b3.Property<string>("AnswerId")
+                                                .IsRequired()
+                                                .HasColumnType("text")
+                                                .HasAnnotation("Relational:JsonPropertyName", "answerId");
 
                                             b3.Property<int>("AnswerIndex")
                                                 .HasColumnType("integer")
