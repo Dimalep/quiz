@@ -1,20 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlayer";
-import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
-import useQuizHubPlayer from "../../../core/hooks/quiz-game-microservice/useQuizHubPlayer";
+import type { Player } from "../../../core/api/quiz-game-service/usePlayer";
+import type { GameDTO } from "../../../core/api/quiz-game-service/useGame";
+import useQuizHubPlayer from "../../../core/api/quiz-game-service/useQuizHubPlayer";
 import useQuizApi, {
   type InfoAboutQuiz,
-} from "../../../core/hooks/quiz-creation-microservice/useQuizApi";
+} from "../../../core/api/quiz-creation-service/useQuizApi";
 import type {
   AnswerResult,
   PlayerProgress,
-} from "../../../core/hooks/quiz-game-microservice/useProgress";
+} from "../../../core/api/quiz-game-service/useProgress";
 import type { Question } from "../../quiz-creation/manual-create/create-context/reducer";
-import usePlayer from "../../../core/hooks/quiz-game-microservice/usePlayer";
-import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
+import usePlayer from "../../../core/api/quiz-game-service/usePlayer";
+import useGame from "../../../core/api/quiz-game-service/useGame";
 
 interface QuizGamePlayerContextType {
+  toAnsweredLoading: boolean;
   isEdit: boolean;
   infoAboutQuiz: InfoAboutQuiz | undefined;
   curQuestion: Question | undefined;
@@ -41,6 +42,7 @@ export default function QuizGamePlayerContext({
 }: {
   children: React.ReactNode;
 }) {
+  // any stats
   const [isEdit, setIsEdit] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
   const [infoAboutQuiz, setInfoAboutQuiz] = useState<InfoAboutQuiz | undefined>(
@@ -60,6 +62,8 @@ export default function QuizGamePlayerContext({
     setCurrentGame,
     currentProgress,
     curQuestion,
+    setToAnsweredLoading,
+    toAnsweredLoading,
   } = useQuizHubPlayer(sessionKey, currentPlayer);
 
   useEffect(() => {
@@ -162,8 +166,11 @@ export default function QuizGamePlayerContext({
       return;
     }
 
+    // set loading
+    setToAnsweredLoading(true);
+
     const toAnswerRequest = {
-      sessionKey: currentGame.sessionKey,
+      sessionKey: currentGame.key,
       questionId: curQuestion.id,
       answersIds: answerId,
       quizId: currentGame.quizId,
@@ -179,6 +186,7 @@ export default function QuizGamePlayerContext({
   return (
     <PlayerContext.Provider
       value={{
+        toAnsweredLoading,
         isEdit,
         setIsEdit,
         infoAboutQuiz,

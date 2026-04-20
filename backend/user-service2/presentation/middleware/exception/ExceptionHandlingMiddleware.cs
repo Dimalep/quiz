@@ -31,8 +31,9 @@ namespace presentation.middleware.exception
             {
                 await WriteError(context, 401, ex.Code, ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message); 
                 await WriteError(context, 500, "internal_error", "Internal server error");
             }
         }

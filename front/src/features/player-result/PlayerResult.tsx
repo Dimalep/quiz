@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useProgress, {
   type Progress,
-} from "../../core/hooks/quiz-game-microservice/useProgress";
+} from "../../core/api/quiz-game-service/useProgress";
 import styles from "./PlayerResult.module.css";
 
 export default function PlayerResult() {

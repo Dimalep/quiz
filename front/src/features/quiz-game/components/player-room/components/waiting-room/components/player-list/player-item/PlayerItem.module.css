@@ -1,9 +1,33 @@
 .main{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     background-color: rgb(17, 80, 60);
     
-    padding: 10px 20px;
+    padding: 15px 20px;
     border: none;
     border-radius: 5px;
+
+    transition: filter 0.3s ease;
+}
+
+.main:hover{
+    filter: brightness(1.1);
+}
+
+.right label{
+    color: rgb(216, 216, 216);
+
+    font-family: Rubik;
+    font-size: 16px;
+}
+
+.right{
+    display: flex;
+    gap: 15px;
+}
+
+.me{
+    background-color: rgb(17, 80, 33);
 }

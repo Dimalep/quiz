@@ -39,6 +39,11 @@ namespace database.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("create_at");
 
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("key");
+
                     b.Property<int>("QuizId")
                         .HasColumnType("integer")
                         .HasColumnName("quiz_id");
@@ -55,14 +60,9 @@ namespace database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
-                    b.Property<string>("sessionKey")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("key");
-
                     b.HasKey("Id");
 
-                    b.ToTable("games");
+                    b.ToTable("games", (string)null);
                 });
 
             modelBuilder.Entity("domains.domains.Player", b =>
@@ -79,7 +79,6 @@ namespace database.Migrations
                         .HasColumnName("game_id");
 
                     b.Property<string>("Nickname")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("nickname");
 
@@ -96,7 +95,7 @@ namespace database.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("players");
+                    b.ToTable("players", (string)null);
                 });
 
             modelBuilder.Entity("domains.domains.Progress", b =>
@@ -146,13 +145,13 @@ namespace database.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("progresses");
+                    b.ToTable("progresses", (string)null);
                 });
 
             modelBuilder.Entity("domains.domains.Player", b =>
                 {
                     b.HasOne("domains.domains.Game", "Game")
-                        .WithMany()
+                        .WithMany("Players")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -163,13 +162,13 @@ namespace database.Migrations
             modelBuilder.Entity("domains.domains.Progress", b =>
                 {
                     b.HasOne("domains.domains.Game", "Game")
-                        .WithMany()
+                        .WithMany("Progresses")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("domains.domains.Player", "Player")
-                        .WithMany()
+                        .WithMany("Progresses")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -180,16 +179,13 @@ namespace database.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<bool>("IsFinished")
-                                .HasColumnType("boolean")
-                                .HasAnnotation("Relational:JsonPropertyName", "isFinished");
+                                .HasColumnType("boolean");
 
                             b1.Property<int>("QuantityCorrectAnswers")
-                                .HasColumnType("integer")
-                                .HasAnnotation("Relational:JsonPropertyName", "quantityCorrectAnswers");
+                                .HasColumnType("integer");
 
                             b1.Property<int>("QuizId")
-                                .HasColumnType("integer")
-                                .HasAnnotation("Relational:JsonPropertyName", "quizId");
+                                .HasColumnType("integer");
 
                             b1.HasKey("ProgressId");
 
@@ -210,32 +206,25 @@ namespace database.Migrations
                                         .HasColumnType("integer");
 
                                     b2.Property<int>("Complexity")
-                                        .HasColumnType("integer")
-                                        .HasAnnotation("Relational:JsonPropertyName", "complexity");
+                                        .HasColumnType("integer");
 
                                     b2.Property<int>("Index")
-                                        .HasColumnType("integer")
-                                        .HasAnnotation("Relational:JsonPropertyName", "Index");
+                                        .HasColumnType("integer");
 
                                     b2.Property<string>("QuestionId")
                                         .IsRequired()
-                                        .HasColumnType("text")
-                                        .HasAnnotation("Relational:JsonPropertyName", "questionId");
+                                        .HasColumnType("text");
 
                                     b2.Property<int>("QuestionIndex")
-                                        .HasColumnType("integer")
-                                        .HasAnnotation("Relational:JsonPropertyName", "questionIndex");
+                                        .HasColumnType("integer");
 
                                     b2.Property<string>("QuestionText")
                                         .IsRequired()
-                                        .HasColumnType("text")
-                                        .HasAnnotation("Relational:JsonPropertyName", "questionText");
+                                        .HasColumnType("text");
 
                                     b2.HasKey("PlayerQuizResultProgressId", "__synthesizedOrdinal");
 
                                     b2.ToTable("progresses");
-
-                                    b2.HasAnnotation("Relational:JsonPropertyName", "questions");
 
                                     b2.WithOwner()
                                         .HasForeignKey("PlayerQuizResultProgressId");
@@ -254,27 +243,21 @@ namespace database.Migrations
 
                                             b3.Property<string>("AnswerId")
                                                 .IsRequired()
-                                                .HasColumnType("text")
-                                                .HasAnnotation("Relational:JsonPropertyName", "answerId");
+                                                .HasColumnType("text");
 
                                             b3.Property<int>("AnswerIndex")
-                                                .HasColumnType("integer")
-                                                .HasAnnotation("Relational:JsonPropertyName", "answerIndex");
+                                                .HasColumnType("integer");
 
                                             b3.Property<string>("AnswerText")
                                                 .IsRequired()
-                                                .HasColumnType("text")
-                                                .HasAnnotation("Relational:JsonPropertyName", "answerText");
+                                                .HasColumnType("text");
 
                                             b3.Property<bool>("IsCorrect")
-                                                .HasColumnType("boolean")
-                                                .HasAnnotation("Relational:JsonPropertyName", "isCorrect");
+                                                .HasColumnType("boolean");
 
                                             b3.HasKey("QuestionResultPlayerQuizResultProgressId", "QuestionResult__synthesizedOrdinal", "__synthesizedOrdinal");
 
                                             b3.ToTable("progresses");
-
-                                            b3.HasAnnotation("Relational:JsonPropertyName", "answers");
 
                                             b3.WithOwner()
                                                 .HasForeignKey("QuestionResultPlayerQuizResultProgressId", "QuestionResult__synthesizedOrdinal");
@@ -292,6 +275,18 @@ namespace database.Migrations
 
                     b.Navigation("QuizResult")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("domains.domains.Game", b =>
+                {
+                    b.Navigation("Players");
+
+                    b.Navigation("Progresses");
+                });
+
+            modelBuilder.Entity("domains.domains.Player", b =>
+                {
+                    b.Navigation("Progresses");
                 });
 #pragma warning restore 612, 618
         }

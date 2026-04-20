@@ -4,9 +4,11 @@ namespace application.interfaces
 {
     public interface IAuthService
     {
-        public Task<ResponseDTO> Login(LogRequestDTO req);
-        public Task<ResponseDTO> Registration(RegRequestDTO req);
-        public Task<ResponseDTO> Refresh(string refreshToken);
+        public Task<AuthResponse> AuthByEmail(AuthByEmailResquest req);
+        public Task<AuthResponse> Login(AuthRequest req);
+        public Task<AuthResponse> Registration(AuthRequest req);
+
+        public Task<AuthResponse> Refresh(string refreshToken);
         public Task Logout(string refreshToken); 
     }
 }

@@ -1,0 +1,24 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main button{
+    background: #F59E0B;
+    color: white;
+}
+
+
+.main button:hover{
+    background: #c47f0a;
+}
+
+.confirmation button{
+    background: #10B981;
+    color: white;
+}
+
+.confirmation button:hover{
+    background: #0d9769;
+}

@@ -7,7 +7,7 @@ namespace services.DTOs
         public int Id { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime CompleteAt { get; set; }
-        public string sessionKey { get; set; } = null!;
+        public string Key { get; set; } = null!;
         public int QuizId { get; set; }
         public Status Status { get; set; }
     }
@@ -15,7 +15,7 @@ namespace services.DTOs
     public record GameResponse 
     {
         public int Id { get; set; }
-        public string SessionKey { get; set; } = null!;
+        public string Key { get; set; } = null!;
         public Status Status { get; set; }
         public int QuizId { get; set; }
         public int UserId { get; set; }

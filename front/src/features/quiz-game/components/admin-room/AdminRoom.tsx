@@ -11,42 +11,47 @@ export default function AdminRoom() {
   const [room, setRoom] = useState<"wait" | "game">("wait");
 
   useEffect(() => {
-    if (currentGame?.status === 2) {
+    if (currentGame?.status === "launched") {
       setRoom("game");
     }
   }, [currentGame]);
 
-  if (currentGame?.status === 3) openGameResults();
-  if (currentGame?.status !== 3) {
-    if (room === "wait")
-      return (
-        <div className={styles.main}>
-          {currentGame?.status === 2 && (
+  if (currentGame?.status === "completed") openGameResults();
+  if (currentGame?.status !== "completed")
+    return (
+      <div className={styles.main}>
+        <div className={styles.content}>
+          <h3>{currentGame === undefined && "Проблемы с соедениением"}</h3>
+
+          {/* Navigation */}
+          <div className={styles.navigation}>
             <button
-              className={styles.navigation_button}
-              onClick={() => setRoom("game")}
-            >
-              {"комната игры -->"}
-            </button>
-          )}
-          <SettingsSession />
-          <WaitingRoom />
-        </div>
-      );
-    if (room === "game")
-      return (
-        <div className={styles.main}>
-          {currentGame?.status === 2 && (
-            <button
-              className={styles.navigation_button}
+              className={`${styles.go_to_info_btn} ${
+                room === "wait"
+                  ? styles.active_navigation_btn
+                  : styles.inactive_navigation_btn
+              }`}
               onClick={() => setRoom("wait")}
             >
-              {"<-- комнта ожидания"}
+              Информация
             </button>
-          )}
+
+            <button
+              className={`${styles.go_to_results_btn} ${
+                room === "game"
+                  ? styles.active_navigation_btn
+                  : styles.inactive_navigation_btn
+              }`}
+              onClick={() => setRoom("game")}
+            >
+              Результаты
+            </button>
+          </div>
+
           <SettingsSession />
-          <GameRoom />
+
+          {room === "game" ? <GameRoom /> : <WaitingRoom />}
         </div>
-      );
-  }
+      </div>
+    );
 }

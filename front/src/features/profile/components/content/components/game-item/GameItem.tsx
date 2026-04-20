@@ -1,10 +1,13 @@
-import type { GameDTO } from "../../../../../../core/hooks/quiz-game-microservice/useGame";
-import useConvertGameStatus from "../../../../../../core/hooks/useConvertGameStatus";
+import type {
+  Game,
+  GameDTO,
+} from "../../../../../../core/api/quiz-game-service/useGame";
+import useConvertGameStatus from "../../../../../../core/api/useConvertGameStatus";
 import { useProfileContext } from "../../../../ProfileProvider";
 import styles from "./GameItem.module.css";
 
 interface Props {
-  game: GameDTO;
+  game: Game;
 }
 
 export default function GameItem({ game }: Props) {
@@ -15,12 +18,24 @@ export default function GameItem({ game }: Props) {
     openGameResults(game.sessionKey);
   };
 
+  const formattedDate = new Date(game.createAt).toLocaleString("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <div className={styles.main}>
       <div className={styles.content}>
         <div className={styles.key}>
-          <span>Ключ</span>
-          {game.sessionKey}
+          <span>ID</span>
+          {game.id}
+        </div>
+        <div className={styles.key}>
+          <span>Дата создания</span>
+          {formattedDate}
         </div>
         <div className={styles.status}>
           <span>Статус</span>

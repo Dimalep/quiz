@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
-import useGame from "../../../../core/hooks/quiz-game-microservice/useGame";
+import useQuizApi from "../../../../core/api/quiz-creation-service/useQuizApi";
+import useGame from "../../../../core/api/quiz-game-service/useGame";
 import type { Quiz } from "../../manual-create/create-context/reducer";
 
 export default function useQuiz() {

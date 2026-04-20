@@ -28,7 +28,7 @@ namespace application.services
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken
             (
@@ -47,7 +47,7 @@ namespace application.services
         public ClaimsPrincipal? GetPrincipalFromToken(string jwtToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_jwtOptions.key);
+            var key = Encoding.UTF8.GetBytes(_jwtOptions.Key);
 
             try
             {

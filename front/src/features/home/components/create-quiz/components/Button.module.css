@@ -1,0 +1,18 @@
+.main{
+    max-width: 300px;
+
+    border: none;
+
+    font-size: 17px;
+    font-weight: 400;
+    font-family: Rubik;
+
+    padding: 10px 20px;
+
+    transition: background 0.3s ease;
+}
+
+.main:hover{
+    background: red;
+    color: white;
+}

@@ -14,18 +14,6 @@ export default function PlayerNavigation() {
   const openQuestionsListHandler = () => setIsOpen((prev) => !prev);
   const finishGameHanlder = () => finishGame();
   const selectQuestionHandler = (selectedQuestionId: string) => {
-    // const currentIndex = history.findIndex((q) => q.id === selectedQuestionId);
-
-    // const nextQuestionId = history[currentIndex + 1];
-    // if (nextQuestionId) {
-    //   localStorage.setItem(
-    //     "nextAnswerdQuestionId",
-    //     JSON.stringify(nextQuestionId),
-    //   );
-    // } else {
-    //   setIsEdit(false);
-    // }
-
     selectCurrentQuestion(selectedQuestionId);
   };
 

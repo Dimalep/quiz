@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using services.interfaces;
 
 namespace presentation.controllers
@@ -14,20 +15,23 @@ namespace presentation.controllers
             _gameService = gameService;
         }
 
+        [AllowAnonymous]
         [HttpGet("userid={userId}")]
         public async Task<IActionResult> GetGamesByUserId([FromRoute] int userId)
         {
             var res = await _gameService.GetGamesByUserId(userId);
             return Ok(res);
         }
-        
+
+        [AllowAnonymous]
         [HttpGet("quizid={quizId}/userid={userId}")]
         public async Task<ActionResult> GetGameByQuizIdAndUserId([FromRoute] int quizId, [FromRoute] int userId)
         {
             var result = await _gameService.GetGameByQuizIdAndUserId(quizId, userId);
             return Ok(result);
         }
-        
+
+        [AllowAnonymous]
         [HttpPost("quizid={quizId}/userid={userId}")]
         public async Task<IActionResult> AddQuizSession([FromRoute] int quizId, [FromRoute] int userId)
         {
@@ -36,6 +40,7 @@ namespace presentation.controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{sessionKey}")]
         public async Task<IActionResult> GetQuizSessionByKey([FromRoute] string sessionKey)
         {
@@ -43,13 +48,10 @@ namespace presentation.controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost("init/{quizId}/{userId}")]
-        public async Task<IActionResult> InitialGame(
-            [FromRoute] int quizId, 
-            [FromRoute] int userId)
+        public async Task<IActionResult> InitialGame([FromRoute] int quizId, [FromRoute] int userId)
         {
-            Console.WriteLine($"INIT CALLED quizId={quizId}, userId={userId}");
-
             var result = await _gameService.InitialGame(quizId, userId);
             return Ok(result);
         }

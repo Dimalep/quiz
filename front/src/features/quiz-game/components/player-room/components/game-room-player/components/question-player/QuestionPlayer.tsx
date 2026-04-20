@@ -5,7 +5,14 @@ import styles from "./QuestionPlayer.module.css";
 
 // if current question is null that quiz is over
 export default function QuestionPlayer() {
-  const { curQuestion } = useQuizGamePlayerContext();
+  const { curQuestion, toAnsweredLoading } = useQuizGamePlayerContext();
+
+  if (toAnsweredLoading)
+    return (
+      <div className={styles.main}>
+        <h3>Загрузка следующего вопроса...</h3>
+      </div>
+    );
 
   if (curQuestion)
     return (
@@ -15,13 +22,11 @@ export default function QuestionPlayer() {
           <h2>{curQuestion.text}</h2>
         </div>
 
-        <div>
-          {curQuestion.type === "buttons" ? (
-            <ButtonsAnswer answers={curQuestion.answers} />
-          ) : (
-            <CheckboxAnswer answers={curQuestion.answers} />
-          )}
-        </div>
+        {curQuestion.type === "buttons" ? (
+          <ButtonsAnswer answers={curQuestion.answers} />
+        ) : (
+          <CheckboxAnswer answers={curQuestion.answers} />
+        )}
       </div>
     );
   else

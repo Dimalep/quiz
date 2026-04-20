@@ -6,15 +6,9 @@ namespace presentation.controllers
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : Controller
+    public class UserController(IUserService userService) : Controller
     {
-        private readonly IUserService userService;
-        public UserController(IUserService userService) 
-        {
-            this.userService = userService;
-        }
-
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetById(int userId)
         {
@@ -29,6 +23,14 @@ namespace presentation.controllers
         {
             var result = await userService.AddAnonUser();
             return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("generate-anon-user")]
+        public async Task<IActionResult> GenerateAnonUser()
+        {
+            var res = await userService.GenerateAnonUser();
+            return Ok(res);
         }
     }
 }

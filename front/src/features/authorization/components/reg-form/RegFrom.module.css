@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main button{
+    background: #8B5CF6;
+    color: white;
+}
+.main button:hover{
+    background: #6442b3;
+}

@@ -1,14 +1,12 @@
-import Description from "./components/Description";
-import ConnectBlock from "./components/connect-block/ConnectBlock";
+import Connect from "./components/Connect";
 import styles from "./ConnectToQuiz.module.css";
 
 export default function ConnectToQuiz() {
   return (
     <div className={styles.main}>
-      <div className={styles.content}>
-        <Description />
-        <ConnectBlock />
-      </div>
+      <h2>Присоединиться к квизу</h2>
+      <h4>Введите код и начните игру</h4>
+      <Connect />
     </div>
   );
 }

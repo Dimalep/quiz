@@ -1,69 +1,60 @@
-.main {
-  position: relative;
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: rgb(17, 80, 60);
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+    padding: 15px 20px;
+
+    transition: background-color 0.3s ease;
+}
+
+.player{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 10px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  transition: transform 0.4s, background-color 0.3s ease;
-  margin-bottom: 10px;
-
-  background-color: rgb(21, 90, 67);
+  flex-direction: row;
+  gap: 15px;
 }
 
-.main:hover {
-  transform: translateY(-2px);
-  background-color: rgb(25, 97, 73);
+.main:hover{
+    background-color: rgb(21, 97, 73);
 }
 
-.player {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 16px;
-  color: #fff;
+.main label{
+    color: rgb(211, 211, 211);
+    font-size: 17px;
+    font-family: Rubik;
 }
 
-.player label{
-    font-size: 16px;
-    color: rgb(215, 255, 228);
+.img{
+    height: 40px;
+    width: 40px;
+
+    border-radius: 5px;
 }
 
-.menuBtn {
-  border: none;
-  background: transparent;
-  font-size: 20px;
+.delete_player_btn{
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid rgba(95, 11, 11, 0.685);
+  border-radius: 5px;
+
+  background: rgba(165, 20, 20, 0.685);
+
   color: white;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s;
+
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
-.menuBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
+.delete_player_btn:hover{
+  border: 1px solid rgba(177, 22, 22, 0.685);
 
-.contextMenu {
-  position: absolute;
-  top: 45px;
-  right: 10px;
-  background: #1a3f2b;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  overflow: hidden;
-  z-index: 100;
-}
-
-.menuItem {
-  padding: 10px 16px;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.menuItem:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 43, 43, 0.685);
 }

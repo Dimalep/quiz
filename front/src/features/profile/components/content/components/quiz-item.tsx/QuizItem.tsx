@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function QuizItem({ quiz }: Props) {
-  const { deleteQuiz, addGame, editQuiz } = useProfileContext();
+  const { deleteQuiz, initialGame, editQuiz } = useProfileContext();
   const navigate = useNavigate();
 
   const deleteHander = async () => {
@@ -20,14 +20,17 @@ export default function QuizItem({ quiz }: Props) {
   const launchHandler = async () => {
     if (!quiz) return;
     const res = confirm(`Запустить квиз ${quiz.title}?`);
+
+    console.log(`ID quiz - ${quiz.id}`);
+
     if (res) {
-      const game = await addGame(quiz.id);
+      const game = await initialGame(quiz.id);
       if (!game) return;
 
-      console.log("Game status: ", game.sessionKey);
+      console.log("Game status: ", game.key);
 
       localStorage.setItem("quizSession", JSON.stringify(game));
-      navigate(`/quiz/game/admin/${game.sessionKey}`);
+      navigate(`/quiz/game/admin/${game.key}`);
     }
   };
 

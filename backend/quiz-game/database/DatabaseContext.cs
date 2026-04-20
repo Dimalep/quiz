@@ -1,35 +1,19 @@
-﻿using System.Text.Json;
+﻿using database.entity_configuration;
 using domains.domains;
 using Microsoft.EntityFrameworkCore;
 
 namespace database;
 
-public class DatabaseContext : DbContext
+public class DatabaseContext(DbContextOptions options) : DbContext(options)
 {
-    public DatabaseContext(DbContextOptions options): base(options) { }
-
     public DbSet<Game> Games { get; set; }
     public DbSet<Player> Players { get; set; }
     public DbSet<Progress> Progresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Progress>(entity =>
-        {
-            entity.OwnsOne(p => p.QuizResult, qr =>
-            {
-                qr.ToJson("quiz_result");
-                
-                qr.Property(x => x.QuizId);
-                qr.Property(x => x.QuantityCorrectAnswers);
-                qr.Property(x => x.IsFinished);
-
-                qr.OwnsMany(q => q.Questions, question =>
-                {
-                    question.OwnsMany(q => q.Answers);
-                });
-            });
-        });
+        modelBuilder.ApplyConfiguration(new GameConfiguration());
+        modelBuilder.ApplyConfiguration(new PlayerConfiguration());
+        modelBuilder.ApplyConfiguration(new ProgressConfiguration());
     }
 }

@@ -21,78 +21,102 @@ namespace application.services
             _sessionService = sessionService;
         }
 
-        public async Task<ResponseDTO> Login(LogRequestDTO req)
+        public async Task<AuthResponse> AuthByEmail(AuthByEmailResquest req)
+        {
+            User? user = new User();
+            var registeredUser = await _userService.GetByEmail(req.Email);
+
+            if(registeredUser == null)
+            {
+                user = await _userService.GetById(req.AnonUserId);
+
+                if (user == null)
+                    throw new Exception("Not found user");
+
+                user.Email = req.Email;
+                user.Username = req.Email;
+                user.IsRegistered = true;
+
+                await _userService.UpdateUser(user);
+            }
+            else
+            {
+                user = registeredUser;
+            }
+
+            string accessToken = _jwtTokenService.GenerateAccessToken(user);
+            string refreshToken = _jwtTokenService.GenerateRefreshToken();
+
+            await _sessionService.Add(new Session()
+            {
+                User = user,
+                UserId = user.Id,
+                RefreshToken = refreshToken,
+                LastUsedAt = DateTime.UtcNow,
+                CreateAt = DateTime.UtcNow,
+                ExpiresAt = DateTime.UtcNow.AddDays(15)
+            });
+
+            return new AuthResponse()
+            {
+                // UserId = user.Id,
+                User = user,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
+        }
+
+        public async Task<AuthResponse> Login(AuthRequest req)
         {
             if (req == null)
                 throw new BadRequestException("Argument cannot by null");
 
-            User? user = new User();
-
-            switch (req.AuthType)
-            {
-                case enums.AuthType.Username: 
-                    user = await _userService.GetByUsername(req.Value); 
-                    break;
-                case enums.AuthType.Email: 
-                    user = await _userService.GetByEmail(req.Value);
-                    break;
-                case enums.AuthType.Phone: 
-                    user = await _userService.GetByPhone(req.Value);
-                    break;
-                default:
-                    throw new UnauthorizedAccessException("Error");
-                    
-            }
+            var user = await _userService.GetByUsername(req.Value);
 
             if (user == null)
-                throw new ArgumentException("Cannot find user");
+                throw new BadRequestException($"Не удалось найти пользователя с логином {req.Value}");
+            
+            // Check password
+            if(!_passwordService.Verify(req.Password, user.Password))
+                throw new exceptions.InvalidDataException("Неверный пароль");
+                
+            // Generate tokens
+            string accessToken = _jwtTokenService.GenerateAccessToken(user);
+            string refreshToken = _jwtTokenService.GenerateRefreshToken();
 
-            bool verify = _passwordService.Verify(req.Password, user.Password);
-
-            if (verify)
+            await _sessionService.Add(new Session()
             {
-                string accessToken = _jwtTokenService.GenerateAccessToken(user);
-                string refreshToken = _jwtTokenService.GenerateRefreshToken();
+                User = user,
+                UserId = user.Id,
+                RefreshToken = refreshToken,
+                LastUsedAt = DateTime.UtcNow,
+                CreateAt = DateTime.UtcNow,
+                ExpiresAt = DateTime.UtcNow.AddDays(15)
+            });
 
-                await _sessionService.Add(new Session()
-                {
-                    User = user,
-                    UserId = user.Id,
-                    RefreshToken = refreshToken,
-                    LastUsedAt = DateTime.UtcNow,
-                    CreateAt = DateTime.UtcNow,
-                    ExpiresAt = DateTime.UtcNow.AddDays(15)
-                });
-
-                return new ResponseDTO() 
-                {
-                    UserId = user.Id,
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken
-                };
-            }
-            else
+            return new AuthResponse() 
             {
-                throw new exceptions.InvalidDataException("Invalid data");
-            }
-
+                // UserId = user.Id,
+                User = user,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
         }
 
-        public async Task<ResponseDTO> Registration(RegRequestDTO req)
+        public async Task<AuthResponse> Registration(AuthRequest req)
         {
             if (req == null)
                 throw new BadRequestException("Request cannot by null");
 
-            var existingUser = await _userService.GetByUsername(req.Username);
+            var existingUser = await _userService.GetByUsername(req.Value);
 
             if (existingUser != null)
-                throw new exceptions.ConflictException("User already exists");
-
-
-            var user = await _userService.UpdateUser(new User()
+                throw new ConflictException("Пользователь с таким логином уже занят");
+            
+            var user = await _userService.UpdateUser(new User
             {
-                Id = req.Id,
-                Username = req.Username,
+                Id = req.UserId,
+                Username = req.Value,
                 Password = _passwordService.Hash(req.Password),
                 IsRegistered = true
             });
@@ -108,16 +132,17 @@ namespace application.services
                 LastUsedAt = DateTime.UtcNow,
                 CreateAt = DateTime.UtcNow,
             });
-
-            return new ResponseDTO()
+            
+            return new AuthResponse()
             {
-                UserId = user.Id,
+                // UserId = user.Id,
+                User = user,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
         }
 
-        public async Task<ResponseDTO> Refresh(string refreshToken)
+        public async Task<AuthResponse> Refresh(string refreshToken)
         {
             Session? session = await _sessionService.GetByRefreshToken(refreshToken);
 
@@ -134,9 +159,10 @@ namespace application.services
 
                 await _sessionService.Update(session);
 
-                return new ResponseDTO()
+                return new AuthResponse()
                 {
-                    UserId = session.UserId,
+                    // UserId = session.UserId,
+                    User = user,
                     AccessToken = newAccessToken,
                     RefreshToken = newRefreshToken
                 };

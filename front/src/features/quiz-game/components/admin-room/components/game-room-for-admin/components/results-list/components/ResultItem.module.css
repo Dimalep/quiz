@@ -31,3 +31,9 @@
     display: flex;
     flex-direction: column;
 }
+
+@media(max-width: 888px){
+    .main{
+        width: 100%;
+    }
+}

@@ -1,5 +1,4 @@
-﻿using application.DTOs;
-using application.exceptions;
+﻿using application.exceptions;
 using application.interfaces;
 using domain.models;
 using infrastructure;
@@ -7,20 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace application.services
 {
-    public class UserService : IUserService
+    public class UserService(DatabaseContext dbContext) : IUserService
     {
-        private readonly DatabaseContext dbContext;
-
-        public UserService(DatabaseContext dbContext) 
+        public async Task<User> GenerateAnonUser()
         {
-            this.dbContext = dbContext;
-        }
+            var result = await dbContext.Users.AddAsync(new User());
+            await dbContext.SaveChangesAsync();
 
+            result.Entity.Username = $"user{result.Entity.Id}";
+            await dbContext.SaveChangesAsync();
+            
+            return result.Entity;
+        }
+        
         public async Task<int> AddAnonUser()
         {
             var result = await dbContext.Users.AddAsync(new User());
             await dbContext.SaveChangesAsync();
 
+            result.Entity.Username = $"user{result.Entity.Id}";
+            await dbContext.SaveChangesAsync();
+            
             return result.Entity.Id;
         }
 
@@ -63,32 +69,14 @@ namespace application.services
         }
 
 
-        public async Task<UserDTO> GetById(int id)
+        public async Task<User?> GetById(int id)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (user == null)
-                throw new ArgumentNullException("Argument cannot by null. [method 'GetById' from 'UserService' class]");
-
-            return new UserDTO()
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Phone = user.Phone,
-
-                CreateAt = user.CreateAt,
-                UpdateAt = user.UpdateAt,
-
-                Lastname = user.Lastname,
-                Middlename = user.Middlename,
-                Firstname = user.Firstname
-            };
+            return await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<User> GetByEmail(string email)
+        public async Task<User?> GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            return await dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public Task<User> GetByPhone(string phone)

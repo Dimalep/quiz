@@ -1,20 +1,27 @@
 .main {
-    padding: 20px;
-}
-.content {
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    width: 80%;
-    margin-left: 10%;
-    border: 2px solid black;
-    border-radius: 17px;
-    padding: 10px 30px 10px 30px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    padding: 40px 30px;
+
+    background: white;
+    box-shadow: 0px 2px 4px rgba(0,0,0, 0.14);
+
+    border-radius: 11px;
+
+    transition: box-shadow 0.3s ease;
 }
 
-@media(max-width: 880px){
-    .content{
-        flex-direction: column;
-    }
+.main h2 {
+    color: #0F172A;
+}
+
+.main h4 {
+    color: #64748B;
+}
+
+.main:hover{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }

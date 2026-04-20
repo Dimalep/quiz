@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import type { Player } from "../../../../../../../../../core/hooks/quiz-game-microservice/usePlayer";
+import type { Player } from "../../../../../../../../../core/api/quiz-game-service/usePlayer";
+import First from "../../../../../../../../../shared/icons/player-icons/First";
 import styles from "./PlayerItem.module.css";
 
 interface Props {
@@ -7,35 +7,19 @@ interface Props {
 }
 
 export default function PlayerItem({ player }: Props) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
   return (
-    <div className={styles.main} ref={ref}>
+    <div className={styles.main}>
       <div className={styles.player}>
-        <label>{player.nickname}</label>
+        <div className={styles.img}>
+          <First />
+        </div>
+
+        <div className={styles.nickname}>
+          <label>{player.nickname}</label>
+        </div>
       </div>
 
-      <button className={styles.menuBtn} onClick={() => setMenuOpen(!menuOpen)}>
-        ⋮
-      </button>
-
-      {menuOpen && (
-        <div className={styles.contextMenu}>
-          <div className={styles.menuItem}>while empty</div>
-          <div className={styles.menuItem}>while empty</div>
-        </div>
-      )}
+      <button className={styles.delete_player_btn}>x</button>
     </div>
   );
 }

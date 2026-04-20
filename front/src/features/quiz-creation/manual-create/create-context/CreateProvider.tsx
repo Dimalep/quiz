@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import type { Action, Answer, CreateState, Quiz } from "./reducer";
 import reducer from "./reducer";
 import { useNavigate, useParams } from "react-router-dom";
-import useQuizApi from "../../../../core/hooks/quiz-creation-microservice/useQuizApi";
+import useQuizApi from "../../../../core/api/quiz-creation-service/useQuizApi";
 
 interface CreateContextType {
   state: CreateState;

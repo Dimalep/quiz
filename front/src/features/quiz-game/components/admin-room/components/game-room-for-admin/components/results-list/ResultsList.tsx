@@ -7,7 +7,7 @@ import { useState } from "react";
 export interface FilteredProgress {
   playerName: string;
   progress: string;
-  status: number;
+  status: string;
 }
 
 export default function ResultsList() {
@@ -40,7 +40,7 @@ export default function ResultsList() {
   );
 
   return (
-    <>
+    <div className={styles.main}>
       <h3 className={styles.title}>Текущие результаты</h3>
 
       <SortFilterBlock
@@ -50,11 +50,13 @@ export default function ResultsList() {
         setSearchValue={setSearchValue}
       />
 
-      <div className={styles.main}>
-        {filteredProgress.map((el, index) => (
-          <ResultItem key={index} progress={el} />
-        ))}
+      <div className={styles.list}>
+        {!filteredProgress || filteredProgress.length === 0
+          ? "Список пуст"
+          : filteredProgress.map((el, index) => (
+              <ResultItem key={index} progress={el} />
+            ))}
       </div>
-    </>
+    </div>
   );
 }

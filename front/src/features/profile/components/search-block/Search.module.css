@@ -1,0 +1,82 @@
+.main{
+    position: relative;
+
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+    border-radius: 12px;
+
+    background-color: rgb(0, 37, 71);
+    border: 2px solid transparent;
+
+    transition: background-color 0.25s ease, border 0.2s ease;
+}
+
+/* hover всего блока */
+.main:hover{
+    background-color: rgb(6, 42, 78);
+}
+
+/* когда input активен */
+.main:focus-within{
+    border: 2px solid #4da6ff;
+}
+
+/* input */
+.input_search{
+    flex: 1;
+    height: 32px;
+
+    background: transparent;
+    color: white;
+    font-size: 16px;
+
+    border: none;
+    outline: none;
+}
+
+/* placeholder */
+.input_search::placeholder{
+    color: rgba(255,255,255,0.6);
+}
+
+/* иконка */
+.ico_filter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ico_filter:hover{
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.filter{
+    position: absolute;
+
+    top: 55px;
+    right: 0px;
+
+    padding: 15px;
+
+    border-radius: 11px;
+
+    background-color: rgb(0, 37, 71);
+
+    display: flex;
+    align-self: center;
+}
+
+@media(max-width: 880px){
+    .main{
+        width: 95%;
+    }
+}

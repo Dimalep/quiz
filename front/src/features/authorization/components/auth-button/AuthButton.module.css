@@ -1,0 +1,14 @@
+.main{
+    font-size: 16px;
+
+    padding: 10px 15px;
+
+    border: none;   
+    border-radius: 5px;
+
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.main:hover{
+    transform: scale(1.01);
+}

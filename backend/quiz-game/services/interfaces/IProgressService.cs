@@ -7,7 +7,6 @@ namespace services.interfaces
     {
         public Task<Progress> CreateProgress(int playerId, string sessionKey);
         
-        //new
         public Task<CurrentPlayerProgress> PlayerStarted(int playerId, string sessionKey);
         
         // Deleted
@@ -16,7 +15,8 @@ namespace services.interfaces
         public Task<Progress> Finish(int playerId, string sessionKey);
         public Task<ICollection<Progress>> Restart(int gameId);
         
-        public Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId);
+        // Deleted
+        //public Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int progressId);
         public Task<ToAnswerProgressResponse> ToAnswer(ToAnswerProgressRequest answer);
         
         public Task<Progress?> GetById(int progressId);

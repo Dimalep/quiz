@@ -1,0 +1,135 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 20px;
+    background: white;
+
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+
+    transition: transform 0.3s ease;
+}
+
+.main:hover{
+    transform: scale(1.01)
+}
+
+/* PROFILE WRAPPER */
+.profile {
+    position: relative;
+    cursor: pointer;
+}
+
+/* DROPDOWN */
+.dropdown {
+    position: absolute;
+    top: calc(100% + 25px);
+    right: 0;
+
+    min-width: 200px;
+
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    z-index: 1000;
+}
+
+/* USER BLOCK */
+.user {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.username_block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgb(247, 247, 247);
+
+    padding: 10px;
+}
+
+.label {
+    font-size: 11px;
+    color: #888;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* BUTTONS */
+.login_btn {
+    padding: 8px 10px;
+    border: none;
+
+    background-color: white;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login_btn:hover {
+    background: #3B82F6;
+    color: white;
+}
+
+.secondary_btn {
+    padding: 6px 8px;
+
+    border: none;
+
+    background: white;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.secondary_btn:hover {
+    background: #3B82F6;
+    color: white;
+}
+
+.logout_btn {
+    padding: 8px;
+    border: none;
+
+    background: white;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout_btn:hover {
+    background: #e63e40;
+    color: white;
+}
+
+.secondary_btn,
+.logout_btn,
+.login_btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+
+    font-family: Rubik;
+    font-weight: 500;
+    font-size: 14px;
+}

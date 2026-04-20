@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./CheckboxAnswer.module.css";
-import type { AnswerResult } from "../../../../../../../../../core/hooks/quiz-game-microservice/useProgress";
+import type { AnswerResult } from "../../../../../../../../../core/api/quiz-game-service/useProgress";
 
 interface Props {
   answers: Answer[];

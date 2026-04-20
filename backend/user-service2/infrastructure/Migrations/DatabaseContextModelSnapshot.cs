@@ -17,10 +17,44 @@ namespace infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("app")
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("domain.models.EmailCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<DateTime>("ExpireAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expire_at");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email", "Code");
+
+                    b.ToTable("email_codes", "app");
+                });
 
             modelBuilder.Entity("domain.models.Session", b =>
                 {
@@ -60,7 +94,7 @@ namespace infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("sessions");
+                    b.ToTable("sessions", "app");
                 });
 
             modelBuilder.Entity("domain.models.User", b =>
@@ -77,50 +111,40 @@ namespace infrastructure.Migrations
                         .HasColumnName("create_at");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("email");
 
                     b.Property<string>("Firstname")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("firstname");
 
                     b.Property<bool>("IsRegistered")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_registered");
 
                     b.Property<string>("Lastname")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("lastname");
 
-                    b.Property<string>("Middlename")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("middlename");
-
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("password");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("update_at");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("username");
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.HasIndex("Username")
+                        .IsUnique()
+                        .HasFilter("\"username\" IS NOT NULL");
+
+                    b.ToTable("users", "app");
                 });
 
             modelBuilder.Entity("domain.models.Session", b =>

@@ -1,7 +1,7 @@
 import { useState, type Dispatch } from "react";
 import styles from "./InfoWidnow.module.css";
 import type React from "react";
-import type { User } from "../../../../../core/hooks/user-service-microservice/useUser";
+import type { User } from "../../../../../core/api/user-service/useUser";
 
 interface Props {
   isOpen: boolean;

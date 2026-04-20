@@ -1,0 +1,21 @@
+.short{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(17, 80, 60);
+    padding: 20px;
+
+    border-radius: 15px;
+}
+
+.name{
+    display: flex;
+    flex-direction: column;
+}
+
+.resilt{
+    display: flex;
+    flex-direction: row;
+}

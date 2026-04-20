@@ -1,31 +1,13 @@
-import { useState, type CSSProperties } from "react";
-import Switcher from "./components/switcher/Switcher";
-import SwipeContainer from "./components/SwipeContainer";
-import ManualCreate from "./components/manual-create/ManualCreate";
-import AiCreate from "./components/ai-create/AiCreate";
+import styles from "./CreateQuiz.module.css";
+import Button from "./components/Button";
 
 export default function CreateQuiz() {
-  const [type, setType] = useState(0);
-
   return (
-    <div style={styles.main}>
-      <SwipeContainer setType={setType} type={type}>
-        <ManualCreate />
-        <AiCreate />
-      </SwipeContainer>
-      <Switcher setType={setType} type={type} />
+    <div className={styles.main}>
+      <h2>Создать квиз</h2>
+      <h4>Создай свой квиз с нуля</h4>
+
+      <Button />
     </div>
   );
 }
-
-const styles = {
-  main: {
-    display: "flex",
-    padding: "20px",
-    overflow: "hidden",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 30,
-  } as CSSProperties,
-};

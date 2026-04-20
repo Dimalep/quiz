@@ -1,0 +1,175 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.btns{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    padding: 5px;
+
+    border-radius: 11px;
+}
+
+.btns button{
+    color: white;
+
+    width: 100%;
+
+    border-radius: 11px;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+
+    border: none;
+
+    transition: background 0.3s ease;
+
+    font-family: Rubik;
+    font-size: 18px;
+}
+
+.start{
+    background: green;
+}
+
+.start:hover{
+    background: rgb(0, 165, 0);
+}
+
+.exit{
+    background: rgb(128, 0, 0);
+}
+
+.exit:hover{
+    background: rgb(156, 0, 0);
+}
+
+.player{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: rgb(17, 80, 60);
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+
+    padding: 20px;
+
+    border-radius: 11px;
+
+    color: white;
+    font-size: 17px;
+    font-family: Rubik;
+
+    transition: box-shadow 0.3s ease;
+}
+
+.player_short{
+    display: none;
+    background-color: rgb(17, 80, 60);
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+
+    padding: 20px;
+
+    border-radius: 11px;
+}
+
+
+.player_info{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.player button{
+    height: 35px;
+    width: 35px;
+}
+
+.player:hover{
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+}
+
+.edit_window{
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.4);
+
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+
+    padding-top: 50px;
+}
+
+.edit_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: rgb(15, 66, 50);
+    padding: 20px;
+    border-radius: 12px;
+
+    min-width: 350px;
+    height: 200px;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+}
+
+.edit_content:hover{
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.55);
+}
+
+.edit_player input{
+    width: 100%;
+
+    padding: 10px 20px;
+
+    font-size: 16px;
+}
+
+.edit_btns{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.edit_btns button{
+    width: 100%;
+
+    border: none;
+
+    font-size: 16px;
+    font-family: Rubik;
+
+    padding: 10px 20px;
+}
+
+@media(max-width: 888px){
+    .player{
+        display: none;
+    }
+    .player_short{
+        display:flex;
+    }
+}

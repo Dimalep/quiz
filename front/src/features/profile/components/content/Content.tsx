@@ -1,11 +1,26 @@
+import { useMemo } from "react";
 import { useProfileContext } from "../../ProfileProvider";
 import GameItem from "./components/game-item/GameItem";
 import QuizItem from "./components/quiz-item.tsx/QuizItem";
 import styles from "./Content.module.css";
 
-export default function Content() {
+interface Props {
+  filterDate: "new" | "old";
+}
+
+export default function Content({ filterDate }: Props) {
   const { myQuizzes, mode, games } = useProfileContext();
 
+  const sortedGames = useMemo(() => {
+    return [...(games ?? [])].sort((a, b) => {
+      const aTime = new Date(a.createAt).getTime();
+      const bTime = new Date(b.createAt).getTime();
+
+      return filterDate === "new" ? bTime - aTime : aTime - bTime;
+    });
+  }, [games, filterDate]);
+
+  //my quizzes list
   const quizList = myQuizzes ? (
     <div className={styles.list}>
       {myQuizzes?.map((el) => (
@@ -16,7 +31,8 @@ export default function Content() {
     <label>loading..</label>
   );
 
-  const gameList = games ? (
+  //history my games
+  const gameList = sortedGames ? (
     <div className={styles.list}>
       {games?.map((el) => (
         <GameItem key={el.id} game={el} />

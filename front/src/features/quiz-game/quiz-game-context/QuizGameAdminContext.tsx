@@ -1,13 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { Player } from "../../../core/hooks/quiz-game-microservice/usePlayer";
-import type { GameDTO } from "../../../core/hooks/quiz-game-microservice/useGame";
-import useGame from "../../../core/hooks/quiz-game-microservice/useGame";
-import useQuizHubAdmin from "../../../core/hooks/quiz-game-microservice/useQuizHubAdmin";
-import type { ProgressForAdmin } from "../../../core/hooks/quiz-game-microservice/useProgress";
-import usePlayer from "../../../core/hooks/quiz-game-microservice/usePlayer";
+import type { Player } from "../../../core/api/quiz-game-service/usePlayer";
+import type { GameDTO } from "../../../core/api/quiz-game-service/useGame";
+import useGame from "../../../core/api/quiz-game-service/useGame";
+import useQuizHubAdmin from "../../../core/api/quiz-game-service/useQuizHubAdmin";
+import type { ProgressForAdmin } from "../../../core/api/quiz-game-service/useProgress";
+import usePlayer from "../../../core/api/quiz-game-service/usePlayer";
+import useQuizApi, {
+  type InfoAboutQuiz,
+} from "../../../core/api/quiz-creation-service/useQuizApi";
 
 export interface QuizGameAdminContextType {
+  infoAbouQuiz: InfoAboutQuiz | undefined;
   sessionKey: string | undefined;
   players: Player[] | undefined;
   currentGame: GameDTO | undefined;
@@ -30,10 +34,17 @@ export default function QuizGameAdminContext({
   children: React.ReactNode;
 }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | undefined>();
+  const [infoAbouQuiz, setInfoAboutQuiz] = useState<InfoAboutQuiz>();
 
   const { getOrCreatePlayer } = usePlayer();
   const { getGameBySessionKey } = useGame();
+  const { getInfoAboutQuizByQuizId } = useQuizApi();
+
   const { sessionKey } = useParams<{ sessionKey: string }>();
+
+  const { connection, players, currentGame, setCurrentGame, progresses } =
+    useQuizHubAdmin(sessionKey, currentPlayer);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,11 +77,21 @@ export default function QuizGameAdminContext({
     init();
   }, [sessionKey]);
 
-  const { connection, players, currentGame, setCurrentGame, progresses } =
-    useQuizHubAdmin(sessionKey, currentPlayer);
+  // Get info about quiz
+  useEffect(() => {
+    if (!currentGame) {
+      console.log("Error get info about quiz. Curr");
+      return;
+    }
+
+    (async () => {
+      const infoFromBack = await getInfoAboutQuizByQuizId(currentGame.quizId);
+      setInfoAboutQuiz(infoFromBack);
+    })();
+  }, [currentGame]);
 
   const openGameResults = () => {
-    navigate(`/game-result/${currentGame?.sessionKey}`);
+    navigate(`/game-result/${currentGame?.key}`);
   };
 
   const completeGame = async () => {
@@ -101,6 +122,7 @@ export default function QuizGameAdminContext({
   return (
     <AdminContext.Provider
       value={{
+        infoAbouQuiz,
         sessionKey,
         players,
         startGame,

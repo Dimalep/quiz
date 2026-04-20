@@ -14,6 +14,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/infrastructure/entity-configurations/EmailCodeConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/infrastructure/entity-configurations/SessionConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/infrastructure/entity-configurations/UserConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -76,6 +81,7 @@
       <workItem from="1772382292298" duration="341000" />
       <workItem from="1772982203815" duration="2040000" />
       <workItem from="1773299327740" duration="4624000" />
+      <workItem from="1776491117970" duration="19929000" />
     </task>
     <servers />
   </component>

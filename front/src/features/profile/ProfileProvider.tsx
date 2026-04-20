@@ -1,23 +1,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import useQuizApi, {
-  type QuizDTO,
-} from "../../core/hooks/quiz-creation-microservice/useQuizApi";
+import useQuizApi from "../../core/api/quiz-creation-service/useQuizApi";
 import type { Quiz } from "../quiz-creation/manual-create/create-context/reducer";
 import useGame, {
+  type Game,
   type GameDTO,
-} from "../../core/hooks/quiz-game-microservice/useGame";
-import useUser, {
-  type User,
-} from "../../core/hooks/user-service-microservice/useUser";
+} from "../../core/api/quiz-game-service/useGame";
+import useUser, { type User } from "../../core/api/user-service/useUser";
 import { useNavigate } from "react-router-dom";
 
 interface ProfileContextType {
   myQuizzes: Quiz[] | undefined;
   me: User | undefined;
   mode: "history_games" | "quizzes";
-  games: GameDTO[] | undefined;
+  games: Game[] | undefined;
   deleteQuiz: (quizId: number) => void;
-  addGame: (quizId: number) => Promise<GameDTO | undefined>;
+  initialGame: (quizId: number) => Promise<GameDTO | undefined>;
   openHistory: () => void;
   openGames: () => void;
   editQuiz: (quizId: number) => void;
@@ -35,11 +32,11 @@ export default function ProfileProvider({
 }) {
   const [mode, setMode] = useState<"history_games" | "quizzes">("quizzes");
   const [myQuizzes, setMyQuizzes] = useState<Quiz[] | undefined>([]);
-  const [games, setGames] = useState<GameDTO[]>();
+  const [games, setGames] = useState<Game[]>();
   const [me, setMe] = useState<User>();
 
   const { getQuizzesByUserId, deleteQuizById, getQuizById } = useQuizApi();
-  const { addGame, getGamesByUserId } = useGame();
+  const { initialGame, getGamesByUserId } = useGame();
   const { getUserById } = useUser();
   const navigate = useNavigate();
 
@@ -53,7 +50,7 @@ export default function ProfileProvider({
       );
       setMyQuizzes(quizzes);
 
-      const games: GameDTO[] | undefined = await getGamesByUserId();
+      const games: Game[] | undefined = await getGamesByUserId();
       console.log(games);
       setGames(games);
 
@@ -74,7 +71,7 @@ export default function ProfileProvider({
   const launchQuizGame = async (quiz: Quiz) => {
     const res = confirm(`Запустить квиз ${quiz.title}?`);
     if (res) {
-      const game = await addGame(quiz.id);
+      const game = await initialGame(quiz.id);
       if (!game) return;
       localStorage.setItem("quizSession", JSON.stringify(game));
       navigate(`/quiz/game/admin/${game.sessionKey}`);
@@ -130,7 +127,7 @@ export default function ProfileProvider({
         mode,
         games,
         deleteQuiz,
-        addGame,
+        initialGame,
         openHistory,
         openGames,
         editQuiz,

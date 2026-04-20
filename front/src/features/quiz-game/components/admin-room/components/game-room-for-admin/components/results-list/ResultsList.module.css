@@ -1,4 +1,12 @@
 .main{
+  margin-top: 20px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list{
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -13,7 +21,5 @@
 }
 
 .title{
-  display: flex;
-  align-self: center;
   color: whitesmoke;
 }

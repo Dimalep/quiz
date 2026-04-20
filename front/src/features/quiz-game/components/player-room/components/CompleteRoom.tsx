@@ -3,7 +3,7 @@ import { useQuizGamePlayerContext } from "../../../quiz-game-context/QuizGamePla
 import { useEffect, useState } from "react";
 import useProgress, {
   type Progress,
-} from "../../../../../core/hooks/quiz-game-microservice/useProgress";
+} from "../../../../../core/api/quiz-game-service/useProgress";
 
 export default function CompleteRoom() {
   const navigate = useNavigate();
@@ -37,10 +37,6 @@ export default function CompleteRoom() {
           {results
             ? results.quizResult.quantityCorrectAnswers
             : "result is empty"}
-        </h2>
-        <h2>
-          Quantity questions:
-          {results ? results.quizResult.questions.length : "result is empty"}
         </h2>
         <button onClick={handler}>Home</button>
       </div>

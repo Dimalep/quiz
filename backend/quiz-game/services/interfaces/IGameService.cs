@@ -8,13 +8,11 @@ namespace services.interfaces
         public Task<GameResponse> Add(int quizId, int userId);
         public Task<GameResponse> GetQuizSessionByKey(string sessionKey);
         public Task<GameResponse> GetGameByQuizIdAndUserId(int quizId, int userId);
-        public Task<ICollection<GameDTO>> GetGamesByUserId(int userId);
+        public Task<ICollection<Game>> GetGamesByUserId(int userId);
 
-        public Task<Game> InitialGame(int quizId, int userId);
-        
         #region admin function
-
-        public Task<Game> StartFromProfile(int gameId);
+        public Task<Game> InitialGame(int quizId, int userId);
+        //public Task<Game> StartFromProfile(int gameId);
         public Task<Game> Launch(double lifetime, string sessionKey);
         public Task<Game> Complete(string sessionKey);
         public Task<Game> OpenForConnect(string sessionKey);

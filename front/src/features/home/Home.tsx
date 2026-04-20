@@ -1,43 +1,25 @@
-import useUser from "../../core/hooks/user-service-microservice/useUser";
-import { useEffect, useRef, type CSSProperties } from "react";
-import NavigationPanel from "../../shared/components/navigation-panel/NavigationPanel";
-import { useAuthContext } from "../../shared/components/AuthProvider";
 import ConnectToQuiz from "./components/connect-to-quiz/ConnectToQuiz";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
 import Library from "./components/library/Library";
-import Footer from "../../shared/components/footer/Footer";
+import styles from "./Home.module.css";
+import Header from "./components/header/Header";
+import CreateImage from "./components/create-image/CreateImage";
 
 export default function Home() {
-  const { generateAnonymousUser } = useUser();
-  const { isAuthenticated } = useAuthContext();
-
-  const didRun = useRef(false);
-
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      if (didRun.current) return;
-      didRun.current = true; // off React StrictMode (DEV)
-
-      generateAnonymousUser();
-    }
-  }, []);
-
   return (
-    <div style={styles.main}>
-      <NavigationPanel />
-      <ConnectToQuiz />
-      <CreateQuiz />
-      <Library />
-      <Footer />
+    <div className={styles.main}>
+      <div className={styles.content}>
+        <Header />
+
+        <ConnectToQuiz />
+
+        <div className={styles.create_and_profile}>
+          <CreateImage />
+          <CreateQuiz />
+        </div>
+
+        <Library />
+      </div>
     </div>
   );
 }
-
-const styles = {
-  main: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    gap: 10,
-  } as CSSProperties,
-};

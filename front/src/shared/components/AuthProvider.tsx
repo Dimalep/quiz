@@ -1,59 +1,147 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import useAuth from "../../core/hooks/user-service-microservice/useAuth";
+import useAuth, { type AuthToken } from "../../core/api/user-service/useAuth";
+import type { User } from "../../core/api/user-service/useUser";
+import useUser from "../../core/api/user-service/useUser";
 
 interface AuthContextType {
+  currentUser: User | undefined;
   isAuthenticated: boolean;
   authResponse: any;
-  login: (login: string, passwod: string) => Promise<void>;
-  register: (login: string, passwod: string) => Promise<void>;
-  logout: () => void;
+
+  logoutHandler: () => void;
+  setCurrentUser: (value: User) => void;
+  setIsAuthenticated: (value: boolean) => void;
+
+  sendCodeToEmail: (email: string, anonUserId: number) => Promise<void>;
+
+  sendConfirmCode: (
+    confirmCode: string,
+    email: string,
+    anonUserId: number,
+  ) => Promise<AuthToken | undefined>;
+
+  registrationHandler: (username: string, password: string) => Promise<void>;
+  loginHandler: (username: string, password: string) => Promise<void>;
+
+  clearAuthResponse: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { loginFromHook, authResponse, registerFromHook } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const {
+    authResponse,
+    sendConfirmCode,
+    sendCodeToEmail,
+    registration,
+    login,
+    clearAuthResponse,
+  } = useAuth();
+
+  const { currentUser, setCurrentUser, generateAnonUser } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setIsAuthenticated(!!token);
+
+    (async () => {
+      const user = await generateAnonUser();
+
+      if (!user) return;
+
+      setCurrentUser(user);
+    })();
   }, []);
 
-  const register = async (userLogin: string, password: string) => {
-    const token = await registerFromHook(userLogin, password);
-    if (token) {
+  async function registrationHandler(
+    username: string,
+    password: string,
+  ): Promise<void> {
+    // Check exsisting anon user
+    if (!currentUser) {
+      console.log("Current user is null");
+      return undefined;
+    }
+
+    // Forming auth request
+    const authRequest = {
+      userId: currentUser.id,
+      value: username,
+      password: password,
+    };
+
+    // Registrastion
+    const user = await registration(authRequest);
+
+    // Set info about current auth session
+    if (user) {
+      localStorage.setItem("userId", JSON.stringify(user.id));
+
+      setCurrentUser(user);
+
       setIsAuthenticated(true);
     }
-  };
+  }
 
-  const login = async (userLogin: string, password: string) => {
-    const token = await loginFromHook(userLogin, password);
-    if (token) {
+  async function loginHandler(
+    username: string,
+    password: string,
+  ): Promise<void> {
+    const plug = 0;
+
+    // Froming auth request
+    const authRequest = {
+      userId: plug,
+      value: username,
+      password: password,
+    };
+
+    // Registrastion
+    const user = await login(authRequest);
+
+    // Set info about current auth session
+    if (user) {
+      localStorage.setItem("userId", JSON.stringify(user.id));
+
+      setCurrentUser(user);
+
       setIsAuthenticated(true);
     }
-  };
+  }
 
-  const logout = () => {
-    console.log("logout");
-    if (localStorage.getItem("authToken") === "") {
-      console.log("You are not logged in yet");
-    } else {
-      localStorage.removeItem("authToken");
-      setIsAuthenticated(false);
-    }
-  };
+  async function logoutHandler() {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
+    sessionStorage.removeItem("anonUserId");
+
+    setIsAuthenticated(false);
+
+    await generateAnonUser();
+  }
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, authResponse, register }}
+      value={{
+        currentUser,
+        isAuthenticated,
+        authResponse,
+        logoutHandler,
+        setCurrentUser,
+        setIsAuthenticated,
+        sendConfirmCode,
+        sendCodeToEmail,
+        registrationHandler,
+        loginHandler,
+        clearAuthResponse,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Хук для удобного использования
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (!context)

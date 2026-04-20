@@ -13,7 +13,7 @@ namespace services
                 CreateAt = game.CreateAt,
                 CompleteAt = game.CompleteAt,
                 QuizId = game.QuizId,
-                sessionKey = game.sessionKey,
+                Key = game.Key,
                 Status = game.Status
             };
         }
@@ -26,7 +26,7 @@ namespace services
                 CreateAt = gameDto.CreateAt,
                 CompleteAt = gameDto.CompleteAt,
                 QuizId = gameDto.QuizId,
-                sessionKey = gameDto.sessionKey,
+                Key = gameDto.Key,
                 Status = gameDto.Status
             };
         }

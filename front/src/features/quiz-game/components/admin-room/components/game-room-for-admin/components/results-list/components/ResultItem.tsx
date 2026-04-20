@@ -32,7 +32,7 @@ export default function ResultItem({ progress }: Props) {
       {/* Status */}
       <div className={styles.status}>
         <span>Статус</span>
-        <label>{convertStatusToString(progress.status)}</label>
+        <label>{progress.status}</label>
       </div>
     </div>
   );

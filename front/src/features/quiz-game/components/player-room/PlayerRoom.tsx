@@ -5,7 +5,7 @@ import styles from "./PlayerRoom.module.css";
 
 /*
   currentGame:      currentProgress:
-  0 - opened,         0 - waitint,
+  0 - opened,         0 - waiting,
   1 - closed,         1 - in_game,
   2 - launched,       2 - completed
   3 - completed 
@@ -19,21 +19,28 @@ export default function PlayerRoom() {
     return <div>Loading...</div>;
   }
 
-  if (currentGame.status === 3 || currentProgress.status === 2) {
+  if (
+    // currentGame.status === "launched" ||
+    currentProgress.status === "completed"
+  ) {
     finishGame();
   }
 
   switch (currentProgress.status) {
-    case 0:
+    case "waiting":
       return (
         <div className={styles.main}>
-          <WaitingRoom />
+          <div className={styles.content}>
+            <WaitingRoom />
+          </div>
         </div>
       );
-    case 1:
+    case "in_game":
       return (
         <div className={styles.main}>
-          <GameRoomPlayer />
+          <div className={styles.content}>
+            <GameRoomPlayer />
+          </div>
         </div>
       );
     default:
