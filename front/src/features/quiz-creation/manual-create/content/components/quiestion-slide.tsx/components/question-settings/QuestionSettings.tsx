@@ -13,26 +13,33 @@ export default function QuestionSettings() {
   return (
     <div className={styles.main}>
       <button
-        className={styles.complete_creation}
+        className={styles.primaryButton}
         onClick={completeCreationHandleClick}
       >
         Завершить создание
       </button>
-      <div className={styles.settings_delete_block}>
+
+      <div className={styles.actions}>
         <button
-          className={styles.settings}
+          className={styles.settingsButton}
           onClick={() => setOpenSettings((prev) => !prev)}
         >
-          Настройки вопроса
+          ⚙ Настройки
         </button>
+
         <button
-          className={styles.button}
+          className={styles.deleteButton}
           onClick={() => dispatch({ type: "DELETE_QUESTION" })}
         >
-          Удалить
+          🗑 Удалить
         </button>
       </div>
-      {openSettings && <div className={styles.settings_block}>Пока пусто</div>}
+
+      {openSettings && (
+        <div className={styles.settingsBlock}>
+          <p className={styles.placeholder}>Пока пусто</p>
+        </div>
+      )}
     </div>
   );
 }

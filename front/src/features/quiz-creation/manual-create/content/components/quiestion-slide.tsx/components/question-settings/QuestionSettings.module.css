@@ -2,49 +2,80 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   width: 100%;
+  font-family: Rubik, sans-serif;
 }
 
-.settings {
-  flex: 1;
+/* ===== primary button ===== */
+
+.primaryButton {
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #2563eb; /* синий */
+  color: white;
+  transition: 0.2s;
+}
+
+.primaryButton:hover {
+  background: #1d4ed8;
+}
+
+/* ===== actions row ===== */
+
+.actions {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid lightgray;
-  font-size: 18px;
-  font-family: Rubik, sans-serif;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  gap: 10px;
+}
+
+/* ===== settings button ===== */
+
+.settingsButton {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #dbeafe;
+  background: #eff6ff; /* светло-синий фон */
+  color: #1d4ed8;
   cursor: pointer;
-  background-color: white;
+  transition: 0.2s;
 }
 
-.button {
-  padding: 10px 15px;
-  font-size: 18px;
-  font-family: Rubik, sans-serif;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+.settingsButton:hover {
+  background: #dbeafe;
+}
+/* ===== delete button ===== */
+
+.deleteButton {
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #fecaca;
+  background: #fef2f2; /* светло-красный */
+  color: #dc2626;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.complete_creation{
-    padding: 10px 15px;
-    font-size: 18px;
-    font-family: Rubik, sans-serif;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+.deleteButton:hover {
+  background: #fee2e2;
 }
 
-.settings_delete_block{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+/* ===== settings block ===== */
+
+.settingsBlock {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fafafa;
 }
 
-.settings_block{
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
+.placeholder {
+  font-size: 14px;
+  color: #6b7280;
 }

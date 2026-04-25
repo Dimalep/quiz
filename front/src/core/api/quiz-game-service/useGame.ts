@@ -17,10 +17,54 @@ export type GameDTO = {
   userId: number;
 }
 
-export default function useGame() {
-  // const {fetchWithAuth} = useAuth();
+//#region GAME HISTORY
+export interface GameHistory{
+  id: number;
+  key: string;
+  quiz: QuizHistory;
+  avgResult: number;
+  status: string;
+  createAt: Date;
+  completeAt: Date;
+}
 
-  const getGamesByUserId = async () : Promise<Game[] | undefined> => {
+export interface QuizHistory{
+  id: number;
+  title: string;
+  description: string;
+  quantityQuestion: number;
+}
+//#endregion
+
+export default function useGame() {
+
+  async function completeGameById(gameId:number) {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/games/complete-by-id/${gameId}`, {
+      method: "PUT"
+    });
+
+    if(!response.ok){
+      console.log("Error delete");
+      return;
+    }
+
+    const data = await response.json();
+
+    return data;
+  }
+
+  const deleteGameById = async (gameId: number) => {
+    const response = await fetch(`${import.meta.env.VITE_QUIZ_GAME_ADDRESS}api/games/${gameId}`, {
+      method: "DELETE"
+    });
+
+    if(!response.ok){
+      console.log("Error delete");
+      return;
+    }
+  }
+
+  const getGamesByUserId = async () : Promise<GameHistory[] | undefined> => {
     const rowUserId = localStorage.getItem("userId");
     if(!rowUserId) return; 
 
@@ -34,7 +78,7 @@ export default function useGame() {
       return;
     }
 
-    const data: Game[] = await response.json();
+    const data: GameHistory[] = await response.json();
     return data;
   };
 
@@ -101,5 +145,5 @@ export default function useGame() {
     return data;
   }
 
-  return { getGameBySessionKey, getGameByQuizIdAndUserId, getGamesByUserId, initialGame}
+  return { getGameBySessionKey, getGameByQuizIdAndUserId, getGamesByUserId, initialGame, deleteGameById, completeGameById}
 }

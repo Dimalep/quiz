@@ -3,7 +3,7 @@ import { useQuizGamePlayerContext } from "../../../../../../quiz-game-context/Qu
 import styles from "./PlayerNavigation.module.css";
 
 export default function PlayerNavigation() {
-  const { finishGame, currentProgress, selectCurrentQuestion, setIsEdit } =
+  const { finishGame, currentProgress, selectCurrentQuestion } =
     useQuizGamePlayerContext();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function PlayerNavigation() {
   return (
     <div className={styles.main}>
       <div className={styles.buttons}>
-        <button onClick={openQuestionsListHandler}>Прошлые вопросы</button>
+        <button onClick={openQuestionsListHandler}>История ответов</button>
 
         <button onClick={finishGameHanlder}>Завершить</button>
       </div>

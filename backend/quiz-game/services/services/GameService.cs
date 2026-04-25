@@ -42,11 +42,57 @@ namespace services.services
             };
         }
 
-        // get user games
-        public async Task<ICollection<Game>> GetGamesByUserId(int userId)
-        {   
-            return await _dbContext.Games
-                .Where(g => g.UserId == userId).ToListAsync(); 
+        // get user games (history)
+        public async Task<ICollection<GameHistory>> GetGamesByUserId(int userId)
+        {
+            var games = await _dbContext.Games
+                .Where(g => g.UserId == userId)
+                .ToListAsync();
+
+            var result = new List<GameHistory>();
+
+            foreach (var game in games)
+            {
+                var quiz = await _quizCacheService
+                    .GetOrLoad(game.QuizId);
+
+                Console.WriteLine($"Quiz id - {game.QuizId}");
+                Console.WriteLine($"Titile - {quiz.Title}");
+
+                if (quiz == null)
+                    continue;
+
+                var progresses = await _dbContext.Progresses
+                    .Where(p => p.GameId == game.Id)
+                    .ToListAsync();
+
+                var avgResult = progresses.Count == 0
+                    ? 0
+                    : progresses.Average(p =>
+                        p.QuantityQuestions == 0
+                            ? 0
+                            : (double)p.QuizResult.QuantityCorrectAnswers / p.QuantityQuestions * 100
+                    );
+
+                result.Add(new GameHistory
+                {
+                    Id = game.Id,
+                    Quiz = new QuizHistory
+                    {
+                        Id = quiz.Id,
+                        Title = quiz.Title,
+                        Description = quiz.Description,
+                        QuantityQuestion = quiz.QuantityQuestions
+                    },
+                    CreateAt = game.CreateAt,
+                    CompleteAt = game.CompleteAt,
+                    AvgResult = avgResult,
+                    Key = game.Key,
+                    Status = game.Status
+                });
+            }
+
+            return result;
         }
 
         // The initial method of the game
@@ -67,7 +113,8 @@ namespace services.services
                 Key = sessionKey,
                 QuizId = quizId,
                 UserId = userId,
-                Status = Status.opened
+                Status = Status.opened,
+                CreateAt = DateTime.UtcNow,
             };
 
             var addedGame = await _dbContext.Games.AddAsync(game);
@@ -101,17 +148,18 @@ namespace services.services
         
         public async Task<Game> Complete(string sessionKey)
         {
-            var quizSession = await _dbContext.Games
+            var game = await _dbContext.Games
                 .FirstOrDefaultAsync(qs => qs.Key == sessionKey);
             
-            if (quizSession == null)
+            if (game == null)
                 throw new ArgumentNullException("Not found quiz session by id");
 
             // quizSession.CompleteAt = DateTime.UtcNow;
-            quizSession.Status = Status.completed;
+            game.Status = Status.completed;
+            game.CompleteAt = DateTime.UtcNow;
             
             await _dbContext.SaveChangesAsync();
-            return quizSession;
+            return game;
         }
 
         public async Task<Game> OpenForConnect(string sessionKey)
@@ -235,6 +283,33 @@ namespace services.services
             await _dbContext.SaveChangesAsync();
 
             return _mapper.ToDTO(quizSessionFromDb);
+        }
+
+        public async Task DeleteGameById(int gameId)
+        {
+            var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Id == gameId);
+
+            if (game == null)
+                throw new Exception("Error delete. Game not found");
+
+            _dbContext.Games.Remove(game);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Game> CompleteById(int gameId)
+        {
+            var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Id == gameId);
+
+            if (game == null)
+                throw new Exception("Error complete game. Not found game");
+
+            game.Status = Status.completed;
+            game.CompleteAt = DateTime.UtcNow;
+
+            await _dbContext.SaveChangesAsync();
+
+            return game;
         }
     }
 }

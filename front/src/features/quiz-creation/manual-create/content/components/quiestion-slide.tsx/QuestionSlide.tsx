@@ -26,24 +26,27 @@ export default function QuestionSlide() {
   return (
     <div className={styles.main}>
       <div className={styles.head}>
-        <label className={styles.next_btn} onClick={prevHandleClick}>
-          Предыдущий
-        </label>
+        <button className={styles.navButton} onClick={prevHandleClick}>
+          ← Предыдущий
+        </button>
+
         <h1 className={styles.title}>Вопрос {state.currentQuestion?.index}</h1>
-        <label className={styles.next_btn} onClick={nextHandleClick}>
-          Следующий
-        </label>
+
+        <button className={styles.navButton} onClick={nextHandleClick}>
+          Следующий →
+        </button>
       </div>
 
-      <div className={styles.buttons}>
+      <div className={styles.actions}>
         <button
-          className={styles.settings_btn}
+          className={styles.secondaryButton}
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          Настройки
+          ⚙ Настройки
         </button>
+
         <button
-          className={styles.complete_btn}
+          className={styles.primaryButton}
           onClick={async () => await completeCreation()}
         >
           Завершить создание

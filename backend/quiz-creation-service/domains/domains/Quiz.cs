@@ -33,6 +33,7 @@ namespace domains.domains
         public string Text { get; set; } = null!;
         public string Type { get; set; } = "buttons";
         public int Complexity { get; set; }
+        public string? ImageUrl { get; set; }
         public List<Answer> Answers { get; set; } = new();
     }
 

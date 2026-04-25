@@ -50,6 +50,9 @@ var app = builder.Build();
 app.UseCors("AllowFrontend");
 #endregion
 
+// load files
+app.UseStaticFiles();
+
 app.MapControllers();
 
 #region gRPC

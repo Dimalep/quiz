@@ -15,6 +15,7 @@ import usePlayer from "../../../core/api/quiz-game-service/usePlayer";
 import useGame from "../../../core/api/quiz-game-service/useGame";
 
 interface QuizGamePlayerContextType {
+  answerHistory: AnswerHistory[];
   toAnsweredLoading: boolean;
   isEdit: boolean;
   infoAboutQuiz: InfoAboutQuiz | undefined;
@@ -31,7 +32,15 @@ interface QuizGamePlayerContextType {
   finishGame: () => void;
   changeName: (name: string) => void;
   setIsEdit: (value: boolean) => void;
+  setAnswerHistory: (value: AnswerHistory[]) => void;
 }
+
+//#region
+export interface AnswerHistory {
+  questionId: string;
+  answerId: string[];
+}
+//#endregion
 
 const PlayerContext = createContext<QuizGamePlayerContextType | undefined>(
   undefined,
@@ -48,6 +57,10 @@ export default function QuizGamePlayerContext({
   const [infoAboutQuiz, setInfoAboutQuiz] = useState<InfoAboutQuiz | undefined>(
     undefined,
   );
+  const [answerHistory, setAnswerHistory] = useState<AnswerHistory[]>(() => {
+    const stored = localStorage.getItem("answerHistory");
+    return stored ? JSON.parse(stored) : [];
+  });
 
   const { getInfoAboutQuizByQuizId } = useQuizApi();
   const { getOrCreatePlayer } = usePlayer();
@@ -114,6 +127,10 @@ export default function QuizGamePlayerContext({
     return () => {};
   }, [currentGame]);
 
+  useEffect(() => {
+    localStorage.setItem("answerHistory", JSON.stringify(answerHistory));
+  }, [answerHistory]);
+
   // Select past question
   const selectCurrentQuestion = async (questionId: string) => {
     // dont delete me
@@ -166,6 +183,29 @@ export default function QuizGamePlayerContext({
       return;
     }
 
+    // Answer history
+    const existingAnswerInHistory = answerHistory.find(
+      (ah) => ah.questionId === curQuestion.id,
+    );
+
+    if (existingAnswerInHistory) {
+      // обновляем существующий ответ
+      setAnswerHistory((prev) =>
+        prev.map((ah) =>
+          ah.questionId === curQuestion.id ? { ...ah, answerId: answerId } : ah,
+        ),
+      );
+    } else {
+      // добавляем новый
+      setAnswerHistory((prev) => [
+        ...prev,
+        {
+          questionId: curQuestion.id,
+          answerId: answerId,
+        },
+      ]);
+    }
+
     // set loading
     setToAnsweredLoading(true);
 
@@ -186,6 +226,7 @@ export default function QuizGamePlayerContext({
   return (
     <PlayerContext.Provider
       value={{
+        answerHistory,
         toAnsweredLoading,
         isEdit,
         setIsEdit,
@@ -201,6 +242,7 @@ export default function QuizGamePlayerContext({
         finishGame,
         currentPlayer,
         changeName,
+        setAnswerHistory,
       }}
     >
       {children}

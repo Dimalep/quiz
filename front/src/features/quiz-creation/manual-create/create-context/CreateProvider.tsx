@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import type { Action, Answer, CreateState, Quiz } from "./reducer";
+import type { Action, CreateState, Quiz } from "./reducer";
 import reducer from "./reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import useQuizApi from "../../../../core/api/quiz-creation-service/useQuizApi";
@@ -99,6 +99,10 @@ export default function CreateProvider({
       }),
     );
   }, [state.quiz, state.currentQuestion]);
+
+  const uploadFile = async (file: string) => {
+
+  }
 
   const completeCreation = async () => {
     dispatch({ type: "REMOVE_EMPTY_QUESTION" });

@@ -93,6 +93,8 @@ namespace presentation.hubs
             // map to PlayerProgress
             var playerProgress = _mapper.ToPlayerProgress(toAnswerResponse.Progress);
 
+            Console.WriteLine($"Quiz hub. Image url: {toAnswerResponse.Question}");
+
             // return 
             await Clients.Caller.SendAsync("SetQuestion", toAnswerResponse.Question);
             await Clients.Caller.SendAsync("ProgressUpdatedForPlayer", playerProgress);

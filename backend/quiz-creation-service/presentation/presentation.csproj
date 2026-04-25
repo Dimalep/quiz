@@ -79,6 +79,7 @@
 
   <ItemGroup>
     <Folder Include="obj\Debug\net9.0\staticwebassets\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

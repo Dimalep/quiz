@@ -11,6 +11,7 @@ export type Question = {
   text: string;
   type: string;
   complexity: number;
+  imageUrl?: string;
   answers: Answer[];
 }
 
@@ -45,6 +46,7 @@ export type Action =
   | {type: "CHANGE_QUESTION_COMPLEXITY", payload: {complexity: number}}
   | {type: "REMOVE_EMPTY_ANSWERS_FROM_QUESTION"}
   | {type: "REMOVE_EMPTY_QUESTION"}
+  | {type: "UPLOAD_FILE", payload: {imageUrl: string}}
 
 
 export default function reducer(state: CreateState, action: Action) {
@@ -166,6 +168,31 @@ export default function reducer(state: CreateState, action: Action) {
       };
     }
     //question
+    case "UPLOAD_FILE": {
+      const { imageUrl } = action.payload;
+
+      if (!state.currentQuestion) return state;
+
+      const currentId = state.currentQuestion.id;
+
+      const updatedQuestions = state.quiz.questions.map(q =>
+        q.id === currentId
+          ? { ...q, imageUrl }
+          : q
+      );
+
+      return {
+        ...state,
+        quiz: {
+          ...state.quiz,
+          questions: updatedQuestions,
+        },
+        currentQuestion: {
+          ...state.currentQuestion,
+          imageUrl,
+        },
+      };
+    }
     case "CHANGE_QUESTION_COMPLEXITY": {
       const { complexity } = action.payload;
 

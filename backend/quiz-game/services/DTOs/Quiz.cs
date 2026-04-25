@@ -1,5 +1,6 @@
 ﻿namespace services.DTOs;
 
+#region ORIGINAL QUIZ
 public class Quiz
 {
     public int Id { get; set; }
@@ -22,6 +23,7 @@ public class Question
     public string Text { get; set; } = null!;
     public string Type { get; set; } = null!;
     public int Complexity { get; set; }
+    public string? ImageUrl { get; set; }
     public List<Answer> Answers { get; set; } = new();
 }
 
@@ -32,3 +34,15 @@ public class Answer
     public string Text { get; set; } = null!;
     public bool IsCorrect { get; set; }
 }
+#endregion
+
+
+#region HISTORY
+public record QuizHistory
+{
+    public int Id { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+    public int QuantityQuestion { get; set; }
+}
+#endregion

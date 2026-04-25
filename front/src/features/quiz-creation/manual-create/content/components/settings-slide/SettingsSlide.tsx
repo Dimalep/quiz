@@ -20,7 +20,7 @@ export default function SettingsSlide() {
           className={styles.next}
           onClick={() => dispatch({ type: "OPEN_NEXT_QUESTION" })}
         >
-          Следующий
+          Перейти к вопросам
         </button>
       </div>
 

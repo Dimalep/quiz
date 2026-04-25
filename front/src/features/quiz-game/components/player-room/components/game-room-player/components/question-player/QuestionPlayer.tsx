@@ -1,6 +1,7 @@
 import { useQuizGamePlayerContext } from "../../../../../../quiz-game-context/QuizGamePlayerContext";
 import ButtonsAnswer from "./components/ButtonsAnswer";
 import CheckboxAnswer from "./components/CheckboxAnswer";
+import Media from "./components/media/Media";
 import styles from "./QuestionPlayer.module.css";
 
 // if current question is null that quiz is over
@@ -21,6 +22,10 @@ export default function QuestionPlayer() {
           <span>Вопрос:</span>
           <h2>{curQuestion.text}</h2>
         </div>
+
+        {curQuestion.imageUrl !== "" && (
+          <Media imageUrl={curQuestion.imageUrl} />
+        )}
 
         {curQuestion.type === "buttons" ? (
           <ButtonsAnswer answers={curQuestion.answers} />

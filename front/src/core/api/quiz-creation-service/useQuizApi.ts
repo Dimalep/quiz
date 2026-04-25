@@ -1,28 +1,5 @@
 import type { Quiz } from "../../../features/quiz-creation/manual-create/create-context/reducer";
 
-// export type QuizDTO = {
-//     id?: number;
-//     title: string;
-//     description: string;
-//     quantityQuestions: number;
-// }
-
-// export interface QuizWithQuestionsIds {
-//   id: number,
-//   title: string;
-//   description: string;
-//   quantityQuestions: number;
-//   questionsIds: number[];
-// }
-
-// export interface LightQuiz {
-//   id: number,
-//   title: string;
-//   description: string;
-//   quantityQuestions: number;
-//   questionsIds: string[];
-// }
-
 export interface InfoAboutQuiz{
   id: number;
   title: string;
@@ -31,6 +8,43 @@ export interface InfoAboutQuiz{
 }
 
 export default function useQuizApi() {
+
+  //delete file
+  const deleteFile = async (fileName: string) => {
+    const response = await fetch(
+      `${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/files/${fileName}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if(!response.ok){
+      console.log("Error delete file");
+      return null;
+    }
+  };
+
+  // upload file. return img url
+  const upload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/files/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (!response.ok) {
+      console.log("Error upload file");
+      return null;
+    }
+
+    const url = await response.text();
+    return url;
+  };
 
   const getInfoAboutQuizByQuizId = async (quizId: number) : Promise<InfoAboutQuiz| undefined> => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/get-info-about-quiz/${quizId}`, {
@@ -61,6 +75,7 @@ export default function useQuizApi() {
     return true;
   };
 
+  // GET GAME HISTORY
   const getQuizzesByUserId = async (userId: number) : Promise<Quiz[] | undefined> => {
     const response = await fetch(`${import.meta.env.VITE_QUIZ_CREATION_ADDRESS}api/quizzes/by-userid/${userId}`, {
       method: "GET",
@@ -123,6 +138,6 @@ export default function useQuizApi() {
   }
 
 
-  return {createNewQuiz, updateQuiz, getQuizById, getQuizzesByUserId, deleteQuizById, getInfoAboutQuizByQuizId}
+  return {createNewQuiz, updateQuiz, getQuizById, getQuizzesByUserId, deleteQuizById, getInfoAboutQuizByQuizId, upload, deleteFile}
 }
 

@@ -8,76 +8,77 @@
   padding-top: 20px;
 }
 
+/* ===== NEW NAV BUTTONS ===== */
+
 .head{
   display: flex;
   flex-direction: row;
-
   justify-content: space-between;
-  align-items: center;
-}
-
-.head label{
-  cursor: pointer;
-}
-
-.head label:hover{
-  color: blue;
 }
 
 .title{
-  display: flex;
-  justify-self: center;
-  align-self: center;
-
-  margin-bottom: 20px;
-
   color: white;
 }
 
-.settings{
-  position: absolute;
-  display: flex;
+.navButton {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #3b265f;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: "Rubik";
 }
 
-.complete_btn button{
-  border: none;
-
-  font-size: 14px;
+.navButton:hover {
+  background: #4b2f7a;
+  transform: translateY(-1px);
 }
 
-.buttons {
+.navButton:active {
+  transform: scale(0.98);
+}
+
+/* ===== ACTION BUTTONS ===== */
+
+.actions {
   display: flex;
-  flex-direction: row;
-  gap: 10px; 
-  padding: 20px;
-
-  background-color:#3b265f;
-
-  border: none;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px;
+  background: #3b265f;
   border-radius: 15px;
 }
 
-.buttons div{
-  gap: 7px;
-
-  display: flex;
-  flex-direction: column;
+.primaryButton {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #8b5cf6;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
 }
 
-.settings_btn{
-  padding: 5px 15px;
+.primaryButton:hover {
+  background: #7c3aed;
 }
 
-.complete_btn{
-  padding: 10px 15px; 
+.secondaryButton {
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.next_btn{
-  display: flex;
-  justify-content: center;
-
-  width: 150px;
-  height: 40px;
+.secondaryButton:hover {
+  background: rgba(255,255,255,0.1);
 }
 
 .buttons button{

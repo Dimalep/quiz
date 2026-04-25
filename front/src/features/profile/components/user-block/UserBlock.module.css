@@ -1,63 +1,74 @@
 .main{
     position: relative;
-    padding: 10px;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    align-items: center;
     gap: 50px;
+
+    width: 100%;
+
+    padding: 25px;
+
+    background: linear-gradient(135deg, #0F2A44, #123A5A);
+
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+
+    color: whitesmoke;
 }
 
-.name_and_logo{
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
+.main span{
+    color: #607D8B;
 }
+
+
 .logo{
     width: 75px;
     height: 75px;
+
+    border-radius: 10px;
+
     background-color: black;
 }
+
 .name{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    padding: 10px 20px;
+    gap: 10px;
 
-    border: 1px solid rgba(42, 72, 100, 0.685);
-    border-radius: 5px;
-
-    background-color: rgba(123, 182, 236, 0.171);
-}
-.name:hover{
-    background-color: rgba(158, 196, 231, 0.171);
+    font-size: 18px;
+    font-family: Rubik;
 }
 
-.more_info{
+.email{
     display: flex;
     flex-direction: row;
     gap: 10px;
+
+    font-size: 18px;
+    font-family: Rubik;
 }
 
-.info_card{
+.email div{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-
-    padding: 10px 20px;
-
-    border: 1px solid rgba(42, 72, 100, 0.685);
-    border-radius: 5px;
-
-    background-color: rgba(123, 182, 236, 0.171);
+    gap: 10px;
 }
-.info_card:hover{
-    background-color: rgba(158, 196, 231, 0.171);
+
+.statistics{
+    position: absolute;
+    right: 25px;
+
+    padding: 10px;
 }
 
 @media(max-width: 880px){
-    .more_info{
+    .email{
+        display: none;
+    }
+    .statistics{
         display: none;
     }
 }

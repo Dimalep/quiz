@@ -1,49 +1,75 @@
-import { useMemo } from "react";
-import { useProfileContext } from "../../ProfileProvider";
-import GameItem from "./components/game-item/GameItem";
-import QuizItem from "./components/quiz-item.tsx/QuizItem";
 import styles from "./Content.module.css";
+import Search from "../../../../shared/icons/Search";
+import { useProfileContext } from "../../ProfileProvider";
+import QuizItem from "./components/quiz-item.tsx/QuizItem";
+import GameItem from "./components/game-item/GameItem";
+import { useState } from "react";
+// import type { Quiz } from "../../../quiz-creation/manual-create/create-context/reducer";
 
-interface Props {
-  filterDate: "new" | "old";
-}
+export default function Content() {
+  const { myQuizzes, mode, games, createQuiz } = useProfileContext();
 
-export default function Content({ filterDate }: Props) {
-  const { myQuizzes, mode, games } = useProfileContext();
+  // const [isOpen, setIsOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
-  const sortedGames = useMemo(() => {
-    return [...(games ?? [])].sort((a, b) => {
-      const aTime = new Date(a.createAt).getTime();
-      const bTime = new Date(b.createAt).getTime();
+  const quizzes = myQuizzes;
 
-      return filterDate === "new" ? bTime - aTime : aTime - bTime;
-    });
-  }, [games, filterDate]);
-
-  //my quizzes list
-  const quizList = myQuizzes ? (
-    <div className={styles.list}>
-      {myQuizzes?.map((el) => (
-        <QuizItem key={el.id} quiz={el} />
-      ))}
-    </div>
-  ) : (
-    <label>loading..</label>
+  const filteredQuizzes = quizzes?.filter((quiz) =>
+    (quiz.title + quiz.description)
+      .toLowerCase()
+      .includes(searchValue.toLowerCase()),
   );
 
-  //history my games
-  const gameList = sortedGames ? (
-    <div className={styles.list}>
-      {games?.map((el) => (
-        <GameItem key={el.id} game={el} />
-      ))}
-    </div>
-  ) : (
-    <label>loading....</label>
+  const filteredGames = games?.filter((game) =>
+    game.quiz.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
-  if (mode === "quizzes") return <div className={styles.main}>{quizList}</div>;
-  else if (mode === "history_games")
-    return <div className={styles.main}>{gameList}</div>;
-  else return <div>error</div>;
+  const list =
+    mode === "quizzes" ? (
+      filteredQuizzes?.length === 0 ? (
+        <label>Ничего не найдено</label>
+      ) : (
+        filteredQuizzes?.map((el) => <QuizItem key={el.id} quiz={el} />)
+      )
+    ) : filteredGames?.length === 0 ? (
+      <label>Ничего не найдено</label>
+    ) : (
+      filteredGames?.map((el) => <GameItem key={el.id} game={el} />)
+    );
+
+  // const filter_dropdown = <div className={styles.filter}>while empty</div>;
+
+  return (
+    <div className={styles.main}>
+      <div className={styles.settings}>
+        <div className={styles.search_block}>
+          <Search />
+          <input
+            onChange={(e) => setSearchValue(e.target.value)}
+            value={searchValue}
+            placeholder="Поиск по названию квиза"
+          />
+        </div>
+
+        {/* <button
+          className={styles.filter_btn}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          Фильтр
+        </button> */}
+
+        {mode === "quizzes" && (
+          <button className={styles.create_btn} onClick={createQuiz}>
+            + создать квиз
+          </button>
+        )}
+      </div>
+
+      {/* {isOpen && filter_dropdown} */}
+
+      <div className={styles.list} data-lenis-prevent>
+        {list}
+      </div>
+    </div>
+  );
 }

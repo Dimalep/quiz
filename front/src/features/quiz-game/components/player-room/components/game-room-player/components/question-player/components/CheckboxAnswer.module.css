@@ -50,9 +50,30 @@
 }
 
 /* выбранный вариант */
-.answerLabel:has(input:checked) {
-  background: #e0e7ff;
-  border-color: #6366f1;
+.answerLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  background: #f7f7f7;
+  border: 2px solid transparent;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.answerLabel:hover {
+  background: #eef3ff;
+}
+
+/* выбранный вариант */
+.selected {
+  border-color: #ffffff;
+  transform: scale(1.02);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
 }
 
 .give_answer_btn{

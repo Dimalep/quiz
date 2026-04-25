@@ -11,11 +11,11 @@ public static class ServicesCollectionExtentions
     {
         services.AddQuizCreationDbContext(connectionString);
 
-        // services.AddScoped<IAnswerService, AnswerService>();
-        // services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IQuizService, QuizService>();
-
-        // services.AddSingleton<Mapper>();
+        //services.AddHttpClient<IQuizGeneratorService, QuizGeneratorService>(client =>
+        //{
+        //    client.BaseAddress = new Uri("https://openrouter.ai/api/v1");
+        //});
 
         return services;
     }

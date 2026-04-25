@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import type { Quiz } from "../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useProfileContext } from "../../../../ProfileProvider";
 import styles from "./QuizItem.module.css";
+import QuizIco from "../../../../../../shared/icons/Quiz";
+import { useState } from "react";
 
 interface Props {
   quiz: Quiz;
@@ -10,6 +12,8 @@ interface Props {
 export default function QuizItem({ quiz }: Props) {
   const { deleteQuiz, initialGame, editQuiz } = useProfileContext();
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const deleteHander = async () => {
     const res = confirm("Удалить квиз?");
@@ -40,21 +44,42 @@ export default function QuizItem({ quiz }: Props) {
 
   return (
     <div className={styles.main}>
-      <div className={styles.title}>
-        <span>Название</span>
-        <h3>{quiz.title}</h3>
+      <div className={styles.ico}>
+        <QuizIco />
       </div>
-      <div className={styles.buttons}>
-        <button className={styles.launch} onClick={launchHandler}>
-          Запустить
-        </button>
-        <button className={styles.edit} onClick={editClickHandler}>
-          Изменить
-        </button>
-        <button className={styles.delete} onClick={deleteHander}>
-          Удалить
-        </button>
+
+      <div className={styles.info}>
+        <label className={styles.title}>{quiz.title}</label>
+        <label className={styles.create_at}>create at</label>
+
+        <div className={styles.quantity_question}>
+          вопросов: {quiz.quantityQuestions}
+        </div>
       </div>
+
+      <label
+        className={styles.dropdown_btn}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        ⋮
+      </label>
+
+      {isOpen && (
+        <div
+          className={styles.dropdown}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <button className={styles.launch} onClick={launchHandler}>
+            Запустить
+          </button>
+          <button className={styles.edit} onClick={editClickHandler}>
+            Изменить
+          </button>
+          <button className={styles.delete} onClick={deleteHander}>
+            Удалить
+          </button>
+        </div>
+      )}
     </div>
   );
 }

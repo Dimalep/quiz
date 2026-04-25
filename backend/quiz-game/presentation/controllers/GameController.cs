@@ -16,6 +16,14 @@ namespace presentation.controllers
         }
 
         [AllowAnonymous]
+        [HttpDelete("{gameId}")]
+        public async Task<IActionResult> DeleteGameById([FromRoute] int gameId)
+        {
+            await _gameService.DeleteGameById(gameId);
+            return Ok();
+        }
+
+        [AllowAnonymous]
         [HttpGet("userid={userId}")]
         public async Task<IActionResult> GetGamesByUserId([FromRoute] int userId)
         {
@@ -54,6 +62,14 @@ namespace presentation.controllers
         {
             var result = await _gameService.InitialGame(quizId, userId);
             return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPut("complete-by-id/{gameId}")]
+        public async Task<IActionResult> CompleteGame([FromRoute] int gameId)
+        {
+            var res = await _gameService.CompleteById(gameId);
+            return Ok(res);
         }
     }
 }

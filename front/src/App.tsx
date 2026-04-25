@@ -15,6 +15,7 @@ import GameResults from "./features/quiz-game/components/game-results/GameResult
 
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
+import AiGenerator from "./features/quiz-creation/ai-generator/AiGenerator";
 
 function App() {
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
             path="/quiz/:quizId/complete-creation"
             element={<CompleteCreation />}
           />
+          <Route path="/quiz/generate" element={<AiGenerator />} />
           <Route
             path="quiz/game/player/:sessionKey"
             element={<QuizGamePlayer />}

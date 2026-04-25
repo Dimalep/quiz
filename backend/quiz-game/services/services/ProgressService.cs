@@ -38,6 +38,8 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
             throw new Exception($"Cannot find quiz by quiz id {game.QuizId}");
         
         var firstQuestion = currentQuiz.Questions.First();
+
+        Console.WriteLine($"Image url: {firstQuestion.ImageUrl}");
         
         // Return
         return new CurrentPlayerProgress
@@ -46,27 +48,6 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
             Progress = playerProgress,
         };
     }
-    
-    // Deleted
-    // // The player starts his game *old
-    // public async Task<Progress> Start(int playerId, string sessionKey)
-    // {
-    //     var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
-    //     if (game == null)
-    //         throw new ArgumentException("Game is null");
-    //     
-    //     var progress = await _dbContext.Progresses
-    //         .Include(p => p.Player)
-    //         .FirstOrDefaultAsync(p => p.GameId == game.Id && p.PlayerId == playerId);
-    //     
-    //     if (progress == null)
-    //         throw new ArgumentException("Progress not found");
-    //
-    //     progress.Status = ProgressStatus.in_game;
-    //     
-    //     await _dbContext.SaveChangesAsync();
-    //     return progress;
-    // }
 
     public async Task<Progress> Finish(int playerId, string sessionKey)
     {
@@ -317,49 +298,6 @@ public class ProgressService(DatabaseContext _dbContext, QuizGrpcServiceClient q
             Progress = progress,
         };
     }
-    
-    // Deleted
-    //public async Task<Progress> AddAnswer(string sessionKey, QuestionResult answer, int playerId)
-    //{   
-    //    var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.sessionKey == sessionKey);
-    //    if (game == null)
-    //        throw new ArgumentNullException("Not found game by session key");
-
-    //    var quiz = await quizGrpcServiceClient.GetQuizByIdAsync(game.QuizId);
-        
-    //    var progress = await _dbContext.Progresses
-    //        .Include(p => p.Player)
-    //        .ThenInclude(p => p.Game)
-    //        .FirstOrDefaultAsync(p => p.PlayerId == playerId && p.GameId == game.Id);
- 
-    //    if (progress == null)
-    //        throw new ArgumentException("Progress not found");
-        
-    //    var existing = progress.QuizResult.Questions.FirstOrDefault(q => q.QuestionIndex == answer.QuestionIndex);
-    //    if (existing != null)
-    //    {
-    //        existing.Answers = answer.Answers;
-    //    }
-    //    else
-    //    {
-    //        progress.QuizResult.Questions.Add(answer);
-    //        progress.QuantityCompletedQuestions = +1;
-    //    }
-
-    //    int countCorrectAnswers = progress.QuizResult.Questions
-    //        .Count(q => q.Answers.All(a => a.IsCorrect));
-
-    //    progress.QuizResult.QuantityCorrectAnswers = countCorrectAnswers;
-        
-    //    //?
-    //    progress.CurrentQuestionIndex 
-    //        = quiz.QuantityQuestions > progress.CurrentQuestionIndex ? progress.CurrentQuestionIndex + 1 : progress.CurrentQuestionIndex;
-    //    //
-        
-    //    await _dbContext.SaveChangesAsync();
-        
-    //    return progress;
-    //}
     
     public async Task<Progress?> GetById(int progressId)
     {

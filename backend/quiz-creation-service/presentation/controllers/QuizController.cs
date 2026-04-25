@@ -1,13 +1,47 @@
-﻿    using domains.domains;
-    using Microsoft.AspNetCore.Mvc;
-    using services.interfaces;
+﻿using domains.domains;
+using Microsoft.AspNetCore.Mvc;
+using services.interfaces;
 
-    namespace presentation.controllers
+
+namespace presentation.controllers
     {
         [ApiController]
         [Route("api/quizzes")]
         public class QuizController(IQuizService quizService) : ControllerBase
         {
+            [HttpDelete("files/{fileName}")]
+            public IActionResult DeleteFile([FromRoute] string fileName)
+            {
+                var path = Path.Combine("wwwroot/uploads", fileName);
+
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+
+                return Ok();
+            }
+
+            [HttpPost("files/upload")]
+            public async Task<IActionResult> UploadFile(IFormFile file)
+            {
+                if (file == null || file.Length == 0)
+                    return BadRequest("File is empty");
+
+                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                var path = Path.Combine("wwwroot/uploads", fileName);
+
+                Directory.CreateDirectory("wwwroot/uploads");
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                var url = $"/uploads/{fileName}";
+                return Ok(url);
+            }
+
             [HttpDelete("{quizId}")]
             public async Task<IActionResult> DeleteQuizById([FromRoute] int quizId)
             {

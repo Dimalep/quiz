@@ -1,69 +1,186 @@
 .main{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    background: #0F2A44;
+
+    border-radius: 7px;
+    border: 1px solid rgba(59, 131, 246, 0.13);
+
     padding: 20px;
 
-    border: none;
-    border-radius: 15px;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-
-    background: linear-gradient(135deg, #5c6f82, #7f95a8);
+    transition: 
+        border 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
-.content{
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
+.main:hover{
+    border: 1px solid rgba(59, 131, 246, 0.555);
+    background: #123352;
 }
 
-.buttons{
+.ico{
+    padding: 5px;
+    background: #123a5fd3;
+
+    border-radius: 5px;
+
+    color: rgba(255, 255, 255, 0.527);
+}
+
+.info{
     display: flex;
     flex-direction: row;
     gap: 15px;
 }
 
-/* .buttons button{
-    background-color: #6e8396;
-    box-shadow: 0px 2px 4px rgba(0,0,0, 0.1);
-
-    padding: 10px 15px;
-
-    border: none;
-    border-radius: 7px;
-
-    transition: background-color 0.4s ease, transform 0.1s;
-} */
-
-.buttons button{
-    background-color: #6e8396;
-    box-shadow: 0px 2px 4px rgba(0,0,0, 0.1);
-
-    padding: 10px 15px;
-
-    border: none;
-    border-radius: 7px;
-
-    transition: background-color 0.4s ease, transform 0.1s;
+.info .title{
+    color: white;
+    font-size: 16px;
+    font-family: Rubik;
 }
 
-.buttons button:hover{
-    background-color: #657788;
-    transform: scale(1.02);
+.info .description{
+    color: rgba(255, 255, 255, 0.37);
+    font-size: 12px;
+    font-family: Rubik;
+    font-weight: 200;
+}
+
+.info div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.data{
+    display: flex;
+    gap: 15px;
+}
+
+.data label{
+    color: rgba(255, 255, 255, 0.37);
+    font-size: 12px;
+    font-family: Rubik;
+    font-weight: 200;
+}
+
+/* STATISTICS  */
+.statistics{
+    display: flex;
+    flex-direction: column;
+
+    align-self: flex-start;
+
+    padding: 10px;
+
+    background: #0c1b299c;
+
+    border-radius: 5px;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.avg_res{
+    color: whitesmoke;
+    font-size: 16px;
+    font-family: Rubik;
+    font-weight: 300;
+}
+
+.avg_res_title{
+    color: rgba(255, 255, 255, 0.37);
+    font-size: 12px;
+    font-family: Rubik;
+    font-weight: 200;
 }
 
 .status{
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+    padding: 7px;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+    font-family: Rubik;
+    font-weight: 200;
+    color: rgba(245, 245, 245, 0.856);
 }
 
-.key{
-    display: flex;
-    flex-direction: column;
+/* STATUS */
+.opened{
+    background: rgba(0, 128, 0, 0.514);
 }
 
-@media(max-width: 880px){
-    .main{
-        flex-direction: column;
-    }
+.launched{
+    background: rgba(0, 34, 145, 0.548);
+}
+
+.completed{
+    background: rgba(145, 143, 0, 0.548);
+}
+
+.closed{
+    background: rgba(145, 22, 0, 0.548);
+}
+
+/* DROPDOWN */
+.dropdown_btn{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    font-size: 18px;
+    color: whitesmoke;
+
+    padding: 5px 10px;
+
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background: #0b1e30;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+    border: 1px solid rgba(59, 131, 246, 0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+    z-index: 10;
+}
+
+.dropdown button{
+    border: none;
+    padding: 7px 20px;
+
+    font-size: 16px;
+    color: whitesmoke;
+
+    background: transparent;
+
+    transition: background 0.4s ease;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.dropdown button:hover{
+    background: rgba(59, 131, 246, 0.15);
 }

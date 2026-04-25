@@ -1,0 +1,18 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+
+    min-height: 100vh;
+
+    padding-top: 30px;
+
+    background: linear-gradient(135deg, #1a0f2e 0%, #24123f 50%, #0e0818 100%);
+}
+
+.content{
+    width: 35%;
+
+    background: rgb(88, 88, 88);
+}

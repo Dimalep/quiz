@@ -134,3 +134,4 @@ D:\quiz\backend\quiz-creation-service\presentation\obj\Debug\net9.0\refint\prese
 D:\quiz\backend\quiz-creation-service\presentation\obj\Debug\net9.0\presentation.pdb
 D:\quiz\backend\quiz-creation-service\presentation\obj\Debug\net9.0\presentation.genruntimeconfig.cache
 D:\quiz\backend\quiz-creation-service\presentation\obj\Debug\net9.0\ref\presentation.dll
+D:\quiz\backend\quiz-creation-service\presentation\bin\Debug\net9.0\presentation.staticwebassets.runtime.json

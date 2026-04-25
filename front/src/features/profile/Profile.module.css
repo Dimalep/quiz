@@ -1,63 +1,77 @@
+.global_main{
+    height: 100vh;
+    overflow: auto;
+
+    background-color: #0B1E2D;  
+}
+
+.header{
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+
+    background-color: #04101a;
+
+    padding: 0px 30px;
+
+    height: 50px;
+}
+
+.header button{
+    cursor: pointer;
+
+    color: whitesmoke;
+
+    font-size: 18px;
+    font-family: Rubik;
+
+    background: transparent;
+
+    padding: 0px 20px;
+}
+
+.main_btn{
+    border: 0px;
+}
+
+.main_btn:hover{
+    border-bottom: 2px solid white;
+}
+
+.profile_btn{
+    border: 0px;
+    border-bottom: 2px solid white;
+}
+
+
 .main {
     display: flex;
     flex-direction: column;
     gap:20px;
-    padding: 10px;
-    height: 100vh; 
 
-    /* background-color: rgba(85, 126, 165, 0.685) */
-    background-color: rgb(0, 16, 31)
-}
-
-.main1{
-    display: flex;
-    flex-direction: row;
     padding: 20px;
-    height: 150px;
 
-    border-radius: 15px;
-
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-
-    background-color: rgb(0, 37, 71)
-}
-
-
-.main2{
-    display: flex;
-    flex-direction: column;
-
-    border-radius: 15px;
-
-    flex: 1;
     min-height: 0;
-    
 }
 
 .content{
     display: flex;
     flex-direction: row;
-
-    flex: 1;
-    min-height: 0;
+    gap: 30px;
 }
 
-.data1{
-    padding: 20px;
-    width: 15%;
+.content{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    height: 68vh;
 }
+
 
 @media(max-width: 880px){
     .main{
-        padding: 0px;
-    }
-    .main1{
-        border-radius: 0px;
-        border-width: 0px 0px 2px 0px;
-    }
-    .main2{
-        border-width: 2px 0px 0px 0px;
-        border-radius: 0px 0px 0px 0px;
+        padding: 5px;
     }
     .search{
         border-radius: 0px;

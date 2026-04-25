@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
+﻿using services.DTOs;
 using System.Text.Json;
-using services.DTOs;
 
 namespace services.Cache;
 
@@ -35,33 +34,6 @@ public class QuizCacheService(HttpClient _httpClient)
 
         _quizzes[quiz.Id] = quiz;
         
-        ShowQuizzesIds();
-        
-        return quiz;
-    }
-    
-    public async Task<Quiz?> GetQuizFromQuizServiceById(int quizId)
-    {
-        // Get the full quiz
-        var response = await _httpClient
-            .GetAsync($"http://localhost:5051/api/quizzes/{quizId}");
-            
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception("Failed to fetch quiz snapshot");
-        }
-            
-        var json = await response.Content.ReadAsStringAsync();
-
-        var quiz = JsonSerializer.Deserialize<Quiz>(json);
-
-        if (quiz == null)
-            throw new Exception($"Quiz by id: {quizId} not found");
-            
-        // Set quiz in-memory Dictionary
-        Set(quiz.Id, quiz);
-
-        //Check
         ShowQuizzesIds();
         
         return quiz;

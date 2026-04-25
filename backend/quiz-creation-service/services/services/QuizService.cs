@@ -38,9 +38,6 @@ namespace services.services
             
             Debug.WriteLine($"{updatingQuiz.Id} {updatingQuiz.Description}");
             
-            
-            // db.Entry(updatingQuiz).CurrentValues.SetValues(quiz);
-
             updatingQuiz.Description = quiz.Description;
             updatingQuiz.Title = quiz.Title;
             updatingQuiz.UserId = quiz.UserId;
@@ -95,48 +92,6 @@ namespace services.services
             return quiz;
         }
         
-        // Deleted
-        //public async Task<ShortQuiz> GetShortQuizById(int quizId)
-        //{
-        //    var quiz = await db.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
-        //    if (quiz == null)
-        //    {
-        //        throw new ArgumentException("Quiz not found");
-        //    }
-
-        //    var shortQuiz = new ShortQuiz
-        //    {
-        //        Id = quiz.Id,
-        //        Title = quiz.Title,
-        //        Description = quiz.Description,
-        //        QuantityQuestions = quiz.QuantityQuestions
-        //    };
-            
-        //    return shortQuiz;
-        //}
-
-        //Get by id light version of quiz  
-        //public async Task<LightQuiz> GetLightQuizById(int quizId)
-        //{
-        //    var quiz = await db.Quizzes
-        //        .FirstOrDefaultAsync(q => q.Id == quizId);
-
-        //    if (quiz == null)
-        //        throw new ArgumentException("Not found quiz by id");
-
-        //    var questionsIds = quiz.Questions
-        //        .Select(question => question.Id)
-        //        .ToList();
-
-        //    return new LightQuiz
-        //    {
-        //        Id = quiz.Id,
-        //        Description = quiz.Description,
-        //        QuantityQuestions = quiz.QuantityQuestions,
-        //        QuestionsIds = questionsIds,
-        //    };
-        //}
-
         public async Task<ICollection<Quiz>> GetQuizzesByUserId(int userId)
         {
             return await db.Quizzes

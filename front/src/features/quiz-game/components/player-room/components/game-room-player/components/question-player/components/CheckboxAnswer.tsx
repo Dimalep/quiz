@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Answer } from "../../../../../../../../quiz-creation/manual-create/create-context/reducer";
 import { useQuizGamePlayerContext } from "../../../../../../../quiz-game-context/QuizGamePlayerContext";
 import styles from "./CheckboxAnswer.module.css";
@@ -9,10 +9,33 @@ interface Props {
 }
 
 export default function CheckboxAnswer({ answers }: Props) {
-  const { toAnswer } = useQuizGamePlayerContext();
+  const { toAnswer, answerHistory, curQuestion } = useQuizGamePlayerContext();
 
   const [inputAnswers, setInputAnswers] = useState<AnswerResult[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
+
+  const colors = ["#00C9A7", "#00B8D9", "#4D96FF", "#845EC2", "#2C73D2"];
+
+  useEffect(() => {
+    if (!curQuestion) return;
+
+    const currentAnswerHistory =
+      answerHistory.find((ah) => ah.questionId === curQuestion.id)?.answerId ??
+      [];
+
+    const mapped = answers
+      .filter((a) => currentAnswerHistory.includes(a.id))
+      .map((a) => ({
+        id: a.id,
+        answerIndex: a.index,
+        answerText: a.text,
+        isCorrect: a.isCorrect,
+      }));
+
+    setInputAnswers(mapped);
+  }, [curQuestion, answerHistory, answers]);
+
+  const isSelected = (id: string) => inputAnswers.some((el) => el.id === id);
 
   const toggleAnswer = (answer: Answer) => {
     setInputAnswers((prev) => {
@@ -53,17 +76,26 @@ export default function CheckboxAnswer({ answers }: Props) {
         <div className={styles.title}>Ответы:</div>
 
         <div className={styles.answers}>
-          {answers.map((el) => (
-            <label key={el.index} className={styles.answerLabel}>
-              <input
-                type="checkbox"
-                value={el.text}
-                checked={inputAnswers.some((a) => a.answerIndex === el.index)}
-                onChange={() => toggleAnswer(el)}
-              />
-              {el.text}
-            </label>
-          ))}
+          {answers.map((el, index) => {
+            const selected = isSelected(el.id);
+
+            return (
+              <label
+                key={el.index}
+                className={`${styles.answerLabel} ${
+                  selected ? styles.selected : ""
+                }`}
+                style={{ background: colors[index] }}
+              >
+                <input
+                  type="checkbox"
+                  checked={selected}
+                  onChange={() => toggleAnswer(el)}
+                />
+                {el.text}
+              </label>
+            );
+          })}
         </div>
       </div>
       <button className={styles.give_answer_btn} onClick={handleSubmit}>

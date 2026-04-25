@@ -1,0 +1,31 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 10px;
+
+    color: whitesmoke;
+}
+
+/* THEMA */
+.thema{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: #2d1a45;
+}
+
+/*  */
+.question{
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: #2d1a45;
+}

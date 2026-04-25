@@ -20,4 +20,16 @@ namespace services.DTOs
         public int QuizId { get; set; }
         public int UserId { get; set; }
     }
+
+    // FOR HISTORY
+    public record GameHistory
+    {
+        public int Id { get; set; }
+        public string Key { get; set; } = null!;
+        public QuizHistory Quiz { get; set; } = null!;
+        public double AvgResult { get; set; }
+        public Status Status { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime CompleteAt { get; set; }
+    }
 }
