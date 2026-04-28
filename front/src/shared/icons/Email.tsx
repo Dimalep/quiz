@@ -14,22 +14,22 @@ export default function Email() {
         height="16"
         rx="4"
         stroke="url(#grad)"
-        stroke-width="1.8"
+        strokeWidth="1.8"
         fill="none"
       />
 
       <path
         d="M4 7L12 13L20 7"
         stroke="url(#grad)"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
       <defs>
         <linearGradient id="grad" x1="0" y1="0" x2="24" y2="24">
-          <stop offset="0%" stop-color="#3B82F6" />
-          <stop offset="100%" stop-color="#6366F1" />
+          <stop offset="0%" stopColor="#3B82F6" />
+          <stop offset="100%" stopColor="#6366F1" />
         </linearGradient>
       </defs>
     </svg>

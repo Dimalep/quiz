@@ -81,12 +81,14 @@ builder.Services.AddHttpClient<QuizCacheService>(client =>
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 #region CORS
 app.UseCors("AllowFrontend");
 #endregion
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
@@ -95,7 +97,5 @@ if (app.Environment.IsDevelopment())
 
 app.MapHub<QuizHub>("/quizHub");
 app.MapControllers();
-
-app.UseHttpsRedirection();
 
 app.Run();

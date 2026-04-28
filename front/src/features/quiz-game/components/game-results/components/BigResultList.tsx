@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { ProgressForAdmin } from "../../../../../core/api/quiz-game-service/useProgress";
-import MainContainerGame from "../../../common-components/main-container-game/MainContainerGame";
 import styles from "./BigResultList.module.css";
 import BigResultItem from "./components/BigResultItem";
 
@@ -76,7 +75,7 @@ export default function BigResultList({ progresses }: Props) {
   console.log(filteredList);
 
   return (
-    <MainContainerGame title="Результаты" defualtContent={false}>
+    <div>
       <div className={styles.main}>
         {/* settings */}
         <div className={styles.settings}>
@@ -169,6 +168,6 @@ export default function BigResultList({ progresses }: Props) {
           ))
         )}
       </div>
-    </MainContainerGame>
+    </div>
   );
 }

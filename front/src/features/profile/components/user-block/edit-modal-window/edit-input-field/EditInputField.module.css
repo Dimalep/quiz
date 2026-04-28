@@ -1,0 +1,37 @@
+.main{
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    min-width: 0px;
+}
+
+.main label{
+    color: rgba(240, 248, 255, 0.623);
+    font-size: 14px;
+    font-family: Rubik;
+}
+
+.main input{    
+    width: 100%;
+    box-sizing: border-box;
+
+    border-radius: 5px;
+
+    font-size: 16px;
+    font-family: Rubik;
+    padding: 10px 15px;
+    color: whitesmoke;
+
+    background: transparent;
+
+    outline: none;
+    border: 1px solid rgba(240, 248, 255, 0.24);
+    border-radius: 5px;
+
+    transition: border 0.3s ease;
+}
+
+.main input:hover{
+    border: 1px solid rgba(0, 62, 121, 0.774);
+}

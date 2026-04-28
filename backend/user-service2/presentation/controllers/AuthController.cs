@@ -25,8 +25,6 @@ namespace presentation.controllers
         [HttpPost("send-code")]
         public async Task<IActionResult> SendCodeToEmail([FromBody] SendCodeRequest req)
         {
-            Console.WriteLine($"Email to send: {req.Email}");
-
             // find anon user
             var existsUserById = await _userService.GetById(req.AnonUserId);
             if (existsUserById == null)
@@ -53,6 +51,8 @@ namespace presentation.controllers
             var authByEmailResponse = await _emailService.Confirmation(req);
 
             var result = await _authService.AuthByEmail(req);
+
+            Console.WriteLine($"User id: {result.User.Id}\nUser email{result.User.Email}");
 
             return Ok(result);
         }

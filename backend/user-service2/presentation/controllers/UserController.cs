@@ -1,4 +1,5 @@
-﻿using application.interfaces;
+﻿using application.DTOs;
+using application.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,14 @@ namespace presentation.controllers
     [Route("api/users")]
     public class UserController(IUserService userService) : Controller
     {
+        [AllowAnonymous]
+        [HttpPatch("patch/{userId}")]
+        public async Task<IActionResult> PatchUser([FromRoute] int userId, [FromBody] EditUserRequest req)
+        {
+            var res = await userService.PatchUser(userId, req);
+            return Ok(res);
+        }
+
         [AllowAnonymous]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetById(int userId)

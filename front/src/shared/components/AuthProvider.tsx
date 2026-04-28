@@ -1,6 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import useAuth, { type AuthToken } from "../../core/api/user-service/useAuth";
-import type { User } from "../../core/api/user-service/useUser";
+import useAuth, {
+  type AuthResponse,
+} from "../../core/api/user-service/useAuth";
+import type {
+  EditUserRequest,
+  User,
+} from "../../core/api/user-service/useUser";
 import useUser from "../../core/api/user-service/useUser";
 
 interface AuthContextType {
@@ -14,16 +19,13 @@ interface AuthContextType {
 
   sendCodeToEmail: (email: string, anonUserId: number) => Promise<void>;
 
-  sendConfirmCode: (
-    confirmCode: string,
-    email: string,
-    anonUserId: number,
-  ) => Promise<AuthToken | undefined>;
+  sendConfirmCodeHandler: (confirmCode: string, email: string) => void;
 
   registrationHandler: (username: string, password: string) => Promise<void>;
   loginHandler: (username: string, password: string) => Promise<void>;
 
   clearAuthResponse: () => void;
+  patchUserHandler: (req: EditUserRequest) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -40,21 +42,66 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     clearAuthResponse,
   } = useAuth();
 
-  const { currentUser, setCurrentUser, generateAnonUser } = useUser();
+  const { currentUser, setCurrentUser, generateAnonUser, patchUser } =
+    useUser();
 
+  // FOR REFRESH PAGE
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setIsAuthenticated(!!token);
 
     (async () => {
+      // this method generete anon user or get exists user
       const user = await generateAnonUser();
 
-      if (!user) return;
+      if (!user) {
+        console.log("Error generate or get exists user.");
+        return;
+      }
 
       setCurrentUser(user);
     })();
   }, []);
 
+  async function patchUserHandler(
+    req: EditUserRequest,
+  ): Promise<AuthResponse | undefined> {
+    if (!currentUser) return;
+
+    const result = await patchUser(currentUser.id, req);
+
+    if ("isSuccess" in result && result.isSuccess === false) {
+      return result;
+    }
+
+    setCurrentUser(result as User);
+
+    return undefined;
+  }
+
+  // SEND CONFIRM CODE TO BACKEND
+  async function sendConfirmCodeHandler(confirmCode: string, email: string) {
+    const rowAnonUserId = localStorage.getItem("userId");
+    if (!rowAnonUserId) {
+      console.log("Cannot get user fron local storage");
+      return;
+    }
+    const anonUserId = JSON.parse(rowAnonUserId);
+
+    const authResponse = await sendConfirmCode(confirmCode, email, anonUserId);
+
+    if (authResponse) {
+      localStorage.setItem("userId", JSON.stringify(authResponse.user.id));
+
+      setCurrentUser(authResponse.user);
+
+      setIsAuthenticated(true);
+
+      console.log("Success confirm email ", authResponse);
+    }
+  }
+
+  // REGISTRATION USER
   async function registrationHandler(
     username: string,
     password: string,
@@ -130,11 +177,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         logoutHandler,
         setCurrentUser,
         setIsAuthenticated,
-        sendConfirmCode,
+        sendConfirmCodeHandler,
         sendCodeToEmail,
         registrationHandler,
         loginHandler,
         clearAuthResponse,
+        patchUserHandler,
       }}
     >
       {children}

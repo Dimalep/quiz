@@ -17,6 +17,7 @@ namespace application.services
             _db = db;
         }
 
+        // Save email confirm code in db
         public async Task SaveEmailCode(EmailCode emailCode)
         {
             if (emailCode == null)
@@ -26,6 +27,7 @@ namespace application.services
             await _db.SaveChangesAsync();
         }
 
+        // Confirmation email
         public async Task<AuthByEmailResponse> Confirmation(AuthByEmailResquest req)
         {
             var emailCode = await _db.EmailCodes.OrderByDescending(ec => ec.Id).FirstOrDefaultAsync(ec => ec.Email == req.Email);
@@ -52,6 +54,7 @@ namespace application.services
             };
         }
 
+        // Send confirm code to user email
         public async Task SendAsync(string to)
         {
             // generate confirm code

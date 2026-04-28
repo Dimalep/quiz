@@ -1,114 +1,143 @@
-﻿//using domains.domains;
-//using services.DTOs;
-//using services.interfaces;
-//using System.Net.Http.Headers;
-//using System.Text;
-//using System.Text.Json;
+﻿using domains.domains;
+using services.DTOs;
+using services.interfaces;
+using System.Text;
+using System.Text.Json;
 
-//namespace services.services
-//{
-//    public class QuizGeneratorService : IQuizGeneratorService
-//    {
-//        private readonly HttpClient httpClient;
+namespace services.services
+{
+    public class QuizGeneratorService(HttpClient httpClient) : IQuizGeneratorService
+    {
+        private readonly string generateQuizByThemaPrompt =
+            @"Сгенерируй квиз в формате JSON.
 
-//        public QuizGeneratorService(HttpClient httpClient)
-//        {
-//            this.httpClient = httpClient;
-//        }
+            Верни ТОЛЬКО JSON без текста и объяснений.
 
-//        private readonly string BASE_URL = "https://openrouter.ai/api/v1";
+            Требования:
+            - 4 вопроса
+            - 4 варианта ответа на каждый вопрос
+            - 1 правильный ответ
+            - без изображений
+            - index начинается с 1
 
-//        private readonly string API_KEY = "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";
+            Формат:
+            {
+              ""userId"": 1,
+              ""title"": ""string"",
+              ""description"": ""string"",
+              ""quantityQuestions"": 4,
+              ""questions"": [
+                {
+                  ""index"": 1,
+                  ""text"": ""string"",
+                  ""type"": ""buttons"",
+                  ""complexity"": 1,
+                  ""answers"": [
+                    {
+                      ""index"": 1,
+                      ""text"": ""string"",
+                      ""isCorrect"": true
+                    }
+                  ]
+                }
+              ]
+            }
 
-//        private readonly string generateQuizByThemaPrompt = "Сгенерируй квиз на указанную тему.\r\n\r\nВерни ТОЛЬКО валидный JSON без текста и пояснений.\r\n\r\nФормат строго:\r\n\r\n{\r\n  \"userId\": 1,\r\n  \"title\": \"string\",\r\n  \"description\": \"string\",\r\n  \"quantityQuestions\": 3,\r\n  \"questions\": [\r\n    {\r\n      \"index\": 1,\r\n      \"text\": \"string\",\r\n      \"type\": \"buttons\",\r\n      \"complexity\": 1,\r\n      \"answers\": [\r\n        {\r\n          \"index\": 1,\r\n          \"text\": \"string\",\r\n          \"isCorrect\": true\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n\r\nПравила:\r\n- минимум 4 ответа на вопрос\r\n- только один правильный ответ\r\n- без изображений\r\n- index начинается с 1\r\n- quantityQuestions соответствует длине questions";
+            Ответ должен быть строго валидным JSON.
+            Не используй markdown.
+            Сгенерируй короткие вопросы (до 80 символов)";
 
-//        public async Task<Quiz> GenerateQuizByThema(string topic)
-//        {
-//            httpClient.DefaultRequestHeaders.Authorization =
-//                new AuthenticationHeaderValue("Bearer", API_KEY);
 
-//            var requestBody = new
-//            {
-//                model = "deepseek/deepseek-chat",
-//                messages = new[]
-//                {
-//                    new {
-//                        role = "user",
-//                        content = $"{generateQuizByThemaPrompt}\n\nТема: {topic}"
-//                    }
-//                }
-//            };
+        public async Task<Quiz> GenerateQuizByThema(string topic)
+        {
+            var requestBody = new
+            {
+                model = "deepseek/deepseek-chat",
+                messages = new[]
+                {
+                    new {
+                        role = "user",
+                        content = $"{generateQuizByThemaPrompt}\n\nТема: {topic}"
+                    }
+                }
+            };
 
-//            var json = JsonSerializer.Serialize(requestBody);
+            var json = JsonSerializer.Serialize(requestBody);
 
-//            var response = await httpClient.PostAsync(
-//                $"{BASE_URL}/chat/completions",
-//                new StringContent(json, Encoding.UTF8, "application/json")
-//            );
+            var response = await httpClient.PostAsync(
+                "/api/v1/chat/completions",
+                new StringContent(json, Encoding.UTF8, "application/json")
+            );
 
-//            var result = await response.Content.ReadAsStringAsync();
+            var result = await response.Content.ReadAsStringAsync();
 
-//            //достаём content
-//            using var doc = JsonDocument.Parse(result);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"OpenRouter error: {error}");
+            }
 
-//            var content = doc.RootElement
-//                .GetProperty("choices")[0]
-//                .GetProperty("message")
-//                .GetProperty("content")
-//                .GetString();
+            //достаём content
+            using var doc = JsonDocument.Parse(result);
 
-//            if (string.IsNullOrEmpty(content))
-//                throw new Exception("AI returned empty response");
+            var content = doc.RootElement
+                .GetProperty("choices")[0]
+                .GetProperty("message")
+                .GetProperty("content")
+                .GetString();
 
-//            //чистим JSON (на случай мусора)
-//            var cleanJson = ExtractJson(content);
+            if (string.IsNullOrEmpty(content))
+                throw new Exception("AI returned empty response");
 
-//            //парсим в DTO
-//            var aiQuiz = JsonSerializer.Deserialize<AiQuizDto>(cleanJson,
-//                new JsonSerializerOptions
-//                {
-//                    PropertyNameCaseInsensitive = true
-//                });
+            //чистим JSON (на случай мусора)
+            var cleanJson = ExtractJson(content);
 
-//            if (aiQuiz == null)
-//                throw new Exception("Failed to deserialize AI quiz");
+            //парсим в DTO
+            var aiQuiz = JsonSerializer.Deserialize<AiQuizDto>(cleanJson,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
-//            //маппим в доменную модель
-//            var quiz = new Quiz
-//            {
-//                UserId = aiQuiz.UserId,
-//                Title = aiQuiz.Title,
-//                Description = aiQuiz.Description,
-//                QuantityQuestions = aiQuiz.Questions.Count,
-//                Questions = aiQuiz.Questions.Select(q => new Question
-//                {
-//                    Id = Guid.NewGuid().ToString(),
-//                    Index = q.Index,
-//                    Text = q.Text,
-//                    Type = q.Type,
-//                    Complexity = q.Complexity,
-//                    Answers = q.Answers.Select(a => new Answer
-//                    {
-//                        Id = Guid.NewGuid().ToString(),
-//                        Index = a.Index,
-//                        Text = a.Text,
-//                        IsCorrect = a.IsCorrect
-//                    }).ToList()
-//                }).ToList()
-//            };
+            if (aiQuiz == null)
+                throw new Exception("Failed to deserialize AI quiz");
 
-//            return quiz;
-//        }
+            //маппим в доменную модель
+            var quiz = new Quiz
+            {
+                UserId = aiQuiz.UserId,
+                Title = aiQuiz.Title,
+                Description = aiQuiz.Description,
+                QuantityQuestions = aiQuiz.Questions.Count,
+                Questions = aiQuiz.Questions.Select(q => new Question
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Index = q.Index,
+                    Text = q.Text,
+                    Type = q.Type,
+                    Complexity = q.Complexity,
+                    Answers = q.Answers.Select(a => new Answer
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Index = a.Index,
+                        Text = a.Text,
+                        IsCorrect = a.IsCorrect
+                    }).ToList()
+                }).ToList()
+            };
 
-//        private string ExtractJson(string input)
-//        {
-//            var start = input.IndexOf('{');
-//            var end = input.LastIndexOf('}');
+            return quiz;
+        }
 
-//            if (start == -1 || end == -1)
-//                return input;
+        private string ExtractJson(string input)
+        {
+            var start = input.IndexOf('{');
+            var end = input.LastIndexOf('}');
 
-//            return input.Substring(start, end - start + 1);
-//        }
-//    }
-//}
+            if (start == -1 || end == -1)
+                return input;
+
+            return input.Substring(start, end - start + 1);
+        }
+    }
+}

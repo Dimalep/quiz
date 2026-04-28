@@ -1,0 +1,35 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+    border: 1px solid #46286b;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+
+    background: #2d1a45;
+
+    color: whitesmoke;
+
+    transition: border 0.3s ease;
+}
+
+.main label{
+    color: rgba(245, 245, 245, 0.466);
+}
+
+.main:hover{
+    border: 1px solid #7300ffbe;
+}
+
+.select{
+    border-radius: 10px;
+    border: 1px solid #7300ffbe;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+
+    background: #321d4d
+}

@@ -4,9 +4,10 @@ import styles from "./AutoTextarea.module.css";
 interface Props {
   value: string;
   setValue: (value: string) => void;
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
 }
 
-export default function AutoTextarea({ value, setValue }: Props) {
+export default function AutoTextarea({ value, setValue, onBlur }: Props) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const resize = () => {
@@ -23,6 +24,7 @@ export default function AutoTextarea({ value, setValue }: Props) {
       value={value}
       onChange={(e) => setValue(e.target.value)}
       placeholder="Введите текст..."
+      onBlur={onBlur}
     />
   );
 }

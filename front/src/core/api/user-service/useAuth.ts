@@ -31,7 +31,6 @@ export default function useAuth() {
     setAuthResponse({title:"", message:"", isSuccess: true});
   }
 
-
   async function login(req: AuthRequest) : Promise<User | undefined> {
     try{
       const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/auth/login`,{
@@ -157,10 +156,9 @@ export default function useAuth() {
         title: "Успех",
         message: "Вы успешно вошли",
         isSuccess: true
-      });
+        });
 
-      console.log("Успешный вход, токен:", data.accessToken);
-      return data;
+        return data;
 
     }catch(err: any){
       console.error("Ошибка: ", err.message);
@@ -266,6 +264,7 @@ export default function useAuth() {
     sendConfirmCode, 
     registration, 
     login,
-    clearAuthResponse
+    clearAuthResponse,
+    setAuthResponse
   };
 }

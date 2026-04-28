@@ -8,7 +8,7 @@ namespace presentation.controllers
     public class QuizGeneratorController(IQuizGeneratorService quizGeneratorService) : ControllerBase
     {
         [HttpPost("by-thema")]
-        public async Task<IActionResult> GenerateQuizByThema(string thema)
+        public async Task<IActionResult> GenerateQuizByThema([FromBody] string thema)
         {
             var res = await quizGeneratorService.GenerateQuizByThema(thema); 
             return Ok(res);

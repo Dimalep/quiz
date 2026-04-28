@@ -10,12 +10,7 @@ export default function AuthByEmailFrom() {
 
   const [isConfirmEmail, setIsConfirmEmail] = useState(false);
 
-  const {
-    setIsAuthenticated,
-    sendCodeToEmail,
-    sendConfirmCode,
-    clearAuthResponse,
-  } = useAuthContext();
+  const { sendCodeToEmail, sendConfirmCodeHandler } = useAuthContext();
 
   const sendCodeToEmailHandler = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -41,31 +36,6 @@ export default function AuthByEmailFrom() {
     setIsConfirmEmail(true);
   };
 
-  const sendConfirmCodeHandler = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ) => {
-    e.preventDefault();
-
-    //#region *
-    const rowAnonUserId = localStorage.getItem("userId");
-    if (!rowAnonUserId) {
-      console.log("Cannot get user fron local storage");
-      return;
-    }
-    const anonUserId = JSON.parse(rowAnonUserId);
-    //#endregion
-
-    const res = await sendConfirmCode(confirmCode, email, anonUserId);
-    if (!res) {
-      console.log("Error confirm email");
-      return;
-    }
-
-    setIsAuthenticated(true);
-
-    console.log("Success confirm email ", res);
-  };
-
   if (loading)
     return (
       <div>
@@ -75,7 +45,13 @@ export default function AuthByEmailFrom() {
 
   if (isConfirmEmail)
     return (
-      <form className={styles.confirmation} onSubmit={sendConfirmCodeHandler}>
+      <form
+        className={styles.confirmation}
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendConfirmCodeHandler(confirmCode, email);
+        }}
+      >
         <input
           type="text"
           placeholder="Код подтверждения"

@@ -1,25 +1,49 @@
-import { useState } from "react";
 import AutoTextarea from "../../../../../shared/components/auto-textarea/AutoTextarea";
 import styles from "./Generator.module.css";
-import useAiGenerator from "../../../../../core/api/quiz-creation-service/useAiGenerator";
+import { useGeneratorContext } from "../../AiGenerateContext";
+import CurrentQuestionEditor from "./components/current-question-editor/CurrentQuestionEditor";
+import AddQuestions from "./components/add-questions/AddQuestions";
+import { useState } from "react";
 
 export default function Generator() {
-  const [thema, setThema] = useState("");
-  const { generateByThema } = useAiGenerator();
+  const { state, dispatch, generateByThemaHandler } = useGeneratorContext();
 
-  const generateByThemaHandler = async () => {
-    const quiz = await generateByThema(thema);
-    console.log("Generated quiz: ", quiz);
-  };
+  const [title, setTitle] = useState(state.quiz.title);
+  const [description, setDescription] = useState(state.quiz.description);
 
   return (
     <div className={styles.main}>
       <div className={styles.thema}>
-        <h4>Тема</h4>
-        <AutoTextarea value={thema} setValue={setThema} />
+        <h3>Тема</h3>
+        <AutoTextarea
+          value={state.thema}
+          setValue={(value) => dispatch({ type: "SET_THEMA", payload: value })}
+        />
         <button onClick={generateByThemaHandler}>Применить</button>
       </div>
-      <div className={styles.question}>question</div>
+      {state.currentQuestion ? (
+        <CurrentQuestionEditor />
+      ) : (
+        <div className={styles.info}>
+          <h3>Редактирование описания</h3>
+          <AutoTextarea
+            value={title}
+            setValue={setTitle}
+            onBlur={() => {
+              dispatch({ type: "SET_QUIZ_TITLE", payload: title });
+            }}
+          />
+          <AutoTextarea
+            value={description}
+            setValue={setDescription}
+            onBlur={() => {
+              dispatch({ type: "SET_QUIZ_DESCRIPTION", payload: description });
+            }}
+          />
+        </div>
+      )}
+
+      <AddQuestions />
     </div>
   );
 }

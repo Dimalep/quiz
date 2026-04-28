@@ -9,7 +9,7 @@ export default function useQuiz() {
   const [quiz, setQuiz] = useState<Quiz>();
 
   const {getQuizById} = useQuizApi();
-  const {addGame, initialGame} = useGame();
+  const {initialGame} = useGame();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function useQuiz() {
   };
 
   const newQuizSession = async () => {
-    const quizSession = await addGame(Number(quizId));
+    const quizSession = await initialGame(Number(quizId));
 
     if(quizSession === undefined){
       console.log("Error add quiz session");
@@ -35,7 +35,7 @@ export default function useQuiz() {
 
     localStorage.setItem("quizSession", JSON.stringify(quizSession));
 
-    navigate(`/quiz/game/admin/${quizSession?.sessionKey}`);
+    navigate(`/quiz/game/admin/${quizSession?.key}`);
   }
 
   //new
@@ -47,7 +47,7 @@ export default function useQuiz() {
       return;
     }
 
-    navigate(`/quiz/game/admin/${game.sessionKey}`);
+    navigate(`/quiz/game/admin/${game.key}`);
   }
 
   return {quiz, newQuizSession, saveAndGoToProfile, newGame}

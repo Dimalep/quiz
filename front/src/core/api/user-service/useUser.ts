@@ -1,6 +1,11 @@
 import { useState } from "react";
-import type { AuthToken } from "./useAuth";
+import type { AuthResponse, AuthToken } from "./useAuth";
 import useAuth from "./useAuth";
+
+export interface EditUserRequest{
+  username?: string;
+  password?: string;
+}
 
 export interface User{
   id: number;
@@ -8,8 +13,6 @@ export interface User{
   email: string;
   createAt: string; 
   updateAt: string;
-  lastname?: string;
-  firstname?: string;
   isRegistered: boolean;
 }
 
@@ -18,7 +21,41 @@ export default function useUser() {
 
   const {fetchWithAuth} = useAuth();
 
+  // PATCH USER
+  async function patchUser(userId: number, req: EditUserRequest): Promise<User | AuthResponse> {
+    console.log("Updated password: ", req);
 
+    const response = await fetch(
+      `${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/users/patch/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+      }
+    );
+
+    const data = await response.json(); // <-- читаем тело всегда
+
+    if (!response.ok) {
+      const errorData = data as {
+        statusCode: number;
+        code: string;
+        message: string;
+      };
+
+      return {
+        title: "Ошибка",
+        message: errorData.message,
+        isSuccess: false,
+      };
+    }
+
+    return data as User;
+  }
+
+  // GENERATE OR GET EXISTS USER
   async function generateAnonUser() : Promise<User | undefined> {
     const rowUserId = localStorage.getItem("userId");
     if(rowUserId !== null) {
@@ -29,7 +66,6 @@ export default function useUser() {
 
     const response = await fetch(`${import.meta.env.VITE_USER_SERVICE_ADDRESS}api/users/generate-anon-user`, {
       method: "POST",
-      headers: {"Content-type" : "application/json"}
     });
 
     if(!response.ok){
@@ -40,8 +76,6 @@ export default function useUser() {
     const user = await response.json();
 
     localStorage.setItem("userId", JSON.stringify(user.id));
-
-    console.log("Current user - ", user);
 
     return user;
   } 
@@ -74,5 +108,5 @@ export default function useUser() {
   };
 
   
-  return { getUserById, currentUser, setCurrentUser, generateAnonUser}
+  return { getUserById, currentUser, setCurrentUser, generateAnonUser, patchUser}
 }

@@ -12,7 +12,7 @@ export default function QuizView({ quiz }: Props) {
 
       <div className={styles.questions_container}>
         {quiz?.questions.map((question) => (
-          <div className={styles.question_card}>
+          <div className={styles.question_card} key={question.id}>
             <h3>Вопрос: {question.text}</h3>
 
             <div className={styles.answer_list}>

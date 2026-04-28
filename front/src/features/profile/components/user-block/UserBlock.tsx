@@ -1,11 +1,17 @@
+import { useState } from "react";
+import { useAuthContext } from "../../../../shared/components/AuthProvider";
 import Email from "../../../../shared/icons/Email";
-import { useProfileContext } from "../../ProfileProvider";
 import styles from "./UserBlock.module.css";
+import EditUserModelWindow from "./edit-modal-window/EditUserModelWindow";
 
 export default function UserBlock() {
-  const { me } = useProfileContext();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const email = me?.email ? me?.email : "Не указано";
+  const { currentUser } = useAuthContext();
+
+  if (!currentUser) return <h4>Получение данных о пользователе..</h4>;
+
+  const email = currentUser.email ? currentUser.email : "Не указано";
 
   return (
     <div className={styles.main}>
@@ -14,7 +20,7 @@ export default function UserBlock() {
       {/* name */}
       <div className={styles.name}>
         <span>Пользователь</span>
-        <label>{me?.username}</label>
+        <label>{currentUser.username}</label>
       </div>
       {/* email */}
       <div className={styles.email}>
@@ -25,8 +31,14 @@ export default function UserBlock() {
         </div>
       </div>
 
-      {/* info */}
-      <div className={styles.statistics}></div>
+      <button
+        className={styles.edit_btn}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        🖍️
+      </button>
+
+      {isOpen && <EditUserModelWindow setIsOpen={setIsOpen} />}
     </div>
   );
 }

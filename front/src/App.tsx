@@ -38,7 +38,6 @@ function App() {
       <ScrollToStart />
       <AuthProvider>
         <Routes>
-          {/* <Route path="/auth" element={<AuthorizationOld />} /> */}
           <Route path="/auth" element={<Authorization />} />
           <Route path="/" element={<Home />} />
           <Route path="/quiz/:quizId" element={<ManualCreate />} />

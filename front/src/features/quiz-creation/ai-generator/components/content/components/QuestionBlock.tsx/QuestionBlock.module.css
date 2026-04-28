@@ -1,0 +1,73 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+    border: 1px solid #46286b;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+
+    background: #2d1a45;
+
+    color: whitesmoke;
+    font-family: Rubik;
+
+    transition: border 0.3s ease;
+}
+
+.select{
+    background: rgb(77, 0, 128);
+
+    border: 1px solid red;
+}
+
+/* QUESTION TEXT */
+.question_text{
+    font-size: 17px;
+    color: whitesmoke;
+    font-family: Rubik;
+}
+
+/* COMPLEXITY */
+.complexity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.complexity label{
+    font-size: 12px;
+    color: rgba(245, 245, 245, 0.527);
+}
+
+/*  */
+.easy{
+    padding: 5px 10px;
+    background: green;
+
+    font-size: 12px;
+
+    border-radius: 5px;
+}
+
+.middle{
+    padding: 5px 10px;
+    background: orange;
+
+    font-size: 12px;
+
+    border-radius: 5px;
+}
+
+.hard{
+    padding: 5px 10px;
+    background: red;
+
+    font-size: 12px;
+
+    border-radius: 5px;
+}

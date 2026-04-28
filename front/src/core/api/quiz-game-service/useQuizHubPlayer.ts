@@ -58,10 +58,10 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
     connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
         setPlayers(allPlayers);
         setConnectedPlayer(player);
-        console.log("Connected player: ", player);
     })
 
     connection.on("UserLeft", (player: Player, allPlayers: Player[]) => {
+        console.log("user left: ", player);
         setPlayers(allPlayers);
     });
 
@@ -83,12 +83,10 @@ export default function useQuizHubPlayer(sessionKey?: string, player?: Player) {
 
     // First question
     connection.on("SetQuestion", (question: Question) => {
-        console.log("Current question - ", question)
         setCurQuestion(question);
     });
 
     connection.on("ProgressUpdatedForPlayer", (progress: PlayerProgress) => {
-        console.log("Current progress - ", progress);
         setCurrentProgress(progress);
     });
 

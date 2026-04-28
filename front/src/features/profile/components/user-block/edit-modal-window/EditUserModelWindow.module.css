@@ -1,0 +1,156 @@
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 550px;
+
+    padding: 25px;
+
+    /* background: linear-gradient(135deg, #0F2A44, #123A5A); */
+    background: #0B1E2D;
+
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: 19px;
+    font-family: Rubik;
+}
+
+.error{
+    display: flex;
+    align-self: center;
+
+    padding: 10px;
+
+    background-color: rgba(131, 0, 0, 0.301);
+
+    border: 1px solid rgba(255, 0, 0, 0.438);
+    border-radius: 5px;
+
+    font-size: 12px;
+    font-family: Rubik;
+}
+
+.close_btn{
+    cursor: pointer;
+}
+
+/* CONTENT */
+.content{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo button{
+    border-radius: 7px;
+
+    padding: 10px 15px;
+
+    border: 1px solid #3B82F6;
+
+    background: transparent;
+
+    color: #3B82F6;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.img{
+    width: 85px;
+    height: 85px;
+
+    border-radius: 10px;
+
+    background: black;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.login_and_email{
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    gap: 10px;
+}
+
+/*  */
+.btns{
+    display: flex;
+    align-self: self-end;
+    gap: 10px;
+}
+
+.btns button{
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+
+    color: whitesmoke;
+    font-size: 16px;
+    font-family: Rubik;
+
+    padding: 10px 15px;
+}
+
+.cancel_btn{
+    background: #213453b4;
+}
+
+.save_btn{
+    background: #3B82F6;
+}
+
+@media(max-width: 888px){
+    .main{
+        width: 350px;
+    }
+    .content{
+        flex-direction: column;
+    }
+    .login_and_email{
+        flex-direction: column;
+    }
+}

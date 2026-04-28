@@ -5,8 +5,9 @@ import useGame, {
   type GameDTO,
   type GameHistory,
 } from "../../core/api/quiz-game-service/useGame";
-import useUser, { type User } from "../../core/api/user-service/useUser";
+import { type User } from "../../core/api/user-service/useUser";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../shared/components/AuthProvider";
 
 interface ProfileContextType {
   myQuizzes: Quiz[] | undefined;
@@ -42,32 +43,28 @@ export default function ProfileProvider({
     useQuizApi();
   const { initialGame, getGamesByUserId, deleteGameById, completeGameById } =
     useGame();
-  const { getUserById } = useUser();
+  const { currentUser } = useAuthContext();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function GetMyQuizzes() {
-      const rowUserId = localStorage.getItem("userId");
-      if (rowUserId === null) return;
+    (async () => {
+      if (currentUser === undefined) return;
 
-      const quizzes: Quiz[] | undefined = await getQuizzesByUserId(
-        Number(rowUserId),
-      );
-      setMyQuizzes(quizzes);
-
-      const games: GameHistory[] | undefined = await getGamesByUserId();
-      console.log(games);
-      setGames(games);
-
-      const user = await getUserById(Number(rowUserId));
-      if (!user) {
-        console.log("Error get user");
+      if (currentUser === null) {
+        console.error("User should not be null here");
         return;
       }
-      setMe(user);
-    }
-    GetMyQuizzes();
-  }, []);
+
+      const quizzes = await getQuizzesByUserId(currentUser.id);
+      setMyQuizzes(quizzes);
+
+      const games = await getGamesByUserId();
+      setGames(games);
+
+      setMe(currentUser);
+    })();
+  }, [currentUser]);
 
   // COMPLETE GAME
   async function completeByIdHandler(gameId: number) {
@@ -83,7 +80,8 @@ export default function ProfileProvider({
     setGames(games);
   }
 
-  const createQuiz = async () => {
+  // CREATE NEW QUIZ
+  async function createQuiz() {
     const saved = localStorage.getItem("quizDraft");
     const rowUserId = localStorage.getItem("userId");
 
@@ -111,12 +109,14 @@ export default function ProfileProvider({
     }
 
     navigate(`/quiz/${quizId}`);
-  };
+  }
 
+  // OPEN RESULTS
   const openGameResults = async (sessionKey: string) => {
     navigate(`/game-result/${sessionKey}`);
   };
 
+  // LAUNCH NEW GAME
   const launchQuizGame = async (quiz: Quiz) => {
     const res = confirm(`Запустить квиз ${quiz.title}?`);
     if (res) {
@@ -127,10 +127,12 @@ export default function ProfileProvider({
     }
   };
 
+  // JUST OPEN LAUNCHEDED GAME
   const openGame = (key: string) => {
     navigate(`/quiz/game/admin/${key}`);
   };
 
+  // EDIT QUIZ
   const editQuiz = async (quizId: number) => {
     const quiz = await getQuizById(quizId);
     if (quiz === undefined) {
@@ -149,14 +151,17 @@ export default function ProfileProvider({
     navigate(`/quiz/${quizId}`);
   };
 
+  // SHOW GAME HISTORY LIST
   const openHistory = async () => {
     setMode("history_games");
   };
 
+  // SHOW MY QUIZZES LIST
   const openGames = async () => {
     setMode("quizzes");
   };
 
+  // DELETE QUIZ
   const deleteQuiz = async (quizId: number) => {
     await deleteQuizById(quizId);
 

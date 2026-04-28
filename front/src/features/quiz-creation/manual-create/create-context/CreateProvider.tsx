@@ -100,9 +100,9 @@ export default function CreateProvider({
     );
   }, [state.quiz, state.currentQuestion]);
 
-  const uploadFile = async (file: string) => {
+  // const uploadFile = async (file: string) => {
 
-  }
+  // }
 
   const completeCreation = async () => {
     dispatch({ type: "REMOVE_EMPTY_QUESTION" });

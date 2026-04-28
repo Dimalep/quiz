@@ -6,12 +6,11 @@ import useQuiz from "./hooks/useQuiz";
 import { useAuthContext } from "../../../shared/components/AuthProvider";
 
 export default function CompleteCreation() {
-  const { quiz, saveAndGoToProfile, newQuizSession, newGame } = useQuiz();
+  const { quiz, saveAndGoToProfile, newGame } = useQuiz();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
 
   const startQuizSessionHandler = async () => {
-    // await newQuizSession();
     await newGame();
   };
 

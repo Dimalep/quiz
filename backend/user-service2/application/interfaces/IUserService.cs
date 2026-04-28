@@ -5,6 +5,7 @@ namespace application.interfaces
 {
     public interface IUserService
     {
+        public Task<UserDTO> PatchUser(int userId, EditUserRequest req);
         public Task<User> GenerateAnonUser();
         public Task<int> AddAnonUser();
         public Task<User> UpdateUser(User user);

@@ -1,0 +1,83 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+    border: 1px solid #46286b;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+
+    background: #2d1a45
+}
+
+/* COMPLEXITY */
+.complexity_block{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.complexity_block label{
+    color: rgba(245, 245, 245, 0.527);
+    font-size: 13px;
+}
+
+.complexity{
+    width:  100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.complexity_btn{
+    padding: 5px 10px;
+
+    color: whitesmoke;
+
+    background: transparent;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease, filter 0.3s ease;
+}
+
+.selected_easy{
+    background: green;
+}
+
+.selected_middle{
+    background: orange;
+}
+
+.selected_hard{
+    background: red;
+}
+
+/* QUESTION */
+.question_text{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.question_text label{
+    color: rgba(245, 245, 245, 0.527);
+    font-size: 13px;
+}
+
+/* ANSWERS */
+.answers{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.answers label{
+    color: rgba(245, 245, 245, 0.527);
+    font-size: 13px;
+}

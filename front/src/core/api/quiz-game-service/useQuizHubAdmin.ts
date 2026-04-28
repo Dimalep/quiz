@@ -41,22 +41,21 @@ export default function useQuizHubAdmin(sessionKey?: string, admin?: Player) {
     }
     
     connection.on("UserJoined", (player: Player, allPlayers: Player[]) => {
+      console.log("user join: ", player);
       setPlayers(allPlayers);
-      console.log("Connected player: ", player);
     });
 
     connection.on("UserLeft", (player: Player, allPlayer: Player[]) => {
+      console.log("user left: ", player);
       setPlayers(allPlayer);
     })
 
     connection.on("GameLaunched", (game: GameDTO) => {
       setCurrentGame(game);
-      console.log("Current game: ", game);
     });
 
     connection.on("ProgressUpdatedForAdmin", (progresses: ProgressForAdmin[]) => {
       setProgresses(progresses);
-      console.log("Progresses: ", progresses);
     })
 
     connection.on("GameCompleted", (game: GameDTO) => {

@@ -1,4 +1,6 @@
-﻿using application.exceptions;
+﻿using application.DTOs;
+using application.exceptions;
+using application.exeptions;
 using application.interfaces;
 using domain.models;
 using infrastructure;
@@ -6,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace application.services
 {
-    public class UserService(DatabaseContext dbContext) : IUserService
+    public class UserService(DatabaseContext dbContext, IPasswordService passwordService) : IUserService
     {
         public async Task<User> GenerateAnonUser()
         {
@@ -51,6 +53,7 @@ namespace application.services
 
             return deletedUser.Entity;
         }
+
         public async Task<User> UpdateUser(User user)
         {
             if (user == null)
@@ -79,19 +82,50 @@ namespace application.services
             return await dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public Task<User> GetByPhone(string phone)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User?> GetByUsername(string username)
         {
-            if (username == string.Empty)
-                throw new ArgumentNullException("Argument cannot by empty string. [method 'GetByUsername' from 'UserService' class]");
+            return await dbContext.Users.FirstOrDefaultAsync(el => el.Username == username); ;
+        }
 
-            var user = await dbContext.Users.FirstOrDefaultAsync(el => el.Username == username);
+        public async Task<UserDTO> PatchUser(int userId, EditUserRequest req)
+        {
+            Console.WriteLine($"Полученный пароль: {req.Password}");
 
-            return user;
+            var user = await GetById(userId);
+
+            if (user == null)
+                throw new Exception($"Error patch user. Not found user by id {userId}");
+
+            if (!string.IsNullOrWhiteSpace(req.Username))
+            {
+                var exsitsUserWithUpatedUsername = await GetByUsername(req.Username);
+
+                if(exsitsUserWithUpatedUsername == null || exsitsUserWithUpatedUsername.Id == user.Id)
+                {
+                    user.Username = req.Username;
+                }
+
+                throw new BadRequestException("Пользователь с таким логином уже существует");
+            }
+
+            if(!string.IsNullOrWhiteSpace(req.Password))
+                user.Password = passwordService.Hash(req.Password);
+
+            user.UpdateAt = DateTime.UtcNow;
+
+            await dbContext.SaveChangesAsync();
+
+            Console.WriteLine($"Обновленный пароль: {user.Password}");
+
+            return new UserDTO
+            {
+                Id = user.Id,
+                UpdateAt = user.UpdateAt,
+                CreateAt = user.CreateAt,
+                Username = user.Username,
+                Email = user.Email,
+                IsRegistered = user.IsRegistered,
+            };
         }
     }
 }
